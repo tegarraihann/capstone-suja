@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const logoutButton = document.querySelector('.fa-solid.fa-arrow-right-from-bracket');
     logoutButton.addEventListener('click', function() {
         swal({
-                title: "Apakah kamu ingin keluar?",
+                title: "Apakah anda ingin keluar?",
                 icon: "warning",
                 buttons: {
                     confirm: {

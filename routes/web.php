@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminSistemController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
@@ -19,7 +18,6 @@ Route::post('/login_post', [AuthController::class, 'login_post']);
 
 //Route logout
 Route::get('/logout', [AuthController::class, 'logout']);
-
 
 //Route Role Access
 Route::group(['middleware' => ['pimpinan', 'no-cache']], function () {
