@@ -40,11 +40,20 @@
                         </p>
                     </div>
                 </div>
-                <div class="flex flex-col gap-4 w-full">
+                <div class="flex flex-col gap-4 w-full pl-4">
+                    <div class="flex w-full gap-2 opacity-30">
+                        <i class="fa-solid fa-angle-down my-auto text-sm w-1/12"></i>
+                        <p class="text-sm font-medium uppercase">User Management</p>
+                    </div>
                     <a href="">
                         <div class="flex justify-left gap-6 w-full rounded-xl py-3 px-6 bg-blue-50 text-blue-600">
                             <i class="fa-solid fa-user my-auto text-sm w-1/12"></i>
-                            <p class="text-sm font-medium">User Management</p>
+                        </div>
+                    </a>
+                    <a href="">
+                        <div class="flex justify-left gap-6 w-full rounded-xl py-3 px-6 bg-blue-50 text-blue-600">
+                            <i class="fa-solid fa-user my-auto text-sm w-1/12"></i>
+                            <p class="text-sm font-medium">Bidang Management</p>
                         </div>
                     </a>
                     {{-- <a href="">

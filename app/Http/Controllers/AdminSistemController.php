@@ -40,6 +40,34 @@ class AdminSistemController extends Controller
         return view("adminsistem.tambah-akun")->with(compact(['roleOptions', 'bidang']));
     }
 
+    public function edit_akun() {
+        $roleOptions = [
+            ['value' => '4', 'label' => 'Pimpinan'],
+            ['value' => '3', 'label' => 'Admin Sistem'],
+            ['value' => '2', 'label' => 'Admin Binagram'],
+            ['value' => '1', 'label' => 'Admin Approval'],
+            ['value' => '0', 'label' => 'Operator'],
+        ];
+
+        $existingPimpinan = User::where('role', 4)->exists();
+        
+
+        if ($existingPimpinan) {
+            $roleOptions = array_filter($roleOptions, function($option) {
+                return $option['value'] !== '4';
+            });
+        }
+
+        $bidang = Bidang::all();
+        if ($existingPimpinan) {
+            $bidang = $bidang->reject(function ($b) {
+                return $b->nama_bidang === 'Pimpinan'; 
+            });
+        }
+       
+        return view("adminsistem.edit-akun")->with(compact(['roleOptions', 'bidang']));
+    }
+
     public function create_user(Request $request)
     {
         $user = request()->validate([

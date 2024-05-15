@@ -121,6 +121,5 @@
                 </ul>
             </nav>
         </div>
-
     </div>
 @endsection
