@@ -63,7 +63,9 @@
                     <td class="py-4 px-6 text-right">Admin</td>
                     <td class="py-4 px-6 text-right">IPDS</td>
                     <td class="py-4 px-6 text-right gap-3 flex justify-end">
-                        <i class="fa-regular fa-pen-to-square text-blue-500 cursor-pointer"></i>
+                        <a href="/adminsistem/dashboard/edit-akun">
+                            <i class="fa-regular fa-pen-to-square text-blue-500 cursor-pointer"></i>
+                        </a>
                         <i class="fa-solid fa-trash text-red-500 cursor-pointer"></i>
                     </td>
                 </tr>
@@ -75,7 +77,9 @@
                     <td class="py-4 px-6 text-right">Admin</td>
                     <td class="py-4 px-6 text-right">IPDS</td>
                     <td class="py-4 px-6 text-right gap-3 flex justify-end">
-                        <i class="fa-regular fa-pen-to-square text-blue-500 cursor-pointer"></i>
+                        <a href="/adminsistem/dashboard/edit-akun">
+                            <i class="fa-regular fa-pen-to-square text-blue-500 cursor-pointer"></i>
+                        </a>
                         <i class="fa-solid fa-trash text-red-500 cursor-pointer"></i>
                     </td>
                 </tr>
@@ -87,7 +91,9 @@
                     <td class="py-4 px-6 text-right">Admin</td>
                     <td class="py-4 px-6 text-right">IPDS</td>
                     <td class="py-4 px-6 text-right gap-3 flex justify-end">
-                        <i class="fa-regular fa-pen-to-square text-blue-500 cursor-pointer"></i>
+                        <a href="/adminsistem/dashboard/edit-akun">
+                            <i class="fa-regular fa-pen-to-square text-blue-500 cursor-pointer"></i>
+                        </a>
                         <i class="fa-solid fa-trash text-red-500 cursor-pointer"></i>
                     </td>
                 </tr>

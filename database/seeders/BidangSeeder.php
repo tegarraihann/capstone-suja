@@ -14,11 +14,31 @@ class BidangSeeder extends Seeder
     public function run(): void
     {
         $bidangs = [
-            "Pimpinan"
+            [
+                "nama_bidang" => "Pimpinan",
+            ],
+            [
+                "nama_bidang" => "Bagian Umum",
+            ],
+            [
+                "nama_bidang" => "Fungsi Statistik Sosial",
+            ],
+            [
+                "nama_bidang" => "Fungsi Statistik Produksi",
+            ],
+            [
+                "nama_bidang" => "Fungsi Statistik Distribusi",
+            ],
+            [
+                "nama_bidang" => "Fungsi Nerwilis",
+            ],
+            [
+                "nama_bidang" => "Fungsi IPDS",
+            ],
         ];
 
         foreach ($bidangs as $nama_bidang) {
-            Bidang::create(['nama_bidang' => $nama_bidang]);
+            Bidang::create(['nama_bidang' => $nama_bidang['nama_bidang']]);
         }
     }
 }
