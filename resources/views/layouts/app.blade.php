@@ -75,14 +75,14 @@
                                 <p class="text-sm font-medium uppercase">User</p>
                             </div>
                             <div class="pl-4 flex flex-col w-full gap-1">
-                                <a href="/adminsistem/dashboard" class="w-full">
+                                <a href="/adminsistem/dashboard" class="w-full menu-item">
                                     <div
                                         class="flex justify-left gap-6 w-full rounded-lg py-3 px-6 hover:bg-blue-50 hover:text-blue-600">
                                         <i class="fa-solid fa-user my-auto text-xs w-1/12"></i>
                                         <p class="text-sm">Daftar User</p>
                                     </div>
                                 </a>
-                                <a href="/adminsistem/dashboard/tambah-user" class="w-full">
+                                <a href="/adminsistem/dashboard/tambah-user" class="w-full menu-item">
                                     <div
                                         class="flex justify-left gap-6 w-full rounded-lg py-3 px-6 hover:bg-blue-50 hover:text-blue-600">
                                         <i class="fa-solid fa-plus my-auto text-xs w-1/12"></i>
@@ -98,14 +98,14 @@
                                 <p class="text-sm font-medium uppercase">BIDANG</p>
                             </div>
                             <div class="pl-4 flex flex-col w-full gap-1">
-                                <a href="" class="w-full">
+                                <a href="" class="w-full menu-item">
                                     <div
                                         class="flex justify-left gap-6 w-full rounded-lg py-3 px-6 hover:bg-blue-50 hover:text-blue-600">
                                         <i class="fa-solid fa-puzzle-piece w-1/12"></i>
                                         <p class="text-sm">Daftar Bidang</p>
                                     </div>
                                 </a>
-                                <a href="" class="w-full">
+                                <a href="" class="w-full menu-item">
                                     <div
                                         class="flex justify-left gap-6 w-full rounded-lg py-3 px-6 hover:bg-blue-50 hover:text-blue-600">
                                         <i class="fa-solid fa-plus my-auto text-xs w-1/12"></i>
