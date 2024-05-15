@@ -9,10 +9,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index']);
 
-Route::get('/dashboard', function () {
-    return view('admin.dashboard');
-});
-
 //Route Login
 Route::post('/login_post', [AuthController::class, 'login_post']);
 
@@ -28,10 +24,11 @@ Route::group(['middleware' => ['pimpinan', 'no-cache']], function () {
 Route::group(['middleware' => ['adminsistem', 'no-cache']], function () {
     Route::get('adminsistem/dashboard', [DashboardController::class, "dashboard"]);
     Route::get('adminsistem/dashboard', [AdminSistemController::class, 'get_all_user']);
-    Route::delete('adminsistem/dashboard/{id}', [AdminSistemController::class, 'delete_user']);
     Route::get('adminsistem/dashboard/tambah-user', [AdminSistemController::class, "view_add_user"]);
-    Route::get('adminsistem/dashboard/edit-user', [AdminSistemController::class, "edit_akun"]);
+    Route::get('adminsistem/dashboard/edit-user/{id}', [AdminSistemController::class, "view_update_user"]);
+    Route::delete('adminsistem/dashboard/{id}', [AdminSistemController::class, 'delete_user']);
     Route::post('adminsistem/dashboard/tambah-user', [AdminSistemController::class, 'create_user']);
+    Route::put('adminsistem/dashboard/edit-user/{id}', [AdminSistemController::class, "edit_user"]);
 });
 
 Route::group(['middleware' => ['adminbinagram', 'no-cache']], function () {

@@ -40,8 +40,11 @@ class AdminSistemController extends Controller
         return view("adminsistem.tambah-user")->with(compact(['roleOptions', 'bidang']));
     }
 
-    public function edit_akun()
+    public function view_update_user($id)
     {
+        $user = User::findOrFail($id);
+        $bidang = Bidang::all();
+
         $roleOptions = [
             ['value' => '4', 'label' => 'Pimpinan'],
             ['value' => '3', 'label' => 'Admin Sistem'],
@@ -50,23 +53,11 @@ class AdminSistemController extends Controller
             ['value' => '0', 'label' => 'Operator'],
         ];
 
-        $existingPimpinan = User::where('role', 4)->exists();
+        $joinBidang = User::join('bidang', 'users.bidang_id', '=', 'bidang.id')
+                            ->select('users.*', 'bidang.nama_bidang')
+                            ->findOrFail($id);
 
-
-        if ($existingPimpinan) {
-            $roleOptions = array_filter($roleOptions, function ($option) {
-                return $option['value'] !== '4';
-            });
-        }
-
-        $bidang = Bidang::all();
-        if ($existingPimpinan) {
-            $bidang = $bidang->reject(function ($b) {
-                return $b->nama_bidang === 'Pimpinan';
-            });
-        }
-
-        return view("adminsistem.edit-user")->with(compact(['roleOptions', 'bidang']));
+        return view("adminsistem.edit-user")->with(compact('joinBidang','user', 'bidang', 'roleOptions'));
     }
 
     public function create_user(Request $request)
@@ -95,6 +86,32 @@ class AdminSistemController extends Controller
             'success' => [
                 "title" => "User Register Succesfully",
                 "message" => "Akun berhasil didaftarkan"
+            ]
+        ]);
+    }
+
+    public function edit_user(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+
+        $request->validate([
+            "name" => ["required", "max:100"],
+            "email" => ["required", "unique:users,email," . $user->id], // Mengecualikan email milik pengguna yang sedang diedit
+            "nip" => ["required", "unique:users,nip," . $user->id], // Mengecualikan NIP milik pengguna yang sedang diedit
+            "password" => ["required", Password::min(6)->numbers()->letters()],
+            "confirm_password" => ["required_with:password", "same:password"],
+        ]);
+
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->nip = $request->nip;
+        $user->password = bcrypt($request->password);
+        $user->save();
+
+        return redirect('adminsistem/dashboard/edit-user/' . $id)->with([
+            'success' => [
+                "title" => "Update User Succesfully",
+                "message" => "Akun berhasil di perbaharui"
             ]
         ]);
     }

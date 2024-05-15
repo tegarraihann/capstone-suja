@@ -93,3 +93,14 @@ document.addEventListener("DOMContentLoaded", function () {
         })
     );
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+    const editIcons = document.querySelectorAll(".btn-update");
+
+    editIcons.forEach(icon => {
+        icon.addEventListener('click', function () {
+            const userId = this.dataset.id;
+            window.location.href = `/adminsistem/dashboard/edit-user/${userId}`;
+        });
+    });
+});
