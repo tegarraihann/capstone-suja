@@ -55,7 +55,7 @@
                                     <p class="text-sm">Daftar User</p>
                                 </div>
                             </a>
-                            <a href="/adminsistem/dashboard/tambah-akun" class="w-full">
+                            <a href="/adminsistem/dashboard/tambah-user" class="w-full">
                                 <div
                                     class="flex justify-left gap-6 w-full rounded-lg py-3 px-6 hover:bg-blue-50 hover:text-blue-600">
                                     <i class="fa-solid fa-plus my-auto text-xs w-1/12"></i>

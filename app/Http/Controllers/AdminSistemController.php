@@ -37,10 +37,11 @@ class AdminSistemController extends Controller
             });
         }
 
-        return view("adminsistem.tambah-akun")->with(compact(['roleOptions', 'bidang']));
+        return view("adminsistem.tambah-user")->with(compact(['roleOptions', 'bidang']));
     }
 
-    public function edit_akun() {
+    public function edit_akun()
+    {
         $roleOptions = [
             ['value' => '4', 'label' => 'Pimpinan'],
             ['value' => '3', 'label' => 'Admin Sistem'],
@@ -50,10 +51,10 @@ class AdminSistemController extends Controller
         ];
 
         $existingPimpinan = User::where('role', 4)->exists();
-        
+
 
         if ($existingPimpinan) {
-            $roleOptions = array_filter($roleOptions, function($option) {
+            $roleOptions = array_filter($roleOptions, function ($option) {
                 return $option['value'] !== '4';
             });
         }
@@ -61,10 +62,10 @@ class AdminSistemController extends Controller
         $bidang = Bidang::all();
         if ($existingPimpinan) {
             $bidang = $bidang->reject(function ($b) {
-                return $b->nama_bidang === 'Pimpinan'; 
+                return $b->nama_bidang === 'Pimpinan';
             });
         }
-       
+
         return view("adminsistem.edit-akun")->with(compact(['roleOptions', 'bidang']));
     }
 
@@ -90,7 +91,7 @@ class AdminSistemController extends Controller
         $user->remember_token = \Illuminate\Support\Str::uuid()->toString();
         $user->save();
 
-        return redirect('adminsistem/dashboard/tambah-akun')->with([
+        return redirect('adminsistem/dashboard/tambah-user')->with([
             'success' => [
                 "title" => "User Register Succesfully",
                 "message" => "Akun berhasil didaftarkan"

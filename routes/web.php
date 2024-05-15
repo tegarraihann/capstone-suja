@@ -31,9 +31,9 @@ Route::group(['middleware' => ['adminsistem', 'no-cache']], function () {
     Route::get('adminsistem/dashboard', [DashboardController::class, "dashboard"]);
     Route::get('adminsistem/dashboard', [AdminSistemController::class, 'get_all_user']);
     Route::delete('adminsistem/dashboard/{id}', [AdminSistemController::class, 'delete_user']);
-    Route::get('adminsistem/dashboard/tambah-akun', [AdminSistemController::class, "tambah_akun"]);
+    Route::get('adminsistem/dashboard/tambah-user', [AdminSistemController::class, "tambah_akun"]);
     Route::get('adminsistem/dashboard/edit-akun', [AdminSistemController::class, "edit_akun"]);
-    Route::post('adminsistem/dashboard/tambah-akun', [AdminSistemController::class, 'create_user']);
+    Route::post('adminsistem/dashboard/tambah-user', [AdminSistemController::class, 'create_user']);
 });
 
 Route::group(['middleware' => ['adminbinagram', 'no-cache']], function () {
@@ -50,4 +50,3 @@ Route::group(['middleware' => ['operator', 'no-cache']], function () {
     Route::get('operator/dashboard', [DashboardController::class, "dashboard"]);
     Route::get('operator/logout', [AuthController::class, 'logout']);
 });
-

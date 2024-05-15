@@ -77,7 +77,7 @@
     <div class="w-full flex justify-end mt-10">
         <button
             class="flex items-center gap-2 bg-blue-50 text-blue-600 py-3 px-6 rounded-md font-medium hover:bg-blue-200 transition-all">
-            Tambah Akun
+            Tambah User
             <i class="fa solid fa-plus"></i>
         </button>
     </div>
