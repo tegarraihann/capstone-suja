@@ -73,13 +73,15 @@
                             <td class="py-4 px-6 text-right">{{ $user->email }}</td>
                             <td class="py-4 px-6 text-right">{{ $roleLabels[$user->role] }}</td>
                             <td class="py-4 px-6 text-right">{{ $user->nama_bidang }}</td>
-                            <td class="py-4 px-6 text-right gap-3 flex justify-end">
+                            <td class="py-4 px-6 text-right gap-3 flex justify-end" >
                                 <i class="fa-regular fa-pen-to-square text-blue-500 cursor-pointer"></i>
-                                <i class="fa-solid fa-trash text-red-500 cursor-pointer"></i>
+                                <i data-nip="{{ $user->nip }}" data-name="{{ $user->name }}" data-id="{{$user->id}}" class="btn-delete fa-solid fa-trash text-red-500 cursor-pointer"></i>
                             </td>
                         </tr>
                     @empty
-                        <tr colspan="7" class="cotext-center">Tidak ada data pengguna</tr>
+                    <tr class="bg-white border-b hover:bg-gray-50 text-center">
+                        <td colspan="7" class="cotext-center">Tidak ada data pengguna</td>
+                    </tr>
                     @endforelse
                 </tbody>
             </table>

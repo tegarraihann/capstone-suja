@@ -11,7 +11,8 @@ use Illuminate\Validation\Rules\Password;
 
 class AdminSistemController extends Controller
 {
-    public function tambah_akun() {
+    public function tambah_akun()
+    {
         $roleOptions = [
             ['value' => '4', 'label' => 'Pimpinan'],
             ['value' => '3', 'label' => 'Admin Sistem'],
@@ -21,10 +22,10 @@ class AdminSistemController extends Controller
         ];
 
         $existingPimpinan = User::where('role', 4)->exists();
-        
+
 
         if ($existingPimpinan) {
-            $roleOptions = array_filter($roleOptions, function($option) {
+            $roleOptions = array_filter($roleOptions, function ($option) {
                 return $option['value'] !== '4';
             });
         }
@@ -32,7 +33,7 @@ class AdminSistemController extends Controller
         $bidang = Bidang::all();
         if ($existingPimpinan) {
             $bidang = $bidang->reject(function ($b) {
-                return $b->nama_bidang === 'Pimpinan'; 
+                return $b->nama_bidang === 'Pimpinan';
             });
         }
 
@@ -52,7 +53,7 @@ class AdminSistemController extends Controller
         ]);
 
         $user = new User();
-        $user->name = strtolower(trim($request->name));
+        $user->name = ucwords(strtolower(trim($request->name)));
         $user->email = trim($request->email);
         $user->nip = trim($request->nip);
         $user->bidang_id = trim($request->bidang_id);
@@ -73,11 +74,11 @@ class AdminSistemController extends Controller
     {
         $adminSystemCurrent = Auth::user()->id;
         $users = User::where('users.id', '!=', $adminSystemCurrent)
-        ->join('bidang', 'users.bidang_id', '=', 'bidang.id')
-        ->select('users.*', 'bidang.nama_bidang')
-        ->latest('users.id')
-        ->paginate(7);
-        
+            ->join('bidang', 'users.bidang_id', '=', 'bidang.id')
+            ->select('users.*', 'bidang.nama_bidang')
+            ->latest('users.id')
+            ->paginate(7);
+
         $roleOptions = [
             ['value' => '4', 'label' => 'Pimpinan'],
             ['value' => '3', 'label' => 'Admin Sistem'],
@@ -87,6 +88,12 @@ class AdminSistemController extends Controller
         ];
 
         return view('adminsistem.dashboard', ['users' => $users, 'roleOptions' => $roleOptions]);
+    }
+
+    public function delete_user($id): void
+    {
+        $user = User::findOrFail($id);
+        $user->delete();
     }
 
     public function create_bidang(Request $request)
