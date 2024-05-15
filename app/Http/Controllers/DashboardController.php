@@ -27,4 +27,6 @@ class DashboardController extends Controller
             return view('operator.dashboard', $data);
         }
     }
+
+    
 }
