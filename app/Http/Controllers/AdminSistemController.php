@@ -66,7 +66,7 @@ class AdminSistemController extends Controller
             });
         }
 
-        return view("adminsistem.edit-akun")->with(compact(['roleOptions', 'bidang']));
+        return view("adminsistem.edit-user")->with(compact(['roleOptions', 'bidang']));
     }
 
     public function create_user(Request $request)

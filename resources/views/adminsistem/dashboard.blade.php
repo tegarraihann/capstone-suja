@@ -74,7 +74,9 @@
                     <td class="py-4 px-6 text-right">{{ $roleLabels[$user->role] }}</td>
                     <td class="py-4 px-6 text-right">{{ $user->nama_bidang }}</td>
                     <td class="py-4 px-6 text-right gap-3 flex justify-end">
-                        <i class="fa-regular fa-pen-to-square text-blue-500 cursor-pointer"></i>
+                        <a href="/adminsistem/dashboard/edit-user">
+                            <i class="fa-regular fa-pen-to-square text-blue-500 cursor-pointer"></i>
+                        </a>
                         <i data-nip="{{ $user->nip }}" data-name="{{ $user->name }}" data-id="{{$user->id}}"
                             class="btn-delete fa-solid fa-trash text-red-500 cursor-pointer"></i>
                     </td>
