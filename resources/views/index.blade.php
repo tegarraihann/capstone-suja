@@ -25,11 +25,11 @@
 
         .input {
             width: 100%;
-            padding-left: 40px; /* Adjust padding to make space for the icon */
+            padding-left: 40px;
         }
 
         .label {
-            left: 40px; /* Adjust label position to match input padding */
+            left: 40px;
         }
     </style>
 </head>
@@ -37,11 +37,10 @@
 <body>
     @if (!empty(session('error')))
         <script>
-            swal("{{Session::get('error.title')}}", "{{Session::get('error.message')}}", "error",{
+            swal("{{ Session::get('error.title') }}", "{{ Session::get('error.message') }}", "error", {
                 button: true,
                 button: "coba lagi",
             })
-            
         </script>
     @endif
     <div class="main-bg m-0 p-0 w-full h-[100vh] absolute">

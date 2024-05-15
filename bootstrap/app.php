@@ -4,6 +4,8 @@ use App\Http\Middleware\AdminApprovalMiddleware;
 use App\Http\Middleware\AdminBinagramMiddleware;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Middleware\AdminSistemMiddleware;
+use App\Http\Middleware\NoCache;
+use App\Http\Middleware\NoCacheMiddleware;
 use App\Http\Middleware\OperatorMiddleware;
 use App\Http\Middleware\PimpinanMiddleware;
 use Illuminate\Foundation\Application;
@@ -22,7 +24,8 @@ return Application::configure(basePath: dirname(__DIR__))
             'adminsistem' => AdminSistemMiddleware::class,
             'adminbinagram' => AdminBinagramMiddleware::class,
             'adminapproval' => AdminApprovalMiddleware::class,
-            'operator' => OperatorMiddleware::class
+            'operator' => OperatorMiddleware::class,
+            'no-cache' => NoCacheMiddleware::class
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

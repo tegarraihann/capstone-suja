@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <title>@yield('title')</title>
     <!-- Add your stylesheets and scripts here -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -14,7 +15,7 @@
         <!-- Header -->
         <header
             class="flex items-center justify-between py-4 px-10 h-20 fixed left-0 bg-white z-20 top-0 w-full border-b-2">
-            <img src="{{asset("assets/logo.png")}}" class="w-16" />
+            <img src="{{ asset('assets/logo.png') }}" class="w-16" />
             <div class="flex items-center gap-6">
                 <i class="fa-regular fa-bell cursor-pointer text-lg"></i>
                 <i class="fa-solid fa-arrow-right-from-bracket cursor-pointer text-lg"></i>
@@ -23,6 +24,7 @@
                     A</div>
             </div>
         </header>
+
 
         <!-- Sidebar -->
         <aside class="top-20 fixed left-0 w-[250px] p-5 border-r-2 z-10" style="height: calc(100vh - 80px)">
@@ -63,6 +65,7 @@
     </div>
     <!-- Add your scripts here -->
     <script src="{{ asset('js/app.js') }}"></script>
+
 </body>
 
 </html>

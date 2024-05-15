@@ -12,16 +12,41 @@ use Illuminate\Validation\Rules\Password;
 class AdminSistemController extends Controller
 {
     public function tambah_akun() {
-        return view("adminsistem.tambah-akun");
+        $roleOptions = [
+            ['value' => '4', 'label' => 'Pimpinan'],
+            ['value' => '3', 'label' => 'Admin Sistem'],
+            ['value' => '2', 'label' => 'Admin Binagram'],
+            ['value' => '1', 'label' => 'Admin Approval'],
+            ['value' => '0', 'label' => 'Operator'],
+        ];
+
+        $existingPimpinan = User::where('role', 4)->exists();
+        
+
+        if ($existingPimpinan) {
+            $roleOptions = array_filter($roleOptions, function($option) {
+                return $option['value'] !== '4';
+            });
+        }
+
+        $bidang = Bidang::all();
+        if ($existingPimpinan) {
+            $bidang = $bidang->reject(function ($b) {
+                return $b->nama_bidang === 'Pimpinan'; 
+            });
+        }
+
+        return view("adminsistem.tambah-akun")->with(compact(['roleOptions', 'bidang']));
     }
+
     public function create_user(Request $request)
     {
         $user = request()->validate([
             "name" => ["required", "max:100"],
             "email" => ["required", "unique:users"],
             "nip" => ["required", "unique:users"],
-            "bidang_id" => ["required", "exist:bidang, id"],
-            "password" => ["required", Password::min(6)->numbers()],
+            "bidang_id" => ["required"],
+            "password" => ["required", Password::min(6)->numbers()->letters()],
             "confirm_password" => ["required_with:password", "same:password"],
             "role" => "required"
         ]);
@@ -36,9 +61,9 @@ class AdminSistemController extends Controller
         $user->remember_token = \Illuminate\Support\Str::uuid()->toString();
         $user->save();
 
-        return redirect('user-management')->with([
+        return redirect('adminsistem/dashboard/tambah-akun')->with([
             'success' => [
-                "title" => "Register Succesfully",
+                "title" => "User Register Succesfully",
                 "message" => "Akun berhasil didaftarkan"
             ]
         ]);
