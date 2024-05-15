@@ -3,7 +3,7 @@
 @section('title', 'Operator dashboard')
 
 @section('content')
-<div class="bg-gray-50 w-full p-5 h-full">
+<div class="w-full p-5 h-full">
     <div class="flex w-full justify-between items-center gap-4">
         <div
             class="bg-white w-[350px] h-[250px] shadow-md flex flex-col items-center justify-center p-5 rounded-md relative overflow-hidden">

@@ -31,7 +31,7 @@
             });
         </script>
     @endif
-    <div class="bg-gray-50 w-full p-5 h-full">
+    <div class="w-full p-5 h-full">
         <a class="font-medium text-2xl" href="{{ url('adminsistem/dashboard') }}"><i
                 class="fa-solid fa-angle-left text-xl"></i> Edit Akun</a>
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg p-4 bg-white mt-5">

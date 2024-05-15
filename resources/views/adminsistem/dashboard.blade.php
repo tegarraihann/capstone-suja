@@ -3,7 +3,7 @@
 @section('title', 'Admin Sistem dashboard')
 
 @section('content')
-    <div class="bg-gray-50 w-full p-5 h-full">
+    <div class="w-full p-5 h-full">
 
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg p-4 bg-white mt-3">
             <div class="w-full flex justify-between">

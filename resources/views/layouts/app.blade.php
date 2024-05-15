@@ -27,7 +27,7 @@
 
 
         <!-- Sidebar -->
-        <aside class="top-20 fixed left-0 w-[250px] p-5 border-r-2 z-10" style="height: calc(100vh - 80px)">
+        <aside class="top-20 fixed left-0 w-[260px] p-5 border-r-2 z-10" style="height: calc(100vh - 80px)">
             <div class="w-full h-full flex flex-col overflow-x-hidden">
                 <div class="flex gap-4 items-center mb-10">
                     <div
@@ -40,40 +40,65 @@
                         </p>
                     </div>
                 </div>
-                <div class="flex flex-col gap-4 w-full pl-4">
-                    <div class="flex w-full gap-2 opacity-30">
-                        <i class="fa-solid fa-angle-down my-auto text-sm w-1/12"></i>
-                        <p class="text-sm font-medium uppercase">User Management</p>
+                <div class="flex flex-col gap-4 w-full">
+                    <div class="flex flex-col gap-3 w-full pl-4">
+                        <div class="flex w-full gap-2 cursor-pointer">
+                            <i class="fa-solid fa-angle-down my-auto text-xs w-1/12 hidden"></i>
+                            <i class="fa-solid fa-angle-up my-auto text-xs w-1/12"></i>
+                            <p class="text-sm font-medium uppercase">User</p>
+                        </div>
+                        <div class="pl-4 flex flex-col w-full gap-1">
+                            <a href="/adminsistem/dashboard" class="w-full">
+                                <div
+                                    class="flex justify-left gap-6 w-full rounded-lg py-3 px-6 hover:bg-blue-50 hover:text-blue-600">
+                                    <i class="fa-solid fa-user my-auto text-xs w-1/12"></i>
+                                    <p class="text-sm">Daftar User</p>
+                                </div>
+                            </a>
+                            <a href="/adminsistem/dashboard/tambah-akun" class="w-full">
+                                <div
+                                    class="flex justify-left gap-6 w-full rounded-lg py-3 px-6 hover:bg-blue-50 hover:text-blue-600">
+                                    <i class="fa-solid fa-plus my-auto text-xs w-1/12"></i>
+                                    <p class="text-sm">Tambah User</p>
+                                </div>
+                            </a>
+                        </div>
                     </div>
-                    <a href="">
-                        <div class="flex justify-left gap-6 w-full rounded-xl py-3 px-6 bg-blue-50 text-blue-600">
-                            <i class="fa-solid fa-user my-auto text-sm w-1/12"></i>
+                    <div class="flex flex-col gap-3 w-full pl-4">
+                        <div class="flex w-full gap-2 cursor-pointer">
+                            <i class="fa-solid fa-angle-down my-auto text-xs w-1/12 hidden"></i>
+                            <i class="fa-solid fa-angle-up my-auto text-xs w-1/12"></i>
+                            <p class="text-sm font-medium uppercase">BIDANG</p>
                         </div>
-                    </a>
-                    <a href="">
-                        <div class="flex justify-left gap-6 w-full rounded-xl py-3 px-6 bg-blue-50 text-blue-600">
-                            <i class="fa-solid fa-user my-auto text-sm w-1/12"></i>
-                            <p class="text-sm font-medium">Bidang Management</p>
+                        <div class="pl-4 flex flex-col w-full gap-1">
+                            <a href="" class="w-full">
+                                <div
+                                    class="flex justify-left gap-6 w-full rounded-lg py-3 px-6 hover:bg-blue-50 hover:text-blue-600">
+                                    <i class="fa-solid fa-puzzle-piece w-1/12"></i>
+                                    <p class="text-sm">Daftar Bidang</p>
+                                </div>
+                            </a>
+                            <a href="" class="w-full">
+                                <div
+                                    class="flex justify-left gap-6 w-full rounded-lg py-3 px-6 hover:bg-blue-50 hover:text-blue-600">
+                                    <i class="fa-solid fa-plus my-auto text-xs w-1/12"></i>
+                                    <p class="text-sm">Tambah Bidang</p>
+                                </div>
+                            </a>
                         </div>
-                    </a>
-                    {{-- <a href="">
-                        <div
-                            class="flex justify-left gap-6 w-full rounded-xl py-3 px-6 hover:bg-blue-50 hover:text-blue-600">
-                            <i class="fa-solid fa-plus my-auto text-sm w-1/12"></i>
-                            <p class="text-sm font-medium">Tambah Iku</p>
-                        </div>
-                    </a> --}}
+                    </div>
                 </div>
             </div>
         </aside>
 
         <!-- Content -->
-        <main class="relative top-20 left-[250px] h-[1000vh]" style="width: calc(100vw - 267px)">
+        <main class="relative top-20 left-[260px] min-h-screen bg-gray-50" style="width: calc(100vw - 277px)">
             @yield('content')
         </main>
     </div>
     <!-- Add your scripts here -->
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/sidebar.js') }}"></script>
 
 </body>
 
