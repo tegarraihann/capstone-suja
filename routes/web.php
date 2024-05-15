@@ -31,7 +31,7 @@ Route::group(['middleware' => ['adminsistem', 'no-cache']], function () {
     Route::get('adminsistem/dashboard', [DashboardController::class, "dashboard"]);
     Route::get('adminsistem/dashboard', [AdminSistemController::class, 'get_all_user']);
     Route::delete('adminsistem/dashboard/{id}', [AdminSistemController::class, 'delete_user']);
-    Route::get('adminsistem/dashboard/tambah-user', [AdminSistemController::class, "tambah_akun"]);
+    Route::get('adminsistem/dashboard/tambah-user', [AdminSistemController::class, "view_add_user"]);
     Route::get('adminsistem/dashboard/edit-akun', [AdminSistemController::class, "edit_akun"]);
     Route::post('adminsistem/dashboard/tambah-user', [AdminSistemController::class, 'create_user']);
 });

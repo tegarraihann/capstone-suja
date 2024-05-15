@@ -4,14 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Bidang;
 use App\Models\User;
-use Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
 
 class AdminSistemController extends Controller
 {
-    public function tambah_akun()
+    public function view_add_user()
     {
         $roleOptions = [
             ['value' => '4', 'label' => 'Pimpinan'],
