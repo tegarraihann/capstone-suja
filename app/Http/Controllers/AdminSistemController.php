@@ -100,15 +100,27 @@ class AdminSistemController extends Controller
     public function get_all_user()
     {
         $adminSystemCurrent = Auth::user()->id;
-        $users = User::where('id', '!=', $adminSystemCurrent)->get();
+        $users = User::where('users.id', '!=', $adminSystemCurrent)
+        ->join('bidang', 'users.bidang_id', '=', 'bidang.id')
+        ->select('users.*', 'bidang.nama_bidang')
+        ->latest('users.id')
+        ->paginate(7);
+        
+        $roleOptions = [
+            ['value' => '4', 'label' => 'Pimpinan'],
+            ['value' => '3', 'label' => 'Admin Sistem'],
+            ['value' => '2', 'label' => 'Admin Binagram'],
+            ['value' => '1', 'label' => 'Admin Approval'],
+            ['value' => '0', 'label' => 'Operator'],
+        ];
 
-        return view('adminsistem.dashboard', ['users' => $users]);
+        return view('adminsistem.dashboard', ['users' => $users, 'roleOptions' => $roleOptions]);
     }
 
     public function create_bidang(Request $request)
     {
         $bidang = request()->validate([
-            "nama_bidang" => ["required", "max:100"]
+            "nama_bidang" => ["required", "max:100", "unique:bidang"]
         ]);
 
         $bidang = new Bidang();
