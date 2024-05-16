@@ -8,7 +8,7 @@
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg p-4 bg-white mt-3">
         <div class="w-full flex justify-between">
             <div class="bg-white">
-                <form action="{{ url('adminsistem/dashboard/search') }}" method="GET">
+                <form action="{{ url('adminsistem/dashboard/search') }}" method="GET" class="flex items-center justify-center gap-3">
                     <label for="table-search" class="sr-only">Search</label>
                     <div class="relative mt-1">
                         <div

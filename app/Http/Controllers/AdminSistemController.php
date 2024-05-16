@@ -11,15 +11,40 @@ use Illuminate\Validation\Rules\Password;
 
 class AdminSistemController extends Controller
 {
-    public function view_add_user()
+    private function getRoleOptions()
     {
-        $roleOptions = [
+        return [
             ['value' => '4', 'label' => 'Pimpinan'],
             ['value' => '3', 'label' => 'Admin Sistem'],
             ['value' => '2', 'label' => 'Admin Binagram'],
             ['value' => '1', 'label' => 'Admin Approval'],
             ['value' => '0', 'label' => 'Operator'],
         ];
+    }
+
+    private function customValidationMessages()
+    {
+        return [
+            "name.required" => "Nama harus diisi.",
+            "name.max" => "Nama tidak boleh lebih dari 100 karakter.",
+            "email.required" => "Email harus diisi.",
+            "email.unique" => "Email sudah digunakan.",
+            "nip.required" => "NIP harus diisi.",
+            "nip.unique" => "NIP sudah digunakan.",
+            "bidang_id.required" => "Bidang harus dipilih.",
+            "password.required" => "Password harus diisi.",
+            "password.min" => "Password harus terdiri minimal 6 karakter.",
+            "password.numbers" => "Password harus mengandung angka.",
+            "password.letters" => "Password harus mengandung huruf.",
+            "confirm_password.required_with" => "Konfirmasi password harus diisi.",
+            "confirm_password.same" => "Konfirmasi password tidak cocok dengan password.",
+            "role.required" => "Role harus dipilih."
+        ];
+    }
+
+    public function view_add_user()
+    {
+        $roleOptions = $this->getRoleOptions();
 
         $existingPimpinan = User::where('role', 4)->exists();
 
@@ -45,13 +70,7 @@ class AdminSistemController extends Controller
         $user = User::findOrFail($id);
         $bidang = Bidang::all();
 
-        $roleOptions = [
-            ['value' => '4', 'label' => 'Pimpinan'],
-            ['value' => '3', 'label' => 'Admin Sistem'],
-            ['value' => '2', 'label' => 'Admin Binagram'],
-            ['value' => '1', 'label' => 'Admin Approval'],
-            ['value' => '0', 'label' => 'Operator'],
-        ];
+        $roleOptions = $this->getRoleOptions();
 
         $joinBidang = User::join('bidang', 'users.bidang_id', '=', 'bidang.id')
             ->select('users.*', 'bidang.nama_bidang')
@@ -62,15 +81,18 @@ class AdminSistemController extends Controller
 
     public function create_user(Request $request)
     {
-        $user = request()->validate([
-            "name" => ["required", "max:100"],
-            "email" => ["required", "unique:users"],
-            "nip" => ["required", "unique:users"],
-            "bidang_id" => ["required"],
-            "password" => ["required", Password::min(6)->numbers()->letters()],
-            "confirm_password" => ["required_with:password", "same:password"],
-            "role" => "required"
-        ]);
+        $user = request()->validate(
+            [
+                "name" => ["required", "max:100"],
+                "email" => ["required", "unique:users"],
+                "nip" => ["required", "unique:users"],
+                "bidang_id" => ["required"],
+                "password" => ["required", Password::min(6)->numbers()->letters()],
+                "confirm_password" => ["required_with:password", "same:password"],
+                "role" => "required"
+            ],
+            $this->customValidationMessages()
+        );
 
         $user = new User();
         $user->name = ucwords(strtolower(trim($request->name)));
@@ -94,18 +116,25 @@ class AdminSistemController extends Controller
     {
         $user = User::findOrFail($id);
 
-        $request->validate([
-            "name" => ["required", "max:100"],
-            "email" => ["required", "unique:users,email," . $user->id], // Mengecualikan email milik pengguna yang sedang diedit
-            "nip" => ["required", "unique:users,nip," . $user->id], // Mengecualikan NIP milik pengguna yang sedang diedit
-            "password" => ["required", Password::min(6)->numbers()->letters()],
-            "confirm_password" => ["required_with:password", "same:password"],
-        ]);
+        $request->validate(
+            [
+                "name" => ["required", "max:100"],
+                "email" => ["required", "unique:users,email," . $user->id],
+                "nip" => ["required", "unique:users,nip," . $user->id],
+                "password" => ["nullable", Password::min(6)->numbers()->letters()],
+                "confirm_password" => ["nullable", "required_with:password", "same:password"],
+            ],
+            $this->customValidationMessages()
+        );
 
-        $user->name = $request->name;
+        $user->name = ucwords(strtolower(trim($request->name)));
         $user->email = $request->email;
         $user->nip = $request->nip;
-        $user->password = bcrypt($request->password);
+
+        if ($request->filled('password')) {
+            $user->password = bcrypt($request->password);
+        }
+
         $user->save();
 
         return redirect('adminsistem/edit-user/' . $id)->with([
@@ -116,22 +145,26 @@ class AdminSistemController extends Controller
         ]);
     }
 
-    public function get_all_user()
+    public function get_all_user($order = 'desc')
     {
         $adminSystemCurrent = Auth::user()->id;
-        $users = User::where('users.id', '!=', $adminSystemCurrent)
+        $usersQuery = User::where('users.id', '!=', $adminSystemCurrent)
             ->join('bidang', 'users.bidang_id', '=', 'bidang.id')
-            ->select('users.*', 'bidang.nama_bidang')
-            ->latest('users.id')
-            ->paginate(7);
+            ->select('users.*', 'bidang.nama_bidang');
 
-        $roleOptions = [
-            ['value' => '4', 'label' => 'Pimpinan'],
-            ['value' => '3', 'label' => 'Admin Sistem'],
-            ['value' => '2', 'label' => 'Admin Binagram'],
-            ['value' => '1', 'label' => 'Admin Approval'],
-            ['value' => '0', 'label' => 'Operator'],
-        ];
+        $orderBy = request()->input('order_by');
+
+        // Menentukan urutan berdasarkan parameter
+        if ($orderBy) {
+            if ($orderBy === 'nip' || $orderBy === 'nama' || $orderBy === 'email' || $orderBy === 'role' || $orderBy === 'nama_bidang') {
+                $usersQuery->orderBy($orderBy, $order);
+            }
+        } else {
+            $usersQuery->latest('users.id'); // Urutkan berdasarkan id secara default
+        }
+
+        $users = $usersQuery->paginate(7);
+        $roleOptions = $this->getRoleOptions();
 
         return view('adminsistem.dashboard', ['users' => $users, 'roleOptions' => $roleOptions]);
     }
@@ -142,33 +175,9 @@ class AdminSistemController extends Controller
         $user->delete();
     }
 
-    public function create_bidang(Request $request)
-    {
-        $bidang = request()->validate([
-            "nama_bidang" => ["required", "max:100", "unique:bidang"]
-        ]);
-
-        $bidang = new Bidang();
-        $bidang->nama_bidang = strtolower(trim($request->nama_bidang));
-        $bidang->save();
-
-        return redirect('bidang-management')->with([
-            'success' => [
-                "title" => "Created Succesfully",
-                "message" => "Bidang berhasil ditambahkan"
-            ]
-        ]);
-    }
-
     public function search_users(Request $request)
     {
-        $roleOptions = [
-            ['value' => '4', 'label' => 'Pimpinan'],
-            ['value' => '3', 'label' => 'Admin Sistem'],
-            ['value' => '2', 'label' => 'Admin Binagram'],
-            ['value' => '1', 'label' => 'Admin Approval'],
-            ['value' => '0', 'label' => 'Operator'],
-        ];
+        $roleOptions = $this->getRoleOptions();
 
         $search = $request->input('search');
 
@@ -180,11 +189,8 @@ class AdminSistemController extends Controller
                 $query->where('users.name', 'like', '%' . $search . '%')
                     ->orWhere('users.nip', 'like', '%' . $search . '%')
                     ->orWhere('users.email', 'like', '%' . $search . '%')
-                    ->orWhere('bidang.nama_bidang', 'like', '%' . $search . '%');
-
-                foreach ($roleOptions as $role) {
-                    $query->orWhere('users.role', 'like', '%' . $role['label'] . '%', 'like', '%' . $search . '%');
-                }
+                    ->orWhere('bidang.nama_bidang', 'like', '%' . $search . '%')
+                    ->orWhere('users.role', 'like', '%' . $search . '%');
             })
             ->latest('users.id')
             ->paginate(7);
