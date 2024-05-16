@@ -54,10 +54,10 @@ class AdminSistemController extends Controller
         ];
 
         $joinBidang = User::join('bidang', 'users.bidang_id', '=', 'bidang.id')
-                            ->select('users.*', 'bidang.nama_bidang')
-                            ->findOrFail($id);
+            ->select('users.*', 'bidang.nama_bidang')
+            ->findOrFail($id);
 
-        return view("adminsistem.edit-user")->with(compact('joinBidang','user', 'bidang', 'roleOptions'));
+        return view("adminsistem.edit-user")->with(compact('joinBidang', 'user', 'bidang', 'roleOptions'));
     }
 
     public function create_user(Request $request)
@@ -111,7 +111,7 @@ class AdminSistemController extends Controller
         return redirect('adminsistem/dashboard/edit-user/' . $id)->with([
             'success' => [
                 "title" => "Update User Succesfully",
-                "message" => "Akun berhasil di perbaharui"
+                "message" => "Akun berhasil di perbarui"
             ]
         ]);
     }
@@ -159,4 +159,38 @@ class AdminSistemController extends Controller
             ]
         ]);
     }
+
+    public function search_users(Request $request)
+    {
+        $roleOptions = [
+            ['value' => '4', 'label' => 'Pimpinan'],
+            ['value' => '3', 'label' => 'Admin Sistem'],
+            ['value' => '2', 'label' => 'Admin Binagram'],
+            ['value' => '1', 'label' => 'Admin Approval'],
+            ['value' => '0', 'label' => 'Operator'],
+        ];
+
+        $search = $request->input('search');
+
+        $adminSystemCurrent = Auth::user()->id;
+        $users = User::where('users.id', '!=', $adminSystemCurrent)
+            ->join('bidang', 'users.bidang_id', '=', 'bidang.id')
+            ->select('users.*', 'bidang.nama_bidang')
+            ->where(function ($query) use ($search, $roleOptions) {
+                $query->where('users.name', 'like', '%' . $search . '%')
+                    ->orWhere('users.nip', 'like', '%' . $search . '%')
+                    ->orWhere('users.email', 'like', '%' . $search . '%')
+                    ->orWhere('bidang.nama_bidang', 'like', '%' . $search . '%');
+
+                foreach ($roleOptions as $role){
+                    $query->orWhere('users.role', 'like', '%' . $role['label'] . '%', 'like', '%' . $search . '%');
+                }
+            })
+            ->latest('users.id')
+            ->paginate(7);
+
+        return view('adminsistem.dashboard', ['users' => $users, 'roleOptions' => $roleOptions]);
+    }
+
+
 }

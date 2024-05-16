@@ -104,3 +104,12 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
+
+document.getElementById('table-search').addEventListener('input', function(event) {
+    const searchQuery = event.target.value;
+    const url = new URL(window.location);
+    url.searchParams.set('search', searchQuery);
+    window.history.pushState({}, '', url);
+});
+
+

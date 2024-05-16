@@ -24,6 +24,7 @@ Route::group(['middleware' => ['pimpinan', 'no-cache']], function () {
 Route::group(['middleware' => ['adminsistem', 'no-cache']], function () {
     Route::get('adminsistem/dashboard', [DashboardController::class, "dashboard"]);
     Route::get('adminsistem/dashboard', [AdminSistemController::class, 'get_all_user']);
+    Route::get('adminsistem/dashboard/search', [AdminSistemController::class, 'search_users']);
     Route::get('adminsistem/dashboard/tambah-user', [AdminSistemController::class, "view_add_user"]);
     Route::get('adminsistem/dashboard/edit-user/{id}', [AdminSistemController::class, "view_update_user"]);
     Route::delete('adminsistem/dashboard/{id}', [AdminSistemController::class, 'delete_user']);
