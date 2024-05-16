@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const links = document.querySelectorAll("a.menu-item");
 
     links.forEach((link) =>
-        link.getAttribute("href") === window.location.pathname
+        link.getAttribute("href").includes(window.location.pathname)
             ? link
                   .querySelector("div")
                   .classList.add("bg-blue-50", "text-blue-600")
