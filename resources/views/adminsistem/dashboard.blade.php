@@ -8,55 +8,52 @@
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg p-4 bg-white mt-3">
         <div class="w-full flex justify-between">
             <div class="bg-white">
-                <form action="{{ url('adminsistem/dashboard/search') }}" method="GET">
-                    <label for="table-search" class="sr-only">Search</label>
-                    <div class="relative mt-1">
-                        <div
-                            class="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
-                            <svg class="w-4 h-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                fill="none" viewBox="0 0 20 20">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                    stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-                            </svg>
-                        </div>
-                        <input type="text" name="search" id="table-search"
-                            class="block py-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
-                            placeholder="Search for items" value="{{ request('search') }}">
-                    </div>
+                <form action="{{ url('adminsistem/dashboard/search') }}" method="GET"
+                    class="flex items-center text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 overflow-hidden">
+                    <input type="text" name="search" id="table-search"
+                        class="block py-2 px-4 outline-none text-sm w-full" placeholder="Cari user"
+                        value="{{ request('search') }}">
+
                     <button type="submit"
-                        class="mt-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">Search</button>
+                        class="px-4 py-2 bg-gradient-to-r from-blue-500 to-blue-400 text-white rounded-r-lg hover:bg-blue-600">Cari</button>
                 </form>
             </div>
             <a href="{{ url('adminsistem/tambah-user') }}">
                 <button
-                    class="flex items-center gap-2 bg-blue-500 hover:bg-blue-600 text-white py-2 px-6 rounded-md font-medium transition-all">
+                    class="flex items-center gap-2 bg-gradient-to-r from-blue-500 to-blue-400 hover:bg-blue-600 text-white py-2 px-6 rounded-md font-medium transition-all">
                     Tambah User
                     <i class="fa solid fa-plus"></i>
                 </button>
             </a>
         </div>
-        <table class="w-full text-sm text-left rtl:text-right mt-5">
-            <thead class="text-xs text-gray-700 uppercase bg-gray-50 ">
-                <tr>
-                    <th scope="col" class="p-4 w-4 text-right">
+        <table class="w-full text-sm text-left rtl:text-left mt-5">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 h-full">
+                <tr class="h-full">
+                    <th scope="col" class="p-4 w-4 text-left">
                         No
                     </th>
-                    <th scope="col" class="px-6 py-3 text-right">
+                    <th scope="col" class="px-6 py-3 text-left cursor-pointer">
                         NIP
+                        <i class="fa-solid fa-arrow-down-long"></i>
                     </th>
-                    <th scope="col" class="px-6 py-3 text-right">
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-left cursor-pointer">
                         Nama
+                        <i class="fa-solid fa-arrow-up-long"></i>
                     </th>
-                    <th scope="col" class="px-6 py-3 text-right">
+                    <th scope="col" class="px-6 py-3 text-left cursor-pointer">
                         Email
+                        <i class="fa-solid fa-arrow-up-long"></i>
                     </th>
-                    <th scope="col" class="px-6 py-3 text-right">
+                    <th scope="col" class="px-6 py-3 text-left cursor-pointer">
                         Role
+                        <i class="fa-solid fa-arrow-up-long"></i>
                     </th>
-                    <th scope="col" class="px-6 py-3 text-right">
+                    <th scope="col" class="px-6 py-3 text-left">
                         Bidang
-                    </th>
-                    <th scope="col" class="px-6 py-3 text-right">
+                        <i class="fa-solid fa-arrow-up-long"></i>
+                    </th>   
+                    <th scope="col" class="px-6 py-3 text-left">
                         Aksi
                     </th>
                 </tr>
@@ -71,12 +68,12 @@
                 @forelse ($users as $index => $user)
                 <tr class="bg-white border-b hover:bg-gray-50">
                     <td class="py-4 px-6 w-[30px]">{{ $index + 1 }}</td>
-                    <td class="py-4 px-6 text-right">{{ $user->nip }}</td>
-                    <td class="py-4 px-6 text-right">{{ $user->name }}</td>
-                    <td class="py-4 px-6 text-right">{{ $user->email }}</td>
-                    <td class="py-4 px-6 text-right">{{ $roleLabels[$user->role] }}</td>
-                    <td class="py-4 px-6 text-right">{{ $user->nama_bidang }}</td>
-                    <td class="py-4 px-6 text-right gap-3 flex justify-end items-center">
+                    <td class="py-4 px-6 text-left">{{ $user->nip }}</td>
+                    <td class="py-4 px-6 text-left">{{ $user->name }}</td>
+                    <td class="py-4 px-6 text-left">{{ $user->email }}</td>
+                    <td class="py-4 px-6 text-left">{{ $roleLabels[$user->role] }}</td>
+                    <td class="py-4 px-6 text-left">{{ $user->nama_bidang }}</td>
+                    <td class="py-4 px-6 text-left gap-3 flex items-center">
                         <i data-id="{{ $user->id }}"
                             class="btn-update fa-regular fa-pen-to-square text-blue-500 cursor-pointer"></i>
                         <i data-nip="{{ $user->nip }}" data-name="{{ $user->name }}" data-id="{{ $user->id }}"

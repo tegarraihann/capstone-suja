@@ -51,25 +51,26 @@
         <aside class="top-20 fixed left-0 w-[260px] p-5 border-r-2 z-10" style="height: calc(100vh - 80px)">
             <div class="w-full h-full flex flex-col overflow-x-hidden">
                 @if (Auth::check())
-                <div class="flex gap-4 items-center mb-10">
+                <div class="mb-14 mt-3 bg-gradient-to-r from-blue-500 to-blue-400 p-5 rounded-lg text-white">
                     <div
-                        class="flex items-center justify-center text-white rounded-full bg-gray-700 w-8 h-8 text-xs cursor-pointer">
+                        class="flex items-center justify-center text-blue-500 font-bold rounded-full bg-white w-9 h-9 text-sm cursor-pointer">
                         {{ $firstLetter }}</div>
-                    <div>
-                        <p class="font-medium text-md">{{ Auth::user()->name }}</p>
-                        <p class="font-light text-sm text-start">
+                    <div class="mt-5">
+                        <p class="font-medium text-lg">{{ Auth::user()->name }}</p>
+                        <p class="text-sm text-start">
                             {{ $userRoleLabel }}
                         </p>
                     </div>
+                    <div class="bg-white text-black text-center p-2 rounded-lg mt-5">{{Auth::user()->nip}}</div>
                 </div>
                 @endif
                 {{-- sidebar menu --}}
-                <div class="flex flex-col gap-4 w-full">
+                <div class="flex flex-col gap-4 w-full h-full">
                     @if (Auth::user()->role == 4)
                     @endif
                     @if (Auth::user()->role == 3)
-                    <div class="flex flex-col gap-3 w-full">
-                        <div class="pl-4 flex flex-col w-full gap-1">
+                    <div class="flex flex-col h-full gap-3 w-full justify-between">
+                        <div class="flex flex-col w-full gap-1">
                             <a href="/adminsistem/dashboard" class="w-full menu-item">
                                 <div
                                     class="flex justify-left gap-6 w-full rounded-lg py-3 px-6 hover:bg-blue-50 hover:text-blue-600">
@@ -82,6 +83,22 @@
                                     class="flex justify-left gap-6 w-full rounded-lg py-3 px-6 hover:bg-blue-50 hover:text-blue-600">
                                     <i class="fa-solid fa-plus my-auto text-xs w-1/12"></i>
                                     <p class="text-sm">Tambah User</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="">
+                            <a href="/adminsistem/settings" class="w-full menu-item">
+                                <div
+                                    class="flex justify-left gap-6 w-full rounded-lg py-3 px-6 hover:bg-blue-50 hover:text-blue-600">
+                                    <i class="fa-solid fa-gear my-auto w-1/12"></i>
+                                    <p class="text-sm">Settings</p>
+                                </div>
+                            </a>
+                            <a href="/logout" class="w-full menu-item">
+                                <div
+                                    class="flex justify-left gap-6 w-full rounded-lg py-3 px-6 hover:bg-blue-50 hover:text-blue-600">
+                                    <i class="fa-solid fa-arrow-right-from-bracket my-auto w-1/12"></i>
+                                    <p class="text-sm">Log out</p>
                                 </div>
                             </a>
                         </div>
