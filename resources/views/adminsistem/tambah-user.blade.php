@@ -35,7 +35,7 @@
     <a class="font-medium text-2xl" href="{{ url('adminsistem/dashboard') }}"><i
             class="fa-solid fa-angle-left text-xl"></i> Tambah User</a>
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg p-4 bg-white mt-5">
-        <form class="mx-auto" action="{{ url('adminsistem/dashboard/tambah-user') }}" method="post">
+        <form class="mx-auto" action="{{ url('adminsistem/tambah-user') }}" method="post">
             {{ csrf_field() }}
             <div class="mb-5">
                 <label for="nama" class="block mb-2 text-sm font-medium text-gray-900 ">Nama</label>

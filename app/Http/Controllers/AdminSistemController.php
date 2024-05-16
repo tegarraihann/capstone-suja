@@ -82,7 +82,7 @@ class AdminSistemController extends Controller
         $user->remember_token = \Illuminate\Support\Str::uuid()->toString();
         $user->save();
 
-        return redirect('adminsistem/dashboard/tambah-user')->with([
+        return redirect('adminsistem/tambah-user')->with([
             'success' => [
                 "title" => "User Register Succesfully",
                 "message" => "Akun berhasil didaftarkan"
@@ -108,7 +108,7 @@ class AdminSistemController extends Controller
         $user->password = bcrypt($request->password);
         $user->save();
 
-        return redirect('adminsistem/dashboard/edit-user/' . $id)->with([
+        return redirect('adminsistem/edit-user/' . $id)->with([
             'success' => [
                 "title" => "Update User Succesfully",
                 "message" => "Akun berhasil di perbarui"
@@ -182,7 +182,7 @@ class AdminSistemController extends Controller
                     ->orWhere('users.email', 'like', '%' . $search . '%')
                     ->orWhere('bidang.nama_bidang', 'like', '%' . $search . '%');
 
-                foreach ($roleOptions as $role){
+                foreach ($roleOptions as $role) {
                     $query->orWhere('users.role', 'like', '%' . $role['label'] . '%', 'like', '%' . $search . '%');
                 }
             })
@@ -191,6 +191,4 @@ class AdminSistemController extends Controller
 
         return view('adminsistem.dashboard', ['users' => $users, 'roleOptions' => $roleOptions]);
     }
-
-
 }

@@ -3,9 +3,9 @@
 @section('title', 'Admin Sistem dashboard')
 
 @section('content')
-    @if (!empty(session('success')))
-        <script>
-            swal({
+@if (!empty(session('success')))
+<script>
+    swal({
                 title: "{{ Session::get('success.title') }}",
                 text: "{{ Session::get('success.message') }}",
                 icon: "success",
@@ -16,11 +16,11 @@
             }).then(() => {
                 window.location.href = "{{ url('adminsistem/dashboard') }}";
             });
-        </script>
-    @endif
-    @if ($errors->any())
-        <script>
-            var errorMessage = "";
+</script>
+@endif
+@if ($errors->any())
+<script>
+    var errorMessage = "";
             @foreach ($errors->all() as $error)
                 errorMessage += "{{ $error }}\n";
             @endforeach
@@ -29,81 +29,83 @@
                 button: true,
                 button: "OK",
             });
-        </script>
-    @endif
-    @php
-        function getRoleLabel($roleValue)
-        {
-            $roleOptions = [
-                ['value' => '4', 'label' => 'Pimpinan'],
-                ['value' => '3', 'label' => 'Admin Sistem'],
-                ['value' => '2', 'label' => 'Admin Binagram'],
-                ['value' => '1', 'label' => 'Admin Approval'],
-                ['value' => '0', 'label' => 'Operator'],
-            ];
+</script>
+@endif
+@php
+function getRoleLabel($roleValue)
+{
+$roleOptions = [
+['value' => '4', 'label' => 'Pimpinan'],
+['value' => '3', 'label' => 'Admin Sistem'],
+['value' => '2', 'label' => 'Admin Binagram'],
+['value' => '1', 'label' => 'Admin Approval'],
+['value' => '0', 'label' => 'Operator'],
+];
 
-            foreach ($roleOptions as $role) {
-                if ($role['value'] === (string) $roleValue) {
-                    return $role['label'];
-                }
-            }
-            return 'Tidak Diketahui';
-        }
-    @endphp
-    <div class="w-full p-5 h-full">
-        <a class="font-medium text-2xl" href="{{ url('adminsistem/dashboard') }}"><i
-                class="fa-solid fa-angle-left text-xl"></i> Edit User</a>
-        <div class="relative overflow-x-auto shadow-md sm:rounded-lg p-4 bg-white mt-5">
-            <form class="mx-auto" action="{{ url('adminsistem/dashboard/edit-user/' . $user->id) }}" method="post">
-                {{ csrf_field() }}
-                @method('PUT')
-                <div class="mb-5">
-                    <label for="nama" class="block mb-2 text-sm font-medium text-gray-900 ">Nama</label>
-                    <input type="text" name="name" value="{{ old('name', $user->name) }}" id="nama"
-                        class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-                        placeholder="Masukkan nama user" required />
-                </div>
-                <div class="mb-5">
-                    <label for="email" class="block mb-2 text-sm font-medium text-gray-900 ">Email</label>
-                    <input type="email" name="email" value="{{ old('email', $user->email) }}" id="email"
-                        class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-                        placeholder="Masukkan email" required />
-                </div>
-                <div class="mb-5">
-                    <label for="nip" class="block mb-2 text-sm font-medium text-gray-900 ">Nomor Induk Pegawai</label>
-                    <input type="text" name="nip" value="{{ old('nip', $user->nip) }}" id="nip"
-                        class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-                        placeholder="Masukkan NIP user" required />
-                </div>
-                <div class="mb-5">
-                    <label for="bidang" class="block mb-2 text-sm font-medium text-gray-900">Bidang</label>
-                    <input type="text" name="bidang" value="{{ old('bidang', $joinBidang->nama_bidang) }}" id="bidang" readonly
-                        class="shadow-sm bg-gray-50 border border-gray-300 text-gray-400 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                        placeholder="Bidang pengguna" required />
-                </div>
-                <div class="mb-5">
-                    <label for="role" class="block mb-2 text-sm font-medium text-gray-900">Role</label>
-                    <input type="text" name="role" value="{{ getRoleLabel($user->role) }}" id="role" readonly
-                        class="shadow-sm bg-gray-50 border border-gray-300 text-gray-400 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                        placeholder="Peran pengguna" required />
-                </div>
-                <div class="mb-5">
-                    <label for="password" class="block mb-2 text-sm font-medium text-gray-900">Password</label>
-                    <input type="password" value="" name="password" id="password"
-                        class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-                        placeholder="Masukkan password" required />
-                </div>
-                <div class="mb-5">
-                    <label for="repeat-password" class="block mb-2 text-sm font-medium text-gray-900 ">Ulangi
-                        password</label>
-                    <input type="password" value="" name="confirm_password" id="repeat-password"
-                        class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-                        placeholder="Ulangi password di atas" required />
-                </div>
-                <button type="submit"
-                    class="text-white bg-blue-500 hover:bg-blue-600 transition-all focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Perbarui data</button>
-            </form>
-        </div>
-
+foreach ($roleOptions as $role) {
+if ($role['value'] === (string) $roleValue) {
+return $role['label'];
+}
+}
+return 'Tidak Diketahui';
+}
+@endphp
+<div class="w-full p-5 h-full">
+    <a class="font-medium text-2xl" href="{{ url('adminsistem/dashboard') }}"><i
+            class="fa-solid fa-angle-left text-xl"></i> Edit User</a>
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg p-4 bg-white mt-5">
+        <form class="mx-auto" action="{{ url('adminsistem/edit-user/' . $user->id) }}" method="post">
+            {{ csrf_field() }}
+            @method('PUT')
+            <div class="mb-5">
+                <label for="nama" class="block mb-2 text-sm font-medium text-gray-900 ">Nama</label>
+                <input type="text" name="name" value="{{ old('name', $user->name) }}" id="nama"
+                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                    placeholder="Masukkan nama user" required />
+            </div>
+            <div class="mb-5">
+                <label for="email" class="block mb-2 text-sm font-medium text-gray-900 ">Email</label>
+                <input type="email" name="email" value="{{ old('email', $user->email) }}" id="email"
+                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                    placeholder="Masukkan email" required />
+            </div>
+            <div class="mb-5">
+                <label for="nip" class="block mb-2 text-sm font-medium text-gray-900 ">Nomor Induk Pegawai</label>
+                <input type="text" name="nip" value="{{ old('nip', $user->nip) }}" id="nip"
+                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                    placeholder="Masukkan NIP user" required />
+            </div>
+            <div class="mb-5">
+                <label for="bidang" class="block mb-2 text-sm font-medium text-gray-900">Bidang</label>
+                <input type="text" name="bidang" value="{{ old('bidang', $joinBidang->nama_bidang) }}" id="bidang"
+                    readonly
+                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-400 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                    placeholder="Bidang pengguna" required />
+            </div>
+            <div class="mb-5">
+                <label for="role" class="block mb-2 text-sm font-medium text-gray-900">Role</label>
+                <input type="text" name="role" value="{{ getRoleLabel($user->role) }}" id="role" readonly
+                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-400 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                    placeholder="Peran pengguna" required />
+            </div>
+            <div class="mb-5">
+                <label for="password" class="block mb-2 text-sm font-medium text-gray-900">Password</label>
+                <input type="password" value="" name="password" id="password"
+                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                    placeholder="Masukkan password" required />
+            </div>
+            <div class="mb-5">
+                <label for="repeat-password" class="block mb-2 text-sm font-medium text-gray-900 ">Ulangi
+                    password</label>
+                <input type="password" value="" name="confirm_password" id="repeat-password"
+                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                    placeholder="Ulangi password di atas" required />
+            </div>
+            <button type="submit"
+                class="text-white bg-blue-500 hover:bg-blue-600 transition-all focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Perbarui
+                data</button>
+        </form>
     </div>
+
+</div>
 @endsection

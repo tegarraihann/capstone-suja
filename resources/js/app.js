@@ -7,24 +7,24 @@ document.addEventListener("DOMContentLoaded", function () {
     );
     logoutButton.addEventListener("click", function () {
         swal({
-                title: "Apakah anda ingin keluar?",
-                icon: "warning",
-                buttons: {
-                    confirm: {
-                        text: "Iya",
-                        value: true,
-                        visible: true,
-                        className: "swal-button--confirm",
-                        closeModal: true
-                    },
-                    cancel: {
-                        text: "Tidak",
-                        value: null,
-                        visible: true,
-                        className: "",
-                        closeModal: true,
-                    }
+            title: "Apakah anda ingin keluar?",
+            icon: "warning",
+            buttons: {
+                confirm: {
+                    text: "Iya",
+                    value: true,
+                    visible: true,
+                    className: "swal-button--confirm",
+                    closeModal: true,
                 },
+                cancel: {
+                    text: "Tidak",
+                    value: null,
+                    visible: true,
+                    className: "",
+                    closeModal: true,
+                },
+            },
             dangerMode: false,
         }).then((willDelete) => {
             if (willDelete) {
@@ -97,19 +97,19 @@ document.addEventListener("DOMContentLoaded", function () {
 document.addEventListener("DOMContentLoaded", function () {
     const editIcons = document.querySelectorAll(".btn-update");
 
-    editIcons.forEach(icon => {
-        icon.addEventListener('click', function () {
+    editIcons.forEach((icon) => {
+        icon.addEventListener("click", function () {
             const userId = this.dataset.id;
-            window.location.href = `/adminsistem/dashboard/edit-user/${userId}`;
+            window.location.href = `/adminsistem/edit-user/${userId}`;
         });
     });
 });
 
-document.getElementById('table-search').addEventListener('input', function(event) {
-    const searchQuery = event.target.value;
-    const url = new URL(window.location);
-    url.searchParams.set('search', searchQuery);
-    window.history.pushState({}, '', url);
-});
-
-
+document
+    .getElementById("table-search")
+    .addEventListener("input", function (event) {
+        const searchQuery = event.target.value;
+        const url = new URL(window.location);
+        url.searchParams.set("search", searchQuery);
+        window.history.pushState({}, "", url);
+    });
