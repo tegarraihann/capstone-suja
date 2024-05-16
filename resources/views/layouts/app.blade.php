@@ -12,37 +12,37 @@
 
 <body>
     @php
-    $roleOptions = [
-    ['value' => '4', 'label' => 'Pimpinan'],
-    ['value' => '3', 'label' => 'Admin Sistem'],
-    ['value' => '2', 'label' => 'Admin Binagram'],
-    ['value' => '1', 'label' => 'Admin Approval'],
-    ['value' => '0', 'label' => 'Operator'],
-    ];
+        $roleOptions = [
+            ['value' => '4', 'label' => 'Pimpinan'],
+            ['value' => '3', 'label' => 'Admin Sistem'],
+            ['value' => '2', 'label' => 'Admin Binagram'],
+            ['value' => '1', 'label' => 'Admin Approval'],
+            ['value' => '0', 'label' => 'Operator'],
+        ];
 
-    $userRoleLabel = '';
-    foreach ($roleOptions as $roleOption) {
-    if ($roleOption['value'] == Auth::user()->role) {
-    $userRoleLabel = $roleOption['label'];
-    break;
-    }
-    }
+        $userRoleLabel = '';
+        foreach ($roleOptions as $roleOption) {
+            if ($roleOption['value'] == Auth::user()->role) {
+                $userRoleLabel = $roleOption['label'];
+                break;
+            }
+        }
 
-    $firstLetter = strtoupper(substr(Auth::user()->name, 0, 1));
+        $firstLetter = strtoupper(substr(Auth::user()->name, 0, 1));
     @endphp
     <div class="wrapper">
         <!-- Header -->
         <header
             class="flex items-center justify-between py-4 px-10 h-20 fixed left-0 bg-white z-20 top-0 w-full border-b-2">
             @if (Auth::check())
-            <img src="{{ asset('assets/logo.png') }}" class="w-16" />
-            <div class="flex items-center gap-6">
-                <i class="fa-regular fa-bell cursor-pointer text-lg"></i>
-                <i class="fa-solid fa-arrow-right-from-bracket cursor-pointer text-lg"></i>
-                <div
-                    class="flex items-center justify-center text-white rounded-full bg-gray-700 w-7 h-7 text-xs cursor-pointer">
-                    {{ $firstLetter }}</div>
-            </div>
+                <img src="{{ asset('assets/logo.png') }}" class="w-16" />
+                <div class="flex items-center gap-6">
+                    <i class="fa-regular fa-bell cursor-pointer text-lg"></i>
+                    <i class="fa-solid fa-arrow-right-from-bracket cursor-pointer text-lg"></i>
+                    <div
+                        class="flex items-center justify-center text-white rounded-full bg-gray-700 w-7 h-7 text-xs cursor-pointer">
+                        {{ $firstLetter }}</div>
+                </div>
             @endif
         </header>
 
@@ -63,6 +63,7 @@
                     </div>
                     <div class="bg-white text-black text-center p-2 rounded-lg mt-5">{{Auth::user()->nip}}</div>
                 </div>
+
                 @endif
                 {{-- sidebar menu --}}
                 <div class="flex flex-col gap-4 w-full h-full">

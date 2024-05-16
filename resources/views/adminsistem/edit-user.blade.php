@@ -92,14 +92,14 @@ return 'Tidak Diketahui';
                 <label for="password" class="block mb-2 text-sm font-medium text-gray-900">Password</label>
                 <input type="password" value="" name="password" id="password"
                     class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-                    placeholder="Masukkan password" required />
+                    placeholder="Masukkan password"  />
             </div>
             <div class="mb-5">
                 <label for="repeat-password" class="block mb-2 text-sm font-medium text-gray-900 ">Ulangi
                     password</label>
                 <input type="password" value="" name="confirm_password" id="repeat-password"
                     class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-                    placeholder="Ulangi password di atas" required />
+                    placeholder="Ulangi password di atas"  />
             </div>
             <button type="submit"
                 class="text-white bg-blue-500 hover:bg-blue-600 transition-all focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Perbarui
