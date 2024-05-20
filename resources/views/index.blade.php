@@ -43,6 +43,11 @@
             })
         </script>
     @endif
+    @if (session('logout_success'))
+        <script>
+            swal("Success logout", "{{ session('logout_success') }}", "success");
+        </script>
+    @endif
     <div class="main-bg m-0 p-0 w-full h-[100vh] absolute">
         <img src="{{ asset('assets/auth/BPS.jpg') }}" alt="BPS image"
             class= "object-cover w-full h-full filter brightness-50">

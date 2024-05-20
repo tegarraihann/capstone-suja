@@ -61,32 +61,32 @@
                     <label for="nama" class="block mb-2 text-sm font-medium text-gray-900 ">Nama</label>
                     <input type="text" name="name" value="{{ old('name', $user->name) }}" id="nama"
                         class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-                        placeholder="Masukkan nama user" required />
+                        placeholder="Masukkan nama user"/>
                 </div>
                 <div class="mb-5">
                     <label for="email" class="block mb-2 text-sm font-medium text-gray-900 ">Email</label>
                     <input type="email" name="email" value="{{ old('email', $user->email) }}" id="email"
                         class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-                        placeholder="Masukkan email" required />
+                        placeholder="Masukkan email"/>
                 </div>
                 <div class="mb-5">
                     <label for="nip" class="block mb-2 text-sm font-medium text-gray-900 ">Nomor Induk Pegawai</label>
                     <input type="text" name="nip" value="{{ old('nip', $user->nip) }}" id="nip"
                         class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-                        placeholder="Masukkan NIP user" required />
+                        placeholder="Masukkan NIP user"/>
                 </div>
                 <div class="mb-5">
                     <label for="bidang" class="block mb-2 text-sm font-medium text-gray-900">Bidang</label>
                     <input type="text" name="bidang" value="{{ old('bidang', $joinBidang->nama_bidang) }}"
                         id="bidang" readonly
                         class="shadow-sm bg-gray-50 border border-gray-300 text-gray-400 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                        placeholder="Bidang pengguna" required />
+                        placeholder="Bidang pengguna"/>
                 </div>
                 <div class="mb-5">
                     <label for="role" class="block mb-2 text-sm font-medium text-gray-900">Role</label>
                     <input type="text" name="role" value="{{ getRoleLabel($user->role) }}" id="role" readonly
                         class="shadow-sm bg-gray-50 border border-gray-300 text-gray-400 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                        placeholder="Peran pengguna" required />
+                        placeholder="Peran pengguna"/>
                 </div>
                 <div class="mb-5">
                     <label for="password" class="block mb-2 text-sm font-medium text-gray-900">Password</label>

@@ -49,6 +49,6 @@ class AuthController extends Controller
     public function logout()
     {
         Auth::logout();
-        return redirect(url('/'));
+        return redirect(url('/'))->with('logout_success', 'Anda berhasil logout');
     }
 }
