@@ -33,6 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     })))
 
+    // for sidebar menu
     const links = document.querySelectorAll("a.menu-item");
 
     links.forEach((link) =>
@@ -44,6 +45,29 @@ document.addEventListener("DOMContentLoaded", function () {
                   .querySelector("div")
                   .classList.remove("bg-blue-50", "text-blue-600")
     );
+
+    // filter table
+    const params = new URLSearchParams(window.location.search)
+    const filterOptions = document.querySelectorAll('select.filter-select option')
+    const sortOrders = document.querySelectorAll('select.sort-order option')
+    filterOptions.forEach(
+        (opt) => opt.getAttribute("value") === params.get("filter") && opt.setAttribute("selected", true)
+    )
+    sortOrders.forEach(
+        (sort) => sort.getAttribute("value") === params.get("sort_order") && sort.setAttribute("selected", true)
+    )
+
+    // dropdown list IKU
+
+    document.querySelectorAll('.parent').forEach(parent => {
+        parent.addEventListener('click', function() {
+            let childUl = this.nextElementSibling;
+            if (childUl && childUl.classList.contains('child')) {
+                childUl.classList.toggle('hidden');
+            }
+        });
+    });
+    
 });
 
 document.addEventListener("DOMContentLoaded", function () {

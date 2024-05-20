@@ -41,7 +41,7 @@
                 <label for="nama" class="block mb-2 text-sm font-medium text-gray-900 ">Nama</label>
                 <input type="text" name="name" value="{{ old('name') }}" id="nama"
                     class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-                    placeholder="Masukkan nama user"  />
+                    placeholder="Masukkan nama user" />
             </div>
             <div class="mb-5">
                 <label for="email" class="block mb-2 text-sm font-medium text-gray-900 ">Email</label>
@@ -58,8 +58,7 @@
             <div class="mb-5">
                 <label for="bidang" class="block mb-2 text-sm font-medium text-gray-900">Bidang</label>
                 <select id="countries" name="bidang_id"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                >
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                     <option value="">Pilih Bidang</option>
                     @foreach ($bidang as $b)
                     <option {{ old('bidang_id')==$b->id ? 'selected' : '' }} value="{{ $b->id }}">
@@ -71,8 +70,7 @@
                 <label for="role" class="block mb-2 text-sm font-medium text-gray-900">Role</label>
                 <select id="role" name="role"
                     class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-                    required
-                    >
+                    required>
                     <option value="">Pilih Role</option>
                     @foreach ($roleOptions as $option)
                     <option {{ old('role')==$option['value'] ? 'selected' : '' }} value="{{ $option['value'] }}">

@@ -65,8 +65,10 @@
                 @endif
                 {{-- sidebar menu --}}
                 <div class="flex flex-col gap-4 w-full h-full">
+                    {{-- pimpinan --}}
                     @if (Auth::user()->role == 4)
                     @endif
+                    {{-- admin sistem --}}
                     @if (Auth::user()->role == 3)
                         <div class="flex flex-col h-full gap-3 w-full justify-between">
                             <div class="flex flex-col w-full gap-1">
@@ -107,10 +109,58 @@
                             </div>
                         </div>
                     @endif
+                    {{-- admin binagram --}}
                     @if (Auth::user()->role == 2)
+                    <div class="flex flex-col h-full gap-3 w-full justify-between">
+                        <div class="flex flex-col w-full gap-1">
+                            <a href="/adminbinagram/dashboard" class="w-full menu-item">
+                                <div
+                                    class="flex justify-left gap-6 w-full rounded-lg py-3 px-6 hover:bg-blue-50 hover:text-blue-600">
+                                    <i class="fa-solid fa-briefcase my-auto text-xs w-1/12"></i>
+                                    <p class="text-sm">Daftar IKU</p>
+                                </div>
+                            </a>
+                            <a href="/adminbinagram/tambah-user" class="w-full menu-item">
+                                <div
+                                    class="flex justify-left gap-6 w-full rounded-lg py-3 px-6 hover:bg-blue-50 hover:text-blue-600">
+                                    <i class="fa-solid fa-plus my-auto text-xs w-1/12"></i>
+                                    <p class="text-sm">Tambah IKU</p>
+                                </div>
+                            </a>
+                            <a href="/adminbinagram/approval" class="w-full menu-item">
+                                <div
+                                    class="flex justify-left gap-6 w-full rounded-lg py-3 px-6 hover:bg-blue-50 hover:text-blue-600">
+                                    <i class="fa-solid fa-file-circle-check my-auto text-xs w-1/12"></i>
+                                    <p class="text-sm">Daftar Approval</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="">
+                            <a href="/adminbinagram/settings" class="w-full menu-item">
+                                <div
+                                    class="flex justify-left gap-6 w-full rounded-lg py-3 px-6 hover:bg-blue-50 hover:text-blue-600">
+                                    <i class="fa-solid fa-gear my-auto w-1/12"></i>
+                                    <p class="text-sm">Settings</p>
+                                </div>
+                            </a>
+                            <a class="logout-btn w-full menu-item cursor-pointer ">
+                                {{-- <div class="flex justify-left gap-6 mb-5 mt-3 bg-gradient-to-r from-blue-500 to-blue-400 px-6 py-3 rounded-lg text-white">
+                                    <i class="fa-solid fa-arrow-right-from-bracket my-auto w-1/12"></i>
+                                    <p class="text-sm">Log out</p>
+                                </div> --}}
+                                <div
+                                    class="flex justify-left gap-6 w-full rounded-lg py-3 px-6 hover:bg-blue-50 hover:text-blue-600">
+                                    <i class="fa-solid fa-arrow-right-from-bracket my-auto w-1/12"></i>
+                                    <p class="text-sm">Log out</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
                     @endif
+                    {{-- admin approval --}}
                     @if (Auth::user()->role == 1)
                     @endif
+                    {{-- operator --}}
                     @if (Auth::user()->role == 0)
                     @endif
                 </div>
