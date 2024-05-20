@@ -2,10 +2,10 @@ import "./bootstrap";
 import axios from "axios";
 
 document.addEventListener("DOMContentLoaded", function () {
-    const logoutButton = document.querySelector(
-        ".fa-solid.fa-arrow-right-from-bracket"
+    const logoutButton = document.querySelectorAll(
+        ".logout-btn"
     );
-    logoutButton.addEventListener("click", function () {
+    logoutButton.forEach(btn => (btn.addEventListener("click", function () {
         swal({
             title: "Apakah anda ingin keluar?",
             icon: "warning",
@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 window.location.pathname = "/logout";
             }
         });
-    });
+    })))
 
     const links = document.querySelectorAll("a.menu-item");
 
@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const name = this.dataset.name;
             const id = this.dataset.id;
             swal({
-                title: "Apakah ingin menghapus user ini?",
+                title: "Apakah anda ingin menghapus user ini?",
                 text: "Nama: " + name + "\nNIP: " + nip,
                 icon: "warning",
                 buttons: {

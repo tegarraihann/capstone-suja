@@ -6,6 +6,7 @@ use App\Models\Bidang;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
 
@@ -145,56 +146,108 @@ class AdminSistemController extends Controller
         ]);
     }
 
-    public function get_all_user($order = 'desc')
-    {
-        $adminSystemCurrent = Auth::user()->id;
-        $usersQuery = User::where('users.id', '!=', $adminSystemCurrent)
-            ->join('bidang', 'users.bidang_id', '=', 'bidang.id')
-            ->select('users.*', 'bidang.nama_bidang');
-
-        $orderBy = request()->input('order_by');
-
-        // Menentukan urutan berdasarkan parameter
-        if ($orderBy) {
-            if ($orderBy === 'nip' || $orderBy === 'nama' || $orderBy === 'email' || $orderBy === 'role' || $orderBy === 'nama_bidang') {
-                $usersQuery->orderBy($orderBy, $order);
-            }
-        } else {
-            $usersQuery->latest('users.id'); // Urutkan berdasarkan id secara default
-        }
-
-        $users = $usersQuery->paginate(7);
-        $roleOptions = $this->getRoleOptions();
-
-        return view('adminsistem.dashboard', ['users' => $users, 'roleOptions' => $roleOptions]);
-    }
-
     public function delete_user($id): void
     {
         $user = User::findOrFail($id);
         $user->delete();
     }
-
+    
     public function search_users(Request $request)
     {
         $roleOptions = $this->getRoleOptions();
 
+        // Simpan nilai filter dan urutan sort dalam sesi
+        session()->put('filter', $request->input('filter'));
+        session()->put('sort_order', $request->input('sort_order'));
+
         $search = $request->input('search');
+        $filter = session('filter', 'name'); // Default filter 'name'
+        $sortOrder = session('sort_order', 'asc'); // Default sort order 'asc'
 
         $adminSystemCurrent = Auth::user()->id;
-        $users = User::where('users.id', '!=', $adminSystemCurrent)
+        $usersQuery = User::where('users.id', '!=', $adminSystemCurrent)
             ->join('bidang', 'users.bidang_id', '=', 'bidang.id')
-            ->select('users.*', 'bidang.nama_bidang')
-            ->where(function ($query) use ($search, $roleOptions) {
-                $query->where('users.name', 'like', '%' . $search . '%')
-                    ->orWhere('users.nip', 'like', '%' . $search . '%')
-                    ->orWhere('users.email', 'like', '%' . $search . '%')
-                    ->orWhere('bidang.nama_bidang', 'like', '%' . $search . '%')
-                    ->orWhere('users.role', 'like', '%' . $search . '%');
-            })
-            ->latest('users.id')
-            ->paginate(7);
+            ->select('users.*', 'bidang.nama_bidang');
+
+        // Apply search filter
+        $usersQuery->where(function ($query) use ($search, $filter) {
+            $query->where('users.name', 'like', '%' . $search . '%')
+                ->orWhere('users.nip', 'like', '%' . $search . '%')
+                ->orWhere('users.email', 'like', '%' . $search . '%')
+                ->orWhere('bidang.nama_bidang', 'like', '%' . $search . '%')
+                ->orWhere('users.role', 'like', '%' . $search . '%');
+        });
+
+        // Apply sorting based on filter and sort_order
+        $orderByColumn = 'users.id'; // Default sorting by ID
+
+        if ($filter === 'nip') {
+            $orderByColumn = 'users.nip';
+        } elseif ($filter === 'name') {
+            $orderByColumn = 'users.name';
+        } elseif ($filter === 'email') {
+            $orderByColumn = 'users.email';
+        } elseif ($filter === 'role') {
+            $orderByColumn = DB::raw("CASE 
+                WHEN users.role = '4' THEN 'Pimpinan'
+                WHEN users.role = '3' THEN 'Admin Sistem'
+                WHEN users.role = '2' THEN 'Admin Binagram'
+                WHEN users.role = '1' THEN 'Admin Approval'
+                WHEN users.role = '0' THEN 'Operator'
+                ELSE ''
+            END");
+        } elseif ($filter === 'nama_bidang') {
+            $orderByColumn = 'bidang.nama_bidang';
+        }
+
+        // Apply sorting direction
+        if ($sortOrder === 'asc') {
+            $users = $usersQuery->orderBy($orderByColumn)->latest('users.id')->paginate(7);
+        } else {
+            $users = $usersQuery->orderByDesc($orderByColumn)->latest('users.id')->paginate(7);
+        }
 
         return view('adminsistem.dashboard', ['users' => $users, 'roleOptions' => $roleOptions]);
     }
+
+    // public function get_all_user()
+    // {
+    //     $adminSystemCurrent = Auth::user()->id;
+    //     $users = User::where('users.id', '!=', $adminSystemCurrent)
+    //         ->join('bidang', 'users.bidang_id', '=', 'bidang.id')
+    //         ->select('users.*', 'bidang.nama_bidang')
+    //         ->latest('users.id')
+    //         ->paginate(2);
+
+    //     $roleOptions = $this->getRoleOptions();
+
+    //     return view('adminsistem.dashboard', ['users' => $users, 'roleOptions' => $roleOptions]);
+    // }
+
+    // public function search_users(Request $request)
+    // {
+    //     $roleOptions = $this->getRoleOptions();
+
+    //     $search = $request->input('search');
+
+    //     $adminSystemCurrent = Auth::user()->id;
+    //     $users = User::where('users.id', '!=', $adminSystemCurrent)
+    //         ->join('bidang', 'users.bidang_id', '=', 'bidang.id')
+    //         ->select('users.*', 'bidang.nama_bidang')
+    //         ->where(function ($query) use ($search, $roleOptions) {
+    //             $query->where('users.name', 'like', '%' . $search . '%')
+    //                 ->orWhere('users.nip', 'like', '%' . $search . '%')
+    //                 ->orWhere('users.email', 'like', '%' . $search . '%')
+    //                 ->orWhere('bidang.nama_bidang', 'like', '%' . $search . '%')
+    //                 ->orWhere('users.role', 'like', '%' . $search . '%');
+    //         })
+    //         ->latest('users.id')
+    //         ->paginate(7);
+
+    //     return view('adminsistem.dashboard', ['users' => $users, 'roleOptions' => $roleOptions]);
+    // }
+
+
+
+
 }

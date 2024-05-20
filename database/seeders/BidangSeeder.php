@@ -13,7 +13,7 @@ class BidangSeeder extends Seeder
      */
     public function run(): void
     {
-        $bidangs = [
+        $bidang = [
             [
                 "nama_bidang" => "Pimpinan",
             ],
@@ -37,8 +37,10 @@ class BidangSeeder extends Seeder
             ],
         ];
 
-        foreach ($bidangs as $nama_bidang) {
-            Bidang::create(['nama_bidang' => $nama_bidang['nama_bidang']]);
+        foreach ($bidang as $nama_bidang) {
+            Bidang::create([
+                'nama_bidang' => $nama_bidang['nama_bidang']
+            ]);
         }
     }
 }

@@ -18,13 +18,12 @@ Route::get('/logout', [AuthController::class, 'logout']);
 //Route Role Access
 Route::group(['middleware' => ['pimpinan', 'no-cache']], function () {
     Route::get('pimpinan/dashboard', [DashboardController::class, "dashboard"]);
-    Route::get('pimpinan/logout', [AuthController::class, 'logout']);
 });
 
 Route::group(['middleware' => ['adminsistem', 'no-cache']], function () {
-    Route::get('adminsistem/dashboard', [DashboardController::class, "dashboard"]);
-    Route::get('adminsistem/dashboard', [AdminSistemController::class, 'get_all_user']);
-    Route::get('adminsistem/dashboard/search', [AdminSistemController::class, 'search_users']);
+    // Route::get('adminsistem/dashboard', [DashboardController::class, "dashboard"]);
+    // Route::get('adminsistem/dashboard', [AdminSistemController::class, 'get_all_user']);
+    Route::get('adminsistem/dashboard', [AdminSistemController::class, 'search_users'])->name('search-user');
     Route::get('adminsistem/tambah-user', [AdminSistemController::class, "view_add_user"]);
     Route::get('adminsistem/edit-user/{id}', [AdminSistemController::class, "view_update_user"]);
     Route::delete('adminsistem/dashboard/{id}', [AdminSistemController::class, 'delete_user']);
@@ -34,15 +33,12 @@ Route::group(['middleware' => ['adminsistem', 'no-cache']], function () {
 
 Route::group(['middleware' => ['adminbinagram', 'no-cache']], function () {
     Route::get('adminbinagram/dashboard', [DashboardController::class, "dashboard"]);
-    Route::get('adminbinagram/logout', [AuthController::class, 'logout']);
 });
 
 Route::group(['middleware' => ['adminapproval', 'no-cache']], function () {
     Route::get('adminapproval/dashboard', [DashboardController::class, "dashboard"]);
-    Route::get('adminapproval/logout', [AuthController::class, 'logout']);
 });
 
 Route::group(['middleware' => ['operator', 'no-cache']], function () {
     Route::get('operator/dashboard', [DashboardController::class, "dashboard"]);
-    Route::get('operator/logout', [AuthController::class, 'logout']);
 });

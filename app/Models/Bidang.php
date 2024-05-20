@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Bidang extends Model
 {
     protected $table = "bidang";
-    protected $primaryLey = "id";
+    protected $primaryKey = "id";
     protected $keyType = "int";
     public $incrementing = true;
     public $timestamps = false;
@@ -17,5 +17,10 @@ class Bidang extends Model
     public function users(): HasMany
     {
         return $this->hasMany(User::class, 'bidang_id', 'id');
+    }
+
+    public function bidang(): HasMany
+    {
+        return $this->hasMany(SubIndikator::class, 'bidang_id', 'id');
     }
 }
