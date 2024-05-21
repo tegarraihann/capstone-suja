@@ -92,7 +92,7 @@
                                     <div
                                         class="flex justify-left gap-6 w-full rounded-lg py-3 px-6 hover:bg-blue-50 hover:text-blue-600">
                                         <i class="fa-solid fa-gear my-auto w-1/12"></i>
-                                        <p class="text-sm">Settings</p>
+                                        <p class="text-sm">Edit profile</p>
                                     </div>
                                 </a>
                                 <a class="logout-btn w-full menu-item cursor-pointer ">
@@ -133,7 +133,7 @@
                                 <div
                                     class="flex justify-left gap-6 w-full rounded-lg py-3 px-6 hover:bg-blue-50 hover:text-blue-600">
                                     <i class="fa-solid fa-gear my-auto w-1/12"></i>
-                                    <p class="text-sm">Settings</p>
+                                    <p class="text-sm">Edit profile</p>
                                 </div>
                             </a>
                             <a class="logout-btn w-full menu-item cursor-pointer ">
