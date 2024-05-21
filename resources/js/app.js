@@ -64,22 +64,41 @@ document.addEventListener("DOMContentLoaded", function () {
     );
 
     // dropdown list IKU
-
-    document.querySelectorAll(".parent .btn").forEach((parent) => {
-        parent.addEventListener("click", function () {
+    document.querySelectorAll(".parent .btn").forEach((parentBtn) => {
+        parentBtn.addEventListener("click", function () {
             let childUl = this.parentNode.nextElementSibling;
             if (childUl && childUl.classList.contains("child")) {
-                childUl.classList.toggle("hidden");
                 if (childUl.classList.contains("hidden")) {
-                    parent.classList.toggle("fa-minus");
-                    parent.classList.toggle("fa-plus");
+                    expand(childUl, this);
                 } else {
-                    parent.classList.toggle("fa-minus");
-                    parent.classList.toggle("fa-plus");
+                    collapseAll(childUl, this);
                 }
             }
         });
     });
+    
+    function collapseAll(element, parentBtn) {
+        element.classList.add("hidden");
+        parentBtn.classList.remove("fa-minus");
+        parentBtn.classList.add("fa-plus");
+    
+        let children = element.querySelectorAll(".child");
+        children.forEach(child => {
+            child.classList.add("hidden");
+            let childBtn = child.previousElementSibling.querySelector(".btn");
+            if (childBtn) {
+                childBtn.classList.remove("fa-minus");
+                childBtn.classList.add("fa-plus");
+            }
+        });
+    }
+    
+    function expand(element, parentBtn) {
+        element.classList.remove("hidden");
+        parentBtn.classList.remove("fa-plus");
+        parentBtn.classList.add("fa-minus");
+    }
+
 });
 
 document.addEventListener("DOMContentLoaded", function () {
