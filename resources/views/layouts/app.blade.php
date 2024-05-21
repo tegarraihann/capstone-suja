@@ -120,13 +120,6 @@
                                     <p class="text-sm">Daftar IKU</p>
                                 </div>
                             </a>
-                            <a href="/adminbinagram/tambah-user" class="w-full menu-item">
-                                <div
-                                    class="flex justify-left gap-6 w-full rounded-lg py-3 px-6 hover:bg-blue-50 hover:text-blue-600">
-                                    <i class="fa-solid fa-plus my-auto text-xs w-1/12"></i>
-                                    <p class="text-sm">Tambah IKU</p>
-                                </div>
-                            </a>
                             <a href="/adminbinagram/approval" class="w-full menu-item">
                                 <div
                                     class="flex justify-left gap-6 w-full rounded-lg py-3 px-6 hover:bg-blue-50 hover:text-blue-600">
