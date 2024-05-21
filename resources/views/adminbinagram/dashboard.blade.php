@@ -16,7 +16,7 @@
                             class="p-4 rounded-md border-blue-300 border-2 flex justify-between w-full items-center bg-blue-50">
                             <p>Indikator Kinerja Utama</p>
                             <div class="flex gap-4">
-                                <i class="fa-solid fa-plus text-green-400 cursor-pointer"></i>
+                                <i class="add-tujuan fa-solid fa-plus text-green-400 cursor-pointer"></i>
                             </div>
                         </div>
                     </div>
@@ -28,7 +28,7 @@
                                         class="fa-solid btn fa-plus cursor-pointer p-2 rounded-md text-gray-800 w-auto h-auto bg-gray-100 hover:bg-gray-200 block"></i>
                                     <div
                                         class="p-4 rounded-md border-orange-300 border-2 flex justify-between w-full items-center bg-orange-50">
-                                        <p><span class="">[ TUJUAN ]</span> {{ $tujuan->tujuan }}</p>
+                                        <p class="block w-[90%] "><span class="">[ TUJUAN ]</span> {{ $tujuan->tujuan }}</p>
                                         <div class="flex gap-4">
                                             <i class="fa-regular fa-pen-to-square text-blue-400 cursor-pointer"></i>
                                             <i class="fa-solid fa-trash text-red-500 cursor-pointer"></i>
@@ -44,7 +44,7 @@
                                                     class="fa-solid btn fa-plus cursor-pointer p-2 rounded-md text-gray-800 w-auto h-auto bg-gray-100 hover:bg-gray-200 block"></i>
                                                 <div
                                                     class="p-4 rounded-md border-green-300 border-2 flex justify-between w-full items-center bg-green-50">
-                                                    <p><span class="">[ SASARAN ]</span> {{ $sasaran->sasaran }}
+                                                    <p class="block w-[90%] "><span class="">[ SASARAN ]</span> {{ $sasaran->sasaran }}
                                                     </p>
                                                     <div class="flex gap-4">
                                                         <i
@@ -65,7 +65,7 @@
                                                                         class="fa-solid btn fa-plus cursor-pointer p-2 rounded-md text-gray-800 w-auto h-auto bg-gray-100 hover:bg-gray-200 block"></i>
                                                                     <div
                                                                         class="p-4 rounded-md border-yellow-300 border-2 flex justify-between w-full items-center bg-yellow-50">
-                                                                        <p><span class="">[ INDIKATOR ]</span>
+                                                                        <p class="block w-[90%] "><span class="">[ INDIKATOR ]</span>
                                                                             {{ $indikator->indikator }}</p>
                                                                         <div class="flex gap-4">
                                                                             <i
@@ -89,7 +89,7 @@
                                                                                             class="fa-solid btn fa-plus cursor-pointer p-2 rounded-md text-gray-800 w-auto h-auto bg-gray-100 hover:bg-gray-200 block"></i>
                                                                                         <div
                                                                                             class="p-4 rounded-md border-purple-300 border-2 flex justify-between w-full items-center bg-purple-50">
-                                                                                            <p><span class="">[
+                                                                                            <p class="block w-[90%] "><span class="">[
                                                                                                     INDIKATOR PENUNJANG
                                                                                                     ]</span>
                                                                                                 {{ $indikator_penunjang->indikator_penunjang }}
@@ -220,8 +220,8 @@
                                     <i
                                         class="fa-solid btn fa-plus cursor-pointer p-2 rounded-md text-gray-800 w-auto h-auto bg-gray-100 hover:bg-gray-200 block"></i>
                                     <div
-                                        class="p-4 rounded-md border-orange-300 border-2 flex justify-between w-full items-center bg-orange-50">
-                                        <p><span class="">[ TUJUAN ]</span> {{ $tujuan->tujuan }}</p>
+                                        class="p-4 rounded-md border-orange-300 border-2 flex justify-between w-full items-center bg-orange-100">
+                                        <p class="block w-[90%] "><span class="">[ TUJUAN ]</span> {{ $tujuan->tujuan }}</p>
                                         <div class="flex gap-4">
                                             <i class="fa-regular fa-pen-to-square text-blue-400 cursor-pointer"></i>
                                             <i class="fa-solid fa-trash text-red-500 cursor-pointer"></i>
@@ -237,7 +237,7 @@
                                                     class="fa-solid btn fa-plus cursor-pointer p-2 rounded-md text-gray-800 w-auto h-auto bg-gray-100 hover:bg-gray-200 block"></i>
                                                 <div
                                                     class="p-4 rounded-md border-green-300 border-2 flex justify-between w-full items-center bg-green-50">
-                                                    <p><span class="">[ SASARAN ]</span> {{ $sasaran->sasaran }}
+                                                    <p class="block w-[90%] "><span class="">[ SASARAN ]</span> {{ $sasaran->sasaran }}
                                                     <div class="flex gap-4">
                                                         <i
                                                             class="fa-regular fa-pen-to-square text-blue-400 cursor-pointer"></i>
@@ -252,7 +252,7 @@
                                                         <div class="parent flex items-center gap-5">
                                                             <div
                                                                 class="p-4 rounded-md border-yellow-300 border-2 flex justify-between w-full items-center bg-yellow-50">
-                                                                <p><span class="">[ INDIKATOR ]</span>
+                                                                <p class="block w-[90%] "><span class="">[ INDIKATOR ]</span>
                                                                     {{ $indikator->indikator }}</p>
                                                                 <div class="flex gap-4">
                                                                     <i
