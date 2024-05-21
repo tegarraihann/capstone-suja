@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminBinagramController;
 use App\Http\Controllers\AdminSistemController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
@@ -21,7 +22,7 @@ Route::group(['middleware' => ['pimpinan', 'no-cache']], function () {
 });
 
 Route::group(['middleware' => ['adminsistem', 'no-cache']], function () {
-    // Route::get('adminsistem/dashboard', [DashboardController::class, "dashboard"]);
+    Route::get('adminsistem/dashboard', [DashboardController::class, "dashboard"]);
     // Route::get('adminsistem/dashboard', [AdminSistemController::class, 'get_all_user']);
     Route::get('adminsistem/dashboard', [AdminSistemController::class, 'search_users'])->name('search-user');
     Route::get('adminsistem/tambah-user', [AdminSistemController::class, "view_add_user"]);
@@ -33,6 +34,7 @@ Route::group(['middleware' => ['adminsistem', 'no-cache']], function () {
 
 Route::group(['middleware' => ['adminbinagram', 'no-cache']], function () {
     Route::get('adminbinagram/dashboard', [DashboardController::class, "dashboard"]);
+    Route::get('adminbinagram/dashboard', [AdminBinagramController::class, "view_master_data"]);
 });
 
 Route::group(['middleware' => ['adminapproval', 'no-cache']], function () {
