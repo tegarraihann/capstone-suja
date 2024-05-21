@@ -58,7 +58,6 @@ document.addEventListener("DOMContentLoaded", function () {
     )
 
     // dropdown list IKU
-
     document.querySelectorAll('.parent').forEach(parent => {
         parent.addEventListener('click', function() {
             let childUl = this.nextElementSibling;
@@ -67,7 +66,6 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     });
-    
 });
 
 document.addEventListener("DOMContentLoaded", function () {
