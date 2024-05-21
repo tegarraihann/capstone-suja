@@ -171,6 +171,10 @@
         <main class="relative top-20 left-[260px] min-h-screen bg-gray-50" style="width: calc(100vw - 279px)">
             @yield('content')
         </main>
+
+        {{-- <div class="fixed top-0 left-0 w-full h-full z-50 bg-[#0000006c]">
+            @yield('popup')
+        </div> --}}
     </div>
     <!-- Add your scripts here -->
     <script src="{{ asset('js/app.js') }}"></script>

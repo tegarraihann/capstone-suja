@@ -59,11 +59,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // dropdown list IKU
 
-    document.querySelectorAll('.parent').forEach(parent => {
+    document.querySelectorAll('.parent .btn').forEach(parent => {
         parent.addEventListener('click', function() {
-            let childUl = this.nextElementSibling;
+            let childUl = this.parentNode.nextElementSibling;
             if (childUl && childUl.classList.contains('child')) {
                 childUl.classList.toggle('hidden');
+                if (childUl.classList.contains('hidden')) {
+                    parent.classList.toggle('fa-minus')
+                    parent.classList.toggle('fa-plus')
+                } else {
+                    parent.classList.toggle('fa-minus')
+                    parent.classList.toggle('fa-plus')
+                }
             }
         });
     });
