@@ -220,7 +220,7 @@
                                     <i
                                         class="fa-solid btn fa-plus cursor-pointer p-2 rounded-md text-gray-800 w-auto h-auto bg-gray-100 hover:bg-gray-200 block"></i>
                                     <div
-                                        class="p-4 rounded-md border-orange-300 border-2 flex justify-between w-full items-center bg-orange-100">
+                                        class="p-4 rounded-md border-orange-300 border-2 flex justify-between w-full items-center bg-orange-50">
                                         <p><span class="">[ TUJUAN ]</span> {{ $tujuan->tujuan }}</p>
                                         <div class="flex gap-4">
                                             <i class="fa-regular fa-pen-to-square text-blue-400 cursor-pointer"></i>
