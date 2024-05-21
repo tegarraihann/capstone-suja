@@ -54,105 +54,123 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <ul class="child hidden ml-[14px] flex flex-col border-yellow-300 border-l-2">
-                                                @foreach ($sasaran->indikator as $indikator)
-                                                    <li class="ml-7 mt-4">
-                                                        <div class="parent flex items-center gap-5">
-                                                            <i
-                                                                class="fa-solid btn fa-plus cursor-pointer p-2 rounded-md text-gray-800 w-auto h-auto bg-gray-100 hover:bg-gray-200 block"></i>
-                                                            <div
-                                                                class="p-4 rounded-md border-yellow-300 border-2 flex justify-between w-full items-center bg-yellow-50">
-                                                                <p><span class="">[ INDIKATOR ]</span>
-                                                                    {{ $indikator->indikator }}</p>
-                                                                <div class="flex gap-4">
+                                            @if ($sasaran->indikator->isNotEmpty())
+                                                <ul
+                                                    class="child hidden ml-[14px] flex flex-col border-yellow-300 border-l-2">
+                                                    @foreach ($sasaran->indikator as $indikator)
+                                                        <li class="ml-7 mt-4">
+                                                            @if ($indikator->indikator_penunjang()->exists() || $indikator->sub_indikator->isNotEmpty())
+                                                                <div class="parent flex items-center gap-5">
                                                                     <i
-                                                                        class="fa-regular fa-pen-to-square text-blue-400 cursor-pointer"></i>
-                                                                    <i
-                                                                        class="fa-solid fa-trash text-red-500 cursor-pointer"></i>
-                                                                    <i
-                                                                        class="fa-solid fa-plus text-green-400 cursor-pointer"></i>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        @if ($indikator->indikator_penunjang()->exists())
-                                                            <ul
-                                                                class="child hidden ml-[14px] flex flex-col gap-4 border-purple-300 border-l-2">
-                                                                @foreach ($indikator->indikator_penunjang as $indikator_penunjang)
-                                                                    <li class="ml-7 mt-4">
-                                                                        <div class="parent flex items-center gap-5">
+                                                                        class="fa-solid btn fa-plus cursor-pointer p-2 rounded-md text-gray-800 w-auto h-auto bg-gray-100 hover:bg-gray-200 block"></i>
+                                                                    <div
+                                                                        class="p-4 rounded-md border-yellow-300 border-2 flex justify-between w-full items-center bg-yellow-50">
+                                                                        <p><span class="">[ INDIKATOR ]</span>
+                                                                            {{ $indikator->indikator }}</p>
+                                                                        <div class="flex gap-4">
                                                                             <i
-                                                                                class="fa-solid btn fa-plus cursor-pointer p-2 rounded-md text-gray-800 w-auto h-auto bg-gray-100 hover:bg-gray-200 block"></i>
-                                                                            <div
-                                                                                class="p-4 rounded-md border-purple-300 border-2 flex justify-between w-full items-center bg-purple-50">
-                                                                                <p><span class="">[ INDIKATOR
-                                                                                        PENUNJANG
-                                                                                        ]</span>
-                                                                                    {{ $indikator_penunjang->indikator_penunjang }}
-                                                                                </p>
-                                                                                <div class="flex gap-4">
-                                                                                    <i
-                                                                                        class="fa-regular fa-pen-to-square text-blue-400 cursor-pointer"></i>
-                                                                                    <i
-                                                                                        class="fa-solid fa-trash text-red-500 cursor-pointer"></i>
-                                                                                    <i
-                                                                                        class="fa-solid fa-plus text-green-400 cursor-pointer"></i>
-                                                                                </div>
-                                                                            </div>
+                                                                                class="fa-regular fa-pen-to-square text-blue-400 cursor-pointer"></i>
+                                                                            <i
+                                                                                class="fa-solid fa-trash text-red-500 cursor-pointer"></i>
+                                                                            <i
+                                                                                class="fa-solid fa-plus text-green-400 cursor-pointer"></i>
                                                                         </div>
-                                                                        <ul
-                                                                            class="child hidden ml-[14px] flex flex-col gap-4 border-cyan-300 border-l-2">
-                                                                            @foreach ($indikator_penunjang->sub_indikator as $sub_indikator)
-                                                                                <li class="ml-16 mt-4">
+                                                                    </div>
+                                                                </div>
+                                                                @if ($indikator->indikator_penunjang()->exists())
+                                                                    <ul
+                                                                        class="child hidden ml-[14px] flex flex-col gap-4 border-purple-300 border-l-2">
+                                                                        @foreach ($indikator->indikator_penunjang as $indikator_penunjang)
+                                                                            <li class="ml-7 mt-4">
+                                                                                <div class="parent flex items-center gap-5">
+                                                                                    <i
+                                                                                        class="fa-solid btn fa-plus cursor-pointer p-2 rounded-md text-gray-800 w-auto h-auto bg-gray-100 hover:bg-gray-200 block"></i>
                                                                                     <div
-                                                                                        class="parent flex items-center gap-5">
-                                                                                        <div
-                                                                                            class="p-4 rounded-md border-cyan-300 border-2 flex justify-between w-full items-center bg-cyan-50">
-                                                                                            <p><span class="">[ SUB
-                                                                                                    INDIKATOR ]</span>
-                                                                                                {{ $sub_indikator->sub_indikator }}
-                                                                                            </p>
-                                                                                            <div class="flex gap-4">
-                                                                                                <i
-                                                                                                    class="fa-regular fa-pen-to-square text-blue-400 cursor-pointer"></i>
-                                                                                                <i
-                                                                                                    class="fa-solid fa-trash text-red-500 cursor-pointer"></i>
-                                                                                            </div>
+                                                                                        class="p-4 rounded-md border-purple-300 border-2 flex justify-between w-full items-center bg-purple-50">
+                                                                                        <p><span class="">[ INDIKATOR
+                                                                                                PENUNJANG ]</span>
+                                                                                            {{ $indikator_penunjang->indikator_penunjang }}
+                                                                                        </p>
+                                                                                        <div class="flex gap-4">
+                                                                                            <i
+                                                                                                class="fa-regular fa-pen-to-square text-blue-400 cursor-pointer"></i>
+                                                                                            <i
+                                                                                                class="fa-solid fa-trash text-red-500 cursor-pointer"></i>
+                                                                                            <i
+                                                                                                class="fa-solid fa-plus text-green-400 cursor-pointer"></i>
                                                                                         </div>
                                                                                     </div>
-                                                                                </li>
-                                                                            @endforeach
-                                                                        </ul>
-                                                                    </li>
-                                                                @endforeach
-                                                            </ul>
-                                                        @else
-                                                            <ul
-                                                                class="child hidden ml-[14px] flex flex-col gap-4 border-cyan-300 border-l-2">
-                                                                @foreach ($indikator->sub_indikator as $sub_indikator)
-                                                                    <li class="ml-16 mt-4">
-                                                                        <div class="parent flex items-center gap-5">
-                                                                            <div
-                                                                                class="p-4 rounded-md border-cyan-300 border-2 flex justify-between w-full items-center bg-cyan-50">
-                                                                                <p><span class="">[ SUB INDIKATOR
-                                                                                        ]</span>
-                                                                                    {{ $sub_indikator->sub_indikator }}</p>
-                                                                                <div class="flex gap-4">
-                                                                                    <i
-                                                                                        class="fa-regular fa-pen-to-square text-blue-400 cursor-pointer"></i>
-                                                                                    <i
-                                                                                        class="fa-solid fa-trash text-red-500 cursor-pointer"></i>
-                                                                                    <i
-                                                                                        class="fa-solid fa-plus text-green-400 cursor-pointer"></i>
                                                                                 </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </li>
-                                                                @endforeach
-                                                            </ul>
-                                                        @endif
-                                                    </li>
-                                                @endforeach
-                                            </ul>
+                                                                                <ul
+                                                                                    class="child hidden ml-[14px] flex flex-col gap-4 border-cyan-300 border-l-2">
+                                                                                    @foreach ($indikator_penunjang->sub_indikator as $sub_indikator)
+                                                                                        <li class="ml-16 mt-4">
+                                                                                            <div
+                                                                                                class="parent flex items-center gap-5">
+                                                                                                <div
+                                                                                                    class="p-4 rounded-md border-cyan-300 border-2 flex justify-between w-full items-center bg-cyan-50">
+                                                                                                    <p><span class="">[
+                                                                                                            SUB INDIKATOR
+                                                                                                            ]</span>
+                                                                                                        {{ $sub_indikator->sub_indikator }}
+                                                                                                    </p>
+                                                                                                    <div class="flex gap-4">
+                                                                                                        <i
+                                                                                                            class="fa-regular fa-pen-to-square text-blue-400 cursor-pointer"></i>
+                                                                                                        <i
+                                                                                                            class="fa-solid fa-trash text-red-500 cursor-pointer"></i>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </li>
+                                                                                    @endforeach
+                                                                                </ul>
+                                                                            </li>
+                                                                        @endforeach
+                                                                    </ul>
+                                                                @else
+                                                                    <ul
+                                                                        class="child hidden ml-[14px] flex flex-col gap-4 border-cyan-300 border-l-2">
+                                                                        @foreach ($indikator->sub_indikator as $sub_indikator)
+                                                                            <li class="ml-16 mt-4">
+                                                                                <div class="parent flex items-center gap-5">
+                                                                                    <div
+                                                                                        class="p-4 rounded-md border-cyan-300 border-2 flex justify-between w-full items-center bg-cyan-50">
+                                                                                        <p><span class="">[ SUB
+                                                                                                INDIKATOR ]</span>
+                                                                                            {{ $sub_indikator->sub_indikator }}
+                                                                                        </p>
+                                                                                        <div class="flex gap-4">
+                                                                                            <i
+                                                                                                class="fa-regular fa-pen-to-square text-blue-400 cursor-pointer"></i>
+                                                                                            <i
+                                                                                                class="fa-solid fa-trash text-red-500 cursor-pointer"></i>
+                                                                                            <i
+                                                                                                class="fa-solid fa-plus text-green-400 cursor-pointer"></i>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </li>
+                                                                        @endforeach
+                                                                    </ul>
+                                                                @endif
+                                                            @else
+                                                                <div
+                                                                    class="p-4 rounded-md border-yellow-300 border-2 flex justify-between w-full items-center bg-yellow-50">
+                                                                    <p><span class="">[ INDIKATOR ]</span>
+                                                                        {{ $indikator->indikator }}</p>
+                                                                    <div class="flex gap-4">
+                                                                        <i
+                                                                            class="fa-regular fa-pen-to-square text-blue-400 cursor-pointer"></i>
+                                                                        <i
+                                                                            class="fa-solid fa-trash text-red-500 cursor-pointer"></i>
+                                                                    </div>
+                                                                </div>
+                                                            @endif
+                                                        </li>
+                                                    @endforeach
+                                                </ul>
+                                            @endif
                                         </li>
                                     @endforeach
                                 </ul>
