@@ -32,7 +32,7 @@
 </script>
 @endif
 <div class="w-full p-5 h-full">
-    <a class="font-medium text-2xl" href="{{ url('adminsistem/dashboard') }}"><i
+    <a class="text-gray-600 font-semibold text-2xl" href="{{ url('adminsistem/dashboard') }}"><i
             class="fa-solid fa-angle-left text-xl"></i> Tambah User</a>
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg p-4 bg-white mt-5">
         <form class="mx-auto" action="{{ url('adminsistem/tambah-user') }}" method="post">
