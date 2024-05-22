@@ -16,7 +16,7 @@
                             class="p-4 rounded-md border-blue-300 border-2 flex justify-between w-full items-center bg-blue-50">
                             <p>Indikator Kinerja Utama</p>
                             <div class="flex gap-4">
-                                <i class="add-tujuan fa-solid fa-plus text-green-400 cursor-pointer"></i>
+                                <i class="add-tujuan fa-solid fa-plus text-green-400 cursor-pointer" data-iku="0" data-text="Indikator Kinerja Utama"></i>
                             </div>
                         </div>
                     </div>
@@ -30,9 +30,9 @@
                                         class="p-4 rounded-md border-orange-300 border-2 flex justify-between w-full items-center bg-orange-50">
                                         <p class="block w-[90%] "><span class="">[ TUJUAN ]</span> {{ $tujuan->tujuan }}</p>
                                         <div class="flex gap-4">
-                                            <i class="fa-regular fa-pen-to-square text-blue-400 cursor-pointer"></i>
-                                            <i class="fa-solid fa-trash text-red-500 cursor-pointer"></i>
-                                            <i class="fa-solid fa-plus text-green-400 cursor-pointer"></i>
+                                            <i class="edit-tujuan fa-regular fa-pen-to-square text-blue-400 cursor-pointer" data-id="{{ $tujuan->id }}" data-tujuan="{{ $tujuan->tujuan }}"></i>
+                                            <i class="delete-tujuan fa-solid fa-trash text-red-500 cursor-pointer" data-id="{{ $tujuan->id }}" data-tujuan="{{ $tujuan->tujuan }}"></i>
+                                            <i class="add-sasaran fa-solid fa-plus text-green-400 cursor-pointer" data-tujuan-id="{{ $tujuan->id }}" data-text="{{$tujuan->tujuan}}"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -47,10 +47,9 @@
                                                     <p class="block w-[90%] "><span class="">[ SASARAN ]</span> {{ $sasaran->sasaran }}
                                                     </p>
                                                     <div class="flex gap-4">
-                                                        <i
-                                                            class="fa-regular fa-pen-to-square text-blue-400 cursor-pointer"></i>
-                                                        <i class="fa-solid fa-trash text-red-500 cursor-pointer"></i>
-                                                        <i class="fa-solid fa-plus text-green-400 cursor-pointer"></i>
+                                                        <i class="edit-sasaran fa-regular fa-pen-to-square text-blue-400 cursor-pointer" data-id="{{ $sasaran->id }}" data-sasaran="{{ $sasaran->sasaran }}"></i>
+                                                        <i class="delete-sasaran fa-solid fa-trash text-red-500 cursor-pointer" data-id="{{ $sasaran->id }}" data-sasaran="{{ $sasaran->sasaran }}"></i>
+                                                        <i class="add-indikator fa-solid fa-plus text-green-400 cursor-pointer" data-sasaran-id="{{ $sasaran->id }}" data-text="{{$sasaran->sasaran}}"></i>
                                                     </div>
                                                 </div>
                                             </div>
@@ -135,7 +134,7 @@
                                                                                     <div
                                                                                         class="parent flex items-center gap-5">
                                                                                         <div
-                                                                                            class="p-4 rounded-md border-purple-300 border-2 flex justify-between w-full items-center bg-purple-50">
+                                                                                            class="ml-12 p-4 rounded-md border-purple-300 border-2 flex justify-between w-full items-center bg-purple-50">
                                                                                             <p><span class="">[
                                                                                                     INDIKATOR PENUNJANG
                                                                                                     ]</span>
@@ -209,7 +208,7 @@
                             class="p-4 rounded-md border-blue-300 border-2 flex justify-between w-full items-center bg-blue-50">
                             <p>Indikator Kinerja Utama Suplemen</p>
                             <div class="flex gap-4">
-                                <i class="fa-solid fa-plus text-green-400 cursor-pointer"></i>
+                                <i class="add-tujuan fa-solid fa-plus text-green-400 cursor-pointer" data-iku="1" data-text="Indikator Kinerja Utama Suplemen"></i>
                             </div>
                         </div>
                     </div>
@@ -220,12 +219,12 @@
                                     <i
                                         class="fa-solid btn fa-plus cursor-pointer p-2 rounded-md text-gray-800 w-auto h-auto bg-gray-100 hover:bg-gray-200 block"></i>
                                     <div
-                                        class="p-4 rounded-md border-orange-300 border-2 flex justify-between w-full items-center bg-orange-100">
+                                        class="p-4 rounded-md border-orange-300 border-2 flex justify-between w-full items-center bg-orange-50">
                                         <p class="block w-[90%] "><span class="">[ TUJUAN ]</span> {{ $tujuan->tujuan }}</p>
                                         <div class="flex gap-4">
-                                            <i class="fa-regular fa-pen-to-square text-blue-400 cursor-pointer"></i>
-                                            <i class="fa-solid fa-trash text-red-500 cursor-pointer"></i>
-                                            <i class="fa-solid fa-plus text-green-400 cursor-pointer"></i>
+                                            <i class="edit-tujuan fa-regular fa-pen-to-square text-blue-400 cursor-pointer" data-id="{{ $tujuan->id }}" data-tujuan="{{ $tujuan->tujuan }}"></i>
+                                            <i class="delete-tujuan fa-solid fa-trash text-red-500 cursor-pointer" data-id="{{ $tujuan->id }}" data-tujuan="{{ $tujuan->tujuan }}"></i>
+                                            <i class="add-sasaran fa-solid fa-plus text-green-400 cursor-pointer" data-tujuan-id="{{ $tujuan->id }}" data-text="{{$tujuan->tujuan}}"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -239,10 +238,9 @@
                                                     class="p-4 rounded-md border-green-300 border-2 flex justify-between w-full items-center bg-green-50">
                                                     <p class="block w-[90%] "><span class="">[ SASARAN ]</span> {{ $sasaran->sasaran }}
                                                     <div class="flex gap-4">
-                                                        <i
-                                                            class="fa-regular fa-pen-to-square text-blue-400 cursor-pointer"></i>
-                                                        <i class="fa-solid fa-trash text-red-500 cursor-pointer"></i>
-                                                        <i class="fa-solid fa-plus text-green-400 cursor-pointer"></i>
+                                                        <i class="edit-sasaran fa-regular fa-pen-to-square text-blue-400 cursor-pointer" data-id="{{ $sasaran->id }}" data-sasaran="{{ $sasaran->sasaran }}"></i>
+                                                        <i class="delete-sasaran fa-solid fa-trash text-red-500 cursor-pointer" data-id="{{ $sasaran->id }}" data-sasaran="{{ $sasaran->sasaran }}"></i>
+                                                        <i class="add-indikator fa-solid fa-plus text-green-400 cursor-pointer" data-sasaran-id="{{ $sasaran->id }}" data-text="{{$sasaran->sasaran}}"></i>
                                                     </div>
                                                 </div>
                                             </div>
