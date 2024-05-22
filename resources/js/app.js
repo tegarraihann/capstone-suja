@@ -2,6 +2,14 @@ import "./bootstrap";
 import axios from "axios";
 
 document.addEventListener("DOMContentLoaded", function () {
+    setupDeleteSubIndikatorButton();
+    setupEditSubIndikatorButton();
+    setupAddSubIndikatorButton();
+    setupDeleteIndikatorPenunjangButton();
+    setupEditIndikatorPenunjangButton();
+    setupAddIndikatorPenunjangButton();
+    setupDeleteIndikatorButton();
+    setupEditIndikatorButton();
     setupAddIndikatorButton();
     setupDeleteSasaranButton();
     setupEditSasaranButton();
@@ -464,7 +472,19 @@ function setupAddIndikatorButton() {
                                     <input id="input3" class="swal-content__input" placeholder="Boleh kosong" style="flex-grow: 1;">
                                 </div>
                                 <div style="display: flex; flex-direction: column; align-items: start; gap: 5px">
-                                    <p>Jika terdapat data indikator penunjang atau sub indikator, mohon untuk langsung diinputkan</p>
+                                    <label for="bidang">Bidang:</label>
+                                    <select id="bidangSelect" class="swal-content__select" style="flex-grow: 1; width: 100%; border: 1px solid #ccc; padding: 6px 12px;">
+                                        <option value="">pilih bidang (boleh kosong)</option>
+                                        <option value="6">Fungsi IPDS</option>
+                                        <option value="5">Fungsi Nerwilis</option>
+                                        <option value="4">Fungsi Statistik Distribusi</option>
+                                        <option value="3">Fungsi Statistik Produksi</option>
+                                        <option value="2">Fungsi Statistik Sosial</option>
+                                        <option value="1">Bagian Umum</option>
+                                    </select>
+                                </div>
+                                <div style="display: flex; flex-direction: column; align-items: start; gap: 5px">
+                                    <p>Jika terdapat data indikator penunjang atau sub indikator dan bidang pemilik sub indikator, mohon untuk langsung diinputkan</p>
                                 </div>
                             </div>
                         `,
@@ -483,8 +503,11 @@ function setupAddIndikatorButton() {
                 }
 
                 const input1 = document.getElementById("input1").value.trim();
-                const input2 = document.getElementById("input2").value.trim() || null;
-                const input3 = document.getElementById("input3").value.trim() || null;
+                const input2 =
+                    document.getElementById("input2").value.trim() || null;
+                const input3 =
+                    document.getElementById("input3").value.trim() || null;
+                const bidangId = document.getElementById("bidangSelect").value || null;
 
                 if (!input1) {
                     swal({
@@ -495,18 +518,28 @@ function setupAddIndikatorButton() {
                     return;
                 }
 
+                if (bidangId && !input3) {
+                    swal({
+                        icon: "error",
+                        title: "Failed Added",
+                        text: "Jika bidang dipilih, Sub Indikator tidak boleh kosong",
+                    });
+                    return;
+                }
+
                 const data = {
                     indikator: input1,
                     indikator_penunjang: input2 === "" ? null : input2,
                     sub_indikator: input3 === "" ? null : input3,
                     sasaran_id: sasaranId,
+                    bidang_id: bidangId === "" ? null : bidangId
                 };
 
                 axios
                     .post("/adminbinagram/dashboard/store", data)
                     .then((response) => {
                         swal({
-                            icon    : "success",
+                            icon: "success",
                             title: "Successfully Added",
                             text: "Data berhasil dimasukkan",
                         }).then(() => {
@@ -520,6 +553,544 @@ function setupAddIndikatorButton() {
                             text: "Gagal memasukkan data",
                         });
                     });
+            });
+        });
+    });
+}
+
+function setupEditIndikatorButton() {
+    document.querySelectorAll(".edit-indikator").forEach((btn) => {
+        btn.addEventListener("click", function () {
+            const id = this.dataset.id;
+            const currentIndikator = this.dataset.indikator;
+
+            swal({
+                text: "Edit Indikator",
+                content: {
+                    element: "input",
+                    attributes: {
+                        value: currentIndikator,
+                    },
+                },
+                buttons: {
+                    cancel: true,
+                    confirm: {
+                        text: "Update",
+                        closeModal: false,
+                    },
+                },
+            }).then((value) => {
+                if (value === null) {
+                    return;
+                }
+
+                if (!value) {
+                    swal({
+                        icon: "error",
+                        title: "Failed Updated",
+                        text: "Indikator tidak boleh kosong",
+                    });
+                    return;
+                }
+                if (value) {
+                    const data = {
+                        indikator: value,
+                    };
+                    axios
+                        .put(`/adminbinagram/dashboard/update/${id}`, data)
+                        .then((response) => {
+                            swal({
+                                icon: "success",
+                                title: "Successfully Updated",
+                                text: "Data indikator berhasil diperbarui",
+                            }).then(() => {
+                                window.location.href =
+                                    "/adminbinagram/dashboard";
+                            });
+                        })
+                        .catch((error) => {
+                            swal({
+                                icon: "error",
+                                title: "Failed Updated",
+                                text: "Gagal memperbarui data indikator",
+                            });
+                        });
+                }
+            });
+        });
+    });
+}
+
+function setupDeleteIndikatorButton() {
+    document.querySelectorAll(".delete-indikator").forEach((btn) => {
+        btn.addEventListener("click", function () {
+            const id = this.dataset.id;
+            const indikator = this.dataset.indikator;
+
+            swal({
+                title: "Anda yakin ingin menghapus data ini?",
+                text:
+                    "[INDIKATOR] " +
+                    indikator +
+                    "\n\nPerhatian!! Data indikator penunjang dan sub indikator di indikator ini juga akan terhapus!",
+                icon: "warning",
+                buttons: ["Cancel", "Hapus"],
+                dangerMode: true,
+            }).then((willDelete) => {
+                if (willDelete) {
+                    axios
+                        .delete(`/adminbinagram/dashboard/delete/${id}`, {
+                            data: { is_indikator: true },
+                        })
+                        .then((response) => {
+                            swal({
+                                icon: "success",
+                                title: "Successfully Deleted",
+                                text: "Data indikator berhasil dihapus",
+                            }).then(() => {
+                                window.location.reload();
+                            });
+                        })
+                        .catch((error) => {
+                            swal({
+                                icon: "error",
+                                title: "Failed Deleted",
+                                text: "Gagal menghapus data indikator",
+                            });
+                        });
+                }
+            });
+        });
+    });
+}
+
+function setupAddIndikatorPenunjangButton() {
+    document.querySelectorAll(".add-indikator-penunjang").forEach((btn) => {
+        btn.addEventListener("click", function () {
+            const indikatorId = this.dataset.indikatorId;
+            const text = this.dataset.text;
+
+            swal({
+                text: "Tambahkan Indikator Penunjang di " + text,
+                content: {
+                    element: "div",
+                    attributes: {
+                        innerHTML: `
+                            <div style="display: flex; flex-direction: column; gap: 10px;">
+                                <div style="display: flex; flex-direction: column; align-items: start; gap: 5px">
+                                    <label for="indikator_penunjang">Indikator Penunjang:</label>
+                                    <input id="input2" class="swal-content__input" placeholder="Boleh kosong" style="flex-grow: 1;">
+                                </div>
+                                <div style="display: flex; flex-direction: column; align-items: start; gap: 5px">
+                                    <label for="sub_indikator">Sub Indikator:</label>
+                                    <input id="input3" class="swal-content__input" placeholder="Boleh kosong" style="flex-grow: 1;">
+                                </div>
+                                <div style="display: flex; flex-direction: column; align-items: start; gap: 5px">
+                                    <label for="bidang">Bidang:</label>
+                                    <select id="bidangSelect" class="swal-content__select" style="flex-grow: 1; width: 100%; border: 1px solid #ccc; padding: 6px 12px;">
+                                        <option value="">pilih bidang (boleh kosong)</option>
+                                        <option value="6">Fungsi IPDS</option>
+                                        <option value="5">Fungsi Nerwilis</option>
+                                        <option value="4">Fungsi Statistik Distribusi</option>
+                                        <option value="3">Fungsi Statistik Produksi</option>
+                                        <option value="2">Fungsi Statistik Sosial</option>
+                                        <option value="1">Bagian Umum</option>
+                                    </select>
+                                </div>
+                                <div style="display: flex; flex-direction: column; align-items: start; gap: 5px">
+                                    <p>Jika terdapat data sub indikator dan bidang pemiliki sub indikator, mohon untuk langsung diinputkan</p>
+                                </div>
+                            </div>
+                        `,
+                    },
+                },
+                buttons: {
+                    cancel: true,
+                    confirm: {
+                        text: "Tambah",
+                        closeModal: false,
+                    },
+                },
+            }).then((value) => {
+                if (value === null) {
+                    return;
+                }
+
+                const input2 = document.getElementById("input2").value.trim() || null;
+                const input3 =
+                    document.getElementById("input3").value.trim() || null;
+                const bidangId = document.getElementById("bidangSelect").value || null;
+
+                // if (!input2) {
+                //     swal({
+                //         icon: "error",
+                //         title: "Failed Added",
+                //         text: "Indikator Penunjang tidak boleh kosong",
+                //     });
+                //     return;
+                // }
+
+                if (bidangId && !input3) {
+                    swal({
+                        icon: "error",
+                        title: "Failed Added",
+                        text: "Jika bidang dipilih, Sub Indikator tidak boleh kosong",
+                    });
+                    return;
+                }
+
+                const data = {
+                    indikator_penunjang: input2 === "" ? null : input2,
+                    sub_indikator: input3 === "" ? null : input3,
+                    indikator_id: indikatorId,
+                    bidang_id: bidangId === "" ? null : bidangId
+                };
+
+                axios
+                    .post("/adminbinagram/dashboard/store", data)
+                    .then((response) => {
+                        swal({
+                            icon: "success",
+                            title: "Successfully Added",
+                            text: "Data berhasil dimasukkan",
+                        }).then(() => {
+                            window.location.href = "/adminbinagram/dashboard";
+                        });
+                    })
+                    .catch((error) => {
+                        swal({
+                            icon: "error",
+                            title: "Failed Added",
+                            text: "Gagal memasukkan data",
+                        });
+                    });
+            });
+        });
+    });
+}
+
+function setupEditIndikatorPenunjangButton() {
+    document.querySelectorAll(".edit-indikator-penunjang").forEach((btn) => {
+        btn.addEventListener("click", function () {
+            const id = this.dataset.id;
+            const currentIndikatorPenunjang = this.dataset.indikator_penunjang;
+
+            swal({
+                text: "Edit Indikator Penunjang",
+                content: {
+                    element: "input",
+                    attributes: {
+                        value: currentIndikatorPenunjang,
+                    },
+                },
+                buttons: {
+                    cancel: true,
+                    confirm: {
+                        text: "Update",
+                        closeModal: false,
+                    },
+                },
+            }).then((value) => {
+                if (value === null) {
+                    return;
+                }
+
+                if (!value) {
+                    swal({
+                        icon: "error",
+                        title: "Failed Updated",
+                        text: "Indikator penunjang tidak boleh kosong",
+                    });
+                    return;
+                }
+                if (value) {
+                    const data = {
+                        indikator_penunjang: value,
+                    };
+                    axios
+                        .put(`/adminbinagram/dashboard/update/${id}`, data)
+                        .then((response) => {
+                            swal({
+                                icon: "success",
+                                title: "Successfully Updated",
+                                text: "Data indikator penunjang berhasil diperbarui",
+                            }).then(() => {
+                                window.location.href =
+                                    "/adminbinagram/dashboard";
+                            });
+                        })
+                        .catch((error) => {
+                            swal({
+                                icon: "error",
+                                title: "Failed Updated",
+                                text: "Gagal memperbarui data indikator penunjang",
+                            });
+                        });
+                }
+            });
+        });
+    });
+}
+
+function setupDeleteIndikatorPenunjangButton() {
+    document.querySelectorAll(".delete-indikator-penunjang").forEach((btn) => {
+        btn.addEventListener("click", function () {
+            const id = this.dataset.id;
+            const indikator_penunjang = this.dataset.indikator_penunjang;
+
+            swal({
+                title: "Anda yakin ingin menghapus data ini?",
+                text:
+                    "[INDIKATOR PENUNJANG] " +
+                    indikator_penunjang +
+                    "\n\nPerhatian!! Data sub indikator di indikator penunjang ini juga akan terhapus!",
+                icon: "warning",
+                buttons: ["Cancel", "Hapus"],
+                dangerMode: true,
+            }).then((willDelete) => {
+                if (willDelete) {
+                    axios
+                        .delete(`/adminbinagram/dashboard/delete/${id}`, {
+                            data: { is_indikator_penunjang: true },
+                        })
+                        .then((response) => {
+                            swal({
+                                icon: "success",
+                                title: "Successfully Deleted",
+                                text: "Data indikator penunjang berhasil dihapus",
+                            }).then(() => {
+                                window.location.reload();
+                            });
+                        })
+                        .catch((error) => {
+                            swal({
+                                icon: "error",
+                                title: "Failed Deleted",
+                                text: "Gagal menghapus data indikator penunjang",
+                            });
+                        });
+                }
+            });
+        });
+    });
+}
+
+function setupAddSubIndikatorButton() {
+    document.querySelectorAll(".add-sub-indikator").forEach((btn) => {
+        btn.addEventListener("click", function () {
+            const indikatorId = this.dataset.indikatorId;
+            const indikatorPenunjangId = this.dataset.indikatorPenunjangId;
+            const text = this.dataset.text;
+
+            swal({
+                text: "Tambahkan Indikator Penunjang di " + text,
+                content: {
+                    element: "div",
+                    attributes: {
+                        innerHTML: `
+                        <div style="display: flex; flex-direction: column; gap: 10px;">
+                        <div style="display: flex; flex-direction: column; align-items: start; gap: 5px">
+                            <label for="sub_indikator">Sub Indikator:</label>
+                            <input id="input3" class="swal-content__input" placeholder="wajib diisi" style="flex-grow: 1;">
+                        </div>
+                        <div style="display: flex; flex-direction: column; align-items: start; gap: 5px">
+                            <label for="bidang">Bidang:</label>
+                            <select id="bidangSelect" class="swal-content__select" style="flex-grow: 1; width: 100%; border: 1px solid #ccc; padding: 6px 12px;">
+                                <option value="">pilih bidang (boleh kosong)</option>
+                                <option value="6">Fungsi IPDS</option>
+                                <option value="5">Fungsi Nerwilis</option>
+                                <option value="4">Fungsi Statistik Distribusi</option>
+                                <option value="3">Fungsi Statistik Produksi</option>
+                                <option value="2">Fungsi Statistik Sosial</option>
+                                <option value="1">Bagian Umum</option>
+                            </select>
+                        </div>
+                        <div style="display: flex; flex-direction: column; align-items: start; gap: 5px">
+                            <p>Jika data sub indikator dimiliki salah satu bidang , mohon untuk pilih bidang</p>
+                        </div>
+                    </div>
+                        `,
+                    },
+                },
+                buttons: {
+                    cancel: true,
+                    confirm: {
+                        text: "Tambah",
+                        closeModal: false,
+                    },
+                },
+            }).then((value) => {
+                if (value === null) {
+                    return;
+                }
+
+                const input3 = document.getElementById("input3").value.trim();
+                const bidangId = document.getElementById("bidangSelect").value;
+
+                if (!input3) {
+                    swal({
+                        icon: "error",
+                        title: "Failed Added",
+                        text: "Sub indikator tidak boleh kosong",
+                    });
+                    return;
+                }
+
+                const data = {
+                    sub_indikator: input3,
+                    indikator_id: indikatorId ? indikatorId : null,
+                    indikator_penunjang_id: indikatorPenunjangId
+                        ? indikatorPenunjangId
+                        : null,
+                    bidang_id: bidangId,
+                };
+
+                axios
+                    .post("/adminbinagram/dashboard/store", data)
+                    .then((response) => {
+                        swal({
+                            icon: "success",
+                            title: "Successfully Added",
+                            text: "Data berhasil dimasukkan",
+                        }).then(() => {
+                            window.location.href = "/adminbinagram/dashboard";
+                        });
+                    })
+                    .catch((error) => {
+                        swal({
+                            icon: "error",
+                            title: "Failed Added",
+                            text: "Gagal memasukkan data",
+                        });
+                    });
+            });
+        });
+    });
+}
+
+function setupEditSubIndikatorButton() {
+    document.querySelectorAll(".edit-sub-indikator").forEach((btn) => {
+        btn.addEventListener("click", function () {
+            const id = this.dataset.id;
+            const currentSubIndikator = this.dataset.sub_indikator;
+            const currentBidangId = this.dataset.bidang_id || '';
+
+            swal({
+                text: "Edit Sub Indikator",
+                content: {
+                    element: "div",
+                    attributes: {
+                        innerHTML: `
+                            <div style="display: flex; flex-direction: column; gap: 10px;">
+                                <div style="display: flex; flex-direction: column; align-items: start; gap: 5px">
+                                    <label for="sub_indikator">Sub Indikator:</label>
+                                    <input id="subIndikatorInput" class="swal-content__input" value="${currentSubIndikator}" placeholder="Wajib diisi" style="flex-grow: 1;">
+                                </div>
+                                <div style="display: flex; flex-direction: column; align-items: start; gap: 5px">
+                                    <label for="bidang">Bidang:</label>
+                                    <select id="bidangSelect" class="swal-content__select" style="flex-grow: 1; width: 100%; border: 1px solid #ccc; padding: 6px 12px;">
+                                        <option value="">pilih bidang (boleh kosong)</option>
+                                        <option value="6" ${currentBidangId === '6' ? 'selected' : ''}>Fungsi IPDS</option>
+                                        <option value="5" ${currentBidangId === '5' ? 'selected' : ''}>Fungsi Nerwilis</option>
+                                        <option value="4" ${currentBidangId === '4' ? 'selected' : ''}>Fungsi Statistik Distribusi</option>
+                                        <option value="3" ${currentBidangId === '3' ? 'selected' : ''}>Fungsi Statistik Produksi</option>
+                                        <option value="2" ${currentBidangId === '2' ? 'selected' : ''}>Fungsi Statistik Sosial</option>
+                                        <option value="1" ${currentBidangId === '1' ? 'selected' : ''}>Bagian Umum</option>
+                                    </select>
+                                </div>
+                            </div>
+                        `,
+                    },
+                },
+                buttons: {
+                    cancel: true,
+                    confirm: {
+                        text: "Update",
+                        closeModal: false,
+                    },
+                },
+            }).then((value) => {
+                if (value === null) {
+                    return;
+                }
+
+                const subIndikator = document.getElementById("subIndikatorInput").value.trim();
+                const bidangId = document.getElementById("bidangSelect").value || null;
+
+                if (!subIndikator) {
+                    swal({
+                        icon: "error",
+                        title: "Failed Updated",
+                        text: "Sub indikator tidak boleh kosong",
+                    });
+                    return;
+                }
+
+                const data = {
+                    sub_indikator: subIndikator,
+                    bidang_id: bidangId === "" ? null : bidangId
+                };
+
+                axios
+                    .put(`/adminbinagram/dashboard/update/${id}`, data)
+                    .then((response) => {
+                        swal({
+                            icon: "success",
+                            title: "Successfully Updated",
+                            text: "Data sub indikator berhasil diperbarui",
+                        }).then(() => {
+                            window.location.href = "/adminbinagram/dashboard";
+                        });
+                    })
+                    .catch((error) => {
+                        swal({
+                            icon: "error",
+                            title: "Failed Updated",
+                            text: "Gagal memperbarui data sub indikator",
+                        });
+                    });
+            });
+        });
+    });
+}
+
+function setupDeleteSubIndikatorButton() {
+    document.querySelectorAll(".delete-sub-indikator").forEach((btn) => {
+        btn.addEventListener("click", function () {
+            const id = this.dataset.id;
+            const sub_indikator = this.dataset.sub_indikator;
+
+            swal({
+                title: "Anda yakin ingin menghapus data ini?",
+                text:
+                    "[SUB INDIKATOR] " +
+                    sub_indikator,
+                icon: "warning",
+                buttons: ["Cancel", "Hapus"],
+                dangerMode: true,
+            }).then((willDelete) => {
+                if (willDelete) {
+                    axios
+                        .delete(`/adminbinagram/dashboard/delete/${id}`, {
+                            data: { is_sub_indikator: true },
+                        })
+                        .then((response) => {
+                            swal({
+                                icon: "success",
+                                title: "Successfully Deleted",
+                                text: "Data sub indikator berhasil dihapus",
+                            }).then(() => {
+                                window.location.reload();
+                            });
+                        })
+                        .catch((error) => {
+                            swal({
+                                icon: "error",
+                                title: "Failed Deleted",
+                                text: "Gagal menghapus data sub indikator",
+                            });
+                        });
+                }
             });
         });
     });

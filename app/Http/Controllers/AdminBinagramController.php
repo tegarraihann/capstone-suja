@@ -67,7 +67,7 @@ class AdminBinagramController extends Controller
                     $indikator->indikator = $request->indikator;
                     $indikator->sasaran_id = $request->sasaran_id;
                     $indikator->save();
-    
+
                     $indikatorPenunjang = null;
                     if ($request->input('indikator_penunjang') !== null) {
                         $indikatorPenunjang = new IndikatorPenunjang();
@@ -75,19 +75,73 @@ class AdminBinagramController extends Controller
                         $indikatorPenunjang->indikator_id = $indikator->id;
                         $indikatorPenunjang->save();
                     }
-    
+
                     if ($request->input('sub_indikator') !== null) {
-                        $subIndikator = new SubIndikator();
-                        $subIndikator->sub_indikator = $request->sub_indikator;
-                        $subIndikator->indikator_id = $indikator->id;
-                        $subIndikator->indikator_penunjang_id = $indikatorPenunjang ? $indikatorPenunjang->id : null;
-                        $subIndikator->save();
+                        $sub_indikator = new SubIndikator();
+                        $sub_indikator->sub_indikator = $request->sub_indikator;
+                        $sub_indikator->indikator_id = $indikator->id;
+                        $sub_indikator->indikator_penunjang_id = $indikatorPenunjang ? $indikatorPenunjang->id : null;
+                        $sub_indikator->bidang_id = $request->has('bidang_id') ? $request->bidang_id : null;
+                        $sub_indikator->save();
                     }
                 });
-                
+
                 return response()->json(['message' => 'Data indikator berhasil dimasukkan'], 200);
             } catch (\Exception $e) {
                 return response()->json(['message' => 'Gagal memasukkan data indikator', 'error' => $e->getMessage()], 500);
+            }
+        } elseif ($request->has('indikator_penunjang') && $request->has('indikator_id')) {
+            // Logika untuk menyimpan indikator penunjang dan sub indikator
+            $request->validate([
+                'indikator_id' => 'required',
+            ]);
+
+            try {
+                DB::transaction(function () use ($request) {
+                    $indikator_penunjang = null;
+                    if($request->input('indikator_penunjang') !== null){
+                        $indikator_penunjang = new IndikatorPenunjang();
+                        $indikator_penunjang->indikator_penunjang = $request->indikator_penunjang;
+                        $indikator_penunjang->indikator_id = $request->indikator_id;
+                        $indikator_penunjang->save();
+                    }
+
+                    $sub_indikator = null;
+                    if ($request->input('sub_indikator') !== null) {
+                        $sub_indikator = new SubIndikator();
+                        $sub_indikator->sub_indikator = $request->sub_indikator;
+                        $sub_indikator->indikator_penunjang_id = $indikator_penunjang ? $indikator_penunjang->id : null;
+                        $sub_indikator->indikator_id = $request->indikator_id;
+                        $sub_indikator->bidang_id = $request->has('bidang_id') ? $request->bidang_id : null;
+                        $sub_indikator->save();
+                    }
+                });
+
+                return response()->json(['message' => 'Data indikator berhasil dimasukkan'], 200);
+            } catch (\Exception $e) {
+                return response()->json(['message' => 'Gagal memasukkan data indikator', 'error' => $e->getMessage()], 500);
+            }
+        } else if ($request->has('sub_indikator') && ($request->has('indikator_id') || $request->has('indikator_penunjang_id'))) {
+            // Logika untuk menyimpan sub indikator
+            $request->validate([
+                'sub_indikator' => 'required|min:6',
+                'indikator_id' => 'sometimes|nullable',
+                'indikator_penunjang_id' => 'sometimes|nullable',
+            ]);
+
+            try {
+                DB::transaction(function () use ($request) {
+                    $sub_indikator = new SubIndikator();
+                    $sub_indikator->sub_indikator = $request->sub_indikator;
+                    $sub_indikator->indikator_id = $request->has('indikator_id') ? $request->indikator_id : null;
+                    $sub_indikator->indikator_penunjang_id = $request->has('indikator_penunjang_id') ? $request->indikator_penunjang_id : null;
+                    $sub_indikator->bidang_id = $request->has('bidang_id') ? $request->bidang_id : null;
+                    $sub_indikator->save();
+                });
+
+                return response()->json(['message' => 'Data sub indikator berhasil dimasukkan'], 200);
+            } catch (\Exception $e) {
+                return response()->json(['message' => 'Gagal memasukkan data sub indikator', 'error' => $e->getMessage()], 500);
             }
         } else {
             return response()->json(['message' => 'Permintaan tidak valid'], 400);
@@ -116,8 +170,37 @@ class AdminBinagramController extends Controller
             $sasaran->save();
 
             return response()->json(['message' => 'Data sasaran berhasil diperbarui'], 200);
-        } elseif($request->has('indikator')){
+        } elseif ($request->has('indikator')) {
+            $request->validate([
+                'indikator' => 'required|min:6'
+            ]);
 
+            $indikator = Indikator::findOrFail($id);
+            $indikator->indikator = $request->indikator;
+            $indikator->save();
+
+            return response()->json(['message' => 'Data indikator berhasil diperbarui'], 200);
+        } elseif ($request->has('indikator_penunjang')) {
+            $request->validate([
+                'indikator_penunjang' => 'required|min:6'
+            ]);
+
+            $indikator_penunjang = IndikatorPenunjang::findOrFail($id);
+            $indikator_penunjang->indikator_penunjang = $request->indikator_penunjang;
+            $indikator_penunjang->save();
+
+            return response()->json(['message' => 'Data indikator penunjang berhasil diperbarui'], 200);
+        } elseif ($request->has('sub_indikator')) {
+            $request->validate([
+                'sub_indikator' => 'required|min:6'
+            ]);
+
+            $sub_indikator = SubIndikator::findOrFail($id);
+            $sub_indikator->sub_indikator = $request->sub_indikator;
+            $sub_indikator->bidang_id = $request->has('bidang_id') ? $request->bidang_id : null;
+            $sub_indikator->save();
+
+            return response()->json(['message' => 'Data indikator penunjang berhasil diperbarui'], 200);
         } else {
             return response()->json(['message' => 'Permintaan tidak valid'], 400);
         }
@@ -131,6 +214,21 @@ class AdminBinagramController extends Controller
                 $sasaran->delete();
 
                 return response()->json(['message' => 'Data sasaran berhasil dihapus'], 200);
+            } elseif (request()->has('is_indikator') && request()->is_indikator) {
+                $indikator = Indikator::findOrFail($id);
+                $indikator->delete();
+
+                return response()->json(['message' => 'Data indikator berhasil dihapus'], 200);
+            } elseif (request()->has('is_indikator_penunjang') && request()->is_indikator_penunjang) {
+                $indikator_penunjang = IndikatorPenunjang::findOrFail($id);
+                $indikator_penunjang->delete();
+
+                return response()->json(['message' => 'Data indikator penunjang berhasil dihapus'], 200);
+            } elseif (request()->has('is_sub_indikator') && request()->is_sub_indikator) {
+                $sub_indikator = SubIndikator::findOrFail($id);
+                $sub_indikator->delete();
+
+                return response()->json(['message' => 'Data sub indikator berhasil dihapus'], 200);
             } else {
                 $tujuan = Tujuan::findOrFail($id);
                 $tujuan->delete();
