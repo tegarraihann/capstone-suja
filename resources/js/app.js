@@ -1,7 +1,7 @@
 import "./bootstrap";
-import axios from "axios";
 
 document.addEventListener("DOMContentLoaded", function () {
+    handleProfilePopUp();
     setupLogoutButtons();
     highlightActiveMenuItem();
     applyFiltersFromURL();
@@ -48,19 +48,31 @@ function highlightActiveMenuItem() {
     const links = document.querySelectorAll("a.menu-item");
     links.forEach((link) =>
         window.location.pathname.includes(link.getAttribute("href"))
-            ? link.querySelector("div").classList.add("bg-blue-50", "text-blue-600")
-            : link.querySelector("div").classList.remove("bg-blue-50", "text-blue-600")
+            ? link
+                  .querySelector("div")
+                  .classList.add("bg-blue-50", "text-blue-600")
+            : link
+                  .querySelector("div")
+                  .classList.remove("bg-blue-50", "text-blue-600")
     );
 }
 
 function applyFiltersFromURL() {
     const params = new URLSearchParams(window.location.search);
-    document.querySelectorAll("select.filter-select option").forEach(
-        (opt) => opt.getAttribute("value") === params.get("filter") && opt.setAttribute("selected", true)
-    );
-    document.querySelectorAll("select.sort-order option").forEach(
-        (sort) => sort.getAttribute("value") === params.get("sort_order") && sort.setAttribute("selected", true)
-    );
+    document
+        .querySelectorAll("select.filter-select option")
+        .forEach(
+            (opt) =>
+                opt.getAttribute("value") === params.get("filter") &&
+                opt.setAttribute("selected", true)
+        );
+    document
+        .querySelectorAll("select.sort-order option")
+        .forEach(
+            (sort) =>
+                sort.getAttribute("value") === params.get("sort_order") &&
+                sort.setAttribute("selected", true)
+        );
 }
 
 function setupDropdownLists() {
@@ -68,7 +80,9 @@ function setupDropdownLists() {
         parentBtn.addEventListener("click", function () {
             const childUl = this.parentNode.nextElementSibling;
             if (childUl && childUl.classList.contains("child")) {
-                childUl.classList.contains("hidden") ? expand(childUl, this) : collapseAll(childUl, this);
+                childUl.classList.contains("hidden")
+                    ? expand(childUl, this)
+                    : collapseAll(childUl, this);
             }
         });
     });
@@ -167,10 +181,32 @@ function setupEditButtons() {
 }
 
 function setupTableSearch() {
-    document.getElementById("table-search").addEventListener("input", function (event) {
-        const searchQuery = event.target.value;
-        const url = new URL(window.location);
-        url.searchParams.set("search", searchQuery);
-        window.history.pushState({}, "", url);
+    document
+        .getElementById("table-search")
+        .addEventListener("input", function (event) {
+            const searchQuery = event.target.value;
+            const url = new URL(window.location);
+            url.searchParams.set("search", searchQuery);
+            window.history.pushState({}, "", url);
+        });
+}
+
+function handleProfilePopUp() {
+    const profileBtn = document.querySelector(".profile-btn");
+    const profileContainer = document.getElementById("profile-container");
+
+    profileBtn.addEventListener("click", (event) => {
+        event.stopPropagation(); // Prevent the click from bubbling up to the document
+        profileContainer.classList.toggle("hidden");
+    });
+
+    document.addEventListener("click", (event) => {
+        if (
+            !profileContainer.classList.contains("hidden") &&
+            !profileContainer.contains(event.target) &&
+            !profileBtn.contains(event.target)
+        ) {
+            profileContainer.classList.add("hidden");
+        }
     });
 }
