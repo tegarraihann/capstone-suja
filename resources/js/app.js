@@ -1,5 +1,4 @@
 import "./bootstrap";
-import axios from "axios";
 
 document.addEventListener("DOMContentLoaded", function () {
     setupDeleteSubIndikatorButton();
@@ -10,6 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
     setupAddIndikatorPenunjangButton();
     setupDeleteIndikatorButton();
     setupEditIndikatorButton();
+    handleProfilePopUp();
     setupAddIndikatorButton();
     setupDeleteSasaranButton();
     setupEditSasaranButton();
@@ -1156,4 +1156,24 @@ function setupTableSearch() {
             url.searchParams.set("search", searchQuery);
             window.history.pushState({}, "", url);
         });
+}
+
+function handleProfilePopUp() {
+    const profileBtn = document.querySelector(".profile-btn");
+    const profileContainer = document.getElementById("profile-container");
+
+    profileBtn.addEventListener("click", (event) => {
+        event.stopPropagation(); // Prevent the click from bubbling up to the document
+        profileContainer.classList.toggle("hidden");
+    });
+
+    document.addEventListener("click", (event) => {
+        if (
+            !profileContainer.classList.contains("hidden") &&
+            !profileContainer.contains(event.target) &&
+            !profileBtn.contains(event.target)
+        ) {
+            profileContainer.classList.add("hidden");
+        }
+    });
 }
