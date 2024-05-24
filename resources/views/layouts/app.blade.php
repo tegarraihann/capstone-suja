@@ -37,7 +37,6 @@
             @if (Auth::check())
             <img src="{{ asset('assets/logo.png') }}" class="w-16" />
             <div class="flex items-center gap-6">
-                <i class="logout-btn fa-solid fa-arrow-right-from-bracket cursor-pointer text-lg"></i>
                 <div class="relative">
                     <div
                         class="profile-btn flex select-none items-center justify-center text-white rounded-full bg-gray-700 w-7 h-7 text-xs cursor-pointer">
