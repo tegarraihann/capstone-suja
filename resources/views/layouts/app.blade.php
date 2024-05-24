@@ -20,6 +20,16 @@
             ['value' => '0', 'label' => 'Operator'],
         ];
 
+        $bidangOptions = [
+            7 => 'Pimpinan',
+            6 => 'Fungsi IPDS',
+            5 => 'Fungsi Nerwilis',
+            4 => 'Fungsi Statistik Distribusi',
+            3 => 'Fungsi Statistik Produksi',
+            2 => 'Fungsi Statistik Sosial',
+            1 => 'Bagian Umum',
+        ];
+
         $userRoleLabel = '';
         foreach ($roleOptions as $roleOption) {
             if ($roleOption['value'] == Auth::user()->role) {
@@ -30,6 +40,8 @@
 
         $firstLetter = strtoupper(substr(Auth::user()->name, 0, 1));
         $idUser = Auth::user()->id;
+        $userBidang = $bidangOptions[Auth::user()->bidang_id] ?? 'Unknown';
+
     @endphp
     <div class="wrapper">
         <!-- Header -->
@@ -98,6 +110,9 @@
                             <p class="text-sm text-start">
                                 {{ $userRoleLabel }}
                             </p>
+                        </div>
+                        <div class="bg-gradient-to-r from-blue-400 to-blue-500 text-white mt-3 px-2 py-1 rounded-md border-[1px] text-[12px]">
+                            <p>{{ $userBidang }}</p>
                         </div>
                     </div>
                 @endif

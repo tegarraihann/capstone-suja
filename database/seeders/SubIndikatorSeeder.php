@@ -514,22 +514,27 @@ class SubIndikatorSeeder extends Seeder
             [
                 'sub_indikator' => 'Jumlah target publikasi statistik sosial yang bersumber dari aktivitas statistik menerapkan standar akurasi',
                 'indikator_penunjang_id' => '5',
+                'bidang_id' => '2'
             ],
             [
                 'sub_indikator' => 'Jumlah target publikasi statistik produksi yang bersumber dari aktivitas statistik menerapkan standar akurasi',
                 'indikator_penunjang_id' => '5',
+                'bidang_id' => '3'
             ],
             [
                 'sub_indikator' => 'Jumlah target publikasi statistik distribusi yang bersumber dari aktivitas statistik menerapkan standar akurasi',
                 'indikator_penunjang_id' => '5',
+                'bidang_id' => '4'
             ],
             [
                 'sub_indikator' => 'Jumlah target publikasi statistik nerwilis yang bersumber dari aktivitas statistik menerapkan standar akurasi',
                 'indikator_penunjang_id' => '5',
+                'bidang_id' => '5'
             ],
             [
                 'sub_indikator' => 'Jumlah target publikasi IPDS yang bersumber dari aktivitas statistik menerapkan standar akurasi',
                 'indikator_penunjang_id' => '5',
+                'bidang_id' => '6'
             ],
 
             // *****************************************

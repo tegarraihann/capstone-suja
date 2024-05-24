@@ -14,7 +14,7 @@ class OperatorController extends Controller
         $iku = Tujuan::where('iku', 0)->with(['sasaran.indikator.indikator_penunjang', 'sasaran.indikator.sub_indikator'])->get();
         $iku_sup = Tujuan::where('iku', 1)->with(['sasaran.indikator.indikator_penunjang', 'sasaran.indikator.sub_indikator'])->get();
 
-        return view('adminbinagram.dashboard', ['iku' => $iku, 'iku_sup' => $iku_sup]);
+        return view('operator.dashboard', ['iku' => $iku, 'iku_sup' => $iku_sup]);
     }
 
     public function view_add_master_data()
@@ -48,13 +48,13 @@ class OperatorController extends Controller
         // Menentukan triwulan berdasarkan bulan saat ini
         $month = now()->month;
         if ($month >= 1 && $month <= 3) {
-            $triwulan = 1;
+            $triwulan = "1";
         } elseif ($month >= 4 && $month <= 6) {
-            $triwulan = 2;
+            $triwulan = "2";
         } elseif ($month >= 7 && $month <= 9) {
-            $triwulan = 3;
+            $triwulan = "3";
         } else {
-            $triwulan = 4;
+            $triwulan = "4";
         }
 
         // Menyusun data untuk disimpan

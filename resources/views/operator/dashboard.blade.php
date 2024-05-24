@@ -3,109 +3,413 @@
 @section('title', 'Operator dashboard')
 
 @section('content')
-<div class="w-full p-5 h-full">
-    <div class="flex w-full justify-between items-center gap-4">
-        <div
-            class="bg-white w-[350px] h-[250px] shadow-md flex flex-col items-center justify-center p-5 rounded-md relative overflow-hidden">
-            <p class="text-gray-500 text-sm self-start">AKUN BARU</p>
-            <div class="flex justify-center items-center gap-2 flex-col w-full h-4/5">
-                <div class="flex items-center gap-4">
-                    <p class="font-medium text-6xl">159</p>
-                </div>
-                <div class="flex items-center gap-2 text-green-400">
-                    <i class="fa-solid fa-angle-up text-2xl "></i>
-                    <p class="font-medium text-3xl">15%</p>
-                </div>
-                <p class="text-sm text-gray-500 mt-5">Dalam 30 hari terakhir</p>
-            </div>
-            <div class="absolute h-[3px] w-full bg-primary-500 bottom-0">
+    @php
+        function getQuarter()
+        {
+            $month = date('n');
+            if ($month >= 1 && $month <= 3) {
+                return '1';
+            } elseif ($month >= 4 && $month <= 6) {
+                return '2';
+            } elseif ($month >= 7 && $month <= 9) {
+                return '3';
+            } else {
+                return '4';
+            }
+        }
 
-            </div>
-        </div>
-        <div
-            class="bg-white w-[350px] h-[250px] shadow-md flex flex-col items-center justify-center p-5 rounded-md relative overflow-hidden">
-            <p class="text-gray-500 text-sm self-start">AKUN BARU</p>
-            <div class="flex justify-center items-center gap-2 flex-col w-full h-4/5">
-                <div class="flex items-center gap-4">
-                    <p class="font-medium text-6xl">159</p>
-                </div>
-                <div class="flex items-center gap-2 text-green-400">
-                    <i class="fa-solid fa-angle-up text-2xl "></i>
-                    <p class="font-medium text-3xl">15%</p>
-                </div>
-                <p class="text-sm text-gray-500 mt-5">Dalam 30 hari terakhir</p>
-            </div>
-            <div class="absolute h-[3px] w-full bg-red-500 bottom-0">
+        $bidangOptions = [
+            7 => 'Pimpinan',
+            6 => 'Fungsi IPDS',
+            5 => 'Fungsi Nerwilis',
+            4 => 'Fungsi Statistik Distribusi',
+            3 => 'Fungsi Statistik Produksi',
+            2 => 'Fungsi Statistik Sosial',
+            1 => 'Bagian Umum',
+        ];
 
-            </div>
-        </div>
-        <div
-            class="bg-white w-[350px] h-[250px] shadow-md flex flex-col items-center justify-center p-5 rounded-md relative overflow-hidden">
-            <p class="text-gray-500 text-sm self-start">AKUN BARU</p>
-            <div class="flex justify-center items-center gap-2 flex-col w-full h-4/5">
-                <div class="flex items-center gap-4">
-                    <p class="font-medium text-6xl">159</p>
-                </div>
-                <div class="flex items-center gap-2 text-green-400">
-                    <i class="fa-solid fa-angle-up text-2xl "></i>
-                    <p class="font-medium text-3xl">15%</p>
-                </div>
-                <p class="text-sm text-gray-500 mt-5">Dalam 30 hari terakhir</p>
-            </div>
-            <div class="absolute h-[3px] w-full bg-green-500 bottom-0">
-
-            </div>
-        </div>
-        <div
-            class="bg-white w-[350px] h-[250px] shadow-md flex flex-col items-center justify-center p-5 rounded-md relative overflow-hidden">
-            <p class="text-gray-500 text-sm self-start">AKUN BARU</p>
-            <div class="flex justify-center items-center gap-2 flex-col w-full h-4/5">
-                <div class="flex items-center gap-4">
-                    <p class="font-medium text-6xl">159</p>
-                </div>
-                <div class="flex items-center gap-2 text-green-400">
-                    <i class="fa-solid fa-angle-up text-2xl "></i>
-                    <p class="font-medium text-3xl">15%</p>
-                </div>
-                <p class="text-sm text-gray-500 mt-5">Dalam 30 hari terakhir</p>
-            </div>
-            <div class="absolute h-[3px] w-full bg-orange-500 bottom-0">
-
-            </div>
+        $triwulan = getQuarter();
+        $userBidang = $bidangOptions[Auth::user()->bidang_id] ?? 'Unknown';
+    @endphp
+    <div class="w-full p-5 h-full">
+        <h2 class="text-gray-600 font-semibold text-2xl">Isi Capaian Kinerja Triwulan Ke-{{ $triwulan }}</h2>
+        <p class="text-gray-600 font-light text-lg mt-2">{{ $userBidang }}</p>
+        <div class="mt-10 bg-white p-5 rounded shadow">
+            <ul class="flex flex-col gap-4">
+                <li class="">
+                    <div class="parent flex items-center gap-5">
+                        <i
+                            class="fa-solid btn fa-plus cursor-pointer p-2 rounded-md text-gray-800 w-auto h-auto bg-gray-100 hover:bg-gray-200 block"></i>
+                        <div
+                            class="p-4 rounded-md border-blue-300 border-2 flex justify-between w-full items-center bg-blue-50">
+                            <p>Indikator Kinerja Utama</p>
+                        </div>
+                    </div>
+                    <ul class="child hidden ml-[14px] flex flex-col border-orange-300 border-l-2">
+                        @foreach ($iku as $tujuan)
+                            @if (Auth::user()->bidang_id !== 1 && $tujuan->id !== 5)
+                                <li class="ml-7 mt-4">
+                                    <div class="parent flex items-center gap-5">
+                                        <i
+                                            class="fa-solid btn fa-plus cursor-pointer p-2 rounded-md text-gray-800 w-auto h-auto bg-gray-100 hover:bg-gray-200 block"></i>
+                                        <div
+                                            class="p-4 rounded-md border-orange-300 border-2 flex justify-between w-full items-center bg-orange-50">
+                                            <p class="block w-[90%] "><span class="">[ TUJUAN ]</span>
+                                                {{ $tujuan->tujuan }}</p>
+                                        </div>
+                                    </div>
+                                    <ul class="child hidden ml-[14px] flex flex-col border-green-300 border-l-2">
+                                        @foreach ($tujuan->sasaran as $sasaran)
+                                            <li class="ml-7 mt-4">
+                                                <div class="parent flex items-center gap-5">
+                                                    <i
+                                                        class="fa-solid btn fa-plus cursor-pointer p-2 rounded-md text-gray-800 w-auto h-auto bg-gray-100 hover:bg-gray-200 block"></i>
+                                                    <div
+                                                        class="p-4 rounded-md border-green-300 border-2 flex justify-between w-full items-center bg-green-50">
+                                                        <p class="block w-[90%] "><span class="">[ SASARAN ]</span>
+                                                            {{ $sasaran->sasaran }}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                @if ($sasaran->indikator->isNotEmpty())
+                                                    <ul
+                                                        class="child hidden ml-[14px] flex flex-col border-yellow-300 border-l-2">
+                                                        @foreach ($sasaran->indikator as $indikator)
+                                                            <li class="ml-7 mt-4">
+                                                                @if ($indikator->indikator_penunjang()->exists() || $indikator->sub_indikator->isNotEmpty())
+                                                                    <div class="parent flex items-center gap-5">
+                                                                        <i
+                                                                            class="fa-solid btn fa-plus cursor-pointer p-2 rounded-md text-gray-800 w-auto h-auto bg-gray-100 hover:bg-gray-200 block"></i>
+                                                                        <div
+                                                                            class="p-4 rounded-md border-yellow-300 border-2 flex justify-between w-full items-center bg-yellow-50">
+                                                                            <p class="block w-[90%] "><span class="">[
+                                                                                    INDIKATOR ]</span>
+                                                                                {{ $indikator->indikator }}</p>
+                                                                        </div>
+                                                                    </div>
+                                                                    @if ($indikator->indikator_penunjang()->exists())
+                                                                        <ul
+                                                                            class="child hidden ml-[14px] flex flex-col gap-4 border-purple-300 border-l-2">
+                                                                            @foreach ($indikator->indikator_penunjang as $indikator_penunjang)
+                                                                                <li class="ml-7 mt-4">
+                                                                                    @if ($indikator_penunjang->sub_indikator->isNotEmpty())
+                                                                                        <div
+                                                                                            class="parent flex items-center gap-5">
+                                                                                            <i
+                                                                                                class="fa-solid btn fa-plus cursor-pointer p-2 rounded-md text-gray-800 w-auto h-auto bg-gray-100 hover:bg-gray-200 block"></i>
+                                                                                            <div
+                                                                                                class="p-4 rounded-md border-purple-300 border-2 flex justify-between w-full items-center bg-purple-50">
+                                                                                                <p class="block w-[90%] ">
+                                                                                                    <span class="">[
+                                                                                                        INDIKATOR PENUNJANG
+                                                                                                        ]</span>
+                                                                                                    {{ $indikator_penunjang->indikator_penunjang }}
+                                                                                                </p>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <ul
+                                                                                            class="child hidden ml-[14px] flex flex-col gap-4 border-cyan-300 border-l-2">
+                                                                                            @foreach ($indikator_penunjang->sub_indikator as $sub_indikator)
+                                                                                                @if ($sub_indikator->bidang_id === null || $sub_indikator->bidang_id === Auth::user()->bidang_id)
+                                                                                                    <li class="ml-16 mt-4">
+                                                                                                        <div
+                                                                                                            class="parent flex items-center gap-5">
+                                                                                                            <div
+                                                                                                                class="p-4 rounded-md border-cyan-300 border-2 flex justify-between w-full items-center bg-cyan-50">
+                                                                                                                <p><span
+                                                                                                                        class="">[
+                                                                                                                        SUB
+                                                                                                                        INDIKATOR
+                                                                                                                        ]</span>
+                                                                                                                    {{ $sub_indikator->sub_indikator }}
+                                                                                                                </p>
+                                                                                                                <div
+                                                                                                                    class="flex gap-4">
+                                                                                                                    buttons
+                                                                                                                    here
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </li>
+                                                                                                @endif
+                                                                                            @endforeach
+                                                                                        </ul>
+                                                                                    @else
+                                                                                        <div
+                                                                                            class="parent flex items-center gap-5">
+                                                                                            <div
+                                                                                                class="ml-12 p-4 rounded-md border-purple-300 border-2 flex justify-between w-full items-center bg-purple-50">
+                                                                                                <p><span class="">[
+                                                                                                        INDIKATOR PENUNJANG
+                                                                                                        ]</span>
+                                                                                                    {{ $indikator_penunjang->indikator_penunjang }}
+                                                                                                </p>
+                                                                                                <div class="flex gap-4">
+                                                                                                    buttons here
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    @endif
+                                                                                </li>
+                                                                            @endforeach
+                                                                        </ul>
+                                                                    @else
+                                                                        <ul
+                                                                            class="child hidden ml-[14px] flex flex-col gap-4 border-cyan-300 border-l-2">
+                                                                            @foreach ($indikator->sub_indikator as $sub_indikator)
+                                                                                <li class="ml-16 mt-4">
+                                                                                    <div
+                                                                                        class="parent flex items-center gap-5">
+                                                                                        <div
+                                                                                            class="p-4 rounded-md border-cyan-300 border-2 flex justify-between w-full items-center bg-cyan-50">
+                                                                                            <p><span class="">[ SUB
+                                                                                                    INDIKATOR ]</span>
+                                                                                                {{ $sub_indikator->sub_indikator }}
+                                                                                            </p>
+                                                                                            <div class="flex gap-4">
+                                                                                                buttons here
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </li>
+                                                                            @endforeach
+                                                                        </ul>
+                                                                    @endif
+                                                                @else
+                                                                    <div class="parent flex items-center gap-5">
+                                                                        <div
+                                                                            class="ml-12 p-4 rounded-md border-yellow-300 border-2 flex justify-between w-full items-center bg-yellow-50">
+                                                                            <p><span class="">[ INDIKATOR ]</span>
+                                                                                {{ $indikator->indikator }}</p>
+                                                                            <div class="flex gap-4">
+                                                                                buttons here
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                @endif
+                                                            </li>
+                                                        @endforeach
+                                                    </ul>
+                                                @endif
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </li>
+                            @elseif (Auth::user()->bidang_id === 1 && $tujuan->id === 5)
+                                <li class="ml-7 mt-4">
+                                    <div class="parent flex items-center gap-5">
+                                        <i
+                                            class="fa-solid btn fa-plus cursor-pointer p-2 rounded-md text-gray-800 w-auto h-auto bg-gray-100 hover:bg-gray-200 block"></i>
+                                        <div
+                                            class="p-4 rounded-md border-orange-300 border-2 flex justify-between w-full items-center bg-orange-50">
+                                            <p class="block w-[90%] "><span class="">[ TUJUAN ]</span>
+                                                {{ $tujuan->tujuan }}</p>
+                                        </div>
+                                    </div>
+                                    <ul class="child hidden ml-[14px] flex flex-col border-green-300 border-l-2">
+                                        @foreach ($tujuan->sasaran as $sasaran)
+                                            <li class="ml-7 mt-4">
+                                                <div class="parent flex items-center gap-5">
+                                                    <i
+                                                        class="fa-solid btn fa-plus cursor-pointer p-2 rounded-md text-gray-800 w-auto h-auto bg-gray-100 hover:bg-gray-200 block"></i>
+                                                    <div
+                                                        class="p-4 rounded-md border-green-300 border-2 flex justify-between w-full items-center bg-green-50">
+                                                        <p class="block w-[90%] "><span class="">[ SASARAN
+                                                                ]</span>
+                                                            {{ $sasaran->sasaran }}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                @if ($sasaran->indikator->isNotEmpty())
+                                                    <ul
+                                                        class="child hidden ml-[14px] flex flex-col border-yellow-300 border-l-2">
+                                                        @foreach ($sasaran->indikator as $indikator)
+                                                            <li class="ml-7 mt-4">
+                                                                @if ($indikator->indikator_penunjang()->exists() || $indikator->sub_indikator->isNotEmpty())
+                                                                    <div class="parent flex items-center gap-5">
+                                                                        <i
+                                                                            class="fa-solid btn fa-plus cursor-pointer p-2 rounded-md text-gray-800 w-auto h-auto bg-gray-100 hover:bg-gray-200 block"></i>
+                                                                        <div
+                                                                            class="p-4 rounded-md border-yellow-300 border-2 flex justify-between w-full items-center bg-yellow-50">
+                                                                            <p class="block w-[90%] "><span class="">[
+                                                                                    INDIKATOR ]</span>
+                                                                                {{ $indikator->indikator }}</p>
+                                                                        </div>
+                                                                    </div>
+                                                                    @if ($indikator->indikator_penunjang()->exists())
+                                                                        <ul
+                                                                            class="child hidden ml-[14px] flex flex-col gap-4 border-purple-300 border-l-2">
+                                                                            @foreach ($indikator->indikator_penunjang as $indikator_penunjang)
+                                                                                <li class="ml-7 mt-4">
+                                                                                    @if ($indikator_penunjang->sub_indikator->isNotEmpty())
+                                                                                        <div
+                                                                                            class="parent flex items-center gap-5">
+                                                                                            <i
+                                                                                                class="fa-solid btn fa-plus cursor-pointer p-2 rounded-md text-gray-800 w-auto h-auto bg-gray-100 hover:bg-gray-200 block"></i>
+                                                                                            <div
+                                                                                                class="p-4 rounded-md border-purple-300 border-2 flex justify-between w-full items-center bg-purple-50">
+                                                                                                <p class="block w-[90%] ">
+                                                                                                    <span class="">[
+                                                                                                        INDIKATOR
+                                                                                                        PENUNJANG
+                                                                                                        ]</span>
+                                                                                                    {{ $indikator_penunjang->indikator_penunjang }}
+                                                                                                </p>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <ul
+                                                                                            class="child hidden ml-[14px] flex flex-col gap-4 border-cyan-300 border-l-2">
+                                                                                            @foreach ($indikator_penunjang->sub_indikator as $sub_indikator)
+                                                                                                @if ($sub_indikator->bidang_id === null || $sub_indikator->bidang_id === Auth::user()->bidang_id)
+                                                                                                    <li class="ml-16 mt-4">
+                                                                                                        <div
+                                                                                                            class="parent flex items-center gap-5">
+                                                                                                            <div
+                                                                                                                class="p-4 rounded-md border-cyan-300 border-2 flex justify-between w-full items-center bg-cyan-50">
+                                                                                                                <p><span
+                                                                                                                        class="">[
+                                                                                                                        SUB
+                                                                                                                        INDIKATOR
+                                                                                                                        ]</span>
+                                                                                                                    {{ $sub_indikator->sub_indikator }}
+                                                                                                                </p>
+                                                                                                                <div
+                                                                                                                    class="flex gap-4">
+                                                                                                                    buttons
+                                                                                                                    here
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </li>
+                                                                                                @endif
+                                                                                            @endforeach
+                                                                                        </ul>
+                                                                                    @else
+                                                                                        <div
+                                                                                            class="parent flex items-center gap-5">
+                                                                                            <div
+                                                                                                class="ml-12 p-4 rounded-md border-purple-300 border-2 flex justify-between w-full items-center bg-purple-50">
+                                                                                                <p><span class="">[
+                                                                                                        INDIKATOR
+                                                                                                        PENUNJANG
+                                                                                                        ]</span>
+                                                                                                    {{ $indikator_penunjang->indikator_penunjang }}
+                                                                                                </p>
+                                                                                                <div class="flex gap-4">
+                                                                                                    buttons here
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    @endif
+                                                                                </li>
+                                                                            @endforeach
+                                                                        </ul>
+                                                                    @else
+                                                                        <ul
+                                                                            class="child hidden ml-[14px] flex flex-col gap-4 border-cyan-300 border-l-2">
+                                                                            @foreach ($indikator->sub_indikator as $sub_indikator)
+                                                                                <li class="ml-16 mt-4">
+                                                                                    <div
+                                                                                        class="parent flex items-center gap-5">
+                                                                                        <div
+                                                                                            class="p-4 rounded-md border-cyan-300 border-2 flex justify-between w-full items-center bg-cyan-50">
+                                                                                            <p><span class="">[
+                                                                                                    SUB
+                                                                                                    INDIKATOR ]</span>
+                                                                                                {{ $sub_indikator->sub_indikator }}
+                                                                                            </p>
+                                                                                            <div class="flex gap-4">
+                                                                                                buttons here
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </li>
+                                                                            @endforeach
+                                                                        </ul>
+                                                                    @endif
+                                                                @else
+                                                                    <div class="parent flex items-center gap-5">
+                                                                        <div
+                                                                            class="ml-12 p-4 rounded-md border-yellow-300 border-2 flex justify-between w-full items-center bg-yellow-50">
+                                                                            <p><span class="">[ INDIKATOR
+                                                                                    ]</span>
+                                                                                {{ $indikator->indikator }}</p>
+                                                                            <div class="flex gap-4">
+                                                                                buttons here
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                @endif
+                                                            </li>
+                                                        @endforeach
+                                                    </ul>
+                                                @endif
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </li>
+                            @endif
+                        @endforeach
+                    </ul>
+                </li>
+                <li class="">
+                    <div class="parent flex items-center gap-5">
+                        <i
+                            class="fa-solid btn fa-plus cursor-pointer p-2 rounded-md text-gray-800 w-auto h-auto bg-gray-100 hover:bg-gray-200 block"></i>
+                        <div
+                            class="p-4 rounded-md border-blue-300 border-2 flex justify-between w-full items-center bg-blue-50">
+                            <p>Indikator Kinerja Utama Suplemen</p>
+                        </div>
+                    </div>
+                    <ul class="child hidden ml-[14px] flex flex-col border-orange-300 border-l-2">
+                        @foreach ($iku_sup as $tujuan)
+                            <li class="ml-7 mt-4">
+                                <div class="parent flex items-center gap-5">
+                                    <i
+                                        class="fa-solid btn fa-plus cursor-pointer p-2 rounded-md text-gray-800 w-auto h-auto bg-gray-100 hover:bg-gray-200 block"></i>
+                                    <div
+                                        class="p-4 rounded-md border-orange-300 border-2 flex justify-between w-full items-center bg-orange-50">
+                                        <p class="block w-[90%] "><span class="">[ TUJUAN ]</span>
+                                            {{ $tujuan->tujuan }}</p>
+                                    </div>
+                                </div>
+                                <ul class="child hidden ml-[14px] flex flex-col border-green-300 border-l-2">
+                                    @foreach ($tujuan->sasaran as $sasaran)
+                                        <li class="ml-7 mt-4">
+                                            <div class="parent flex items-center gap-5">
+                                                <i
+                                                    class="fa-solid btn fa-plus cursor-pointer p-2 rounded-md text-gray-800 w-auto h-auto bg-gray-100 hover:bg-gray-200 block"></i>
+                                                <div
+                                                    class="p-4 rounded-md border-green-300 border-2 flex justify-between w-full items-center bg-green-50">
+                                                    <p class="block w-[90%] "><span class="">[ SASARAN ]</span>
+                                                        {{ $sasaran->sasaran }}
+                                                </div>
+                                            </div>
+                                            <ul class="child hidden ml-[14px] flex flex-col border-yellow-300 border-l-2">
+                                                @foreach ($sasaran->indikator as $indikator)
+                                                    <li class="ml-16 mt-4">
+                                                        <div class="parent flex items-center gap-5">
+                                                            <div
+                                                                class="p-4 rounded-md border-yellow-300 border-2 flex justify-between w-full items-center bg-yellow-50">
+                                                                <p class="block w-[90%] "><span class="">[ INDIKATOR
+                                                                        ]</span>
+                                                                    {{ $indikator->indikator }}</p>
+                                                                <div class="flex gap-4">
+                                                                    buttons here
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </li>
+                        @endforeach
+                    </ul>
+                </li>
+            </ul>
         </div>
     </div>
-    <div class="w-full flex justify-end mt-10">
-        <button
-            class="flex items-center gap-2 bg-blue-50 text-blue-600 py-3 px-6 rounded-md font-medium hover:bg-blue-200 transition-all">
-            Tambah User
-            <i class="fa solid fa-plus"></i>
-        </button>
-    </div>
-    <table class="table-fixed mt-10 w-full">
-        <thead>
-            <tr>
-                <th>Song</th>
-                <th>Artist</th>
-                <th>Year</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>The Sliding Mr. Bones (Next Stop, Pottersville)</td>
-                <td>Malcolm Lockyer</td>
-                <td>1961</td>
-            </tr>
-            <tr>
-                <td>Witchy Woman</td>
-                <td>The Eagles</td>
-                <td>1972</td>
-            </tr>
-            <tr>
-                <td>Shining Star</td>
-                <td>Earth, Wind, and Fire</td>
-                <td>1975</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
 @endsection
