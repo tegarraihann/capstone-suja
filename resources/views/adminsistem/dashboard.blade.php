@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="w-full p-5 h-full">
-
+        
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg p-4 bg-white mt-3">
             <div class="w-full flex justify-between">
                 <div class="bg-white">
@@ -20,7 +20,8 @@
                 <div>
                     <form action="{{ route('search-user') }}" method="GET" id="form-sorting">
                         <label for="filter" class="mr-2">Filter:</label>
-                        <select required name="filter" id="filter" class="px-4 py-2 text-sm outline-none cursor-pointer filter-select">
+                        <select required name="filter" id="filter"
+                            class="px-4 py-2 text-sm outline-none cursor-pointer filter-select">
                             <option value="">Pilih</option>
                             <option value="nip">NIP</option>
                             <option value="name">Nama</option>
@@ -29,8 +30,9 @@
                             <option value="nama_bidang">Bidang
                             </option>
                         </select>
-                        <select required name="sort_order" id="sort_order" class="px-4 py-2 text-sm outline-none cursor-pointer sort-order">
-                            <option value="" >Pilih</option>
+                        <select required name="sort_order" id="sort_order"
+                            class="px-4 py-2 text-sm outline-none cursor-pointer sort-order">
+                            <option value="">Pilih</option>
                             <option value="asc">Asc</option>
                             <option value="desc">Desc</option>
                         </select>
