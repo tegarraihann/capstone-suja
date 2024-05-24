@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
@@ -52,6 +53,11 @@ class User extends Authenticatable
     public function bidang(): BelongsTo
     {
         return $this->belongsTo(Bidang::class, "bidang_id", "id");
+    }
+
+    public function data_iku(): HasMany
+    {
+        return $this->hasMany(DataIku::class, 'upload_by', 'id');
     }
 
     // protected static function boot()

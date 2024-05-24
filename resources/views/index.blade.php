@@ -64,14 +64,14 @@
                 <input required class="input" type="email" value="{{ old('email') }}" name="email" />
                 <label
                     class="label absolute top-6 left-4 text-[#ccc] transition-all duration-300 ease-in-out pointer-events-none z-2"
-                    for="input">Masukkan Email</label>
+                    for="input">Email</label>
             </div>
             <div class="input-field relative w-full">
                 <i class="fas fa-lock"></i>
                 <input required class="input" type="password" name="password" />
                 <label
                     class="label absolute top-6 left-4 text-[#ccc] transition-all duration-300 ease-in-out pointer-events-none z-2"
-                    for="input">Masukkan Password</label>
+                    for="input">Password</label>
             </div>
             <button type="submit" id="submit"
                 class="submit-btn mt-8 h-11 bg-primary-600 rounded-lg border-none outline-none text-white text-lg font-medium shadow-lg transition-all duration-300 ease-in-out cursor-pointer ">Masuk</button>

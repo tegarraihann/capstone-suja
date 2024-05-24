@@ -50,4 +50,6 @@ Route::group(['middleware' => ['adminapproval', 'no-cache']], function () {
 Route::group(['middleware' => ['operator', 'no-cache']], function () {
     Route::get('operator/dashboard', [DashboardController::class, "dashboard"]);
     Route::get('operator/edit-user/{id}', [AdminSistemController::class, "view_update_user"]);
+    Route::get('operator/dashboard', [AdminBinagramController::class, "view_master_data"]);
+    Route::get('operator/tambah-master-data', [AdminBinagramController::class, "view_add_master_data"]);
 });
