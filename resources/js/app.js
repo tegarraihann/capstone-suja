@@ -1142,7 +1142,19 @@ function setupEditButtons() {
     document.querySelectorAll(".btn-update").forEach((icon) =>
         icon.addEventListener("click", function () {
             const userId = this.dataset.id;
-            window.location.href = `/adminsistem/edit-user/${userId}`;
+            let path = window.location.pathname;
+
+            if (path.includes('/adminsistem')) {
+                window.location.href = `/adminsistem/edit-user/${userId}`;
+            } else if (path.includes('/adminbinagram')) {
+                window.location.href = `/adminbinagram/edit-user/${userId}`;
+            } else if (path.includes('/pimpinan')) {
+                window.location.href = `/pimpinan/edit-user/${userId}`;
+            } else if (path.includes('/adminapproval')) {
+                window.location.href = `/adminapproval/edit-user/${userId}`;
+            } else if (path.includes('/operator')) {
+                window.location.href = `/operator/edit-user/${userId}`;
+            }
         })
     );
 }

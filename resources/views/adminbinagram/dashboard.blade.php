@@ -144,8 +144,7 @@
                                                                                                                 data-id="{{ $sub_indikator->id }}"
                                                                                                                 data-sub_indikator="{{ $sub_indikator->sub_indikator }}"
                                                                                                                 data-bidang_id="{{ $sub_indikator->bidang_id }}"></i>
-                                                                                                            <i
-                                                                                                                class="delete-sub-indikator fa-solid fa-trash text-red-500 cursor-pointer"
+                                                                                                            <i class="delete-sub-indikator fa-solid fa-trash text-red-500 cursor-pointer"
                                                                                                                 data-id="{{ $sub_indikator->id }}"
                                                                                                                 data-sub_indikator="{{ $sub_indikator->sub_indikator }}"></i>
                                                                                                         </div>
@@ -196,8 +195,7 @@
                                                                                                 data-id="{{ $sub_indikator->id }}"
                                                                                                 data-sub_indikator="{{ $sub_indikator->sub_indikator }}"
                                                                                                 data-bidang_id="{{ $sub_indikator->bidang_id }}"></i>
-                                                                                            <i
-                                                                                                class="delete-sub-indikator fa-solid fa-trash text-red-500 cursor-pointer"
+                                                                                            <i class="delete-sub-indikator fa-solid fa-trash text-red-500 cursor-pointer"
                                                                                                 data-id="{{ $sub_indikator->id }}"
                                                                                                 data-sub_indikator="{{ $sub_indikator->sub_indikator }}"></i>
                                                                                         </div>
@@ -323,4 +321,5 @@
                 </li>
             </ul>
         </div>
-    @endsection
+    </div>
+@endsection
