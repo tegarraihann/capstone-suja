@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
 
 class User extends Authenticatable
 {
@@ -52,4 +53,15 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Bidang::class, "bidang_id", "id");
     }
+
+    // protected static function boot()
+    // {
+    //     parent::boot();
+
+    //     static::creating(function ($model) {
+    //         if (empty($model->{$model->getKeyName()})) {
+    //             $model->{$model->getKeyName()} = (string) Str::uuid();
+    //         }
+    //     });
+    // }
 }

@@ -156,20 +156,18 @@ class AdminSistemController extends Controller
     {
         $roleOptions = $this->getRoleOptions();
 
-        // Simpan nilai filter dan urutan sort dalam sesi
         session()->put('filter', $request->input('filter'));
         session()->put('sort_order', $request->input('sort_order'));
 
         $search = $request->input('search');
-        $filter = session('filter', 'name'); // Default filter 'name'
-        $sortOrder = session('sort_order', 'asc'); // Default sort order 'asc'
+        $filter = session('filter', 'name'); 
+        $sortOrder = session('sort_order', 'asc'); 
 
         $adminSystemCurrent = Auth::user()->id;
         $usersQuery = User::where('users.id', '!=', $adminSystemCurrent)
             ->join('bidang', 'users.bidang_id', '=', 'bidang.id')
             ->select('users.*', 'bidang.nama_bidang');
 
-        // Apply search filter
         $usersQuery->where(function ($query) use ($search, $filter) {
             $query->where('users.name', 'like', '%' . $search . '%')
                 ->orWhere('users.nip', 'like', '%' . $search . '%')
@@ -178,8 +176,7 @@ class AdminSistemController extends Controller
                 ->orWhere('users.role', 'like', '%' . $search . '%');
         });
 
-        // Apply sorting based on filter and sort_order
-        $orderByColumn = 'users.id'; // Default sorting by ID
+        $orderByColumn = 'users.id'; 
 
         if ($filter === 'nip') {
             $orderByColumn = 'users.nip';

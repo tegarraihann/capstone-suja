@@ -43,7 +43,7 @@
             })
         </script>
     @endif
-    @if (session('logout_success'))
+    @if (session('logout_success') && !Cookie::has('remember_web_'))
         <script>
             swal("Success logout", "{{ session('logout_success') }}", "success");
         </script>
