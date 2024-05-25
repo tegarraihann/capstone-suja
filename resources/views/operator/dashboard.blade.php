@@ -54,7 +54,7 @@
                                             class="fa-solid btn fa-plus cursor-pointer p-2 rounded-md text-gray-800 w-auto h-auto bg-gray-100 hover:bg-gray-200 block"></i>
                                         <div
                                             class="p-4 rounded-md border-orange-300 border-2 flex justify-between w-full items-center bg-orange-50">
-                                            <p class="block w-[90%] "><span class="">[ TUJUAN ]</span>
+                                            <p class="block w-[85%] "><span class="">[ TUJUAN ]</span>
                                                 {{ $tujuan->tujuan }}</p>
                                         </div>
                                     </div>
@@ -66,7 +66,7 @@
                                                         class="fa-solid btn fa-plus cursor-pointer p-2 rounded-md text-gray-800 w-auto h-auto bg-gray-100 hover:bg-gray-200 block"></i>
                                                     <div
                                                         class="p-4 rounded-md border-green-300 border-2 flex justify-between w-full items-center bg-green-50">
-                                                        <p class="block w-[90%] "><span class="">[ SASARAN ]</span>
+                                                        <p class="block w-[85%] "><span class="">[ SASARAN ]</span>
                                                             {{ $sasaran->sasaran }}
                                                         </p>
                                                     </div>
@@ -82,7 +82,7 @@
                                                                             class="fa-solid btn fa-plus cursor-pointer p-2 rounded-md text-gray-800 w-auto h-auto bg-gray-100 hover:bg-gray-200 block"></i>
                                                                         <div
                                                                             class="p-4 rounded-md border-yellow-300 border-2 flex justify-between w-full items-center bg-yellow-50">
-                                                                            <p class="block w-[90%] "><span class="">[
+                                                                            <p class="block w-[85%] "><span class="">[
                                                                                     INDIKATOR ]</span>
                                                                                 {{ $indikator->indikator }}</p>
                                                                         </div>
@@ -99,7 +99,7 @@
                                                                                                 class="fa-solid btn fa-plus cursor-pointer p-2 rounded-md text-gray-800 w-auto h-auto bg-gray-100 hover:bg-gray-200 block"></i>
                                                                                             <div
                                                                                                 class="p-4 rounded-md border-purple-300 border-2 flex justify-between w-full items-center bg-purple-50">
-                                                                                                <p class="block w-[90%] ">
+                                                                                                <p class="block w-[85%] ">
                                                                                                     <span class="">[
                                                                                                         INDIKATOR PENUNJANG
                                                                                                         ]</span>
@@ -116,18 +116,19 @@
                                                                                                             class="parent flex items-center gap-5">
                                                                                                             <div
                                                                                                                 class="p-4 rounded-md border-cyan-300 border-2 flex justify-between w-full items-center bg-cyan-50">
-                                                                                                                <p><span
+                                                                                                                <p class="block w-[85%]"><span
                                                                                                                         class="">[
                                                                                                                         SUB
                                                                                                                         INDIKATOR
                                                                                                                         ]</span>
                                                                                                                     {{ $sub_indikator->sub_indikator }}
                                                                                                                 </p>
-                                                                                                                <div
-                                                                                                                    class="flex gap-4">
-                                                                                                                    buttons
-                                                                                                                    here
-                                                                                                                </div>
+                                                                                                                <a href="tambah-master-data">
+                                                                                                                    <button
+                                                                                                                        class="bg-blue-500 p-2 rounded-md gap-4 hover:bg-blue-600 text-white">
+                                                                                                                        Isi Data
+                                                                                                                    </button>
+                                                                                                                 </a>
                                                                                                             </div>
                                                                                                         </div>
                                                                                                     </li>
@@ -139,13 +140,18 @@
                                                                                             class="parent flex items-center gap-5">
                                                                                             <div
                                                                                                 class="ml-12 p-4 rounded-md border-purple-300 border-2 flex justify-between w-full items-center bg-purple-50">
-                                                                                                <p><span class="">[
+                                                                                                <p class="block w-[85%]"><span class="">[
                                                                                                         INDIKATOR PENUNJANG
                                                                                                         ]</span>
                                                                                                     {{ $indikator_penunjang->indikator_penunjang }}
                                                                                                 </p>
                                                                                                 <div class="flex gap-4">
-                                                                                                    buttons here
+                                                                                                    <a href="tambah-master-data">
+                                                                                                        <button
+                                                                                                        class="bg-blue-500 p-2 rounded-md gap-4 hover:bg-blue-600 text-white">
+                                                                                                        Isi Data
+                                                                                                    </button>
+                                                                                                </a>
                                                                                                 </div>
                                                                                             </div>
                                                                                         </div>
@@ -162,12 +168,17 @@
                                                                                         class="parent flex items-center gap-5">
                                                                                         <div
                                                                                             class="p-4 rounded-md border-cyan-300 border-2 flex justify-between w-full items-center bg-cyan-50">
-                                                                                            <p><span class="">[ SUB
+                                                                                            <p class="block w-[85%]"><span class="">[ SUB
                                                                                                     INDIKATOR ]</span>
                                                                                                 {{ $sub_indikator->sub_indikator }}
                                                                                             </p>
                                                                                             <div class="flex gap-4">
-                                                                                                buttons here
+                                                                                                <a href="tambah-master-data">
+                                                                                                    <button
+                                                                                                    class="bg-blue-500 p-2 rounded-md gap-4 hover:bg-blue-600 text-white">
+                                                                                                    Isi Data
+                                                                                                    </button>
+                                                                                                 </a>
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
@@ -179,10 +190,15 @@
                                                                     <div class="parent flex items-center gap-5">
                                                                         <div
                                                                             class="ml-12 p-4 rounded-md border-yellow-300 border-2 flex justify-between w-full items-center bg-yellow-50">
-                                                                            <p><span class="">[ INDIKATOR ]</span>
+                                                                            <p class="block w-[85%]"><span class="">[ INDIKATOR ]</span>
                                                                                 {{ $indikator->indikator }}</p>
                                                                             <div class="flex gap-4">
-                                                                                buttons here
+                                                                                <a href="tambah-master-data">
+                                                                                    <button
+                                                                                    class="bg-blue-500 p-2 rounded-md gap-4 hover:bg-blue-600 text-white">
+                                                                                    Isi Data
+                                                                                    </button>
+                                                                                </a>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -202,7 +218,7 @@
                                             class="fa-solid btn fa-plus cursor-pointer p-2 rounded-md text-gray-800 w-auto h-auto bg-gray-100 hover:bg-gray-200 block"></i>
                                         <div
                                             class="p-4 rounded-md border-orange-300 border-2 flex justify-between w-full items-center bg-orange-50">
-                                            <p class="block w-[90%] "><span class="">[ TUJUAN ]</span>
+                                            <p class="block w-[85%] "><span class="">[ TUJUAN ]</span>
                                                 {{ $tujuan->tujuan }}</p>
                                         </div>
                                     </div>
@@ -214,7 +230,7 @@
                                                         class="fa-solid btn fa-plus cursor-pointer p-2 rounded-md text-gray-800 w-auto h-auto bg-gray-100 hover:bg-gray-200 block"></i>
                                                     <div
                                                         class="p-4 rounded-md border-green-300 border-2 flex justify-between w-full items-center bg-green-50">
-                                                        <p class="block w-[90%] "><span class="">[ SASARAN
+                                                        <p class="block w-[85%] "><span class="">[ SASARAN
                                                                 ]</span>
                                                             {{ $sasaran->sasaran }}
                                                         </p>
@@ -231,7 +247,7 @@
                                                                             class="fa-solid btn fa-plus cursor-pointer p-2 rounded-md text-gray-800 w-auto h-auto bg-gray-100 hover:bg-gray-200 block"></i>
                                                                         <div
                                                                             class="p-4 rounded-md border-yellow-300 border-2 flex justify-between w-full items-center bg-yellow-50">
-                                                                            <p class="block w-[90%] "><span class="">[
+                                                                            <p class="block w-[85%] "><span class="">[
                                                                                     INDIKATOR ]</span>
                                                                                 {{ $indikator->indikator }}</p>
                                                                         </div>
@@ -248,7 +264,7 @@
                                                                                                 class="fa-solid btn fa-plus cursor-pointer p-2 rounded-md text-gray-800 w-auto h-auto bg-gray-100 hover:bg-gray-200 block"></i>
                                                                                             <div
                                                                                                 class="p-4 rounded-md border-purple-300 border-2 flex justify-between w-full items-center bg-purple-50">
-                                                                                                <p class="block w-[90%] ">
+                                                                                                <p class="block w-[85%] ">
                                                                                                     <span class="">[
                                                                                                         INDIKATOR
                                                                                                         PENUNJANG
@@ -266,18 +282,19 @@
                                                                                                             class="parent flex items-center gap-5">
                                                                                                             <div
                                                                                                                 class="p-4 rounded-md border-cyan-300 border-2 flex justify-between w-full items-center bg-cyan-50">
-                                                                                                                <p><span
+                                                                                                                <p class="block w-[85%]"><span
                                                                                                                         class="">[
                                                                                                                         SUB
                                                                                                                         INDIKATOR
                                                                                                                         ]</span>
                                                                                                                     {{ $sub_indikator->sub_indikator }}
                                                                                                                 </p>
-                                                                                                                <div
-                                                                                                                    class="flex gap-4">
-                                                                                                                    buttons
-                                                                                                                    here
-                                                                                                                </div>
+                                                                                                                <a href="tambah-master-data">
+                                                                                                                    <button
+                                                                                                                    class="bg-blue-500 p-2 rounded-md gap-4 hover:bg-blue-600 text-white">
+                                                                                                                    Isi Data
+                                                                                                                    </button>
+                                                                                                                </a>
                                                                                                             </div>
                                                                                                         </div>
                                                                                                     </li>
@@ -289,14 +306,19 @@
                                                                                             class="parent flex items-center gap-5">
                                                                                             <div
                                                                                                 class="ml-12 p-4 rounded-md border-purple-300 border-2 flex justify-between w-full items-center bg-purple-50">
-                                                                                                <p><span class="">[
+                                                                                                <p class="block w-[85%]"><span class="">[
                                                                                                         INDIKATOR
                                                                                                         PENUNJANG
                                                                                                         ]</span>
                                                                                                     {{ $indikator_penunjang->indikator_penunjang }}
                                                                                                 </p>
                                                                                                 <div class="flex gap-4">
-                                                                                                    buttons here
+                                                                                                    <a href="tambah-master-data">
+                                                                                                        <button
+                                                                                                        class="bg-blue-500 p-2 rounded-md gap-4 hover:bg-blue-600 text-white">
+                                                                                                        Isi Data
+                                                                                                        </button>
+                                                                                                    </a>
                                                                                                 </div>
                                                                                             </div>
                                                                                         </div>
@@ -313,13 +335,18 @@
                                                                                         class="parent flex items-center gap-5">
                                                                                         <div
                                                                                             class="p-4 rounded-md border-cyan-300 border-2 flex justify-between w-full items-center bg-cyan-50">
-                                                                                            <p><span class="">[
+                                                                                            <p class="block w-[85%]"><span class="">[
                                                                                                     SUB
                                                                                                     INDIKATOR ]</span>
                                                                                                 {{ $sub_indikator->sub_indikator }}
                                                                                             </p>
                                                                                             <div class="flex gap-4">
-                                                                                                buttons here
+                                                                                                <a href="tambah-master-data">
+                                                                                                    <button
+                                                                                                    class="bg-blue-500 p-2 rounded-md gap-4 hover:bg-blue-600 text-white">
+                                                                                                    Isi Data
+                                                                                                    </button>
+                                                                                                </a>
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
@@ -331,11 +358,16 @@
                                                                     <div class="parent flex items-center gap-5">
                                                                         <div
                                                                             class="ml-12 p-4 rounded-md border-yellow-300 border-2 flex justify-between w-full items-center bg-yellow-50">
-                                                                            <p><span class="">[ INDIKATOR
+                                                                            <p class="block w-[85%]"><span class="">[ INDIKATOR
                                                                                     ]</span>
                                                                                 {{ $indikator->indikator }}</p>
                                                                             <div class="flex gap-4">
-                                                                                buttons here
+                                                                                <a href="tambah-master-data">
+                                                                                    <button
+                                                                                    class="bg-blue-500 p-2 rounded-md gap-4 hover:bg-blue-600 text-white">
+                                                                                    Isi Data
+                                                                                    </button>
+                                                                                </a>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -369,7 +401,7 @@
                                         class="fa-solid btn fa-plus cursor-pointer p-2 rounded-md text-gray-800 w-auto h-auto bg-gray-100 hover:bg-gray-200 block"></i>
                                     <div
                                         class="p-4 rounded-md border-orange-300 border-2 flex justify-between w-full items-center bg-orange-50">
-                                        <p class="block w-[90%] "><span class="">[ TUJUAN ]</span>
+                                        <p class="block w-[85%] "><span class="">[ TUJUAN ]</span>
                                             {{ $tujuan->tujuan }}</p>
                                     </div>
                                 </div>
@@ -381,7 +413,7 @@
                                                     class="fa-solid btn fa-plus cursor-pointer p-2 rounded-md text-gray-800 w-auto h-auto bg-gray-100 hover:bg-gray-200 block"></i>
                                                 <div
                                                     class="p-4 rounded-md border-green-300 border-2 flex justify-between w-full items-center bg-green-50">
-                                                    <p class="block w-[90%] "><span class="">[ SASARAN ]</span>
+                                                    <p class="block w-[85%] "><span class="">[ SASARAN ]</span>
                                                         {{ $sasaran->sasaran }}
                                                 </div>
                                             </div>
@@ -391,11 +423,16 @@
                                                         <div class="parent flex items-center gap-5">
                                                             <div
                                                                 class="p-4 rounded-md border-yellow-300 border-2 flex justify-between w-full items-center bg-yellow-50">
-                                                                <p class="block w-[90%] "><span class="">[ INDIKATOR
+                                                                <p class="block w-[85%] "><span class="">[ INDIKATOR
                                                                         ]</span>
                                                                     {{ $indikator->indikator }}</p>
                                                                 <div class="flex gap-4">
-                                                                    buttons here
+                                                                    <a href="tambah-master-data">
+                                                                        <button
+                                                                        class="bg-blue-500 p-2 rounded-md gap-4 hover:bg-blue-600 text-white">
+                                                                        Isi Data
+                                                                        </button>
+                                                                    </a>
                                                                 </div>
                                                             </div>
                                                         </div>
