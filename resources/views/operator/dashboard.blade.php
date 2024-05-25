@@ -32,7 +32,7 @@
         $userBidang = $bidangOptions[Auth::user()->bidang_id] ?? 'Unknown';
     @endphp
     <div class="w-full p-5 h-full">
-        <h2 class="text-gray-600 font-semibold text-2xl">Isi Capaian Kinerja Triwulan Ke-{{ $triwulan }}</h2>
+        <h2 class="text-gray-600 font-semibold text-2xl">Isikan Capaian Kinerja Triwulan Ke-{{ $triwulan }}</h2>
         <p class="text-gray-600 font-light text-lg mt-2">{{ $userBidang }}</p>
         <div class="mt-10 bg-white p-5 rounded shadow">
             <ul class="flex flex-col gap-4">
@@ -123,11 +123,31 @@
                                                                                                                         ]</span>
                                                                                                                     {{ $sub_indikator->sub_indikator }}
                                                                                                                 </p>
-                                                                                                                <div
-                                                                                                                    class="flex gap-4">
-                                                                                                                    buttons
-                                                                                                                    here
-                                                                                                                </div>
+                                                                                                                @if (in_array($sub_indikator->id, $existingDataSubIndikator))
+                                                                                                                    <div
+                                                                                                                        class="flex flex-col items-center text-center">
+                                                                                                                        <span
+                                                                                                                            class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-red-500 to-red-400 py-1 px-3 rounded-t-md text-white">
+                                                                                                                            Data
+                                                                                                                            sudah
+                                                                                                                            diisi
+                                                                                                                        </span>
+                                                                                                                        <a href=""
+                                                                                                                            class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-blue-500 to-blue-400 py-1 px-3 rounded-b-md text-white">
+                                                                                                                            Edit
+                                                                                                                            data
+                                                                                                                        </a>
+                                                                                                                    </div>
+                                                                                                                @else
+                                                                                                                    <a
+                                                                                                                        href="{{ url('') }}">
+                                                                                                                        <button
+                                                                                                                            class="flex items-center gap-2 bg-gradient-to-r from-blue-500 to-blue-400 hover:bg-blue-600 text-white py-2 px-3 rounded-md font-medium transition-all text-sm whitespace-nowrap">
+                                                                                                                            Input
+                                                                                                                            data
+                                                                                                                        </button>
+                                                                                                                    </a>
+                                                                                                                @endif
                                                                                                             </div>
                                                                                                         </div>
                                                                                                     </li>
@@ -144,9 +164,31 @@
                                                                                                         ]</span>
                                                                                                     {{ $indikator_penunjang->indikator_penunjang }}
                                                                                                 </p>
-                                                                                                <div class="flex gap-4">
-                                                                                                    buttons here
-                                                                                                </div>
+                                                                                                @if (in_array($sub_indikator->id, $existingDataIndikatorPenunjang))
+                                                                                                    <div
+                                                                                                        class="flex flex-col items-center text-center">
+                                                                                                        <span
+                                                                                                            class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-red-500 to-red-400 py-1 px-3 rounded-t-md text-white">
+                                                                                                            Data
+                                                                                                            sudah
+                                                                                                            diisi
+                                                                                                        </span>
+                                                                                                        <a href=""
+                                                                                                            class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-blue-500 to-blue-400 py-1 px-3 rounded-b-md text-white">
+                                                                                                            Edit
+                                                                                                            data
+                                                                                                        </a>
+                                                                                                    </div>
+                                                                                                @else
+                                                                                                    <a
+                                                                                                        href="{{ url('') }}">
+                                                                                                        <button
+                                                                                                            class="flex items-center gap-2 bg-gradient-to-r from-blue-500 to-blue-400 hover:bg-blue-600 text-white py-2 px-3 rounded-md font-medium transition-all text-sm whitespace-nowrap">
+                                                                                                            Input
+                                                                                                            data
+                                                                                                        </button>
+                                                                                                    </a>
+                                                                                                @endif
                                                                                             </div>
                                                                                         </div>
                                                                                     @endif
@@ -166,9 +208,31 @@
                                                                                                     INDIKATOR ]</span>
                                                                                                 {{ $sub_indikator->sub_indikator }}
                                                                                             </p>
-                                                                                            <div class="flex gap-4">
-                                                                                                buttons here
-                                                                                            </div>
+                                                                                            @if (in_array($sub_indikator->id, $existingDataSubIndikator))
+                                                                                                <div
+                                                                                                    class="flex flex-col items-center text-center">
+                                                                                                    <span
+                                                                                                        class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-red-500 to-red-400 py-1 px-3 rounded-t-md text-white">
+                                                                                                        Data
+                                                                                                        sudah
+                                                                                                        diisi
+                                                                                                    </span>
+                                                                                                    <a href=""
+                                                                                                        class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-blue-500 to-blue-400 py-1 px-3 rounded-b-md text-white">
+                                                                                                        Edit
+                                                                                                        data
+                                                                                                    </a>
+                                                                                                </div>
+                                                                                            @else
+                                                                                                <a
+                                                                                                    href="{{ url('') }}">
+                                                                                                    <button
+                                                                                                        class="flex items-center gap-2 bg-gradient-to-r from-blue-500 to-blue-400 hover:bg-blue-600 text-white py-2 px-3 rounded-md font-medium transition-all text-sm whitespace-nowrap">
+                                                                                                        Input
+                                                                                                        data
+                                                                                                    </button>
+                                                                                                </a>
+                                                                                            @endif
                                                                                         </div>
                                                                                     </div>
                                                                                 </li>
@@ -181,9 +245,30 @@
                                                                             class="ml-12 p-4 rounded-md border-yellow-300 border-2 flex justify-between w-full items-center bg-yellow-50">
                                                                             <p><span class="">[ INDIKATOR ]</span>
                                                                                 {{ $indikator->indikator }}</p>
-                                                                            <div class="flex gap-4">
-                                                                                buttons here
-                                                                            </div>
+                                                                            @if (in_array($sub_indikator->id, $existingDataIndikator))
+                                                                                <div
+                                                                                    class="flex flex-col items-center text-center">
+                                                                                    <span
+                                                                                        class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-red-500 to-red-400 py-1 px-3 rounded-t-md text-white">
+                                                                                        Data
+                                                                                        sudah
+                                                                                        diisi
+                                                                                    </span>
+                                                                                    <a href=""
+                                                                                        class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-blue-500 to-blue-400 py-1 px-3 rounded-b-md text-white">
+                                                                                        Edit
+                                                                                        data
+                                                                                    </a>
+                                                                                </div>
+                                                                            @else
+                                                                                <a href="{{ url('') }}">
+                                                                                    <button
+                                                                                        class="flex items-center gap-2 bg-gradient-to-r from-blue-500 to-blue-400 hover:bg-blue-600 text-white py-2 px-3 rounded-md font-medium transition-all text-sm whitespace-nowrap">
+                                                                                        Input
+                                                                                        data
+                                                                                    </button>
+                                                                                </a>
+                                                                            @endif
                                                                         </div>
                                                                     </div>
                                                                 @endif
@@ -273,11 +358,31 @@
                                                                                                                         ]</span>
                                                                                                                     {{ $sub_indikator->sub_indikator }}
                                                                                                                 </p>
-                                                                                                                <div
-                                                                                                                    class="flex gap-4">
-                                                                                                                    buttons
-                                                                                                                    here
-                                                                                                                </div>
+                                                                                                                @if (in_array($sub_indikator->id, $existingDataSubIndikator))
+                                                                                                                    <div
+                                                                                                                        class="flex flex-col items-center text-center">
+                                                                                                                        <span
+                                                                                                                            class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-red-500 to-red-400 py-1 px-3 rounded-t-md text-white">
+                                                                                                                            Data
+                                                                                                                            sudah
+                                                                                                                            diisi
+                                                                                                                        </span>
+                                                                                                                        <a href=""
+                                                                                                                            class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-blue-500 to-blue-400 py-1 px-3 rounded-b-md text-white">
+                                                                                                                            Edit
+                                                                                                                            data
+                                                                                                                        </a>
+                                                                                                                    </div>
+                                                                                                                @else
+                                                                                                                    <a
+                                                                                                                        href="{{ url('') }}">
+                                                                                                                        <button
+                                                                                                                            class="flex items-center gap-2 bg-gradient-to-r from-blue-500 to-blue-400 hover:bg-blue-600 text-white py-2 px-3 rounded-md font-medium transition-all text-sm whitespace-nowrap">
+                                                                                                                            Input
+                                                                                                                            data
+                                                                                                                        </button>
+                                                                                                                    </a>
+                                                                                                                @endif
                                                                                                             </div>
                                                                                                         </div>
                                                                                                     </li>
@@ -295,9 +400,31 @@
                                                                                                         ]</span>
                                                                                                     {{ $indikator_penunjang->indikator_penunjang }}
                                                                                                 </p>
-                                                                                                <div class="flex gap-4">
-                                                                                                    buttons here
-                                                                                                </div>
+                                                                                                @if (in_array($sub_indikator->id, $existingDataIndikatorPenunjang))
+                                                                                                    <div
+                                                                                                        class="flex flex-col items-center text-center">
+                                                                                                        <span
+                                                                                                            class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-red-500 to-red-400 py-1 px-3 rounded-t-md text-white">
+                                                                                                            Data
+                                                                                                            sudah
+                                                                                                            diisi
+                                                                                                        </span>
+                                                                                                        <a href=""
+                                                                                                            class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-blue-500 to-blue-400 py-1 px-3 rounded-b-md text-white">
+                                                                                                            Edit
+                                                                                                            data
+                                                                                                        </a>
+                                                                                                    </div>
+                                                                                                @else
+                                                                                                    <a
+                                                                                                        href="{{ url('') }}">
+                                                                                                        <button
+                                                                                                            class="flex items-center gap-2 bg-gradient-to-r from-blue-500 to-blue-400 hover:bg-blue-600 text-white py-2 px-3 rounded-md font-medium transition-all text-sm whitespace-nowrap">
+                                                                                                            Input
+                                                                                                            data
+                                                                                                        </button>
+                                                                                                    </a>
+                                                                                                @endif
                                                                                             </div>
                                                                                         </div>
                                                                                     @endif
@@ -318,9 +445,31 @@
                                                                                                     INDIKATOR ]</span>
                                                                                                 {{ $sub_indikator->sub_indikator }}
                                                                                             </p>
-                                                                                            <div class="flex gap-4">
-                                                                                                buttons here
-                                                                                            </div>
+                                                                                            @if (in_array($sub_indikator->id, $existingDataSubIndikator))
+                                                                                                <div
+                                                                                                    class="flex flex-col items-center text-center">
+                                                                                                    <span
+                                                                                                        class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-red-500 to-red-400 py-1 px-3 rounded-t-md text-white">
+                                                                                                        Data
+                                                                                                        sudah
+                                                                                                        diisi
+                                                                                                    </span>
+                                                                                                    <a href=""
+                                                                                                        class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-blue-500 to-blue-400 py-1 px-3 rounded-b-md text-white">
+                                                                                                        Edit
+                                                                                                        data
+                                                                                                    </a>
+                                                                                                </div>
+                                                                                            @else
+                                                                                                <a
+                                                                                                    href="{{ url('') }}">
+                                                                                                    <button
+                                                                                                        class="flex items-center gap-2 bg-gradient-to-r from-blue-500 to-blue-400 hover:bg-blue-600 text-white py-2 px-3 rounded-md font-medium transition-all text-sm whitespace-nowrap">
+                                                                                                        Input
+                                                                                                        data
+                                                                                                    </button>
+                                                                                                </a>
+                                                                                            @endif
                                                                                         </div>
                                                                                     </div>
                                                                                 </li>
@@ -334,9 +483,30 @@
                                                                             <p><span class="">[ INDIKATOR
                                                                                     ]</span>
                                                                                 {{ $indikator->indikator }}</p>
-                                                                            <div class="flex gap-4">
-                                                                                buttons here
-                                                                            </div>
+                                                                            @if (in_array($sub_indikator->id, $existingDataIndikator))
+                                                                                <div
+                                                                                    class="flex flex-col items-center text-center">
+                                                                                    <span
+                                                                                        class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-red-500 to-red-400 py-1 px-3 rounded-t-md text-white">
+                                                                                        Data
+                                                                                        sudah
+                                                                                        diisi
+                                                                                    </span>
+                                                                                    <a href=""
+                                                                                        class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-blue-500 to-blue-400 py-1 px-3 rounded-b-md text-white">
+                                                                                        Edit
+                                                                                        data
+                                                                                    </a>
+                                                                                </div>
+                                                                            @else
+                                                                                <a href="{{ url('') }}">
+                                                                                    <button
+                                                                                        class="flex items-center gap-2 bg-gradient-to-r from-blue-500 to-blue-400 hover:bg-blue-600 text-white py-2 px-3 rounded-md font-medium transition-all text-sm whitespace-nowrap">
+                                                                                        Input
+                                                                                        data
+                                                                                    </button>
+                                                                                </a>
+                                                                            @endif
                                                                         </div>
                                                                     </div>
                                                                 @endif
@@ -394,9 +564,29 @@
                                                                 <p class="block w-[90%] "><span class="">[ INDIKATOR
                                                                         ]</span>
                                                                     {{ $indikator->indikator }}</p>
-                                                                <div class="flex gap-4">
-                                                                    buttons here
-                                                                </div>
+                                                                @if (in_array($sub_indikator->id, $existingDataIndikator))
+                                                                    <div class="flex flex-col items-center text-center">
+                                                                        <span
+                                                                            class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-red-500 to-red-400 py-1 px-3 rounded-t-md text-white">
+                                                                            Data
+                                                                            sudah
+                                                                            diisi
+                                                                        </span>
+                                                                        <a href=""
+                                                                            class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-blue-500 to-blue-400 py-1 px-3 rounded-b-md text-white">
+                                                                            Edit
+                                                                            data
+                                                                        </a>
+                                                                    </div>
+                                                                @else
+                                                                    <a href="{{ url('') }}">
+                                                                        <button
+                                                                            class="flex items-center gap-2 bg-gradient-to-r from-blue-500 to-blue-400 hover:bg-blue-600 text-white py-2 px-3 rounded-md font-medium transition-all text-sm whitespace-nowrap">
+                                                                            Input
+                                                                            data
+                                                                        </button>
+                                                                    </a>
+                                                                @endif
                                                             </div>
                                                         </div>
                                                     </li>

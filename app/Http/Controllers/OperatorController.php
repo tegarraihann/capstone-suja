@@ -14,7 +14,18 @@ class OperatorController extends Controller
         $iku = Tujuan::where('iku', 0)->with(['sasaran.indikator.indikator_penunjang', 'sasaran.indikator.sub_indikator'])->get();
         $iku_sup = Tujuan::where('iku', 1)->with(['sasaran.indikator.indikator_penunjang', 'sasaran.indikator.sub_indikator'])->get();
 
-        return view('operator.dashboard', ['iku' => $iku, 'iku_sup' => $iku_sup]);
+        // Ambil semua sub_indikator_id yang ada di data_iku
+        $existingDataSubIndikator = DataIku::pluck('sub_indikator_id')->toArray();
+        $existingDataIndikatorPenunjang = DataIku::pluck('indikator_penunjang_id')->toArray();
+        $existingDataIndikator = DataIku::pluck('indikator_id')->toArray();
+
+        return view('operator.dashboard', [
+            'iku' => $iku, 
+            'iku_sup' => $iku_sup,
+            'existingDataSubIndikator' => $existingDataSubIndikator,
+            'existingDataIndikatorPenunjang' => $existingDataIndikatorPenunjang,
+            'existingDataIndikator' => $existingDataIndikator
+        ]);
     }
 
     public function view_add_master_data()

@@ -70,7 +70,8 @@
                                 </p>
                             </div>
                             <div class="flex flex-col w-full mt-5 border-t-2 pt-5 gap-2">
-                                <i class="btn-update w-full menu-item cursor-pointer not-italic" data-id="{{ $idUser }}">
+                                <i class="btn-update w-full menu-item cursor-pointer not-italic"
+                                    data-id="{{ $idUser }}">
                                     <div
                                         class="flex justify-left gap-6 w-full rounded-lg py-3 px-6 hover:bg-blue-50 hover:text-blue-600">
                                         <i class="fa-solid fa-gear my-auto w-1/12"></i>
@@ -111,7 +112,8 @@
                                 {{ $userRoleLabel }}
                             </p>
                         </div>
-                        <div class="bg-gradient-to-r from-blue-400 to-blue-500 text-white mt-3 px-2 py-1 rounded-md border-[1px] text-[12px]">
+                        <div
+                            class="bg-gradient-to-r from-blue-400 to-blue-500 text-white mt-3 px-2 py-1 rounded-md border-[1px] text-[12px]">
                             <p>{{ $userBidang }}</p>
                         </div>
                     </div>
@@ -141,7 +143,8 @@
                                 </a>
                             </div>
                             <div class="">
-                                <i class="btn-update w-full menu-item cursor-pointer not-italic" data-id="{{ $idUser }}">
+                                <i class="btn-update w-full menu-item cursor-pointer not-italic"
+                                    data-id="{{ $idUser }}">
                                     <div
                                         class="flex justify-left gap-6 w-full rounded-lg py-3 px-6 hover:bg-blue-50 hover:text-blue-600">
                                         <i class="fa-solid fa-gear my-auto w-1/12"></i>
@@ -183,7 +186,8 @@
                                 </a>
                             </div>
                             <div class="">
-                                <i class="btn-update w-full menu-item cursor-pointer not-italic" data-id="{{ $idUser }}">
+                                <i class="btn-update w-full menu-item cursor-pointer not-italic"
+                                    data-id="{{ $idUser }}">
                                     <div
                                         class="flex justify-left gap-6 w-full rounded-lg py-3 px-6 hover:bg-blue-50 hover:text-blue-600">
                                         <i class="fa-solid fa-gear my-auto w-1/12"></i>
@@ -210,6 +214,46 @@
                     @endif
                     {{-- operator --}}
                     @if (Auth::user()->role == 0)
+                        <div class="flex flex-col h-full gap-3 w-full justify-between">
+                            <div class="flex flex-col w-full gap-1">
+                                <a href="/operator/dashboard" class="w-full menu-item">
+                                    <div
+                                        class="flex justify-left gap-6 w-full rounded-lg py-3 px-6 hover:bg-blue-50 hover:text-blue-600">
+                                        <i class="fa-solid fa-briefcase my-auto text-xs w-1/12"></i>
+                                        <p class="text-sm">Capaian Kinerja</p>
+                                    </div>
+                                </a>
+                                <a href="/operator/approval" class="w-full menu-item">
+                                    <div
+                                        class="flex justify-left gap-6 w-full rounded-lg py-3 px-6 hover:bg-blue-50 hover:text-blue-600">
+                                        <i class="fa-solid fa-file-circle-check my-auto text-xs w-1/12"></i>
+                                        <p class="text-sm">Riwayat Approval</p>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="">
+                                <i class="btn-update w-full menu-item cursor-pointer not-italic"
+                                    data-id="{{ $idUser }}">
+                                    <div
+                                        class="flex justify-left gap-6 w-full rounded-lg py-3 px-6 hover:bg-blue-50 hover:text-blue-600">
+                                        <i class="fa-solid fa-gear my-auto w-1/12"></i>
+                                        <p class="text-sm">Edit profile</p>
+                                    </div>
+                                </i>
+                                <a class="logout-btn w-full menu-item cursor-pointer ">
+                                    {{-- <div
+                                class="flex justify-left gap-6 mb-5 mt-3 bg-gradient-to-r from-blue-500 to-blue-400 px-6 py-3 rounded-lg text-white">
+                                <i class="fa-solid fa-arrow-right-from-bracket my-auto w-1/12"></i>
+                                <p class="text-sm">Log out</p>
+                            </div> --}}
+                                    <div
+                                        class="flex justify-left gap-6 w-full rounded-lg py-3 px-6 hover:bg-blue-50 hover:text-blue-600">
+                                        <i class="fa-solid fa-arrow-right-from-bracket my-auto w-1/12"></i>
+                                        <p class="text-sm">Log out</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
                     @endif
                 </div>
             </div>
