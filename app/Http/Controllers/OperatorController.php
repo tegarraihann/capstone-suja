@@ -22,6 +22,13 @@ class OperatorController extends Controller
         return view("operator.tambah-master-data");
     }
 
+    public function view_edit_master_data($id)
+    {
+        $dataIku = DataIku::findOrFail($id);
+
+        return view("operator.edit-master-data")->with(compact('dataIku'));
+    }
+
     public function add_master_data(Request $request)
     {
         // Periksa apakah salah satu dari indikator_id, indikator_penunjang_id, atau sub_indikator_id ada
@@ -75,6 +82,7 @@ class OperatorController extends Controller
         $data->upload_by = Auth::id();
         $data->approve_by = null;
         $data->reject_by = null;
+        $data->reject_comment = null;
         $data->triwulan = $triwulan;
 
         // Memasukkan indikator_id jika ada
@@ -136,5 +144,44 @@ class OperatorController extends Controller
         ]);
 
         return redirect()->back()->with('success', 'Data berhasil diperbarui');
+    }
+
+    public function view_uploaded_master_data()
+    {
+        $userBidangId = Auth::user()->bidang_id;
+
+        $pendingData = DataIku::where('status', 'pending')
+            ->where(function ($query) use ($userBidangId) {
+                $query->whereHas('sub_indikator', function ($query) use ($userBidangId) {
+                    $query->where('bidang_id', $userBidangId)
+                        ->orWhereNull('bidang_id');
+                });
+            })
+            ->get();
+
+        $rejectedData = DataIku::where('status', 'rejected')
+            ->where(function ($query) use ($userBidangId) {
+                $query->whereHas('sub_indikator', function ($query) use ($userBidangId) {
+                    $query->where('bidang_id', $userBidangId)
+                        ->orWhereNull('bidang_id');
+                });
+            })
+            ->get();
+
+        $approvedData = DataIku::where('status', 'approved')
+            ->where(function ($query) use ($userBidangId) {
+                $query->whereHas('sub_indikator', function ($query) use ($userBidangId) {
+                    $query->where('bidang_id', $userBidangId)
+                        ->orWhereNull('bidang_id');
+                });
+            })
+            ->get();
+
+        // Mengembalikan view dengan data yang telah difilter
+        return view('operator.uploaded-master-data', [
+            'pendingData' => $pendingData,
+            'rejectedData' => $rejectedData,
+            'approvedData' => $approvedData,
+        ]);
     }
 }

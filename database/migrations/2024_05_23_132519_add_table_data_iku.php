@@ -17,11 +17,11 @@ return new class extends Migration {
             $table->float('capaian_kinerja_kumulatif')->default(0.0)->nullable(false);
             $table->float('capaian_kinerja_target_setahun')->default(0.0)->nullable(false);
             $table->string('link_bukti_dukung_capaian')->nullable(false);
-            $table->string('upaya_yang_dilakukan')->nullable(false);
+            $table->text('upaya_yang_dilakukan')->nullable(false);
             $table->string('link_bukti_dukung_upaya_yang_dilakukan')->nullable(false);
-            $table->string('kendala')->nullable(false);
-            $table->string('solusi_atas_kendala')->nullable(false);
-            $table->string('rencana_tidak_lanjut')->nullable(false);
+            $table->text('kendala')->nullable(false);
+            $table->text('solusi_atas_kendala')->nullable(false);
+            $table->text('rencana_tidak_lanjut')->nullable(false);
             $table->string('pic_tidak_lanjut')->nullable(false);
             $table->date('tenggat_tidak_lanjut')->nullable(false);
             $table->timestamps();
@@ -30,6 +30,7 @@ return new class extends Migration {
             $table->foreignId('upload_by')->constrained('users')->onDelete('cascade');
             $table->foreignId('approve_by')->nullable()->constrained('users')->onDelete('cascade');
             $table->foreignId('reject_by')->nullable()->constrained('users')->onDelete('cascade');
+            $table->text('reject_comment')->nullable();
             $table->tinyInteger('triwulan')->nullable(false);
 
             $table->foreignId('indikator_id')->nullable()->unique()->constrained('md_indikator')->onDelete('cascade');
