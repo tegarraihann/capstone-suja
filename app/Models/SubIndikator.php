@@ -35,4 +35,9 @@ class SubIndikator extends Model
     {
         return $this->belongsTo(Bidang::class, 'bidang_id', 'id');
     }
+
+    public function data_iku()
+    {
+        return $this->hasMany(DataIku::class, 'sub_indikator_id');
+    }
 }

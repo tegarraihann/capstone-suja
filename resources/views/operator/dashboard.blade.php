@@ -132,7 +132,7 @@
                                                                                                                             sudah
                                                                                                                             diisi
                                                                                                                         </span>
-                                                                                                                        <a href=""
+                                                                                                                        <a href="{{ url('operator/edit-master-data/sub_indikator/' . $sub_indikator->id) }}"
                                                                                                                             class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-blue-500 to-blue-400 py-1 px-3 rounded-b-md text-white">
                                                                                                                             Edit
                                                                                                                             data
@@ -140,7 +140,7 @@
                                                                                                                     </div>
                                                                                                                 @else
                                                                                                                     <a
-                                                                                                                        href="{{ url('') }}">
+                                                                                                                        href="{{ url('operator/tambah-master-data/sub_indikator/' . $sub_indikator->id) }}">
                                                                                                                         <button
                                                                                                                             class="flex items-center gap-2 bg-gradient-to-r from-blue-500 to-blue-400 hover:bg-blue-600 text-white py-2 px-3 rounded-md font-medium transition-all text-sm whitespace-nowrap">
                                                                                                                             Input
@@ -164,7 +164,7 @@
                                                                                                         ]</span>
                                                                                                     {{ $indikator_penunjang->indikator_penunjang }}
                                                                                                 </p>
-                                                                                                @if (in_array($sub_indikator->id, $existingDataIndikatorPenunjang))
+                                                                                                @if (in_array($indikator_penunjang->id, $existingDataIndikatorPenunjang))
                                                                                                     <div
                                                                                                         class="flex flex-col items-center text-center">
                                                                                                         <span
@@ -181,7 +181,7 @@
                                                                                                     </div>
                                                                                                 @else
                                                                                                     <a
-                                                                                                        href="{{ url('') }}">
+                                                                                                        href="{{ url('operator/tambah-master-data/indikator_penunjang/' . $indikator_penunjang->id) }}">
                                                                                                         <button
                                                                                                             class="flex items-center gap-2 bg-gradient-to-r from-blue-500 to-blue-400 hover:bg-blue-600 text-white py-2 px-3 rounded-md font-medium transition-all text-sm whitespace-nowrap">
                                                                                                             Input
@@ -225,7 +225,7 @@
                                                                                                 </div>
                                                                                             @else
                                                                                                 <a
-                                                                                                    href="{{ url('') }}">
+                                                                                                    href="{{ url('operator/tambah-master-data/sub_indikator/' . $sub_indikator->id) }}">
                                                                                                     <button
                                                                                                         class="flex items-center gap-2 bg-gradient-to-r from-blue-500 to-blue-400 hover:bg-blue-600 text-white py-2 px-3 rounded-md font-medium transition-all text-sm whitespace-nowrap">
                                                                                                         Input
@@ -245,7 +245,7 @@
                                                                             class="ml-12 p-4 rounded-md border-yellow-300 border-2 flex justify-between w-full items-center bg-yellow-50">
                                                                             <p class="block w-[85%]"><span class="">[ INDIKATOR ]</span>
                                                                                 {{ $indikator->indikator }}</p>
-                                                                            @if (in_array($sub_indikator->id, $existingDataIndikator))
+                                                                            @if (in_array($indikator->id, $existingDataIndikator))
                                                                                 <div
                                                                                     class="flex flex-col items-center text-center">
                                                                                     <span
@@ -261,7 +261,8 @@
                                                                                     </a>
                                                                                 </div>
                                                                             @else
-                                                                                <a href="{{ url('') }}">
+                                                                                <a
+                                                                                    href="{{ url('operator/tambah-master-data/indikator/' . $indikator->id) }}">
                                                                                     <button
                                                                                         class="flex items-center gap-2 bg-gradient-to-r from-blue-500 to-blue-400 hover:bg-blue-600 text-white py-2 px-3 rounded-md font-medium transition-all text-sm whitespace-nowrap">
                                                                                         Input
@@ -375,7 +376,7 @@
                                                                                                                     </div>
                                                                                                                 @else
                                                                                                                     <a
-                                                                                                                        href="{{ url('') }}">
+                                                                                                                        href="{{ url('operator/tambah-master-data/sub_indikator/' . $sub_indikator->id) }}">
                                                                                                                         <button
                                                                                                                             class="flex items-center gap-2 bg-gradient-to-r from-blue-500 to-blue-400 hover:bg-blue-600 text-white py-2 px-3 rounded-md font-medium transition-all text-sm whitespace-nowrap">
                                                                                                                             Input
@@ -400,7 +401,7 @@
                                                                                                         ]</span>
                                                                                                     {{ $indikator_penunjang->indikator_penunjang }}
                                                                                                 </p>
-                                                                                                @if (in_array($sub_indikator->id, $existingDataIndikatorPenunjang))
+                                                                                                @if (in_array($indikator_penunjang->id, $existingDataIndikatorPenunjang))
                                                                                                     <div
                                                                                                         class="flex flex-col items-center text-center">
                                                                                                         <span
@@ -417,7 +418,7 @@
                                                                                                     </div>
                                                                                                 @else
                                                                                                     <a
-                                                                                                        href="{{ url('') }}">
+                                                                                                        href="{{ url('operator/tambah-master-data/indikator_penunjang/' . $indikator_penunjang->id) }}">
                                                                                                         <button
                                                                                                             class="flex items-center gap-2 bg-gradient-to-r from-blue-500 to-blue-400 hover:bg-blue-600 text-white py-2 px-3 rounded-md font-medium transition-all text-sm whitespace-nowrap">
                                                                                                             Input
@@ -462,7 +463,7 @@
                                                                                                 </div>
                                                                                             @else
                                                                                                 <a
-                                                                                                    href="{{ url('') }}">
+                                                                                                    href="{{ url('operator/tambah-master-data/sub_indikator/' . $sub_indikator->id) }}">
                                                                                                     <button
                                                                                                         class="flex items-center gap-2 bg-gradient-to-r from-blue-500 to-blue-400 hover:bg-blue-600 text-white py-2 px-3 rounded-md font-medium transition-all text-sm whitespace-nowrap">
                                                                                                         Input
@@ -483,7 +484,7 @@
                                                                             <p class="block w-[85%]"><span class="">[ INDIKATOR
                                                                                     ]</span>
                                                                                 {{ $indikator->indikator }}</p>
-                                                                            @if (in_array($sub_indikator->id, $existingDataIndikator))
+                                                                            @if (in_array($indikator->id, $existingDataIndikator))
                                                                                 <div
                                                                                     class="flex flex-col items-center text-center">
                                                                                     <span
@@ -499,7 +500,8 @@
                                                                                     </a>
                                                                                 </div>
                                                                             @else
-                                                                                <a href="{{ url('') }}">
+                                                                                <a
+                                                                                    href="{{ url('operator/tambah-master-data/indikator/' . $indikator->id) }}">
                                                                                     <button
                                                                                         class="flex items-center gap-2 bg-gradient-to-r from-blue-500 to-blue-400 hover:bg-blue-600 text-white py-2 px-3 rounded-md font-medium transition-all text-sm whitespace-nowrap">
                                                                                         Input
@@ -564,7 +566,7 @@
                                                                 <p class="block w-[85%] "><span class="">[ INDIKATOR
                                                                         ]</span>
                                                                     {{ $indikator->indikator }}</p>
-                                                                @if (in_array($sub_indikator->id, $existingDataIndikator))
+                                                                @if (in_array($indikator->id, $existingDataIndikator))
                                                                     <div class="flex flex-col items-center text-center">
                                                                         <span
                                                                             class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-red-500 to-red-400 py-1 px-3 rounded-t-md text-white">
@@ -579,7 +581,8 @@
                                                                         </a>
                                                                     </div>
                                                                 @else
-                                                                    <a href="{{ url('') }}">
+                                                                    <a
+                                                                        href="{{ url('operator/tambah-master-data/indikator/' . $indikator->id) }}">
                                                                         <button
                                                                             class="flex items-center gap-2 bg-gradient-to-r from-blue-500 to-blue-400 hover:bg-blue-600 text-white py-2 px-3 rounded-md font-medium transition-all text-sm whitespace-nowrap">
                                                                             Input

@@ -50,9 +50,10 @@ Route::group(['middleware' => ['adminapproval', 'no-cache']], function () {
 
 Route::group(['middleware' => ['operator', 'no-cache']], function () {
     Route::get('operator/dashboard', [DashboardController::class, "dashboard"]);
-    Route::get('operator/edit-user/{id}', [AdminSistemController::class, "view_update_user"]);
     Route::get('operator/dashboard', [OperatorController::class, "view_master_data"]);
-    Route::get('operator/tambah-master-data', [OperatorController::class, "view_add_master_data"]);
+    Route::get('operator/edit-master-data/{type}/{id}', [OperatorController::class, 'view_edit_master_data']);
+    Route::get('operator/tambah-master-data/{type}/{id}', [OperatorController::class, 'view_add_master_data']);
+    Route::get('operator/daftar-master-data', [OperatorController::class, 'view_uploaded_master_data']);
     Route::post('operator/tambah-master-data', [OperatorController::class, "add_master_data"]);
     Route::put('operator/edit-master-data/{id}', [OperatorController::class, "update_master_data"]);
 });

@@ -223,7 +223,7 @@
                                         <p class="text-sm">Capaian Kinerja</p>
                                     </div>
                                 </a>
-                                <a href="/operator/approval" class="w-full menu-item">
+                                <a href="/operator/daftar-master-data" class="w-full menu-item">
                                     <div
                                         class="flex justify-left gap-6 w-full rounded-lg py-3 px-6 hover:bg-blue-50 hover:text-blue-600">
                                         <i class="fa-solid fa-file-circle-check my-auto text-xs w-1/12"></i>

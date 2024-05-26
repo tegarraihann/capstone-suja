@@ -34,4 +34,9 @@ class Indikator extends Model
     {
         return $this->hasMany(SubIndikator::class, 'indikator_id', 'id');
     }
+
+    public function data_iku()
+    {
+        return $this->hasMany(DataIku::class, 'indikator_id');
+    }
 }

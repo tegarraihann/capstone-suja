@@ -18,6 +18,21 @@
             });
 </script>
 @endif
+@if (!empty(session('warning')))
+        <script>
+            swal({
+                title: "{{ Session::get('warning.title') }}",
+                text: "{{ Session::get('warning.message') }}",
+                icon: "warning",
+                button: {
+                    text: "OK",
+                    closeModal: true,
+                }
+            }).then(() => {
+                window.location.href = "{{ url('operator/dashboard') }}";
+            });
+        </script>
+    @endif
 @if ($errors->any())
 <script>
     var errorMessage = "";

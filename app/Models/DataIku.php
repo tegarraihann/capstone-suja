@@ -39,6 +39,16 @@ class DataIku extends Model
         return $this->belongsTo(User::class, 'upload_by', 'id');
     }
 
+    public function indikator(): BelongsTo
+    {
+        return $this->belongsTo(Indikator::class, 'indikator_id', 'id');
+    }
+
+    public function indikator_penunjang(): BelongsTo
+    {
+        return $this->belongsTo(IndikatorPenunjang::class, 'indikator_penunjang_id', 'id');
+    }
+
     public function sub_indikator(): BelongsTo
     {
         return $this->belongsTo(SubIndikator::class, 'sub_indikator_id', 'id');

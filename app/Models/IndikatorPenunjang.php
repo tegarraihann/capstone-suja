@@ -29,4 +29,9 @@ class IndikatorPenunjang extends Model
     {
         return $this->hasMany(SubIndikator::class, 'indikator_penunjang_id', 'id');
     }
+
+    public function data_iku()
+    {
+        return $this->hasMany(DataIku::class, 'indikator_penunjang_id');
+    }
 }

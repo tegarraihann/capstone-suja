@@ -26,7 +26,7 @@ return new class extends Migration {
             $table->date('tenggat_tidak_lanjut')->nullable(false);
             $table->timestamps();
 
-            $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
+            $table->enum('status', ['pending', 'approved_by_ap', 'approved_by_ab', 'rejected'])->default('pending');
             $table->foreignId('upload_by')->constrained('users')->onDelete('cascade');
             $table->foreignId('approve_by')->nullable()->constrained('users')->onDelete('cascade');
             $table->foreignId('reject_by')->nullable()->constrained('users')->onDelete('cascade');
