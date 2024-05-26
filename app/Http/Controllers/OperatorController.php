@@ -267,19 +267,31 @@ class OperatorController extends Controller
     }
 
 
-    public function view_uploaded_master_data()
+    public function view_uploaded_master_data(Request $request)
     {
-        $subIndikatorIds = SubIndikator::pluck('id');
-        $indikatorPenunjangIds = IndikatorPenunjang::pluck('id');
-        $indikatorIds = Indikator::pluck('id');
+        $search = $request->input('search');
 
-        // Query untuk mengambil data dari tabel data_iku yang sesuai dengan sub_indikator_id dan status pending
-        $dataIku = DataIku::where('status', 'pending')
-            ->whereIn('sub_indikator_id', $subIndikatorIds)
-            ->orWhereIn('indikator_penunjang_id', $indikatorPenunjangIds)
-            ->orWhereIn('indikator_id', $indikatorIds)
-            ->with(['sub_indikator', 'indikator_penunjang', 'indikator'])
-            ->paginate(5);
+        $dataIkuQuery = DataIku::where('status', 'pending')
+            ->with(['sub_indikator', 'indikator_penunjang', 'indikator', 'user']);
+
+        if ($search) {
+            $dataIkuQuery->where(function ($query) use ($search) {
+                $query->whereHas('sub_indikator', function ($q) use ($search) {
+                    $q->where('sub_indikator', 'like', '%' . $search . '%');
+                })
+                    ->orWhereHas('indikator_penunjang', function ($q) use ($search) {
+                        $q->where('indikator_penunjang', 'like', '%' . $search . '%');
+                    })
+                    ->orWhereHas('indikator', function ($q) use ($search) {
+                        $q->where('indikator', 'like', '%' . $search . '%');
+                    })
+                    ->orWhereHas('user', function ($q) use ($search) {
+                        $q->where('name', 'like', '%' . $search . '%');
+                    });
+            });
+        }
+
+        $dataIku = $dataIkuQuery->paginate(5);
 
         return view('operator.daftar-master-data', [
             'dataIku' => $dataIku,
