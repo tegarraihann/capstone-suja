@@ -274,9 +274,13 @@ class OperatorController extends Controller
 
         // Inisialisasi query
         $dataIkuQuery = DataIku::where('status', 'pending')
-            ->whereHas('sub_indikator', function ($query) use ($bidangId) {
-                $query->whereNull('bidang_id')
-                    ->orWhere('bidang_id', $bidangId);
+            ->where(function ($query) use ($bidangId) {
+                $query->whereHas('sub_indikator', function ($q) use ($bidangId) {
+                    $q->whereNull('bidang_id')
+                        ->orWhere('bidang_id', $bidangId);
+                })
+                    ->orWhereHas('indikator_penunjang')
+                    ->orWhereHas('indikator');
             })
             ->with(['sub_indikator', 'indikator_penunjang', 'indikator', 'user']);
 
