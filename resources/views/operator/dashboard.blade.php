@@ -173,7 +173,7 @@
                                                                                                             sudah
                                                                                                             diisi
                                                                                                         </span>
-                                                                                                        <a href=""
+                                                                                                        <a href="{{ url('operator/edit-master-data/indikator_penunjang/' . $indikator_penunjang->id) }}"
                                                                                                             class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-blue-500 to-blue-400 py-1 px-3 rounded-b-md text-white">
                                                                                                             Edit
                                                                                                             data
@@ -217,7 +217,7 @@
                                                                                                         sudah
                                                                                                         diisi
                                                                                                     </span>
-                                                                                                    <a href=""
+                                                                                                    <a href="{{ url('operator/edit-master-data/sub_indikator/' . $sub_indikator->id) }}"
                                                                                                         class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-blue-500 to-blue-400 py-1 px-3 rounded-b-md text-white">
                                                                                                         Edit
                                                                                                         data
@@ -254,7 +254,7 @@
                                                                                         sudah
                                                                                         diisi
                                                                                     </span>
-                                                                                    <a href=""
+                                                                                    <a href="{{ url('operator/edit-master-data/indikator/' . $indikator->id) }}"
                                                                                         class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-blue-500 to-blue-400 py-1 px-3 rounded-b-md text-white">
                                                                                         Edit
                                                                                         data
@@ -368,7 +368,7 @@
                                                                                                                             sudah
                                                                                                                             diisi
                                                                                                                         </span>
-                                                                                                                        <a href=""
+                                                                                                                        <a href="{{ url('operator/edit-master-data/sub_indikator/' . $sub_indikator->id) }}"
                                                                                                                             class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-blue-500 to-blue-400 py-1 px-3 rounded-b-md text-white">
                                                                                                                             Edit
                                                                                                                             data
@@ -410,7 +410,7 @@
                                                                                                             sudah
                                                                                                             diisi
                                                                                                         </span>
-                                                                                                        <a href=""
+                                                                                                        <a href="{{ url('operator/edit-master-data/indikator_penunjang/' . $indikator_penunjang->id) }}"
                                                                                                             class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-blue-500 to-blue-400 py-1 px-3 rounded-b-md text-white">
                                                                                                             Edit
                                                                                                             data
@@ -455,7 +455,7 @@
                                                                                                         sudah
                                                                                                         diisi
                                                                                                     </span>
-                                                                                                    <a href=""
+                                                                                                    <a href="{{ url('operator/edit-master-data/sub_indikator/' . $sub_indikator->id) }}"
                                                                                                         class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-blue-500 to-blue-400 py-1 px-3 rounded-b-md text-white">
                                                                                                         Edit
                                                                                                         data
@@ -493,7 +493,7 @@
                                                                                         sudah
                                                                                         diisi
                                                                                     </span>
-                                                                                    <a href=""
+                                                                                    <a href="{{ url('operator/edit-master-data/indikator/' . $indikator->id) }}"
                                                                                         class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-blue-500 to-blue-400 py-1 px-3 rounded-b-md text-white">
                                                                                         Edit
                                                                                         data
@@ -574,7 +574,7 @@
                                                                             sudah
                                                                             diisi
                                                                         </span>
-                                                                        <a href=""
+                                                                        <a href="{{ url('operator/edit-master-data/indikator/' . $indikator->id) }}"
                                                                             class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-blue-500 to-blue-400 py-1 px-3 rounded-b-md text-white">
                                                                             Edit
                                                                             data

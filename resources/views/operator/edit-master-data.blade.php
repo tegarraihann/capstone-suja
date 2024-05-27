@@ -64,10 +64,17 @@
             });
         </script>
     @endif
+    @php
+        $previousUrl = url()->previous();
+        $dashboardUrl = url('operator/dashboard');
+        $daftarMasterDataUrl = url('operator/daftar-master-data');
+    @endphp
 
     <div class="w-full p-5 h-full">
-        <a class="text-gray-600 font-semibold text-2xl flex items-center gap-3" href="{{ url('operator/dashboard') }}"><i
-                class="fa-solid fa-angle-left text-lg"></i> Edit Master Data</a>
+        <a class="text-gray-600 font-semibold text-2xl flex items-center gap-3"
+            href="{{ $previousUrl === $dashboardUrl ? $dashboardUrl : $daftarMasterDataUrl }}">
+            <i class="fa-solid fa-angle-left text-lg"></i> Edit Master Data
+        </a>
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg p-5 bg-white mt-5">
             <p class="font-semibold text-lg text-gray-600 mb-3">
                 {{ $entityName ?? 'Entitas tidak ditemukan' }}
@@ -194,7 +201,8 @@
                 </div>
 
                 <button type="submit"
-                    class="text-white bg-blue-500 hover:bg-blue-600 transition-all focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Perbarui data</button>
+                    class="text-white bg-blue-500 hover:bg-blue-600 transition-all focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Perbarui
+                    data</button>
             </form>
         </div>
     </div>

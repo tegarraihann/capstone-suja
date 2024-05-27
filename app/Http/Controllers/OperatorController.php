@@ -270,10 +270,17 @@ class OperatorController extends Controller
     public function view_uploaded_master_data(Request $request)
     {
         $search = $request->input('search');
+        $bidangId = Auth::user()->bidang_id;
 
+        // Inisialisasi query
         $dataIkuQuery = DataIku::where('status', 'pending')
+            ->whereHas('sub_indikator', function ($query) use ($bidangId) {
+                $query->whereNull('bidang_id')
+                    ->orWhere('bidang_id', $bidangId);
+            })
             ->with(['sub_indikator', 'indikator_penunjang', 'indikator', 'user']);
 
+        // Tambahkan kondisi pencarian jika ada
         if ($search) {
             $dataIkuQuery->where(function ($query) use ($search) {
                 $query->whereHas('sub_indikator', function ($q) use ($search) {
@@ -291,10 +298,13 @@ class OperatorController extends Controller
             });
         }
 
-        $dataIku = $dataIkuQuery->paginate(5);
+        // Paginate the results
+        $dataIku = $dataIkuQuery->paginate(3);
 
+        // Return view with the data
         return view('operator.daftar-master-data', [
             'dataIku' => $dataIku,
         ]);
     }
+
 }
