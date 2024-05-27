@@ -1,6 +1,7 @@
 import "./bootstrap";
 
 document.addEventListener("DOMContentLoaded", function () {
+    handleDropdown();
     setupDeleteSubIndikatorButton();
     setupEditSubIndikatorButton();
     setupAddSubIndikatorButton();
@@ -507,7 +508,8 @@ function setupAddIndikatorButton() {
                     document.getElementById("input2").value.trim() || null;
                 const input3 =
                     document.getElementById("input3").value.trim() || null;
-                const bidangId = document.getElementById("bidangSelect").value || null;
+                const bidangId =
+                    document.getElementById("bidangSelect").value || null;
 
                 if (!input1) {
                     swal({
@@ -532,7 +534,7 @@ function setupAddIndikatorButton() {
                     indikator_penunjang: input2 === "" ? null : input2,
                     sub_indikator: input3 === "" ? null : input3,
                     sasaran_id: sasaranId,
-                    bidang_id: bidangId === "" ? null : bidangId
+                    bidang_id: bidangId === "" ? null : bidangId,
                 };
 
                 axios
@@ -716,10 +718,12 @@ function setupAddIndikatorPenunjangButton() {
                     return;
                 }
 
-                const input2 = document.getElementById("input2").value.trim() || null;
+                const input2 =
+                    document.getElementById("input2").value.trim() || null;
                 const input3 =
                     document.getElementById("input3").value.trim() || null;
-                const bidangId = document.getElementById("bidangSelect").value || null;
+                const bidangId =
+                    document.getElementById("bidangSelect").value || null;
 
                 // if (!input2) {
                 //     swal({
@@ -743,7 +747,7 @@ function setupAddIndikatorPenunjangButton() {
                     indikator_penunjang: input2 === "" ? null : input2,
                     sub_indikator: input3 === "" ? null : input3,
                     indikator_id: indikatorId,
-                    bidang_id: bidangId === "" ? null : bidangId
+                    bidang_id: bidangId === "" ? null : bidangId,
                 };
 
                 axios
@@ -973,7 +977,7 @@ function setupEditSubIndikatorButton() {
         btn.addEventListener("click", function () {
             const id = this.dataset.id;
             const currentSubIndikator = this.dataset.sub_indikator;
-            const currentBidangId = this.dataset.bidang_id || '';
+            const currentBidangId = this.dataset.bidang_id || "";
 
             swal({
                 text: "Edit Sub Indikator",
@@ -990,12 +994,36 @@ function setupEditSubIndikatorButton() {
                                     <label for="bidang">Bidang:</label>
                                     <select id="bidangSelect" class="swal-content__select" style="flex-grow: 1; width: 100%; border: 1px solid #ccc; padding: 6px 12px;">
                                         <option value="">pilih bidang (boleh kosong)</option>
-                                        <option value="6" ${currentBidangId === '6' ? 'selected' : ''}>Fungsi IPDS</option>
-                                        <option value="5" ${currentBidangId === '5' ? 'selected' : ''}>Fungsi Nerwilis</option>
-                                        <option value="4" ${currentBidangId === '4' ? 'selected' : ''}>Fungsi Statistik Distribusi</option>
-                                        <option value="3" ${currentBidangId === '3' ? 'selected' : ''}>Fungsi Statistik Produksi</option>
-                                        <option value="2" ${currentBidangId === '2' ? 'selected' : ''}>Fungsi Statistik Sosial</option>
-                                        <option value="1" ${currentBidangId === '1' ? 'selected' : ''}>Bagian Umum</option>
+                                        <option value="6" ${
+                                            currentBidangId === "6"
+                                                ? "selected"
+                                                : ""
+                                        }>Fungsi IPDS</option>
+                                        <option value="5" ${
+                                            currentBidangId === "5"
+                                                ? "selected"
+                                                : ""
+                                        }>Fungsi Nerwilis</option>
+                                        <option value="4" ${
+                                            currentBidangId === "4"
+                                                ? "selected"
+                                                : ""
+                                        }>Fungsi Statistik Distribusi</option>
+                                        <option value="3" ${
+                                            currentBidangId === "3"
+                                                ? "selected"
+                                                : ""
+                                        }>Fungsi Statistik Produksi</option>
+                                        <option value="2" ${
+                                            currentBidangId === "2"
+                                                ? "selected"
+                                                : ""
+                                        }>Fungsi Statistik Sosial</option>
+                                        <option value="1" ${
+                                            currentBidangId === "1"
+                                                ? "selected"
+                                                : ""
+                                        }>Bagian Umum</option>
                                     </select>
                                 </div>
                             </div>
@@ -1014,8 +1042,11 @@ function setupEditSubIndikatorButton() {
                     return;
                 }
 
-                const subIndikator = document.getElementById("subIndikatorInput").value.trim();
-                const bidangId = document.getElementById("bidangSelect").value || null;
+                const subIndikator = document
+                    .getElementById("subIndikatorInput")
+                    .value.trim();
+                const bidangId =
+                    document.getElementById("bidangSelect").value || null;
 
                 if (!subIndikator) {
                     swal({
@@ -1028,7 +1059,7 @@ function setupEditSubIndikatorButton() {
 
                 const data = {
                     sub_indikator: subIndikator,
-                    bidang_id: bidangId === "" ? null : bidangId
+                    bidang_id: bidangId === "" ? null : bidangId,
                 };
 
                 axios
@@ -1062,9 +1093,7 @@ function setupDeleteSubIndikatorButton() {
 
             swal({
                 title: "Anda yakin ingin menghapus data ini?",
-                text:
-                    "[SUB INDIKATOR] " +
-                    sub_indikator,
+                text: "[SUB INDIKATOR] " + sub_indikator,
                 icon: "warning",
                 buttons: ["Cancel", "Hapus"],
                 dangerMode: true,
@@ -1144,15 +1173,15 @@ function setupEditButtons() {
             const userId = this.dataset.id;
             let path = window.location.pathname;
 
-            if (path.includes('/adminsistem')) {
+            if (path.includes("/adminsistem")) {
                 window.location.href = `/adminsistem/edit-user/${userId}`;
-            } else if (path.includes('/adminbinagram')) {
+            } else if (path.includes("/adminbinagram")) {
                 window.location.href = `/adminbinagram/edit-user/${userId}`;
-            } else if (path.includes('/pimpinan')) {
+            } else if (path.includes("/pimpinan")) {
                 window.location.href = `/pimpinan/edit-user/${userId}`;
-            } else if (path.includes('/adminapproval')) {
+            } else if (path.includes("/adminapproval")) {
                 window.location.href = `/adminapproval/edit-user/${userId}`;
-            } else if (path.includes('/operator')) {
+            } else if (path.includes("/operator")) {
                 window.location.href = `/operator/edit-user/${userId}`;
             }
         })
@@ -1188,4 +1217,17 @@ function handleProfilePopUp() {
             profileContainer.classList.add("hidden");
         }
     });
+}
+
+function handleDropdown() {
+    const dropdownParents = document.querySelectorAll(".dropdown-parent");
+
+    dropdownParents.forEach((parent) =>
+        parent
+            .querySelector(".dropdown-button")
+            .addEventListener("click", () => (
+                parent.querySelector(".dropdown-child").style.top ="-100%"
+            )
+        )
+    )
 }

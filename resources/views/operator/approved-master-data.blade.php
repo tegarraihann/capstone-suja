@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Daftar master data pending')
+@section('title', 'Daftar master data approved')
 
 @section('content')
     <div class="w-full p-5 h-full">

@@ -220,35 +220,28 @@
                                     <p class="text-sm">Capaian Kinerja</p>
                                 </div>
                             </a>
-                            <a href="/operator/pending-master-data" class="w-full menu-item">
-                                <div
-                                    class="flex justify-left gap-6 w-full rounded-lg py-3 px-6 hover:bg-blue-50 hover:text-blue-600">
-                                    <i class="fa-solid fa-file-circle-check my-auto text-xs w-1/12"></i>
-                                    <p class="text-sm">Riwayat Approval</p>
-                                </div>
-                            </a>
-                            <div class="flex flex-col gap-3 w-full pl-6 mt-4">
-                                <div class="flex w-full gap-2 cursor-pointer">
+                            <div class="flex flex-col gap-3 w-full pl-6 mt-4 dropdown-parent overflow-hidden">
+                                <div class="flex w-full gap-[22px] cursor-pointer dropdown-button">
                                     <i class="fa-solid fa-angle-down my-auto text-xs w-1/12 hidden"></i>
                                     <i class="fa-solid fa-angle-up my-auto text-xs w-1/12"></i>
                                     <p class="text-sm font-medium uppercase">Dokumen</p>
                                 </div>
-                                <div class="pl-1 flex flex-col w-full gap-1">
-                                    <a href="/adminsistem/dashboard/tambah-user" class="w-full">
+                                <div class="pl-4 flex flex-col w-full gap-1 dropdown-child relative duration-300 transition-all">
+                                    <a href="/operator/pending-master-data" class="w-full menu-item">
                                         <div
                                             class="flex justify-left gap-6 w-full rounded-lg py-3 px-6 hover:bg-blue-50 hover:text-blue-600">
                                             <i class="fa-solid fa-file-circle-question  my-auto text-xs w-1/12"></i>
                                             <p class="text-sm">Pending</p>
                                         </div>
                                     </a>
-                                    <a href="/adminsistem/dashboard" class="w-full">
+                                    <a href="/operator/approved-master-data" class="w-full menu-item">
                                         <div
                                             class="flex justify-left gap-6 w-full rounded-lg py-3 px-6 hover:bg-blue-50 hover:text-blue-600">
                                             <i class="fa-solid fa-file-circle-check my-auto text-xs w-1/12"></i>
-                                            <p class="text-sm">Approval</p>
+                                            <p class="text-sm">Approved</p>
                                         </div>
                                     </a>
-                                    <a href="/adminsistem/dashboard/tambah-user" class="w-full">
+                                    <a href="/operator/rejected-master-data" class="w-full menu-item">
                                         <div
                                             class="flex justify-left gap-6 w-full rounded-lg py-3 px-6 hover:bg-blue-50 hover:text-blue-600">
                                             <i class="fa-solid fa-file-circle-xmark my-auto text-xs w-1/12"></i>
