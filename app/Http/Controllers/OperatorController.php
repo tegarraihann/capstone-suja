@@ -279,11 +279,14 @@ class OperatorController extends Controller
                     $q->whereNull('bidang_id')
                         ->orWhere('bidang_id', $bidangId);
                 })
-                    ->orWhereHas('indikator_penunjang')
-                    ->orWhereHas('indikator');
+                    ->orWhereHas('indikator', function ($q) use ($bidangId) {
+                        $q->whereNull('bidang_id')
+                            ->orWhere('bidang_id', $bidangId);
+                    })
+                    ->orWhereHas('indikator_penunjang');
             })
             ->with(['sub_indikator', 'indikator_penunjang', 'indikator', 'user'])
-            ->orderBy('created_at', 'desc');;
+            ->orderBy('created_at', 'desc');
 
         // Tambahkan kondisi pencarian jika ada
         if ($search) {

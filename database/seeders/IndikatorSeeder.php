@@ -155,10 +155,7 @@ class IndikatorSeeder extends Seeder
         ];
 
         foreach ($indikator as $idktr) {
-            Indikator::create([
-                'indikator' => $idktr['indikator'],
-                'sasaran_id' => $idktr['sasaran_id']
-            ]);
+            Indikator::create($idktr);
         }
     }
 }
