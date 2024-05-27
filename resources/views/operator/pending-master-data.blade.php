@@ -33,7 +33,7 @@
                         <th scope="col" class="px-6 py-3 text-left">
                             Status
                         </th>
-                        <th scope="col" class="px-6 py-3 text-left">
+                        <th scope="col" class="px-6 py-3 text-center">
                             Aksi
                         </th>
                     </tr>
@@ -61,7 +61,7 @@
                                 </td>
                                 <td class="py-4 px-6 text-left whitespace-nowrap">{{ $data->user->name }}</td>
                                 <td class="py-4 px-6 text-left">{{ ucfirst($data->status) }}</td>
-                                <td class="py-4 px-6 text-center gap-3 flex items-center justify-center">
+                                <td class="py-4 px-6 text-center gap-3 flex items-center justify-center h-auto">
                                     @if ($data->sub_indikator)
                                         <a href="{{ url('operator/edit-master-data/sub_indikator/' . $data->sub_indikator->id) }}"
                                             class="text-blue-500 hover:text-blue-700">
@@ -69,19 +69,21 @@
                                         </a>
                                     @elseif($data->indikator_penunjang)
                                         <a
-                                            href="{{ url('operator/tambah-master-data/indikator_penunjang/' . $data->indikator_penunjang->id) }}">
+                                            href="{{ url('operator/edit-master-data/indikator_penunjang/' . $data->indikator_penunjang->id) }}"
+                                            class="text-blue-500 hover:text-blue-700">
                                             <i class="fa-regular fa-pen-to-square"></i>
                                         </a>
                                     @elseif($data->indikator)
                                         <a
-                                            href="{{ url('operator/tambah-master-data/indikator/' . $data->indikator->id) }}">
+                                            href="{{ url('operator/edit-master-data/indikator/' . $data->indikator->id) }}"
+                                            class="text-blue-500 hover:text-blue-700">
                                             <i class="fa-regular fa-pen-to-square"></i>
                                         </a>
                                     @endif
                                 </td>
                             </tr>
                         @elseif (!$data->sub_indikator)
-                            <tr class="bg-white border-b hover:bg-gray-50">
+                            <tr class="bg-white border-b hover:bg-gray-50 h-full">
                                 <td class="py-4 px-6 w-[30px]">{{ $originalIndex + 1 }}</td>
                                 <td class="py-4 px-6 text-left">
                                     @if ($data->indikator_penunjang)
@@ -97,12 +99,14 @@
                                 <td class="py-4 px-6 text-center gap-3 flex items-center justify-center">
                                     @if ($data->indikator_penunjang)
                                         <a
-                                            href="{{ url('operator/tambah-master-data/indikator_penunjang/' . $data->indikator_penunjang->id) }}">
+                                            href="{{ url('operator/edit-master-data/indikator_penunjang/' . $data->indikator_penunjang->id) }}"
+                                            class="text-blue-500 hover:text-blue-700">
                                             <i class="fa-regular fa-pen-to-square"></i>
                                         </a>
                                     @elseif($data->indikator)
                                         <a
-                                            href="{{ url('operator/tambah-master-data/indikator/' . $data->indikator->id) }}">
+                                            href="{{ url('operator/edit-master-data/indikator/' . $data->indikator->id) }}"
+                                            class="text-blue-500 hover:text-blue-700">
                                             <i class="fa-regular fa-pen-to-square"></i>
                                         </a>
                                     @endif

@@ -303,7 +303,7 @@ class OperatorController extends Controller
         }
 
         // Paginate the results
-        $dataIku = $dataIkuQuery->paginate(3);
+        $dataIku = $dataIkuQuery->paginate(7);
 
         // Return view with the data
         return view('operator.pending-master-data', [
