@@ -58,4 +58,5 @@ Route::group(['middleware' => ['operator', 'no-cache']], function () {
     Route::get('operator/rejected-master-data', [OperatorController::class, 'view_rejected_master_data'])->name('search-data');
     Route::post('operator/tambah-master-data', [OperatorController::class, "add_master_data"]);
     Route::put('operator/edit-master-data/{id}', [OperatorController::class, "update_master_data"]);
+    Route::get('operator/edit-user/{id}', [AdminSistemController::class, "view_update_user"]);
 });

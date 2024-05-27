@@ -54,3 +54,22 @@
     padding: 0;
     box-sizing: border-box;
 }
+
+.dropdown-child {
+    max-height: 0;
+    transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+}
+
+.dropdown-child.open {
+    max-height: 1000px; /* Arbitrary large value to accommodate content */
+    padding-top: 10px;  /* Adjust based on your design */
+    padding-bottom: 10px; /* Adjust based on your design */
+}
+
+.dropdown-icon {
+    transition: transform 0.3s ease;
+}
+
+.dropdown-icon.open {
+    transform: rotate(180deg) translateX(5px);
+}

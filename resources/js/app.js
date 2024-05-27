@@ -1222,12 +1222,17 @@ function handleProfilePopUp() {
 function handleDropdown() {
     const dropdownParents = document.querySelectorAll(".dropdown-parent");
 
-    dropdownParents.forEach((parent) =>
-        parent
-            .querySelector(".dropdown-button")
-            .addEventListener("click", () => (
-                parent.querySelector(".dropdown-child").style.top ="-100%"
-            )
-        )
-    )
+    dropdownParents.forEach(parent => {
+        const button = parent.querySelector(".dropdown-button");
+        const dropdown = parent.querySelector(".dropdown-child");
+        const icon = button.querySelector(".dropdown-icon");
+
+        button.addEventListener("click", () => {
+            const isOpen = dropdown.classList.toggle("open");
+            icon.classList.toggle("open", isOpen);
+
+            // Adjust padding for smooth transition
+            dropdown.style.maxHeight = isOpen ? dropdown.scrollHeight + "px" : "0px";
+        });
+    });
 }

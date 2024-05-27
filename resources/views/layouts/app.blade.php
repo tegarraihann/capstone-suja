@@ -112,7 +112,7 @@
                         </p>
                     </div>
                     <div
-                        class="bg-gradient-to-r from-blue-400 to-blue-500 text-white mt-3 px-2 py-1 rounded-md border-[1px] text-[12px]">
+                        class="bg-gradient-to-r mt-5 from-blue-400 to-blue-500 text-white px-2 py-1 rounded-md border-[1px] text-[12px]">
                         <p>{{ $userBidang }}</p>
                     </div>
                 </div>
@@ -222,15 +222,15 @@
                             </a>
                             <div class="flex flex-col gap-3 w-full pl-6 mt-4 dropdown-parent overflow-hidden">
                                 <div class="flex w-full gap-[22px] cursor-pointer dropdown-button">
-                                    <i class="fa-solid fa-angle-down my-auto text-xs w-1/12 hidden"></i>
-                                    <i class="fa-solid fa-angle-up my-auto text-xs w-1/12"></i>
+                                    <i class="fa-solid fa-angle-down my-auto text-xs w-1/12 dropdown-icon open"></i>
                                     <p class="text-sm font-medium uppercase">Dokumen</p>
                                 </div>
-                                <div class="pl-4 flex flex-col w-full gap-1 dropdown-child relative duration-300 transition-all">
+                                <div
+                                    class="pl-4 flex flex-col w-full gap-1 dropdown-child open relative duration-300 transition-all max-h-0 overflow-hidden">
                                     <a href="/operator/pending-master-data" class="w-full menu-item">
                                         <div
                                             class="flex justify-left gap-6 w-full rounded-lg py-3 px-6 hover:bg-blue-50 hover:text-blue-600">
-                                            <i class="fa-solid fa-file-circle-question  my-auto text-xs w-1/12"></i>
+                                            <i class="fa-solid fa-file-circle-question my-auto text-xs w-1/12"></i>
                                             <p class="text-sm">Pending</p>
                                         </div>
                                     </a>
@@ -250,6 +250,7 @@
                                     </a>
                                 </div>
                             </div>
+
                         </div>
                         <div class="">
                             <i class="btn-update w-full menu-item cursor-pointer not-italic" data-id="{{ $idUser }}">
