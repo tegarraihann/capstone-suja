@@ -13,17 +13,17 @@ return new class extends Migration {
         Schema::create('data_iku', function (Blueprint $table) {
             $table->id();
             $table->integer('perjanjian_kinerja_target_kumulatif')->default(0)->nullable(false);
-            $table->integer('perjanjian_kinerja_realisasi_kumulatif')->default(0)->nullable(false);
-            $table->float('capaian_kinerja_kumulatif')->default(0.0)->nullable(false);
-            $table->float('capaian_kinerja_target_setahun')->default(0.0)->nullable(false);
-            $table->string('link_bukti_dukung_capaian')->nullable(false);
-            $table->text('upaya_yang_dilakukan')->nullable(false);
-            $table->string('link_bukti_dukung_upaya_yang_dilakukan')->nullable(false);
-            $table->text('kendala')->nullable(false);
-            $table->text('solusi_atas_kendala')->nullable(false);
-            $table->text('rencana_tidak_lanjut')->nullable(false);
-            $table->string('pic_tidak_lanjut')->nullable(false);
-            $table->date('tenggat_tidak_lanjut')->nullable(false);
+            $table->integer('perjanjian_kinerja_realisasi_kumulatif')->default(0)->nullable();
+            $table->float('capaian_kinerja_kumulatif')->default(0.0)->nullable();
+            $table->float('capaian_kinerja_target_setahun')->default(0.0)->nullable();
+            $table->string('link_bukti_dukung_capaian')->nullable();
+            $table->text('upaya_yang_dilakukan')->nullable();
+            $table->string('link_bukti_dukung_upaya_yang_dilakukan')->nullable();
+            $table->text('kendala')->nullable();
+            $table->text('solusi_atas_kendala')->nullable();
+            $table->text('rencana_tidak_lanjut')->nullable();
+            $table->string('pic_tidak_lanjut')->nullable();
+            $table->date('tenggat_tidak_lanjut')->nullable();
             $table->timestamps();
 
             $table->enum('status', ['pending', 'approved_by_ap', 'approved_by_ab', 'rejected'])->default('pending');

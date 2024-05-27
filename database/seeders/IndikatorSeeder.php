@@ -44,59 +44,73 @@ class IndikatorSeeder extends Seeder
             ],
             [
                 'indikator' => 'Persentase penyelesaian pelaksanaan pengadaan',
-                'sasaran_id' => '5'
+                'sasaran_id' => '5',
+                'bidang_id' => '1'
             ],
             [
                 'indikator' => 'Jumlah laporan/dokumen keuangan yang tepat waktu',
-                'sasaran_id' => '5'
+                'sasaran_id' => '5',
+                'bidang_id' => '1'
             ],
             [
                 'indikator' => 'Jumlah laporan/dokumen monitoring dan evaluasi yang tepat waktu',
-                'sasaran_id' => '5'
+                'sasaran_id' => '5',
+                'bidang_id' => '1'
             ],
             [
                 'indikator' => 'Jumlah laporan/dokumen BMN yang tepat waktu',
-                'sasaran_id' => '5'
+                'sasaran_id' => '5',
+                'bidang_id' => '1'
             ],
             [
                 'indikator' => 'Jumlah laporan/dokumen kepegawaian yang tepat waktu',
-                'sasaran_id' => '5'
+                'sasaran_id' => '5',
+                'bidang_id' => '1'
             ],
             [
                 'indikator' => 'Jumlah laporan/dokumen kehumasan yang tepat waktu',
-                'sasaran_id' => '5'
+                'sasaran_id' => '5',
+                'bidang_id' => '1'
             ],
             [
                 'indikator' => 'Jumlah laporan/dokumen dukungan manajemen lainnya yang tepat waktu',
-                'sasaran_id' => '5'
+                'sasaran_id' => '5',
+                'bidang_id' => '1'
             ],
             [
                 'indikator' => 'Hasil penilaian implementasi SAKIP (IKU Kepala)',
-                'sasaran_id' => '5'
+                'sasaran_id' => '5',
+                'bidang_id' => '1'
             ],
             [
                 'indikator' => 'Persentase sarana prasarana dalam kondisi baik (Indikator penunjang IKU Kepala)',
-                'sasaran_id' => '5'
+                'sasaran_id' => '5',
+                'bidang_id' => '1'
             ],
             [
                 'indikator' => 'Persentase penyusunan Laporan Keuangan yang tepat waktu dan sesuai standar',
-                'sasaran_id' => '5'
+                'sasaran_id' => '5',
+                'bidang_id' => '1'
             ],
             [
                 'indikator' => 'Persentase pembayaran gaji dan tunjangan pegawai yang tepat waktu',
-                'sasaran_id' => '5'
+                'sasaran_id' => '5',
+                'bidang_id' => '1'
             ],
             [
                 'indikator' => 'Persentase realisasi anggaran terhadap pagu',
-                'sasaran_id' => '5'
+                'sasaran_id' => '5',
+                'bidang_id' => '1'
             ],
             [
                 'indikator' => 'Persentase data kepegawaian yang di update',
-                'sasaran_id' => '5'
+                'sasaran_id' => '5',
+                'bidang_id' => '1'
             ],
             [
                 'indikator' => 'Persentase usulan mutasi pegawai yang ditindaklanjuti',
-                'sasaran_id' => '5'
+                'sasaran_id' => '5',
+                'bidang_id' => '1'
             ],
             [
                 'indikator' => 'Response rate survei berbasis rumah tangga di wilayah BPS Provinsi',

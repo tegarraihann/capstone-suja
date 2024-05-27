@@ -591,114 +591,142 @@ class SubIndikatorSeeder extends Seeder
             [
                 'sub_indikator' => 'Jumlah pengadaan kendaraan bermotor',
                 'indikator_id' => '8',
+                'bidang_id' => '1'
             ],
             [
                 'sub_indikator' => 'Jumlah pengadaan perangkat pengolah data dan komunikasi',
                 'indikator_id' => '8',
+                'bidang_id' => '1'
             ],
             [
                 'sub_indikator' => 'Jumlah pengadaan peralatan fasilitas perkantoran',
                 'indikator_id' => '8',
+                'bidang_id' => '1'
             ],
             [
                 'sub_indikator' => 'Luas pembangunan/renovasi gedung dan bangunan',
                 'indikator_id' => '8',
+                'bidang_id' => '1'
             ],
             [
                 'sub_indikator' => 'Luas pengadaan tanah untuk pembangunan/renovasi gedung dan bangunan',
                 'indikator_id' => '8',
+                'bidang_id' => '1'
             ],
             [
                 'sub_indikator' => 'Jumlah paket pengadaan barang dan jasa lainnya',
                 'indikator_id' => '8',
+                'bidang_id' => '1'
             ],
             [
                 'sub_indikator' => 'Laporan Keuangan BPS Provinsi Riau Untuk Periode yang Berakhir 31 Desember 2023 (Unaudited)',
                 'indikator_id' => '9',
+                'bidang_id' => '1'
             ],
             [
                 'sub_indikator' => 'Laporan Keuangan Wilayah Riau Untuk Periode yang Berakhir 31 Desember 2023 (Unaudited)',
                 'indikator_id' => '9',
+                'bidang_id' => '1'
             ],
             [
                 'sub_indikator' => 'Laporan Keuangan BPS Provinsi Riau Untuk Periode yang Berakhir 31 Desember 2023 (Audited)',
                 'indikator_id' => '9',
+                'bidang_id' => '1'
             ],
             [
                 'sub_indikator' => 'Laporan Keuangan  Wilayah Riau Untuk Periode yang Berakhir 31 Desember 2023 (Audited)',
                 'indikator_id' => '9',
+                'bidang_id' => '1'
             ],
             [
                 'sub_indikator' => 'Laporan Keuangan BPS Provinsi Riau Untuk Periode yang Berakhir 30 Juni 2024',
                 'indikator_id' => '9',
+                'bidang_id' => '1'
             ],
             [
                 'sub_indikator' => 'Laporan Keuangan Wilayah Riau Untuk Periode yang Berakhir 30 Juni 2024',
                 'indikator_id' => '9',
+                'bidang_id' => '1'
             ],
             [
                 'sub_indikator' => 'Laporan Keuangan BPS Provinsi Riau Untuk Periode yang Berakhir 30 September 2024',
                 'indikator_id' => '9',
+                'bidang_id' => '1'
             ],
             [
                 'sub_indikator' => 'Laporan Keuangan Wilayah Riau Untuk Periode yang Berakhir 30 September 2024',
                 'indikator_id' => '9',
+                'bidang_id' => '1'
             ],
             [
                 'sub_indikator' => 'Laporan Monev Capaian Kinerja Triwulan IV 2023',
                 'indikator_id' => '10',
+                'bidang_id' => '1'
             ],
             [
                 'sub_indikator' => 'Laporan Kinerja 2023',
                 'indikator_id' => '10',
+                'bidang_id' => '1'
             ],
             [
                 'sub_indikator' => 'Laporan Monev Capaian Kinerja Triwulan I 2024',
                 'indikator_id' => '10',
+                'bidang_id' => '1'
             ],
             [
                 'sub_indikator' => 'Laporan Monev Capaian Kinerja Triwulan II 2024',
                 'indikator_id' => '10',
+                'bidang_id' => '1'
             ],
             [
                 'sub_indikator' => 'Laporan Monev Capaian Kinerja Triwulan III 2024',
                 'indikator_id' => '10',
+                'bidang_id' => '1'
             ],
             [
                 'sub_indikator' => 'Laporan BMN Tahunan 2023 Satker',
                 'indikator_id' => '11',
+                'bidang_id' => '1'
             ],
             [
                 'sub_indikator' => 'Laporan BMN Tahunan 2023 Wilayah',
                 'indikator_id' => '11',
+                'bidang_id' => '1'
             ],
             [
                 'sub_indikator' => 'Laporan BMN Semester I 2024 Satker',
                 'indikator_id' => '11',
+                'bidang_id' => '1'
             ],
             [
                 'sub_indikator' => 'Laporan BMN Semester I 2024 Wilayah',
                 'indikator_id' => '11',
+                'bidang_id' => '1'
             ],
             [
                 'sub_indikator' => 'Laporan BMN Triwulan III 2024 Satker',
                 'indikator_id' => '11',
+                'bidang_id' => '1'
             ],
             [
                 'sub_indikator' => 'Laporan BMN Triwulan III 2024 Wilayah',
                 'indikator_id' => '11',
+                'bidang_id' => '1'
             ],
             [
                 'sub_indikator' => 'Perjanjian Kinerja 2024',
                 'indikator_id' => '14',
+                'bidang_id' => '1'
             ],
             [
                 'sub_indikator' => 'Laporan Survei Satuan Harga Barang Dan Jasa 2024',
                 'indikator_id' => '14',
+                'bidang_id' => '1'
             ],
             [
                 'sub_indikator' => 'Laporan Pengadaan Barang Dan Jasa 2024',
                 'indikator_id' => '14',
+                'bidang_id' => '1'
             ],
         ];
 

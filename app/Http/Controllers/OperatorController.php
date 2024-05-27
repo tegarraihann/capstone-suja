@@ -282,7 +282,8 @@ class OperatorController extends Controller
                     ->orWhereHas('indikator_penunjang')
                     ->orWhereHas('indikator');
             })
-            ->with(['sub_indikator', 'indikator_penunjang', 'indikator', 'user']);
+            ->with(['sub_indikator', 'indikator_penunjang', 'indikator', 'user'])
+            ->orderBy('created_at', 'desc');;
 
         // Tambahkan kondisi pencarian jika ada
         if ($search) {

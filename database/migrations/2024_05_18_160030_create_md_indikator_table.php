@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('indikator')->nullable(false);
             $table->foreignId('sasaran_id')->constrained('md_sasaran')->onDelete('cascade');
+            $table->foreignId('bidang_id')->nullable()->constrained('bidang')->onDelete('cascade');
             $table->timestamps();
         });
     }

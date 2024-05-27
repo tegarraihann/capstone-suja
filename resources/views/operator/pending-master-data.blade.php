@@ -28,7 +28,10 @@
                             Capaian Kinerja
                         </th>
                         <th scope="col" class="px-6 py-3 text-left whitespace-nowrap">
-                            Upload By
+                            Last Uploader
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left whitespace-nowrap">
+                            Bidang Uploader
                         </th>
                         <th scope="col" class="px-6 py-3 text-left">
                             Status
@@ -40,14 +43,14 @@
                 </thead>
                 <tbody>
                     @php
-                        $originalIndex = 0;
+                        $index = 0;
                     @endphp
                     @forelse ($dataIku as $data)
                         @if (
                             $data->sub_indikator &&
                                 ($data->sub_indikator->bidang_id === null || $data->sub_indikator->bidang_id === Auth::user()->bidang_id))
                             <tr class="bg-white border-b hover:bg-gray-50">
-                                <td class="py-4 px-6 w-[30px]">{{ $originalIndex + 1 }}</td>
+                                <td class="py-4 px-6 w-[30px]">{{ $index + 1 }}</td>
                                 <td class="py-4 px-6 text-left">
                                     @if ($data->sub_indikator)
                                         [SUB INDIKATOR] {{ $data->sub_indikator->sub_indikator }}
@@ -60,6 +63,8 @@
                                     @endif
                                 </td>
                                 <td class="py-4 px-6 text-left whitespace-nowrap">{{ $data->user->name }}</td>
+                                <td class="py-4 px-6 text-left whitespace-nowrap">{{ $data->user->bidang->nama_bidang }}
+                                </td>
                                 <td class="py-4 px-6 text-left">{{ ucfirst($data->status) }}</td>
                                 <td class="py-4 px-6 text-center gap-3 flex items-center justify-center h-auto">
                                     @if ($data->sub_indikator)
@@ -68,14 +73,12 @@
                                             <i class="fa-regular fa-pen-to-square"></i>
                                         </a>
                                     @elseif($data->indikator_penunjang)
-                                        <a
-                                            href="{{ url('operator/edit-master-data/indikator_penunjang/' . $data->indikator_penunjang->id) }}"
+                                        <a href="{{ url('operator/edit-master-data/indikator_penunjang/' . $data->indikator_penunjang->id) }}"
                                             class="text-blue-500 hover:text-blue-700">
                                             <i class="fa-regular fa-pen-to-square"></i>
                                         </a>
                                     @elseif($data->indikator)
-                                        <a
-                                            href="{{ url('operator/edit-master-data/indikator/' . $data->indikator->id) }}"
+                                        <a href="{{ url('operator/edit-master-data/indikator/' . $data->indikator->id) }}"
                                             class="text-blue-500 hover:text-blue-700">
                                             <i class="fa-regular fa-pen-to-square"></i>
                                         </a>
@@ -84,7 +87,7 @@
                             </tr>
                         @elseif (!$data->sub_indikator)
                             <tr class="bg-white border-b hover:bg-gray-50 h-full">
-                                <td class="py-4 px-6 w-[30px]">{{ $originalIndex + 1 }}</td>
+                                <td class="py-4 px-6 w-[30px]">{{ $index + 1 }}</td>
                                 <td class="py-4 px-6 text-left">
                                     @if ($data->indikator_penunjang)
                                         [INDIKATOR PENUNJANG] {{ $data->indikator_penunjang->indikator_penunjang }}
@@ -95,17 +98,17 @@
                                     @endif
                                 </td>
                                 <td class="py-4 px-6 text-left whitespace-nowrap">{{ $data->user->name }}</td>
+                                <td class="py-4 px-6 text-left whitespace-nowrap">{{ $data->user->bidang->nama_bidang }}
+                                </td>
                                 <td class="py-4 px-6 text-left">{{ ucfirst($data->status) }}</td>
                                 <td class="py-4 px-6 text-center gap-3 flex items-center justify-center">
                                     @if ($data->indikator_penunjang)
-                                        <a
-                                            href="{{ url('operator/edit-master-data/indikator_penunjang/' . $data->indikator_penunjang->id) }}"
+                                        <a href="{{ url('operator/edit-master-data/indikator_penunjang/' . $data->indikator_penunjang->id) }}"
                                             class="text-blue-500 hover:text-blue-700">
                                             <i class="fa-regular fa-pen-to-square"></i>
                                         </a>
                                     @elseif($data->indikator)
-                                        <a
-                                            href="{{ url('operator/edit-master-data/indikator/' . $data->indikator->id) }}"
+                                        <a href="{{ url('operator/edit-master-data/indikator/' . $data->indikator->id) }}"
                                             class="text-blue-500 hover:text-blue-700">
                                             <i class="fa-regular fa-pen-to-square"></i>
                                         </a>
