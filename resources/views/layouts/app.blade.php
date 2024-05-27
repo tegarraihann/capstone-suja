@@ -97,10 +97,10 @@
         </header>
 
         <!-- Sidebar -->
-        <aside class="top-20 fixed left-0 w-[260px] p-5 border-r-2 z-10" style="height: calc(100vh - 80px)">
-            <div class="w-full h-full flex flex-col overflow-x-hidden">
+        <aside class="top-20 fixed left-0 w-[260px] border-r-2 z-10" style="height: calc(100vh - 80px)">
+            <div class="w-full h-full flex flex-col overflow-x-hidden p-5">
                 @if (Auth::check())
-                <div class="mb-5 mt-3 bg-gradient-to-r from-blue-500 to-blue-400 p-5 rounded-lg text-white">
+                <div class="mb-5 mt-3 sticky top-4 bg-gradient-to-r from-blue-500 to-blue-400 p-5 rounded-lg text-white">
                     <div
                         class="flex items-center justify-center text-blue-500 font-bold rounded-full bg-white w-9 h-9 text-sm cursor-pointer">
                         {{ $firstLetter }}</div>
