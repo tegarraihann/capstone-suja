@@ -8,7 +8,7 @@
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg p-4 bg-white mt-3">
             <div class="w-full flex justify-between">
                 <div class="bg-white">
-                    <form action="{{ route('search-data') }}" method="GET"
+                    <form action="{{ route('search-data-pending') }}" method="GET"
                         class="flex items-center text-gray-900 border border-gray-300 rounded-md w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 overflow-hidden">
                         <input type="text" name="search" id="table-search"
                             class="block py-2 px-4 outline-none text-sm w-full" placeholder="Cari data"
@@ -30,9 +30,6 @@
                         <th scope="col" class="px-6 py-3 text-left whitespace-nowrap">
                             Last Uploader
                         </th>
-                        <th scope="col" class="px-6 py-3 text-left whitespace-nowrap">
-                            Bidang Uploader
-                        </th>
                         <th scope="col" class="px-6 py-3 text-left">
                             Status
                         </th>
@@ -48,7 +45,7 @@
                     @forelse ($dataIku as $data)
                         @if (
                             $data->sub_indikator &&
-                                ($data->sub_indikator->bidang_id === null || $data->sub_indikator->bidang_id === Auth::user()->bidang_id))
+                                ($data->sub_indikator->bidang_id === null || $data->sub_indikator->bidang_id === Auth::user()->bidang_id || $data->indikator->bidang_id === Auth::user()->bidang_id))
                             <tr class="bg-white border-b hover:bg-gray-50">
                                 <td class="py-4 px-6 w-[30px]">{{ $index + 1 }}</td>
                                 <td class="py-4 px-6 text-left">
@@ -62,8 +59,7 @@
                                         N/A
                                     @endif
                                 </td>
-                                <td class="py-4 px-6 text-left whitespace-nowrap">{{ $data->user->name }}</td>
-                                <td class="py-4 px-6 text-left whitespace-nowrap">{{ $data->user->bidang->nama_bidang }}
+                                <td class="py-4 px-6 text-left whitespace-nowrap">{{ $data->user->name }} | <span class="text-blue-600">{{$data->user->bidang->nama_bidang}}</span></td>
                                 </td>
                                 <td class="py-4 px-6 text-left">{{ ucfirst($data->status) }}</td>
                                 <td class="py-4 px-6 text-center gap-3 flex items-center justify-center h-auto">
@@ -97,8 +93,7 @@
                                         N/A
                                     @endif
                                 </td>
-                                <td class="py-4 px-6 text-left whitespace-nowrap">{{ $data->user->name }}</td>
-                                <td class="py-4 px-6 text-left whitespace-nowrap">{{ $data->user->bidang->nama_bidang }}
+                                <td class="py-4 px-6 text-left whitespace-nowrap">{{ $data->user->name }} | <span class="text-blue-600">{{$data->user->bidang->nama_bidang}}</span></td>
                                 </td>
                                 <td class="py-4 px-6 text-left">{{ ucfirst($data->status) }}</td>
                                 <td class="py-4 px-6 text-center gap-3 flex items-center justify-center">
