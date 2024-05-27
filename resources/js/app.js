@@ -1226,13 +1226,32 @@ function handleDropdown() {
         const button = parent.querySelector(".dropdown-button");
         const dropdown = parent.querySelector(".dropdown-child");
         const icon = button.querySelector(".dropdown-icon");
+        const links = parent.querySelectorAll("a.menu-item");
+
+        const checkAndCloseDropdown = () => {
+            const currentURL = window.location.pathname;
+            let isMatch = false;
+            
+            links.forEach(link => {
+                if (link.getAttribute("href") === currentURL) {
+                    isMatch = true;
+                }
+            });
+
+            if (!isMatch) {
+                dropdown.classList.remove("open");
+                icon.classList.remove("open");
+                dropdown.style.maxHeight = "0px";
+            }
+        };
 
         button.addEventListener("click", () => {
             const isOpen = dropdown.classList.toggle("open");
             icon.classList.toggle("open", isOpen);
-
-            // Adjust padding for smooth transition
             dropdown.style.maxHeight = isOpen ? dropdown.scrollHeight + "px" : "0px";
         });
+
+        // Check and close dropdown on page load
+        checkAndCloseDropdown();
     });
 }

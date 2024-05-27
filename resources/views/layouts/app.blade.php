@@ -96,7 +96,6 @@
             @endif
         </header>
 
-
         <!-- Sidebar -->
         <aside class="top-20 fixed left-0 w-[260px] p-5 border-r-2 z-10" style="height: calc(100vh - 80px)">
             <div class="w-full h-full flex flex-col overflow-x-hidden">
@@ -112,7 +111,7 @@
                         </p>
                     </div>
                     <div
-                        class="bg-gradient-to-r mt-5 from-blue-400 to-blue-500 text-white px-2 py-1 rounded-md border-[1px] text-[12px]">
+                        class="mt-5 text-white text-sm border-t pt-3">
                         <p>{{ $userBidang }}</p>
                     </div>
                 </div>
@@ -208,6 +207,69 @@
                     @endif
                     {{-- admin approval --}}
                     @if (Auth::user()->role == 1)
+                    <div class="flex flex-col h-full gap-3 w-full justify-between">
+                        <div class="flex flex-col w-full gap-1">
+                            <a href="/adminapproval/dashboard" class="w-full menu-item">
+                                <div
+                                    class="flex justify-left gap-6 w-full rounded-lg py-3 px-6 hover:bg-blue-50 hover:text-blue-600">
+                                    <i class="fa-solid fa-briefcase my-auto text-xs w-1/12"></i>
+                                    <p class="text-sm">Daftar dokumen</p>
+                                </div>
+                            </a>
+                            <div class="flex flex-col gap-3 w-full pl-6 mt-4 dropdown-parent overflow-hidden">
+                                <div class="flex w-full gap-[22px] cursor-pointer dropdown-button">
+                                    <i class="fa-solid fa-angle-down my-auto text-xs w-1/12 dropdown-icon open"></i>
+                                    <p class="text-sm font-medium">Riwayat</p>
+                                </div>
+                                <div
+                                    class="pl-4 flex flex-col w-full gap-1 dropdown-child open relative duration-300 transition-all max-h-0 overflow-hidden">
+                                    <a href="/adminapproval/pending-master-data" class="w-full menu-item">
+                                        <div
+                                            class="flex justify-left gap-6 w-full rounded-lg py-3 px-6 hover:bg-blue-50 hover:text-blue-600">
+                                            <i class="fa-solid fa-file-circle-question my-auto text-xs w-1/12"></i>
+                                            <p class="text-sm">Pending</p>
+                                        </div>
+                                    </a>
+                                    <a href="/adminapproval/approved-master-data" class="w-full menu-item">
+                                        <div
+                                            class="flex justify-left gap-6 w-full rounded-lg py-3 px-6 hover:bg-blue-50 hover:text-blue-600">
+                                            <i class="fa-solid fa-file-circle-check my-auto text-xs w-1/12"></i>
+                                            <p class="text-sm">Approved</p>
+                                        </div>
+                                    </a>
+                                    <a href="/adminapproval/rejected-master-data" class="w-full menu-item">
+                                        <div
+                                            class="flex justify-left gap-6 w-full rounded-lg py-3 px-6 hover:bg-blue-50 hover:text-blue-600">
+                                            <i class="fa-solid fa-file-circle-xmark my-auto text-xs w-1/12"></i>
+                                            <p class="text-sm">Rejected</p>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="">
+                            <i class="btn-update w-full menu-item cursor-pointer not-italic" data-id="{{ $idUser }}">
+                                <div
+                                    class="flex justify-left gap-6 w-full rounded-lg py-3 px-6 hover:bg-blue-50 hover:text-blue-600">
+                                    <i class="fa-solid fa-gear my-auto w-1/12"></i>
+                                    <p class="text-sm">Edit profile</p>
+                                </div>
+                            </i>
+                            <a class="logout-btn w-full menu-item cursor-pointer ">
+                                {{-- <div
+                                    class="flex justify-left gap-6 mb-5 mt-3 bg-gradient-to-r from-blue-500 to-blue-400 px-6 py-3 rounded-lg text-white">
+                                    <i class="fa-solid fa-arrow-right-from-bracket my-auto w-1/12"></i>
+                                    <p class="text-sm">Log out</p>
+                                </div> --}}
+                                <div
+                                    class="flex justify-left gap-6 w-full rounded-lg py-3 px-6 hover:bg-blue-50 hover:text-blue-600">
+                                    <i class="fa-solid fa-arrow-right-from-bracket my-auto w-1/12"></i>
+                                    <p class="text-sm">Log out</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
                     @endif
                     {{-- operator --}}
                     @if (Auth::user()->role == 0)
@@ -223,7 +285,7 @@
                             <div class="flex flex-col gap-3 w-full pl-6 mt-4 dropdown-parent overflow-hidden">
                                 <div class="flex w-full gap-[22px] cursor-pointer dropdown-button">
                                     <i class="fa-solid fa-angle-down my-auto text-xs w-1/12 dropdown-icon open"></i>
-                                    <p class="text-sm font-medium uppercase">Dokumen</p>
+                                    <p class="text-sm font-medium">Dokumen</p>
                                 </div>
                                 <div
                                     class="pl-4 flex flex-col w-full gap-1 dropdown-child open relative duration-300 transition-all max-h-0 overflow-hidden">
