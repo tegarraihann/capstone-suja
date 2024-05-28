@@ -2,7 +2,7 @@ import axios from "axios";
 import "./bootstrap";
 
 document.addEventListener("DOMContentLoaded", function () {
-    getTriwulanParams();
+    // getTriwulanParams();
     activateTriwulanButton();
     handleDropdown();
     setupDeleteSubIndikatorButton();
@@ -1343,14 +1343,14 @@ function getTriwulanParams(){
     const selectElement = document.querySelector('select[name="triwulan_id"]');
 
     // Loop through each option to find and select the matching one
-    Array.from(selectElement.options).forEach(option => {
+    selectElement?.options.forEach(option => {
         if (option.value === triwulanParam) {
             option.selected = true; // Select the option
         }
     });
 
     // Add an event listener to handle changes and update the URL
-    selectElement.addEventListener('change', function(e) {
+    selectElement?.addEventListener('change', function(e) {
         let selectedTriwulan = this.value;
         window.location.href = window.location.pathname + '?triwulan=' + selectedTriwulan;
     }); 

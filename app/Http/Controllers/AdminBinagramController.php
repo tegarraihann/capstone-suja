@@ -256,5 +256,4 @@ class AdminBinagramController extends Controller
 
         return response()->json(['message' => 'Triwulan berhasil diperbarui'], 200);
     }
-
 }
