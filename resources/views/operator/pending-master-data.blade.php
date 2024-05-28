@@ -15,7 +15,7 @@
                             class="block py-2 px-4 outline-none text-sm w-full" placeholder="Cari data"
                             value="{{ request('search') }}">
                         <button type="submit"
-                            class="px-4 py-2 bg-gradient-to-r from-blue-500 to-blue-400 text-white rounded-r-md hover:bg-blue-600">Cari</button>
+                            class="px-4 py-2 bg-gradient-to-r from-blue-500 to-blue-400 text-white rounded-r-md hover:bg-blue-600 transition-all hover:to-blue-500 hover:from-blue-400 duration-700">Cari</button>
                     </form>
                 </div>
             </div>

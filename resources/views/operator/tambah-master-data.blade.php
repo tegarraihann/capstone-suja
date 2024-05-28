@@ -57,7 +57,17 @@
             <p class="font-semibold text-lg text-gray-600 mb-3">
                 {{ $entityName ?? 'Entitas tidak ditemukan' }}
             </p>
-            <p class="font-medium text-gray-600 mb-10">Triwulan Ke-{{ $triwulan }}</p>
+            <div class="flex items-center my-5">
+                <select class="px-4 py-2 pr-4 w-[200px] rounded-md shadow outline-none border-none appearance-none text-gray-800">
+                    <option>Triwulan Ke-I</option>
+                    <option>Triwulan Ke-II</option>
+                    <option>Triwulan Ke-III</option>
+                    <option>Triwulan Ke-IV</option>
+                </select>
+                <svg class="w-4 h-4 mt-px -ml-6 pointer-events-none " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                </svg>
+            </div>
             <form class="mx-auto" action="{{ url('operator/tambah-master-data') }}" method="post">
                 {{ csrf_field() }}
                 <input type="hidden" name="type" value="{{ $entityType }}">
