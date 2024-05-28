@@ -3,7 +3,6 @@ import "./bootstrap";
 
 document.addEventListener("DOMContentLoaded", function () {
     getTriwulanParams();
-    setLastSelectedTriwulan();
     activateTriwulanButton();
     handleDropdown();
     setupDeleteSubIndikatorButton();
@@ -1338,52 +1337,30 @@ function activateTriwulanButton() {
     );
 }
 
-function setLastSelectedTriwulan() {
-    try {
-        const triwulanSelect = document.getElementById("triwulan");
-        if (!triwulanSelect) {
-            console.error("Element with ID 'triwulan' not found.");
-            return;
-        }
-
-        const lastSelectedTriwulan = localStorage.getItem("lastSelectedTriwulan");
-        if (lastSelectedTriwulan) {
-            const optionExists = [...triwulanSelect.options].some(option => option.value === lastSelectedTriwulan);
-            if (optionExists) {
-                triwulanSelect.value = lastSelectedTriwulan;
-            } else {
-                triwulanSelect.value = "";
-            }
-        } else {
-            triwulanSelect.value = "";
-        }
-    } catch (error) {
-        console.error("Error in setLastSelectedTriwulan: ", error);
-    }
-}
-
 function getTriwulanParams() {
     try {
-        const triwulanSelect = document.getElementById("triwulan");
-        if (!triwulanSelect) {
-            console.error("Element with ID 'triwulan' not found.");
-            return;
-        }
+        const urlParams = new URLSearchParams(window.location.search);
+        const triwulanParam = urlParams.get("triwulan");
 
-        triwulanSelect.addEventListener("change", function() {
-            const selectedValue = this.value;
-            if (selectedValue) {
-                // Save the selected value to localStorage
-                localStorage.setItem("lastSelectedTriwulan", selectedValue);
+        // Select the dropdown element
+        const selectElement = document.querySelector(
+            'select[name="triwulan_id"]'
+        );
 
-                // Update the URL and reload the page
-                const newUrl = new URL(window.location.href);
-                newUrl.searchParams.set("triwulan", selectedValue);
-                window.location.href = newUrl.toString();
+        // Loop through each option to find and select the matching one
+        Array.from(selectElement.options).forEach((option) => {
+            if (option.value === triwulanParam) {
+                option.selected = true; // Select the option
             }
+        });
+
+        // Add an event listener to handle changes and update the URL
+        selectElement.addEventListener("change", function (e) {
+            let selectedTriwulan = this.value;
+            window.location.href =
+                window.location.pathname + "?triwulan=" + selectedTriwulan;
         });
     } catch (error) {
         console.error("Error in getTriwulanParams: ", error);
     }
 }
-
