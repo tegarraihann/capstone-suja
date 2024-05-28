@@ -2,6 +2,7 @@ import axios from "axios";
 import "./bootstrap";
 
 document.addEventListener("DOMContentLoaded", function () {
+    getTriwulanParams();
     activateTriwulanButton();
     handleDropdown();
     setupDeleteSubIndikatorButton();
@@ -1267,6 +1268,8 @@ function activateTriwulanButton() {
             const currentTriwulan = this.dataset.triwulan;
             const status = this.dataset.status;
 
+            console.log(id);
+
             let swalConfig;
 
             if (status === "close") {
@@ -1329,4 +1332,26 @@ function activateTriwulanButton() {
             });
         })
     );
+}
+
+function getTriwulanParams(){
+    // Get the triwulan search parameter from the URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const triwulanParam = urlParams.get('triwulan');
+
+    // Select the dropdown element
+    const selectElement = document.querySelector('select[name="triwulan_id"]');
+
+    // Loop through each option to find and select the matching one
+    Array.from(selectElement.options).forEach(option => {
+        if (option.value === triwulanParam) {
+            option.selected = true; // Select the option
+        }
+    });
+
+    // Add an event listener to handle changes and update the URL
+    selectElement.addEventListener('change', function(e) {
+        let selectedTriwulan = this.value;
+        window.location.href = window.location.pathname + '?triwulan=' + selectedTriwulan;
+    }); 
 }

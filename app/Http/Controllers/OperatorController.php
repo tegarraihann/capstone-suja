@@ -6,9 +6,11 @@ use App\Models\DataIku;
 use App\Models\Indikator;
 use App\Models\IndikatorPenunjang;
 use App\Models\SubIndikator;
+use App\Models\Triwulan;
 use App\Models\Tujuan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class OperatorController extends Controller
 {
@@ -16,6 +18,7 @@ class OperatorController extends Controller
     {
         $iku = Tujuan::where('iku', 0)->with(['sasaran.indikator.indikator_penunjang', 'sasaran.indikator.sub_indikator'])->get();
         $iku_sup = Tujuan::where('iku', 1)->with(['sasaran.indikator.indikator_penunjang', 'sasaran.indikator.sub_indikator'])->get();
+        $triwulan = Triwulan::all();
 
         // Ambil semua sub_indikator_id yang ada di data_iku
         $existingDataSubIndikator = DataIku::pluck('sub_indikator_id')->toArray();
@@ -25,6 +28,7 @@ class OperatorController extends Controller
         return view('operator.dashboard', [
             'iku' => $iku,
             'iku_sup' => $iku_sup,
+            'triwulan' => $triwulan,
             'existingDataSubIndikator' => $existingDataSubIndikator,
             'existingDataIndikatorPenunjang' => $existingDataIndikatorPenunjang,
             'existingDataIndikator' => $existingDataIndikator
@@ -52,10 +56,13 @@ class OperatorController extends Controller
             return redirect()->back()->with('error', 'Entitas tidak ditemukan');
         }
 
+        $triwulan = Triwulan::all();
+
         return view('operator.tambah-master-data', [
             'entityType' => $type,
             'entityName' => $entityName,
             'entityId' => $id,
+            'triwulan' => $triwulan
         ]);
     }
 
@@ -120,22 +127,25 @@ class OperatorController extends Controller
             'rencana_tidak_lanjut' => 'required|string',
             'pic_tidak_lanjut' => 'required|string',
             'tenggat_tidak_lanjut' => 'required|date',
-            'sub_indikator_id' => 'nullable|unique:data_iku,sub_indikator_id',
-            'indikator_penunjang_id' => 'nullable|unique:data_iku,indikator_penunjang_id',
-            'indikator_id' => 'nullable|unique:data_iku,indikator_id'
+            'sub_indikator_id' => [
+                'nullable',
+                Rule::unique('data_iku')->where(function ($query) use ($request) {
+                    return $query->where('triwulan_id', $request->input('triwulan_id'));
+                }),
+            ],
+            'indikator_penunjang_id' => [
+                'nullable',
+                Rule::unique('data_iku')->where(function ($query) use ($request) {
+                    return $query->where('triwulan_id', $request->input('triwulan_id'));
+                }),
+            ],
+            'indikator_id' => [
+                'nullable',
+                Rule::unique('data_iku')->where(function ($query) use ($request) {
+                    return $query->where('triwulan_id', $request->input('triwulan_id'));
+                }),
+            ],
         ]);
-
-        // Menentukan triwulan berdasarkan bulan saat ini
-        $month = now()->month;
-        if ($month >= 1 && $month <= 3) {
-            $triwulan = "1";
-        } elseif ($month >= 4 && $month <= 6) {
-            $triwulan = "2";
-        } elseif ($month >= 7 && $month <= 9) {
-            $triwulan = "3";
-        } else {
-            $triwulan = "4";
-        }
 
         // Menyusun data untuk disimpan
         $data = new DataIku();
@@ -156,7 +166,7 @@ class OperatorController extends Controller
         $data->approve_by = null;
         $data->reject_by = null;
         $data->reject_comment = null;
-        $data->triwulan = $triwulan;
+        $data->triwulan_id = $request->input('triwulan_id');
 
         // Menyimpan id entitas berdasarkan type
         $type = $request->input('type');

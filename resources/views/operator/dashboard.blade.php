@@ -4,20 +4,6 @@
 
 @section('content')
     @php
-        function getQuarter()
-        {
-            $month = date('n');
-            if ($month >= 1 && $month <= 3) {
-                return '1';
-            } elseif ($month >= 4 && $month <= 6) {
-                return '2';
-            } elseif ($month >= 7 && $month <= 9) {
-                return '3';
-            } else {
-                return '4';
-            }
-        }
-
         $bidangOptions = [
             7 => 'Pimpinan',
             6 => 'Fungsi IPDS',
@@ -28,20 +14,23 @@
             1 => 'Bagian Umum',
         ];
 
-        $triwulan = getQuarter();
         $userBidang = $bidangOptions[Auth::user()->bidang_id] ?? 'Unknown';
     @endphp
     <div class="w-full p-5 h-full">
-        <h2 class="text-gray-600 font-semibold text-2xl">Isikan Capaian Kinerja Triwulan Ke-{{ $triwulan }}</h2>
+        <h2 class="text-gray-600 font-semibold text-2xl">Isikan Capaian Kinerja</h2>
         <p class="text-gray-600 font-light text-lg mt-2">{{ $userBidang }}</p>
-        <div class="mt-10 flex items-center gap-2">
+        <div class="mt-4 mb-2 flex items-center gap-2">
             <p class="text-gray-800">Pilih triwulan:</p>
             <div class="flex items-center">
-                <select class="px-4 py-2 pr-4 w-[200px] rounded-md shadow-sm outline-none border-none appearance-none text-gray-800 active:border-blue-500 active:border-2">
-                    <option>Triwulan I</option>
-                    <option>Triwulan II</option>
-                    <option>Triwulan III</option>
-                    <option>Triwulan IV</option>
+                <select name="triwulan_id" class="px-4 py-2 pr-4 w-[200px] rounded-md shadow-sm outline-none border-none appearance-none text-gray-800 active:border-blue-500 active:border-2">
+                    <option value="">pilih</option>
+                    @foreach ($triwulan as $data)
+                        @if ($data->status === 'open')
+                            <option value="{{$data->id}}">{{$data->triwulan}}</option>
+                        @elseif ($data->status === 'close')
+                            <option @disabled(true) class="disabled:text-gray-300" value="{{$data->id}}">{{$data->triwulan}}</option>
+                        @endif
+                    @endforeach
                 </select>
                 <svg class="w-4 h-4 mt-px -ml-6 pointer-events-none " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
