@@ -43,8 +43,6 @@
                     text: "OK",
                     closeModal: true,
                 }
-            }).then(() => {
-                window.location.href = "{{ url('operator/dashboard') }}";
             });
         </script>
     @endif

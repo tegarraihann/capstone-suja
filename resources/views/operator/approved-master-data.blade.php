@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="w-full p-5 h-full">
-
+        <h2 class="text-gray-600 font-semibold text-2xl">Data Disetujui</h2>
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg p-4 bg-white mt-3">
             <div class="w-full flex justify-between">
                 <div class="bg-white">
@@ -28,13 +28,13 @@
                             Capaian Kinerja
                         </th>
                         <th scope="col" class="px-6 py-3 text-left whitespace-nowrap">
-                            Upload By
+                            Last Uploader
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left whitespace-nowrap">
+                            Approved By
                         </th>
                         <th scope="col" class="px-6 py-3 text-left">
                             Status
-                        </th>
-                        <th scope="col" class="px-6 py-3 text-left">
-                            Aksi
                         </th>
                     </tr>
                 </thead>
