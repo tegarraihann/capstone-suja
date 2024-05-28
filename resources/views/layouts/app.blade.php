@@ -103,7 +103,7 @@
                 <div class="mb-5 mt-3 sticky top-4 bg-gradient-to-r {{Auth::user()->bidang_id == 1 ? " from-violet-500
                     to-fuchsia-500" : (Auth::user()->bidang_id == 2 ? "from-blue-500 to-cyan-500" :
                     (Auth::user()->bidang_id == 3 ? "from-teal-500 to-sky-500" : (Auth::user()->bidang_id == 4 ? "from-red-500 to-amber-500" :
-                    (Auth::user()->bidang_id == 5 ? "from-lime-500 to-emerald-500" : (Auth::user()->bidang_id == 6 ? "from-rose-500 to-fuchsia-500-500" : "from-sky-500 to-indigo-500"))))) }} p-5 rounded-lg text-white">
+                    (Auth::user()->bidang_id == 5 ? "from-lime-500 to-emerald-500" : (Auth::user()->bidang_id == 6 ? "from-rose-500 to-fuchsia-500" : "from-sky-500 to-indigo-500"))))) }} p-5 rounded-lg text-white">
                     <div
                         class="flex items-center justify-center text-blue-500 font-bold rounded-full bg-white w-9 h-9 text-sm cursor-pointer">
                         {{ $firstLetter }}</div>
