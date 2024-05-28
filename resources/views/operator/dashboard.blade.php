@@ -99,6 +99,33 @@
                                                                             <p class="block w-[85%] "><span class="">[
                                                                                     INDIKATOR ]</span>
                                                                                 {{ $indikator->indikator }}</p>
+                                                                            @if (str_contains($indikator->indikator, 'Persentase pengguna data yang menggunakan data BPS'))
+                                                                                @if (in_array($indikator->id, $existingDataIndikator))
+                                                                                    <div
+                                                                                        class="flex flex-col items-center text-center">
+                                                                                        <span
+                                                                                            class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-red-500 to-red-400 py-1 px-3 rounded-t-md text-white">
+                                                                                            Data
+                                                                                            sudah
+                                                                                            diisi
+                                                                                        </span>
+                                                                                        <a href="{{ url('operator/edit-master-data/indikator/' . $indikator->id) }}"
+                                                                                            class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-blue-500 to-blue-400 py-1 px-3 rounded-b-md text-white">
+                                                                                            Edit
+                                                                                            data
+                                                                                        </a>
+                                                                                    </div>
+                                                                                @else
+                                                                                    <a
+                                                                                        href="{{ url('operator/tambah-master-data/indikator/' . $indikator->id) }}">
+                                                                                        <button
+                                                                                            class="flex items-center gap-2 bg-gradient-to-r from-blue-500 to-blue-400 hover:bg-blue-600 text-white py-2 px-3 rounded-md font-medium transition-all text-sm whitespace-nowrap">
+                                                                                            Input
+                                                                                            data
+                                                                                        </button>
+                                                                                    </a>
+                                                                                @endif
+                                                                            @endif
                                                                         </div>
                                                                     </div>
                                                                     @if ($indikator->indikator_penunjang()->exists())
@@ -130,7 +157,9 @@
                                                                                                             class="parent flex items-center gap-5">
                                                                                                             <div
                                                                                                                 class="p-4 rounded-md border-cyan-300 border-2 flex justify-between w-full items-center bg-cyan-50">
-                                                                                                                <p class="block w-[85%]"><span
+                                                                                                                <p
+                                                                                                                    class="block w-[85%]">
+                                                                                                                    <span
                                                                                                                         class="">[
                                                                                                                         SUB
                                                                                                                         INDIKATOR
@@ -173,7 +202,8 @@
                                                                                             class="parent flex items-center gap-5">
                                                                                             <div
                                                                                                 class="ml-12 p-4 rounded-md border-purple-300 border-2 flex justify-between w-full items-center bg-purple-50">
-                                                                                                <p class="block w-[85%]"><span class="">[
+                                                                                                <p class="block w-[85%]">
+                                                                                                    <span class="">[
                                                                                                         INDIKATOR PENUNJANG
                                                                                                         ]</span>
                                                                                                     {{ $indikator_penunjang->indikator_penunjang }}
@@ -218,7 +248,8 @@
                                                                                         class="parent flex items-center gap-5">
                                                                                         <div
                                                                                             class="p-4 rounded-md border-cyan-300 border-2 flex justify-between w-full items-center bg-cyan-50">
-                                                                                            <p class="block w-[85%]"><span class="">[ SUB
+                                                                                            <p class="block w-[85%]"><span
+                                                                                                    class="">[ SUB
                                                                                                     INDIKATOR ]</span>
                                                                                                 {{ $sub_indikator->sub_indikator }}
                                                                                             </p>
@@ -257,7 +288,8 @@
                                                                     <div class="parent flex items-center gap-5">
                                                                         <div
                                                                             class="ml-12 p-4 rounded-md border-yellow-300 border-2 flex justify-between w-full items-center bg-yellow-50">
-                                                                            <p class="block w-[85%]"><span class="">[ INDIKATOR ]</span>
+                                                                            <p class="block w-[85%]"><span class="">[
+                                                                                    INDIKATOR ]</span>
                                                                                 {{ $indikator->indikator }}</p>
                                                                             @if (in_array($indikator->id, $existingDataIndikator))
                                                                                 <div
@@ -331,7 +363,8 @@
                                                                             class="fa-solid btn fa-plus cursor-pointer p-2 rounded-md text-gray-800 w-auto h-auto bg-gray-100 hover:bg-gray-200 block"></i>
                                                                         <div
                                                                             class="p-4 rounded-md border-yellow-300 border-2 flex justify-between w-full items-center bg-yellow-50">
-                                                                            <p class="block w-[85%] "><span class="">[
+                                                                            <p class="block w-[85%] "><span
+                                                                                    class="">[
                                                                                     INDIKATOR ]</span>
                                                                                 {{ $indikator->indikator }}</p>
                                                                         </div>
@@ -366,7 +399,9 @@
                                                                                                             class="parent flex items-center gap-5">
                                                                                                             <div
                                                                                                                 class="p-4 rounded-md border-cyan-300 border-2 flex justify-between w-full items-center bg-cyan-50">
-                                                                                                                <p class="block w-[85%]"><span
+                                                                                                                <p
+                                                                                                                    class="block w-[85%]">
+                                                                                                                    <span
                                                                                                                         class="">[
                                                                                                                         SUB
                                                                                                                         INDIKATOR
@@ -409,7 +444,8 @@
                                                                                             class="parent flex items-center gap-5">
                                                                                             <div
                                                                                                 class="ml-12 p-4 rounded-md border-purple-300 border-2 flex justify-between w-full items-center bg-purple-50">
-                                                                                                <p class="block w-[85%]"><span class="">[
+                                                                                                <p class="block w-[85%]">
+                                                                                                    <span class="">[
                                                                                                         INDIKATOR
                                                                                                         PENUNJANG
                                                                                                         ]</span>
@@ -455,7 +491,8 @@
                                                                                         class="parent flex items-center gap-5">
                                                                                         <div
                                                                                             class="p-4 rounded-md border-cyan-300 border-2 flex justify-between w-full items-center bg-cyan-50">
-                                                                                            <p class="block w-[85%]"><span class="">[
+                                                                                            <p class="block w-[85%]"><span
+                                                                                                    class="">[
                                                                                                     SUB
                                                                                                     INDIKATOR ]</span>
                                                                                                 {{ $sub_indikator->sub_indikator }}
@@ -495,7 +532,8 @@
                                                                     <div class="parent flex items-center gap-5">
                                                                         <div
                                                                             class="ml-12 p-4 rounded-md border-yellow-300 border-2 flex justify-between w-full items-center bg-yellow-50">
-                                                                            <p class="block w-[85%]"><span class="">[ INDIKATOR
+                                                                            <p class="block w-[85%]"><span
+                                                                                    class="">[ INDIKATOR
                                                                                     ]</span>
                                                                                 {{ $indikator->indikator }}</p>
                                                                             @if (in_array($indikator->id, $existingDataIndikator))

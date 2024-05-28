@@ -31,7 +31,8 @@ return new class extends Migration {
             $table->foreignId('approve_by')->nullable()->constrained('users')->onDelete('cascade');
             $table->foreignId('reject_by')->nullable()->constrained('users')->onDelete('cascade');
             $table->text('reject_comment')->nullable();
-            $table->tinyInteger('triwulan')->nullable(false);
+            // $table->tinyInteger('triwulan')->nullable(false);
+            $table->foreignId('triwulan_id')->nullable(false)->constrained('triwulan')->onDelete('cascade');
 
             $table->foreignId('indikator_id')->nullable()->unique()->constrained('md_indikator')->onDelete('cascade');
             $table->foreignId('indikator_penunjang_id')->nullable()->unique()->constrained('md_indikator_penunjang')->onDelete('cascade');

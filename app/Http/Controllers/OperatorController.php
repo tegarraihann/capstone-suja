@@ -321,7 +321,7 @@ class OperatorController extends Controller
         $bidangId = Auth::user()->bidang_id;
 
         // Inisialisasi query
-        $dataIkuQuery = DataIku::where('status', 'pending')
+        $dataIkuQuery = DataIku::where('status', 'approved_by_ab')
             ->whereHas('sub_indikator', function ($query) use ($bidangId) {
                 $query->whereNull('bidang_id')
                     ->orWhere('bidang_id', $bidangId);
@@ -361,7 +361,7 @@ class OperatorController extends Controller
         $bidangId = Auth::user()->bidang_id;
 
         // Inisialisasi query
-        $dataIkuQuery = DataIku::where('status', 'pending')
+        $dataIkuQuery = DataIku::where('status', 'rejected')
             ->whereHas('sub_indikator', function ($query) use ($bidangId) {
                 $query->whereNull('bidang_id')
                     ->orWhere('bidang_id', $bidangId);

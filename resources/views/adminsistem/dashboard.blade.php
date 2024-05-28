@@ -77,15 +77,15 @@
                 </thead>
                 <tbody>
                     @php
-                        $originalIndex = 1;
+                        $index = $users->firstItem();
                         $roleLabels = [];
                         foreach ($roleOptions as $option) {
                             $roleLabels[$option['value']] = $option['label'];
                         }
                     @endphp
-                    @forelse ($users as $index => $user)
-                        <tr class="bg-white border-b hover:bg-gray-50" data-original-index="{{ $originalIndex++ }}">
-                            <td class="py-4 px-6 w-[30px]">{{ $index + 1 }}</td>
+                    @forelse ($users as $user)
+                        <tr class="bg-white border-b hover:bg-gray-50">
+                            <td class="py-4 px-6 w-[30px]">{{ $index++ }}</td>
                             <td class="py-4 px-6 text-left">{{ $user->nip }}</td>
                             <td class="py-4 px-6 text-left">{{ $user->name }}</td>
                             <td class="py-4 px-6 text-left">{{ $user->email }}</td>
