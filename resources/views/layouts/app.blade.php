@@ -170,8 +170,8 @@
                             <a href="/adminbinagram/dashboard" class="w-full menu-item">
                                 <div
                                     class="flex justify-left gap-6 w-full rounded-lg py-3 px-6 hover:bg-blue-50 hover:text-blue-600">
-                                    <i class="fa-solid fa-briefcase my-auto text-xs w-1/12"></i>
-                                    <p class="text-sm">Daftar IKU</p>
+                                    <i class="fa-solid fa-house my-auto text-xs w-1/12"></i>
+                                    <p class="text-sm">Dashboard</p>
                                 </div>
                             </a>
                             <a href="/adminbinagram/approval" class="w-full menu-item">
