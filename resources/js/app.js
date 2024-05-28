@@ -1240,10 +1240,10 @@ function handleDropdown() {
                 }
             });
 
-            if (!isMatch) {
-                dropdown.classList.remove("open");
-                icon.classList.remove("open");
-                dropdown.style.maxHeight = "0px";
+            if (isMatch) {
+                dropdown.classList.add("open");
+                icon.classList.add("open");
+                dropdown.style.maxHeight = dropdown.scrollHeight + "px"
             }
         };
 
