@@ -40,6 +40,7 @@ Route::group(['middleware' => ['adminbinagram', 'no-cache']], function () {
     Route::get('adminbinagram/dashboard', [AdminBinagramController::class, "view_master_data"]);
     Route::post('adminbinagram/dashboard/store', [AdminBinagramController::class, 'store']);
     Route::put('adminbinagram/dashboard/update/{id}', [AdminBinagramController::class, 'update']);
+    Route::put('adminbinagram/dashboard/actived-triwulan/{id}', [AdminBinagramController::class, 'activate_triwulan']);
     Route::delete('adminbinagram/dashboard/delete/{id}', [AdminBinagramController::class, 'delete']);
 });
 

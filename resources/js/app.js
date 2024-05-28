@@ -1,6 +1,8 @@
+import axios from "axios";
 import "./bootstrap";
 
 document.addEventListener("DOMContentLoaded", function () {
+    activateTriwulanButton();
     handleDropdown();
     setupDeleteSubIndikatorButton();
     setupEditSubIndikatorButton();
@@ -1222,7 +1224,7 @@ function handleProfilePopUp() {
 function handleDropdown() {
     const dropdownParents = document.querySelectorAll(".dropdown-parent");
 
-    dropdownParents.forEach(parent => {
+    dropdownParents.forEach((parent) => {
         const button = parent.querySelector(".dropdown-button");
         const dropdown = parent.querySelector(".dropdown-child");
         const icon = button.querySelector(".dropdown-icon");
@@ -1231,8 +1233,8 @@ function handleDropdown() {
         const checkAndCloseDropdown = () => {
             const currentURL = window.location.pathname;
             let isMatch = false;
-            
-            links.forEach(link => {
+
+            links.forEach((link) => {
                 if (link.getAttribute("href") === currentURL) {
                     isMatch = true;
                 }
@@ -1248,10 +1250,83 @@ function handleDropdown() {
         button.addEventListener("click", () => {
             const isOpen = dropdown.classList.toggle("open");
             icon.classList.toggle("open", isOpen);
-            dropdown.style.maxHeight = isOpen ? dropdown.scrollHeight + "px" : "0px";
+            dropdown.style.maxHeight = isOpen
+                ? dropdown.scrollHeight + "px"
+                : "0px";
         });
 
         // Check and close dropdown on page load
         checkAndCloseDropdown();
     });
+}
+
+function activateTriwulanButton() {
+    document.querySelectorAll(".activate-triwulan").forEach((btn) =>
+        btn.addEventListener("click", function () {
+            const id = this.dataset.id;
+            const currentTriwulan = this.dataset.triwulan;
+            const status = this.dataset.status;
+
+            let swalConfig;
+
+            if (status === "close") {
+                swalConfig = {
+                    text: "Apakah anda ingin membuka " + currentTriwulan + "?",
+                    icon: "warning",
+                    buttons: {
+                        cancel: true,
+                        confirm: {
+                            text: "Buka",
+                            closeModal: true,
+                        },
+                    },
+                };
+            } else {
+                swalConfig = {
+                    text: "Apakah anda ingin menutup " + currentTriwulan + "?",
+                    icon: "warning",
+                    buttons: {
+                        cancel: true,
+                        confirm: {
+                            text: "Tutup",
+                            closeModal: true,
+                        },
+                    },
+                };
+            }
+
+            swal(swalConfig).then((value) => {
+                if (value) { // This checks if the confirm button was clicked
+                    axios
+                        .put(`/adminbinagram/dashboard/actived-triwulan/${id}`)
+                        .then((response) => {
+                            if (status === "close") {
+                                swal({
+                                    icon: "success",
+                                    title: "Successfully Opened",
+                                    text: currentTriwulan + " berhasil dibuka",
+                                }).then(() => {
+                                    window.location.href = "/adminbinagram/dashboard";
+                                });
+                            } else {
+                                swal({
+                                    icon: "success",
+                                    title: "Successfully Closed",
+                                    text: currentTriwulan + " berhasil ditutup",
+                                }).then(() => {
+                                    window.location.href = "/adminbinagram/dashboard";
+                                });
+                            }
+                        })
+                        .catch((error) => {
+                            swal({
+                                icon: "error",
+                                title: "Failed Action",
+                                text: "Gagal membuka atau menutup triwulan",
+                            });
+                        });
+                }
+            });
+        })
+    );
 }

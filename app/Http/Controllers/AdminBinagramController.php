@@ -6,6 +6,7 @@ use App\Models\Indikator;
 use App\Models\IndikatorPenunjang;
 use App\Models\Sasaran;
 use App\Models\SubIndikator;
+use App\Models\Triwulan;
 use App\Models\Tujuan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -16,8 +17,9 @@ class AdminBinagramController extends Controller
     {
         $iku = Tujuan::where('iku', 0)->with(['sasaran.indikator.indikator_penunjang', 'sasaran.indikator.sub_indikator'])->get();
         $iku_sup = Tujuan::where('iku', 1)->with(['sasaran.indikator.indikator_penunjang', 'sasaran.indikator.sub_indikator'])->get();
+        $triwulan = Triwulan::all();
 
-        return view('adminbinagram.dashboard', ['iku' => $iku, 'iku_sup' => $iku_sup]);
+        return view('adminbinagram.dashboard', ['iku' => $iku, 'iku_sup' => $iku_sup, 'triwulan' => $triwulan]);
     }
 
     public function store(Request $request)
@@ -99,7 +101,7 @@ class AdminBinagramController extends Controller
             try {
                 DB::transaction(function () use ($request) {
                     $indikator_penunjang = null;
-                    if($request->input('indikator_penunjang') !== null){
+                    if ($request->input('indikator_penunjang') !== null) {
                         $indikator_penunjang = new IndikatorPenunjang();
                         $indikator_penunjang->indikator_penunjang = $request->indikator_penunjang;
                         $indikator_penunjang->indikator_id = $request->indikator_id;
@@ -239,4 +241,20 @@ class AdminBinagramController extends Controller
             return response()->json(['message' => 'Gagal menghapus data'], 500);
         }
     }
+
+    public function activate_triwulan($id)
+    {
+        $triwulan = Triwulan::findOrFail($id);
+
+        if ($triwulan->status === "close") {
+            $triwulan->status = "open";
+        } else if ($triwulan->status === "open") {
+            $triwulan->status = "close";
+        }
+
+        $triwulan->save();
+
+        return response()->json(['message' => 'Triwulan berhasil diperbarui'], 200);
+    }
+
 }

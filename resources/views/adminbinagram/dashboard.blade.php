@@ -24,31 +24,37 @@
                 </tr>
             </thead>
             <tbody>
-                <tr class="bg-white border-b hover:bg-gray-50">
-                    <td class="py-4 px-6 w-[30px]">1</td>
-                    <td class="py-4 px-6 text-left">
-
-                        [SUB INDIKATOR]
-                    </td>
-                    <td class="py-4 px-6 text-center p-2 w-[100px]">
-                        <p class="px-5 py-2  text-center rounded bg-green-100 border-2 border-green-500">Open</p>
-                        <p class="px-5 py-2  text-center rounded bg-red-100 border-2 border-red-500">Close</p>
-                    </td>
-                    <td class="py-4 px-6 text-center gap-3 flex items-center justify-center">
-                        <a href="{{ url('operator/edit-master-data/sub_indikator/') }}"
-                            class="text-blue-500 hover:text-blue-700">
-                            <button class="bg-blue-500 hover:bg-blue-600 text-slate-100 px-6 py-3 rounded">
-                                Edit Status
-                            </button>
-                        </a>
-                    </td>
-                </tr>
-
-
-                <tr class="bg-white border-b hover:bg-gray-50 text-center">
-                    <td colspan="5" class="py-5 font-bold">Tidak ada data</td>
-                </tr>
-
+                @php
+                    $indexTriwulan = 1;
+                @endphp
+                @foreach ($triwulan as $data)
+                    <tr class="bg-white border-b hover:bg-gray-50">
+                        <td class="py-4 px-6 w-[30px]">{{$indexTriwulan++}}</td>
+                        <td class="py-4 px-6 text-left">
+                            {{$data->triwulan}}
+                        </td>
+                        @if ($data->status === "close")
+                            <td class="py-4 px-6 text-center p-2 w-[100px]">
+                                <p class="px-5 py-2  text-center rounded bg-red-100 border-2 border-red-500">Ditutup</p>
+                            </td>
+                        @else
+                            <td class="py-4 px-6 text-center p-2 w-[100px]">
+                                <p class="px-5 py-2  text-center rounded bg-green-100 border-2 border-green-500">Dibuka</p>
+                            </td>
+                        @endif
+                        <td class="py-4 px-6 text-center gap-3 flex items-center justify-center">
+                            <i
+                                class="activate-triwulan text-blue-500 hover:text-blue-700"
+                                data-id="{{$data->id}}"
+                                data-triwulan="{{$data->triwulan}}"
+                                data-status="{{$data->status}}">
+                                <button class="bg-blue-500 hover:bg-blue-600 text-slate-100 px-6 py-3 rounded">
+                                    Edit Status
+                                </button>
+                            </i>
+                        </td>
+                    </tr>
+                @endforeach
             </tbody>
         </table>
 
