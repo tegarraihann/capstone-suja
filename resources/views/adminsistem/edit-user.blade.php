@@ -3,6 +3,19 @@
 @section('title', 'Admin Sistem dashboard')
 
 @section('content')
+    @php
+        if (Request::is('adminsistem/*')) {
+            $redirectUrl = url('adminsistem/dashboard');
+        } elseif (Request::is('adminbinagram/*')) {
+            $redirectUrl = url('adminbinagram/dashboard');
+        } elseif (Request::is('adminapproval/*')) {
+            $redirectUrl = url('adminapproval/dashboard');
+        } elseif (Request::is('operator/*')) {
+            $redirectUrl = url('operator/dashboard');
+        } elseif (Request::is('pimpinan/*')) {
+            $redirectUrl = url('pimpinan/dashboard');
+        }
+    @endphp
     @if (!empty(session('success')))
         <script>
             swal({
@@ -14,7 +27,7 @@
                     closeModal: true,
                 }
             }).then(() => {
-                window.location.href = "{{ url('adminsistem/dashboard') }}";
+                window.location.href = "{{ $redirectUrl }}";
             });
         </script>
     @endif
@@ -50,7 +63,7 @@
             return 'Tidak Diketahui';
         }
 
-        $userRole = Auth::user()->role; 
+        $userRole = Auth::user()->role;
         $dashboardUrl = '';
 
         if ($userRole == '3') {
@@ -67,11 +80,19 @@
             $dashboardUrl = '#';
         }
     @endphp
+    @php
+        if (Request::is('adminsistem/edit-user/*')) {
+            $actionUrl = url('adminsistem/edit-user/' . $user->id);
+        } elseif (Request::is('adminbinagram/edit-user/*')) {
+            $actionUrl = url('adminbinagram/edit-user/' . $user->id);
+        } else {
+            $actionUrl = '#'; // Default action jika path tidak sesuai
+        }
+    @endphp
     <div class="w-full p-5 h-full">
-        <a class="font-medium text-2xl" href="{{ $dashboardUrl }}"><i
-                class="fa-solid fa-angle-left text-xl"></i> Edit User</a>
+        <a class="font-medium text-2xl" href="{{ $dashboardUrl }}"><i class="fa-solid fa-angle-left text-xl"></i> Edit User</a>
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg p-4 bg-white mt-5">
-            <form class="mx-auto" action="{{ url('adminsistem/edit-user/' . $user->id) }}" method="post">
+            <form class="mx-auto" action="{{ $actionUrl }}" method="post">
                 {{ csrf_field() }}
                 @method('PUT')
                 <div class="mb-5">

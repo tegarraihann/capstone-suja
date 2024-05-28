@@ -21,6 +21,7 @@ Route::get('/logout', [AuthController::class, 'logout']);
 Route::group(['middleware' => ['pimpinan', 'no-cache']], function () {
     Route::get('pimpinan/dashboard', [DashboardController::class, "dashboard"]);
     Route::get('pimpinan/edit-user/{id}', [AdminSistemController::class, "view_update_user"]);
+    Route::put('pimpinan/edit-user/{id}', [AdminSistemController::class, "edit_user"]);
 });
 
 Route::group(['middleware' => ['adminsistem', 'no-cache']], function () {
@@ -37,6 +38,7 @@ Route::group(['middleware' => ['adminsistem', 'no-cache']], function () {
 Route::group(['middleware' => ['adminbinagram', 'no-cache']], function () {
     Route::get('adminbinagram/dashboard', [DashboardController::class, "dashboard"]);
     Route::get('adminbinagram/edit-user/{id}', [AdminSistemController::class, "view_update_user"]);
+    Route::put('adminbinagram/edit-user/{id}', [AdminSistemController::class, "edit_user"]);
     Route::get('adminbinagram/dashboard', [AdminBinagramController::class, "view_master_data"]);
     Route::post('adminbinagram/dashboard/store', [AdminBinagramController::class, 'store']);
     Route::put('adminbinagram/dashboard/update/{id}', [AdminBinagramController::class, 'update']);
@@ -47,6 +49,8 @@ Route::group(['middleware' => ['adminbinagram', 'no-cache']], function () {
 Route::group(['middleware' => ['adminapproval', 'no-cache']], function () {
     Route::get('adminapproval/dashboard', [DashboardController::class, "dashboard"]);
     Route::get('adminapproval/edit-user/{id}', [AdminSistemController::class, "view_update_user"]);
+    Route::put('adminapproval/edit-user/{id}', [AdminSistemController::class, "edit_user"]);
+
 });
 
 Route::group(['middleware' => ['operator', 'no-cache']], function () {
@@ -60,4 +64,6 @@ Route::group(['middleware' => ['operator', 'no-cache']], function () {
     Route::post('operator/tambah-master-data', [OperatorController::class, "add_master_data"]);
     Route::put('operator/edit-master-data/{id}', [OperatorController::class, "update_master_data"]);
     Route::get('operator/edit-user/{id}', [AdminSistemController::class, "view_update_user"]);
+    Route::put('operator/edit-user/{id}', [AdminSistemController::class, "edit_user"]);
+
 });

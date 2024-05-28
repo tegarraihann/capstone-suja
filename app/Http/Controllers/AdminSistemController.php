@@ -138,12 +138,43 @@ class AdminSistemController extends Controller
 
         $user->save();
 
-        return redirect('adminsistem/edit-user/' . $id)->with([
-            'success' => [
-                "title" => "Update User Succesfully",
-                "message" => "Akun berhasil di perbarui"
-            ]
-        ]);
+        if ($request->is('adminsistem/edit-user/' . $id)) {
+            return redirect('adminsistem/edit-user/' . $id)->with([
+                'success' => [
+                    "title" => "Update User Successfully",
+                    "message" => "Akun berhasil diperbarui"
+                ]
+            ]);
+        } elseif ($request->is('adminbinagram/edit-user/' . $id)) {
+            return redirect('adminbinagram/edit-user/' . $id)->with([
+                'success' => [
+                    "title" => "Update User Successfully",
+                    "message" => "Akun berhasil diperbarui"
+                ]
+            ]);
+        } elseif ($request->is('adminapproval/edit-user/' . $id)) {
+            return redirect('adminapproval/edit-user/' . $id)->with([
+                'success' => [
+                    "title" => "Update User Successfully",
+                    "message" => "Akun berhasil diperbarui"
+                ]
+            ]);
+        }
+        elseif ($request->is('operator/edit-user/' . $id)) {
+            return redirect('operator/edit-user/' . $id)->with([
+                'success' => [
+                    "title" => "Update User Successfully",
+                    "message" => "Akun berhasil diperbarui"
+                ]
+            ]);
+        } elseif ($request->is('pimpinan/edit-user/' . $id)) {
+            return redirect('pimpinan/edit-user/' . $id)->with([
+                'success' => [
+                    "title" => "Update User Successfully",
+                    "message" => "Akun berhasil diperbarui"
+                ]
+            ]);
+        }
     }
 
     public function delete_user($id): void
