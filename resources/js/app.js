@@ -2,6 +2,8 @@ import axios from "axios";
 import "./bootstrap";
 
 document.addEventListener("DOMContentLoaded", function () {
+    getTriwulanParams();
+    setLastSelectedTriwulan();
     activateTriwulanButton();
     handleDropdown();
     setupDeleteSubIndikatorButton();
@@ -1243,7 +1245,7 @@ function handleDropdown() {
             if (isMatch) {
                 dropdown.classList.add("open");
                 icon.classList.add("open");
-                dropdown.style.maxHeight = dropdown.scrollHeight + "px"
+                dropdown.style.maxHeight = dropdown.scrollHeight + "px";
             }
         };
 
@@ -1335,3 +1337,53 @@ function activateTriwulanButton() {
         })
     );
 }
+
+function setLastSelectedTriwulan() {
+    try {
+        const triwulanSelect = document.getElementById("triwulan");
+        if (!triwulanSelect) {
+            console.error("Element with ID 'triwulan' not found.");
+            return;
+        }
+
+        const lastSelectedTriwulan = localStorage.getItem("lastSelectedTriwulan");
+        if (lastSelectedTriwulan) {
+            const optionExists = [...triwulanSelect.options].some(option => option.value === lastSelectedTriwulan);
+            if (optionExists) {
+                triwulanSelect.value = lastSelectedTriwulan;
+            } else {
+                triwulanSelect.value = "";
+            }
+        } else {
+            triwulanSelect.value = "";
+        }
+    } catch (error) {
+        console.error("Error in setLastSelectedTriwulan: ", error);
+    }
+}
+
+function getTriwulanParams() {
+    try {
+        const triwulanSelect = document.getElementById("triwulan");
+        if (!triwulanSelect) {
+            console.error("Element with ID 'triwulan' not found.");
+            return;
+        }
+
+        triwulanSelect.addEventListener("change", function() {
+            const selectedValue = this.value;
+            if (selectedValue) {
+                // Save the selected value to localStorage
+                localStorage.setItem("lastSelectedTriwulan", selectedValue);
+
+                // Update the URL and reload the page
+                const newUrl = new URL(window.location.href);
+                newUrl.searchParams.set("triwulan", selectedValue);
+                window.location.href = newUrl.toString();
+            }
+        });
+    } catch (error) {
+        console.error("Error in getTriwulanParams: ", error);
+    }
+}
+
