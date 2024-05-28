@@ -218,11 +218,11 @@
                             </a>
                             <div class="flex flex-col gap-3 w-full pl-6 mt-4 dropdown-parent overflow-hidden">
                                 <div class="flex w-full gap-[22px] cursor-pointer dropdown-button">
-                                    <i class="fa-solid fa-angle-down my-auto text-xs w-1/12 dropdown-icon open"></i>
+                                    <i class="fa-solid fa-angle-down my-auto text-xs w-1/12 dropdown-icon"></i>
                                     <p class="text-sm font-medium">Riwayat</p>
                                 </div>
                                 <div
-                                    class="pl-4 flex flex-col w-full gap-1 dropdown-child open relative duration-300 transition-all max-h-0 overflow-hidden">
+                                    class="pl-4 flex flex-col w-full gap-1 dropdown-child relative duration-300 transition-all max-h-0 overflow-hidden">
                                     <a href="/adminapproval/pending-master-data" class="w-full menu-item">
                                         <div
                                             class="flex justify-left gap-6 w-full rounded-lg py-3 px-6 hover:bg-blue-50 hover:text-blue-600">
@@ -284,11 +284,11 @@
                             </a>
                             <div class="flex flex-col gap-3 w-full pl-6 mt-4 dropdown-parent overflow-hidden">
                                 <div class="flex w-full gap-[22px] cursor-pointer dropdown-button">
-                                    <i class="fa-solid fa-angle-down my-auto text-xs w-1/12 dropdown-icon open"></i>
+                                    <i class="fa-solid fa-angle-down my-auto text-xs w-1/12 dropdown-icon"></i>
                                     <p class="text-sm font-medium">Dokumen</p>
                                 </div>
                                 <div
-                                    class="pl-4 flex flex-col w-full gap-1 dropdown-child open relative duration-300 transition-all max-h-0 overflow-hidden">
+                                    class="pl-4 flex flex-col w-full gap-1 dropdown-child relative duration-300 transition-all max-h-0 overflow-hidden">
                                     <a href="/operator/pending-master-data" class="w-full menu-item">
                                         <div
                                             class="flex justify-left gap-6 w-full rounded-lg py-3 px-6 hover:bg-blue-50 hover:text-blue-600">
