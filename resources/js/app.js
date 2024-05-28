@@ -2,7 +2,6 @@ import axios from "axios";
 import "./bootstrap";
 
 document.addEventListener("DOMContentLoaded", function () {
-    // getTriwulanParams();
     activateTriwulanButton();
     handleDropdown();
     setupDeleteSubIndikatorButton();
@@ -1299,7 +1298,8 @@ function activateTriwulanButton() {
             }
 
             swal(swalConfig).then((value) => {
-                if (value) { // This checks if the confirm button was clicked
+                if (value) {
+                    // This checks if the confirm button was clicked
                     axios
                         .put(`/adminbinagram/dashboard/actived-triwulan/${id}`)
                         .then((response) => {
@@ -1309,7 +1309,8 @@ function activateTriwulanButton() {
                                     title: "Successfully Opened",
                                     text: currentTriwulan + " berhasil dibuka",
                                 }).then(() => {
-                                    window.location.href = "/adminbinagram/dashboard";
+                                    window.location.href =
+                                        "/adminbinagram/dashboard";
                                 });
                             } else {
                                 swal({
@@ -1317,7 +1318,8 @@ function activateTriwulanButton() {
                                     title: "Successfully Closed",
                                     text: currentTriwulan + " berhasil ditutup",
                                 }).then(() => {
-                                    window.location.href = "/adminbinagram/dashboard";
+                                    window.location.href =
+                                        "/adminbinagram/dashboard";
                                 });
                             }
                         })
@@ -1332,26 +1334,4 @@ function activateTriwulanButton() {
             });
         })
     );
-}
-
-function getTriwulanParams(){
-    // Get the triwulan search parameter from the URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const triwulanParam = urlParams.get('triwulan');
-
-    // Select the dropdown element
-    const selectElement = document.querySelector('select[name="triwulan_id"]');
-
-    // Loop through each option to find and select the matching one
-    selectElement?.options.forEach(option => {
-        if (option.value === triwulanParam) {
-            option.selected = true; // Select the option
-        }
-    });
-
-    // Add an event listener to handle changes and update the URL
-    selectElement?.addEventListener('change', function(e) {
-        let selectedTriwulan = this.value;
-        window.location.href = window.location.pathname + '?triwulan=' + selectedTriwulan;
-    }); 
 }

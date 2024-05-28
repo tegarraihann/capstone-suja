@@ -22,7 +22,7 @@
         <div class="mt-4 mb-2 flex items-center gap-2">
             <p class="text-gray-800">Pilih triwulan:</p>
             <div class="flex items-center">
-                <select name="triwulan_id" class="px-4 py-2 pr-4 w-[200px] rounded-md shadow-sm outline-none border-none appearance-none text-gray-800 active:border-blue-500 active:border-2">
+                <select name="triwulan_id" id="triwulan" class="px-4 py-2 pr-4 w-[200px] rounded-md shadow-sm outline-none border-none appearance-none text-gray-800 active:border-blue-500 active:border-2">
                     <option value="">pilih</option>
                     @foreach ($triwulan as $data)
                         @if ($data->status === 'open')
