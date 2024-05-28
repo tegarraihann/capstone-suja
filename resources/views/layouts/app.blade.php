@@ -102,8 +102,10 @@
                 @if (Auth::check())
                 <div class="mb-5 mt-3 sticky top-4 bg-gradient-to-r {{Auth::user()->bidang_id == 1 ? " from-violet-500
                     to-fuchsia-500" : (Auth::user()->bidang_id == 2 ? "from-blue-500 to-cyan-500" :
-                    (Auth::user()->bidang_id == 3 ? "from-teal-500 to-sky-500" : (Auth::user()->bidang_id == 4 ? "from-red-500 to-amber-500" :
-                    (Auth::user()->bidang_id == 5 ? "from-lime-500 to-emerald-500" : (Auth::user()->bidang_id == 6 ? "from-rose-500 to-fuchsia-500" : "from-sky-500 to-indigo-500"))))) }} p-5 rounded-lg text-white">
+                    (Auth::user()->bidang_id == 3 ? "from-teal-500 to-sky-500" : (Auth::user()->bidang_id == 4 ?
+                    "from-red-500 to-amber-500" :
+                    (Auth::user()->bidang_id == 5 ? "from-cyan-500 to-emerald-500" : (Auth::user()->bidang_id == 6 ?
+                    "from-rose-500 to-pink-500" : "from-sky-500 to-indigo-500"))))) }} p-5 rounded-lg text-white">
                     <div
                         class="flex items-center justify-center text-blue-500 font-bold rounded-full bg-white w-9 h-9 text-sm cursor-pointer">
                         {{ $firstLetter }}</div>
@@ -213,41 +215,25 @@
                         <div class="flex flex-col w-full gap-1">
                             <a href="/adminapproval/dashboard" class="w-full menu-item">
                                 <div
-                                    class="flex justify-left gap-6 w-full rounded-lg py-3 px-6 hover:bg-blue-50 hover:text-blue-600">
-                                    <i class="fa-solid fa-briefcase my-auto text-xs w-1/12"></i>
-                                    <p class="text-sm">Daftar dokumen</p>
+                                    class="flex justify-left gap-6 w-full rounded-lg py-3 px-5 hover:bg-blue-50 hover:text-blue-600">
+                                    <i class="fa-solid fa-file-circle-question my-auto text-xs w-1/12"></i>
+                                    <p class="text-sm">Dokumen Pending</p>
                                 </div>
                             </a>
-                            <div class="flex flex-col gap-3 w-full pl-6 mt-4 dropdown-parent overflow-hidden">
-                                <div class="flex w-full gap-[22px] cursor-pointer dropdown-button">
-                                    <i class="fa-solid fa-angle-down my-auto text-xs w-1/12 dropdown-icon"></i>
-                                    <p class="text-sm font-medium">Riwayat</p>
-                                </div>
+                            <a href="/adminapproval/approved-master-data" class="w-full menu-item">
                                 <div
-                                    class="pl-4 flex flex-col w-full gap-1 dropdown-child relative duration-300 transition-all max-h-0 overflow-hidden">
-                                    <a href="/adminapproval/pending-master-data" class="w-full menu-item">
-                                        <div
-                                            class="flex justify-left gap-6 w-full rounded-lg py-3 px-6 hover:bg-blue-50 hover:text-blue-600">
-                                            <i class="fa-solid fa-file-circle-question my-auto text-xs w-1/12"></i>
-                                            <p class="text-sm">Pending</p>
-                                        </div>
-                                    </a>
-                                    <a href="/adminapproval/approved-master-data" class="w-full menu-item">
-                                        <div
-                                            class="flex justify-left gap-6 w-full rounded-lg py-3 px-6 hover:bg-blue-50 hover:text-blue-600">
-                                            <i class="fa-solid fa-file-circle-check my-auto text-xs w-1/12"></i>
-                                            <p class="text-sm">Approved</p>
-                                        </div>
-                                    </a>
-                                    <a href="/adminapproval/rejected-master-data" class="w-full menu-item">
-                                        <div
-                                            class="flex justify-left gap-6 w-full rounded-lg py-3 px-6 hover:bg-blue-50 hover:text-blue-600">
-                                            <i class="fa-solid fa-file-circle-xmark my-auto text-xs w-1/12"></i>
-                                            <p class="text-sm">Rejected</p>
-                                        </div>
-                                    </a>
+                                    class="flex justify-left gap-6 w-full rounded-lg py-3 px-5 hover:bg-blue-50 hover:text-blue-600">
+                                    <i class="fa-solid fa-file-circle-check my-auto text-xs w-1/12"></i>
+                                    <p class="text-sm">Dokumen Approved</p>
                                 </div>
-                            </div>
+                            </a>
+                            <a href="/adminapproval/rejected-master-data" class="w-full menu-item">
+                                <div
+                                    class="flex justify-left gap-6 w-full rounded-lg py-3 px-5 hover:bg-blue-50 hover:text-blue-600">
+                                    <i class="fa-solid fa-file-circle-xmark my-auto text-xs w-1/12"></i>
+                                    <p class="text-sm">Dokumen Rejected</p>
+                                </div>
+                            </a>
 
                         </div>
                         <div class="">
@@ -284,13 +270,13 @@
                                     <p class="text-sm">Capaian Kinerja</p>
                                 </div>
                             </a>
-                            <div class="flex flex-col gap-3 w-full pl-6 mt-4 dropdown-parent overflow-hidden">
+                            <div class="flex flex-col gap-3 w-full pl-6 mt-4 dropdown-parent overflow-hidden ">
                                 <div class="flex w-full gap-[22px] cursor-pointer dropdown-button">
-                                    <i class="fa-solid fa-angle-down my-auto text-xs w-1/12 dropdown-icon"></i>
+                                    <i class="fa-solid fa-angle-down my-auto text-xs w-1/12 dropdown-icon open"></i>
                                     <p class="text-sm font-medium">Dokumen</p>
                                 </div>
                                 <div
-                                    class="pl-4 flex flex-col w-full gap-1 dropdown-child relative duration-300 transition-all max-h-0 overflow-hidden">
+                                    class="pl-4 flex flex-col w-full gap-1 dropdown-child relative duration-300 transition-all max-h-0 overflow-hidden open">
                                     <a href="/operator/pending-master-data" class="w-full menu-item">
                                         <div
                                             class="flex justify-left gap-6 w-full rounded-lg py-3 px-6 hover:bg-blue-50 hover:text-blue-600">
