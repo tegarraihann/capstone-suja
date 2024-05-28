@@ -62,7 +62,7 @@
                                 </td>
                                 <td class="py-4 px-6 text-left whitespace-nowrap">{{ $data->user->name }} | <span class="text-blue-600">{{$data->user->bidang->nama_bidang}}</span></td>
                                 </td>
-                                <td class="py-4 px-6 text-left"><p class="px-3 py-1 rounded-md border-orange-300 border-2 flex justify-between w-full items-center bg-orange-50">{{ ucfirst($data->status) }}</p></td>
+                                <td class="py-4 px-6 text-left"><p class="px-3 py-1 rounded-md border-orange-300 border-2 flex justify-between w-fit items-center bg-orange-50">{{ ucfirst($data->status) }}</p></td>
                                 <td class="py-4 px-6 text-center gap-3 flex items-center justify-center h-auto">
                                     @if ($data->sub_indikator)
                                         <a href="{{ url('operator/edit-master-data/sub_indikator/' . $data->sub_indikator->id) }}"
@@ -96,7 +96,7 @@
                                 </td>
                                 <td class="py-4 px-6 text-left whitespace-nowrap">{{ $data->user->name }} | <span class="text-blue-600">{{$data->user->bidang->nama_bidang}}</span></td>
                                 </td>
-                                <td class="py-4 px-6 text-left"><p class="px-3 py-1 rounded-md border-orange-300 border-2 flex justify-between w-full items-center bg-orange-50">{{ ucfirst($data->status) }}</p></td>
+                                <td class="py-4 px-6 text-left"><p class="px-3 py-1 rounded-md border-orange-300 border-2 flex justify-between w-fit items-center bg-orange-50">{{ ucfirst($data->status) }}</p></td>
                                 <td class="py-4 px-6 text-center gap-3 flex items-center justify-center">
                                     @if ($data->indikator_penunjang)
                                         <a href="{{ url('operator/edit-master-data/indikator_penunjang/' . $data->indikator_penunjang->id) }}"
