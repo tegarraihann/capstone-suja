@@ -2,6 +2,8 @@ import axios from "axios";
 import "./bootstrap";
 
 document.addEventListener("DOMContentLoaded", function () {
+    rejectBinagramButton();
+    approveBinagramButton();
     getTriwulanParams();
     activateTriwulanButton();
     handleDropdown();
@@ -212,7 +214,7 @@ function setupEditTujuanButton() {
                 if (!value) {
                     swal({
                         icon: "error",
-                        title: "Failed Updated",
+                        title: "Failed Update",
                         text: "Tujuan tidak boleh kosong",
                     });
                     return;
@@ -226,7 +228,7 @@ function setupEditTujuanButton() {
                         .then((response) => {
                             swal({
                                 icon: "success",
-                                title: "Successfully Updated",
+                                title: "Successfully Update",
                                 text: "Data tujuan berhasil diperbarui",
                             }).then(() => {
                                 window.location.href =
@@ -236,7 +238,7 @@ function setupEditTujuanButton() {
                         .catch((error) => {
                             swal({
                                 icon: "error",
-                                title: "Failed Updated",
+                                title: "Failed Update",
                                 text: "Gagal memperbarui data tujuan",
                             });
                         });
@@ -373,7 +375,7 @@ function setupEditSasaranButton() {
                 if (!value) {
                     swal({
                         icon: "error",
-                        title: "Failed Updated",
+                        title: "Failed Update",
                         text: "Sasaran tidak boleh kosong",
                     });
                     return;
@@ -387,7 +389,7 @@ function setupEditSasaranButton() {
                         .then((response) => {
                             swal({
                                 icon: "success",
-                                title: "Successfully Updated",
+                                title: "Successfully Update",
                                 text: "Data sasaran berhasil diperbarui",
                             }).then(() => {
                                 window.location.href =
@@ -397,7 +399,7 @@ function setupEditSasaranButton() {
                         .catch((error) => {
                             swal({
                                 icon: "error",
-                                title: "Failed Updated",
+                                title: "Failed Update",
                                 text: "Gagal memperbarui data sasaran",
                             });
                         });
@@ -592,7 +594,7 @@ function setupEditIndikatorButton() {
                 if (!value) {
                     swal({
                         icon: "error",
-                        title: "Failed Updated",
+                        title: "Failed Update",
                         text: "Indikator tidak boleh kosong",
                     });
                     return;
@@ -606,7 +608,7 @@ function setupEditIndikatorButton() {
                         .then((response) => {
                             swal({
                                 icon: "success",
-                                title: "Successfully Updated",
+                                title: "Successfully Update",
                                 text: "Data indikator berhasil diperbarui",
                             }).then(() => {
                                 window.location.href =
@@ -616,7 +618,7 @@ function setupEditIndikatorButton() {
                         .catch((error) => {
                             swal({
                                 icon: "error",
-                                title: "Failed Updated",
+                                title: "Failed Update",
                                 text: "Gagal memperbarui data indikator",
                             });
                         });
@@ -805,7 +807,7 @@ function setupEditIndikatorPenunjangButton() {
                 if (!value) {
                     swal({
                         icon: "error",
-                        title: "Failed Updated",
+                        title: "Failed Update",
                         text: "Indikator penunjang tidak boleh kosong",
                     });
                     return;
@@ -819,7 +821,7 @@ function setupEditIndikatorPenunjangButton() {
                         .then((response) => {
                             swal({
                                 icon: "success",
-                                title: "Successfully Updated",
+                                title: "Successfully Update",
                                 text: "Data indikator penunjang berhasil diperbarui",
                             }).then(() => {
                                 window.location.href =
@@ -829,7 +831,7 @@ function setupEditIndikatorPenunjangButton() {
                         .catch((error) => {
                             swal({
                                 icon: "error",
-                                title: "Failed Updated",
+                                title: "Failed Update",
                                 text: "Gagal memperbarui data indikator penunjang",
                             });
                         });
@@ -1054,7 +1056,7 @@ function setupEditSubIndikatorButton() {
                 if (!subIndikator) {
                     swal({
                         icon: "error",
-                        title: "Failed Updated",
+                        title: "Failed Update",
                         text: "Sub indikator tidak boleh kosong",
                     });
                     return;
@@ -1070,7 +1072,7 @@ function setupEditSubIndikatorButton() {
                     .then((response) => {
                         swal({
                             icon: "success",
-                            title: "Successfully Updated",
+                            title: "Successfully Update",
                             text: "Data sub indikator berhasil diperbarui",
                         }).then(() => {
                             window.location.href = "/adminbinagram/dashboard";
@@ -1079,7 +1081,7 @@ function setupEditSubIndikatorButton() {
                     .catch((error) => {
                         swal({
                             icon: "error",
-                            title: "Failed Updated",
+                            title: "Failed Update",
                             text: "Gagal memperbarui data sub indikator",
                         });
                     });
@@ -1363,4 +1365,109 @@ function getTriwulanParams() {
     } catch (error) {
         console.error("Error in getTriwulanParams: ", error);
     }
+}
+
+function approveBinagramButton() {
+    document.querySelectorAll(".approve-binagram").forEach((btn) => {
+        btn.addEventListener("click", function () {
+            const id = this.dataset.id;
+            const text = this.dataset.text;
+
+            swal({
+                title: "Setujui dokumen ini?",
+                text: text,
+                icon: "warning",
+                buttons: ["Cancel", "Setuju"]
+            }).then((value) => {
+                if (value) {
+                    axios
+                        .put(`/adminbinagram/approve-master-data/${id}`)
+                        .then((response) => {
+                            swal({
+                                icon: "success",
+                                title: "Successfully Approve",
+                                text: "Data disetujui",
+                            }).then(() => {
+                                window.location.href =
+                                    "/adminbinagram/pending-master-data";
+                            });
+                        })
+                        .catch((error) => {
+                            console.log(error)
+                            swal({
+                                icon: "error",
+                                title: "Failed Approve",
+                                text: "Gagal menyetujui data",
+                            });
+                        });
+                }
+            });
+        });
+    });
+}
+
+function rejectBinagramButton() {
+    document.querySelectorAll(".reject-binagram").forEach((btn) => {
+        btn.addEventListener("click", function () {
+            const id = this.dataset.id;
+            const text = this.dataset.text;
+
+            swal({
+                text: "Masukkan Komentar",
+                content: {
+                    element: "input",
+                    attributes: {
+                        value: "",
+                        placeholder: "Komentar tidak boleh kosong!"
+                    },
+                },
+                buttons: {
+                    cancel: true,
+                    confirm: {
+                        text: "Tolak",
+                        closeModal: false,
+                    },
+                },
+                dangerMode: true
+            }).then((value) => {
+                if (value === null) {
+                    return;
+                }
+
+                if(value === ""){
+                    swal({
+                        icon: "error",
+                        title: "Failed Reject",
+                        text: "Komentar tidak boleh kosong",
+                    });
+                    return;
+                }
+                
+                if (value) {
+                    const data = {
+                        reject_comment: value,
+                    };
+                    axios
+                        .put(`/adminbinagram/reject-master-data/${id}`, data)
+                        .then((response) => {
+                            swal({
+                                icon: "success",
+                                title: "Successfully Reject",
+                                text: "Data ditolak",
+                            }).then(() => {
+                                window.location.href =
+                                    "/adminbinagram/pending-master-data";
+                            });
+                        })
+                        .catch((error) => {
+                            swal({
+                                icon: "error",
+                                title: "Failed Reject",
+                                text: "Gagal menolak data",
+                            });
+                        });
+                }
+            });
+        });
+    });
 }

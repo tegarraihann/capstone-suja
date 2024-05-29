@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DataIku;
 use App\Models\Indikator;
 use App\Models\IndikatorPenunjang;
 use App\Models\Sasaran;
@@ -9,6 +10,7 @@ use App\Models\SubIndikator;
 use App\Models\Triwulan;
 use App\Models\Tujuan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class AdminBinagramController extends Controller
@@ -255,5 +257,129 @@ class AdminBinagramController extends Controller
         $triwulan->save();
 
         return response()->json(['message' => 'Triwulan berhasil diperbarui'], 200);
+    }
+
+    public function view_uploaded_master_data(Request $request)
+    {
+        $search = $request->input('search');
+        $bidangId = Auth::user()->bidang_id;
+
+        $triwulan_id = $request->input('triwulan');
+
+        // Inisialisasi query
+        $dataIkuQuery = DataIku::where('status', 'approved_by_ap')
+            ->with(['sub_indikator', 'indikator_penunjang', 'indikator', 'user', 'approved_by'])
+            ->orderBy('created_at', 'desc');
+
+        // Tambahkan kondisi pencarian jika ada
+        if ($search) {
+            $dataIkuQuery->where(function ($query) use ($search) {
+                $query->whereHas('sub_indikator', function ($q) use ($search) {
+                    $q->where('sub_indikator', 'like', '%' . $search . '%');
+                })
+                    ->orWhereHas('indikator_penunjang', function ($q) use ($search) {
+                        $q->where('indikator_penunjang', 'like', '%' . $search . '%');
+                    })
+                    ->orWhereHas('indikator', function ($q) use ($search) {
+                        $q->where('indikator', 'like', '%' . $search . '%');
+                    })
+                    ->orWhereHas('user', function ($q) use ($search) {
+                        $q->where('name', 'like', '%' . $search . '%');
+                    });
+            });
+        }
+
+        // Paginate the results
+        $dataIku = $dataIkuQuery->paginate(7);
+
+        // Return view with the data
+        return view('adminbinagram.pending-master-data', [
+            'dataIku' => $dataIku,
+            'triwulan' => $triwulan_id
+        ]);
+    }
+
+    public function view_edit_master_data(Request $request, $type, $id)
+    {
+        $triwulan_id = $request->input('triwulan');
+
+        // Fetch entity based on type and id
+        if ($type === 'sub_indikator') {
+            $entity = SubIndikator::find($id);
+            $entityName = $entity->sub_indikator ?? null;
+        } elseif ($type === 'indikator_penunjang') {
+            $entity = IndikatorPenunjang::find($id);
+            $entityName = $entity->indikator_penunjang ?? null;
+        } elseif ($type === 'indikator') {
+            $entity = Indikator::find($id);
+            $entityName = $entity->indikator ?? null;
+        } else {
+            $entity = null;
+            $entityName = null;
+        }
+
+        if (!$entity) {
+            return redirect()->back()->with('error', 'Entitas tidak ditemukan');
+        }
+
+        // Fetch DataIku based on entity id
+        $dataIku = DataIku::where('sub_indikator_id', $id)
+            ->orWhere('indikator_penunjang_id', $id)
+            ->orWhere('indikator_id', $id)
+            ->first();
+
+        if (!$dataIku) {
+            return redirect()->back()->with('error', 'Data IKU tidak ditemukan');
+        }
+
+        $selectedTriwulan = $request->query('triwulan', null);
+        $triwulanStatus = Triwulan::find($selectedTriwulan)->status ?? null;
+
+        // Memeriksa apakah triwulan memiliki status 'close'
+        if ($triwulanStatus === 'close') {
+            // Jika triwulan memiliki status 'close', lakukan redirect atau tampilkan pesan kesalahan
+            return redirect()->back()->with([
+                'error' => [
+                    "title" => "Cannot Edit Data",
+                    "message" => "Triwulan sedang ditutup"
+                ]
+            ]);
+        }
+
+        return view('adminbinagram.edit-master-data', [
+            'entityType' => $type,
+            'entityName' => $entityName,
+            'entityId' => $id,
+            'dataIku' => $dataIku,
+            'triwulan' => $triwulan_id,
+            'triwulanStatus' => $triwulanStatus
+        ]);
+    }
+
+    public function approve_data($id)
+    {
+        $dataIku = DataIku::findOrFail($id);
+        $dataIku->status = 'approved_by_ab';
+        $dataIku->save();
+
+        return response()->json(['success' => [
+            "title" => "Data Approve Succesfully",
+            "message" => "Data berhasil disetujui"
+        ]], 200);
+    }
+
+    public function reject_data(Request $request, $id)
+    {
+        $dataIku = DataIku::findOrFail($id);
+
+        $dataIku->status = 'rejected';
+        $dataIku->reject_comment = $request->reject_comment;
+
+        $dataIku->save();
+
+        return response()->json(['success' => [
+            "title" => "Data Reject Succesfully",
+            "message" => "Data berhasil ditolak"
+        ]], 200);
     }
 }

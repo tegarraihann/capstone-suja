@@ -39,6 +39,11 @@ class DataIku extends Model
         return $this->belongsTo(User::class, 'upload_by', 'id');
     }
 
+    public function approved_by(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'approve_by');
+    }
+
     public function indikator(): BelongsTo
     {
         return $this->belongsTo(Indikator::class, 'indikator_id', 'id');
