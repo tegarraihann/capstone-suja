@@ -26,18 +26,18 @@ return new class extends Migration
             $table->string('pic_tidak_lanjut')->nullable();
             $table->date('tenggat_tidak_lanjut')->nullable();
             $table->timestamps();
-
+        
             $table->enum('status', ['pending', 'approved_by_ap', 'approved_by_ab', 'rejected'])->default('pending');
             $table->foreignId('upload_by')->constrained('users')->onDelete('cascade');
             $table->foreignId('approve_by')->nullable()->constrained('users')->onDelete('cascade');
             $table->foreignId('reject_by')->nullable()->constrained('users')->onDelete('cascade');
             $table->foreignId('triwulan_id')->nullable(false)->constrained('triwulan')->onDelete('cascade');
             $table->text('reject_comment')->nullable();
-
-            $table->foreignId('indikator_id')->nullable()->unique()->constrained('md_indikator')->onDelete('cascade');
-            $table->foreignId('indikator_penunjang_id')->nullable()->unique()->constrained('md_indikator_penunjang')->onDelete('cascade');
-            $table->foreignId('sub_indikator_id')->nullable()->unique()->constrained('md_sub_indikator')->onDelete('cascade');
-        });
+        
+            $table->foreignId('indikator_id')->nullable()->constrained('md_indikator')->onDelete('cascade');
+            $table->foreignId('indikator_penunjang_id')->nullable()->constrained('md_indikator_penunjang')->onDelete('cascade');
+            $table->foreignId('sub_indikator_id')->nullable()->constrained('md_sub_indikator')->onDelete('cascade');
+        });        
     }
 
     /**

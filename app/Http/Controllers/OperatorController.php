@@ -14,28 +14,50 @@ use Illuminate\Validation\Rule;
 
 class OperatorController extends Controller
 {
-    public function view_master_data()
+    public function view_master_data(Request $request)
     {
         $iku = Tujuan::where('iku', 0)->with(['sasaran.indikator.indikator_penunjang', 'sasaran.indikator.sub_indikator'])->get();
         $iku_sup = Tujuan::where('iku', 1)->with(['sasaran.indikator.indikator_penunjang', 'sasaran.indikator.sub_indikator'])->get();
         $triwulan = Triwulan::all();
 
-        // Ambil semua sub_indikator_id yang ada di data_iku
-        $existingDataSubIndikator = DataIku::pluck('sub_indikator_id')->toArray();
-        $existingDataIndikatorPenunjang = DataIku::pluck('indikator_penunjang_id')->toArray();
-        $existingDataIndikator = DataIku::pluck('indikator_id')->toArray();
+        // Mendapatkan nomor triwulan dari query parameter
+        $selectedTriwulan = $request->query('triwulan', null);
+
+        // Mengambil status triwulan dari database
+        $triwulanStatus = Triwulan::find($selectedTriwulan)->status ?? null;
+
+        // Memeriksa apakah triwulan memiliki status 'close'
+        if ($triwulanStatus === 'close') {
+            // Jika triwulan memiliki status 'close', lakukan redirect atau tampilkan pesan kesalahan
+            return redirect()->back()->with('error', 'Data untuk triwulan ' . $selectedTriwulan . ' tidak tersedia.');
+        }
+
+        // Filter DataIku based on selected triwulan
+        $existingDataSubIndikator = DataIku::when($selectedTriwulan, function ($query, $selectedTriwulan) {
+            return $query->where('triwulan_id', $selectedTriwulan);
+        })->pluck('sub_indikator_id')->toArray();
+
+        $existingDataIndikatorPenunjang = DataIku::when($selectedTriwulan, function ($query, $selectedTriwulan) {
+            return $query->where('triwulan_id', $selectedTriwulan);
+        })->pluck('indikator_penunjang_id')->toArray();
+
+        $existingDataIndikator = DataIku::when($selectedTriwulan, function ($query, $selectedTriwulan) {
+            return $query->where('triwulan_id', $selectedTriwulan);
+        })->pluck('indikator_id')->toArray();
 
         return view('operator.dashboard', [
             'iku' => $iku,
             'iku_sup' => $iku_sup,
             'triwulan' => $triwulan,
+            'triwulanStatus' => $triwulanStatus,
             'existingDataSubIndikator' => $existingDataSubIndikator,
             'existingDataIndikatorPenunjang' => $existingDataIndikatorPenunjang,
-            'existingDataIndikator' => $existingDataIndikator
+            'existingDataIndikator' => $existingDataIndikator,
+            'selectedTriwulan' => $selectedTriwulan
         ]);
     }
 
-    public function view_add_master_data($type, $id)
+    public function view_add_master_data(Request $request, $type, $id)
     {
         // Fetch entity based on type and id
         if ($type === 'sub_indikator') {
@@ -57,18 +79,23 @@ class OperatorController extends Controller
         }
 
         $triwulan = Triwulan::all();
+        $selectedTriwulan = $request->query('triwulan', null);
 
         return view('operator.tambah-master-data', [
             'entityType' => $type,
             'entityName' => $entityName,
             'entityId' => $id,
-            'triwulan' => $triwulan
+            'triwulan' => $triwulan,
+            'selectedTriwulan' => $selectedTriwulan
         ]);
     }
 
 
-    public function view_edit_master_data($type, $id)
+
+    public function view_edit_master_data(Request $request, $type, $id)
     {
+        $triwulan_id = $request->input('triwulan');
+
         // Fetch entity based on type and id
         if ($type === 'sub_indikator') {
             $entity = SubIndikator::find($id);
@@ -102,7 +129,8 @@ class OperatorController extends Controller
             'entityType' => $type,
             'entityName' => $entityName,
             'entityId' => $id,
-            'dataIku' => $dataIku
+            'dataIku' => $dataIku,
+            'triwulan' => $triwulan_id
         ]);
     }
 
@@ -113,8 +141,11 @@ class OperatorController extends Controller
             return response()->json(['message' => 'Permintaan tidak valid. Type dan entity_id harus diketahui.'], 400);
         }
 
+        // Periksa apakah ada query parameter 'triwulan' dan ambil nilainya
+        $triwulan_id = $request->input('triwulan');
+
         // Validasi input
-        $data = request()->validate([
+        $data = $request->validate([
             'perjanjian_kinerja_target_kumulatif' => 'required|integer',
             'perjanjian_kinerja_realisasi_kumulatif' => 'required|integer',
             'capaian_kinerja_kumulatif' => 'required|numeric',
@@ -127,61 +158,48 @@ class OperatorController extends Controller
             'rencana_tidak_lanjut' => 'required|string',
             'pic_tidak_lanjut' => 'required|string',
             'tenggat_tidak_lanjut' => 'required|date',
-            'sub_indikator_id' => [
-                'nullable',
-                Rule::unique('data_iku')->where(function ($query) use ($request) {
-                    return $query->where('triwulan_id', $request->input('triwulan_id'));
-                }),
-            ],
-            'indikator_penunjang_id' => [
-                'nullable',
-                Rule::unique('data_iku')->where(function ($query) use ($request) {
-                    return $query->where('triwulan_id', $request->input('triwulan_id'));
-                }),
-            ],
-            'indikator_id' => [
-                'nullable',
-                Rule::unique('data_iku')->where(function ($query) use ($request) {
-                    return $query->where('triwulan_id', $request->input('triwulan_id'));
-                }),
-            ],
+            'sub_indikator_id' => 'nullable|integer',
+            'indikator_penunjang_id' => 'nullable|integer',
+            'indikator_id' => 'nullable|integer',
         ]);
 
         // Menyusun data untuk disimpan
-        $data = new DataIku();
-        $data->perjanjian_kinerja_target_kumulatif = $request->input('perjanjian_kinerja_target_kumulatif');
-        $data->perjanjian_kinerja_realisasi_kumulatif = $request->input('perjanjian_kinerja_realisasi_kumulatif');
-        $data->capaian_kinerja_kumulatif = $request->input('capaian_kinerja_kumulatif');
-        $data->capaian_kinerja_target_setahun = $request->input('capaian_kinerja_target_setahun');
-        $data->link_bukti_dukung_capaian = $request->input('link_bukti_dukung_capaian');
-        $data->upaya_yang_dilakukan = $request->input('upaya_yang_dilakukan');
-        $data->link_bukti_dukung_upaya_yang_dilakukan = $request->input('link_bukti_dukung_upaya_yang_dilakukan');
-        $data->kendala = $request->input('kendala');
-        $data->solusi_atas_kendala = $request->input('solusi_atas_kendala');
-        $data->rencana_tidak_lanjut = $request->input('rencana_tidak_lanjut');
-        $data->pic_tidak_lanjut = $request->input('pic_tidak_lanjut');
-        $data->tenggat_tidak_lanjut = $request->input('tenggat_tidak_lanjut');
-        $data->status = 'pending';
-        $data->upload_by = Auth::id();
-        $data->approve_by = null;
-        $data->reject_by = null;
-        $data->reject_comment = null;
-        $data->triwulan_id = $request->input('triwulan_id');
+        $dataIku = new DataIku();
+        $dataIku->perjanjian_kinerja_target_kumulatif = $request->input('perjanjian_kinerja_target_kumulatif');
+        $dataIku->perjanjian_kinerja_realisasi_kumulatif = $request->input('perjanjian_kinerja_realisasi_kumulatif');
+        $dataIku->capaian_kinerja_kumulatif = $request->input('capaian_kinerja_kumulatif');
+        $dataIku->capaian_kinerja_target_setahun = $request->input('capaian_kinerja_target_setahun');
+        $dataIku->link_bukti_dukung_capaian = $request->input('link_bukti_dukung_capaian');
+        $dataIku->upaya_yang_dilakukan = $request->input('upaya_yang_dilakukan');
+        $dataIku->link_bukti_dukung_upaya_yang_dilakukan = $request->input('link_bukti_dukung_upaya_yang_dilakukan');
+        $dataIku->kendala = $request->input('kendala');
+        $dataIku->solusi_atas_kendala = $request->input('solusi_atas_kendala');
+        $dataIku->rencana_tidak_lanjut = $request->input('rencana_tidak_lanjut');
+        $dataIku->pic_tidak_lanjut = $request->input('pic_tidak_lanjut');
+        $dataIku->tenggat_tidak_lanjut = $request->input('tenggat_tidak_lanjut');
+        $dataIku->status = 'pending';
+        $dataIku->upload_by = Auth::id();
+        $dataIku->approve_by = null;
+        $dataIku->reject_by = null;
+        $dataIku->reject_comment = null;
+
+        // Set nilai triwulan_id dari query parameter 'triwulan'
+        $dataIku->triwulan_id = $triwulan_id;
 
         // Menyimpan id entitas berdasarkan type
         $type = $request->input('type');
         $entity_id = $request->input('entity_id');
         if ($type === 'sub_indikator') {
-            $data->sub_indikator_id = $entity_id;
+            $dataIku->sub_indikator_id = $entity_id;
         } elseif ($type === 'indikator_penunjang') {
-            $data->indikator_penunjang_id = $entity_id;
+            $dataIku->indikator_penunjang_id = $entity_id;
         } elseif ($type === 'indikator') {
-            $data->indikator_id = $entity_id;
+            $dataIku->indikator_id = $entity_id;
         }
 
         try {
             // Memasukkan data ke dalam database
-            $data->save();
+            $dataIku->save();
 
             return redirect()->back()->with([
                 'success' => [
@@ -190,12 +208,12 @@ class OperatorController extends Controller
                 ]
             ]);
         } catch (\Illuminate\Database\QueryException $e) {
-            if ($e->errorInfo[1] == 1062) {
-                return redirect()->back()->withErrors(['error' => 'Duplikat entri terdeteksi. Data dengan ID yang sama sudah ada.'])->withInput();
-            }
             return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan saat menyimpan data.'])->withInput();
         }
     }
+
+
+
 
     public function update_master_data(Request $request, $id)
     {
@@ -282,6 +300,8 @@ class OperatorController extends Controller
         $search = $request->input('search');
         $bidangId = Auth::user()->bidang_id;
 
+        $triwulan_id = $request->input('triwulan');
+
         // Inisialisasi query
         $dataIkuQuery = DataIku::where('status', 'pending')
             ->where(function ($query) use ($bidangId) {
@@ -322,6 +342,7 @@ class OperatorController extends Controller
         // Return view with the data
         return view('operator.pending-master-data', [
             'dataIku' => $dataIku,
+            'triwulan' => $triwulan_id
         ]);
     }
 

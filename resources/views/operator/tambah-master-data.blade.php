@@ -32,6 +32,9 @@
             });
         </script>
     @endif
+    @php
+        $triwulan = request()->query('triwulan');
+    @endphp
 
     <div class="w-full p-5 h-full">
         <a class="text-gray-600 font-semibold text-2xl flex items-center gap-3" href="{{ url('operator/dashboard') }}"><i
@@ -40,30 +43,14 @@
             <p class="font-semibold text-lg text-gray-600 mb-3">
                 {{ $entityName ?? 'Entitas tidak ditemukan' }}
             </p>
+            <p class="font-medium text-gray-600 mb-10">Triwulan Ke-{{ $triwulan }}</p>
             <form class="mx-auto" action="{{ url('operator/tambah-master-data') }}" method="post">
                 {{ csrf_field() }}
                 <input type="hidden" name="type" value="{{ $entityType }}">
                 <input type="hidden" name="entity_id" value="{{ $entityId }}">
+                <input type="hidden" name="triwulan" value="{{ request()->query('triwulan') }}">
 
                 <div class="">
-                    <div class="mt-4 mb-2 flex items-center gap-2">
-                        <p class="text-gray-800">Pilih triwulan:</p>
-                        <div class="flex items-center">
-                            <select name="triwulan_id" class="px-4 py-2 pr-4 w-[200px] rounded-md shadow-sm outline-none border-none appearance-none text-gray-800 active:border-blue-500 active:border-2">
-                                <option value="">pilih</option>
-                                @foreach ($triwulan as $data)
-                                    @if ($data->status === 'open')
-                                        <option value="{{$data->id}}">{{$data->triwulan}}</option>
-                                    @elseif ($data->status === 'close')
-                                        <option @disabled(true) class="disabled:text-gray-300" value="{{$data->id}}">{{$data->triwulan}}</option>
-                                    @endif
-                                @endforeach
-                            </select>
-                            <svg class="w-4 h-4 mt-px -ml-6 pointer-events-none " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                            </svg>
-                        </div>
-                    </div>
                     <p class="w-full font-semibold border-b-2 py-2 mb-4 text-gray-600">Perjanjian Kinerja</p>
                     <div class="flex gap-x-10 gap-y-3 w-full items-center justify-between">
                         <div class="mb-5 w-1/2">

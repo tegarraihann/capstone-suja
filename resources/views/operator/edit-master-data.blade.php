@@ -5,20 +5,9 @@
 @section('content')
 
     @php
-        function getQuarter()
-        {
-            $month = date('n');
-            if ($month >= 1 && $month <= 3) {
-                return '1';
-            } elseif ($month >= 4 && $month <= 6) {
-                return '2';
-            } elseif ($month >= 7 && $month <= 9) {
-                return '3';
-            } else {
-                return '4';
-            }
-        }
-    $triwulan = getQuarter(); @endphp @if (!empty(session('success')))
+        $triwulan = request()->query('triwulan');
+    @endphp 
+    @if (!empty(session('success')))
         <script>
             swal({
                 title: "{{ Session::get('success.title') }}",

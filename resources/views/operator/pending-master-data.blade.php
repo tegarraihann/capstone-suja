@@ -31,6 +31,9 @@
                         <th scope="col" class="px-6 py-3 text-left whitespace-nowrap">
                             Last Uploader
                         </th>
+                        <th scope="col" class="px-6 py-3 text-left whitespace-nowrap">
+                            Triwulan
+                        </th>
                         <th scope="col" class="px-6 py-3 text-left">
                             Status
                         </th>
@@ -62,20 +65,21 @@
                                 </td>
                                 <td class="py-4 px-6 text-left whitespace-nowrap">{{ $data->user->name }} | <span class="text-blue-600">{{$data->user->bidang->nama_bidang}}</span></td>
                                 </td>
+                                <td class="py-4 px-6 text-left">{{ $data->triwulan_id }}</td>
                                 <td class="py-4 px-6 text-left"><p class="px-3 py-1 rounded-md border-orange-300 border-2 flex justify-between w-fit items-center bg-orange-50">{{ ucfirst($data->status) }}</p></td>
                                 <td class="py-4 px-6 text-center gap-3 flex items-center justify-center h-auto">
                                     @if ($data->sub_indikator)
-                                        <a href="{{ url('operator/edit-master-data/sub_indikator/' . $data->sub_indikator->id) }}"
+                                        <a href="{{ url('operator/edit-master-data/sub_indikator/' . $data->sub_indikator->id . '?triwulan=' . $data->triwulan_id) }}"
                                             class="text-blue-500 hover:text-blue-700">
                                             <i class="fa-regular fa-pen-to-square"></i>
                                         </a>
                                     @elseif($data->indikator_penunjang)
-                                        <a href="{{ url('operator/edit-master-data/indikator_penunjang/' . $data->indikator_penunjang->id) }}"
+                                        <a href="{{ url('operator/edit-master-data/indikator_penunjang/' . $data->indikator_penunjang->id . '?triwulan=' . $data->triwulan_id) }}"
                                             class="text-blue-500 hover:text-blue-700">
                                             <i class="fa-regular fa-pen-to-square"></i>
                                         </a>
                                     @elseif($data->indikator)
-                                        <a href="{{ url('operator/edit-master-data/indikator/' . $data->indikator->id) }}"
+                                        <a href="{{ url('operator/edit-master-data/indikator/' . $data->indikator->id . '?triwulan=' . $data->triwulan_id) }}"
                                             class="text-blue-500 hover:text-blue-700">
                                             <i class="fa-regular fa-pen-to-square"></i>
                                         </a>
@@ -96,15 +100,16 @@
                                 </td>
                                 <td class="py-4 px-6 text-left whitespace-nowrap">{{ $data->user->name }} | <span class="text-blue-600">{{$data->user->bidang->nama_bidang}}</span></td>
                                 </td>
+                                <td class="py-4 px-6 text-left">{{ $data->triwulan_id }}</td>
                                 <td class="py-4 px-6 text-left"><p class="px-3 py-1 rounded-md border-orange-300 border-2 flex justify-between w-fit items-center bg-orange-50">{{ ucfirst($data->status) }}</p></td>
                                 <td class="py-4 px-6 text-center gap-3 flex items-center justify-center">
                                     @if ($data->indikator_penunjang)
-                                        <a href="{{ url('operator/edit-master-data/indikator_penunjang/' . $data->indikator_penunjang->id) }}"
+                                        <a href="{{ url('operator/edit-master-data/indikator_penunjang/' . $data->indikator_penunjang->id . '?triwulan=' . $data->triwulan_id) }}"
                                             class="text-blue-500 hover:text-blue-700">
                                             <i class="fa-regular fa-pen-to-square"></i>
                                         </a>
                                     @elseif($data->indikator)
-                                        <a href="{{ url('operator/edit-master-data/indikator/' . $data->indikator->id) }}"
+                                        <a href="{{ url('operator/edit-master-data/indikator/' . $data->indikator->id . '?triwulan=' . $data->triwulan_id) }}"
                                             class="text-blue-500 hover:text-blue-700">
                                             <i class="fa-regular fa-pen-to-square"></i>
                                         </a>

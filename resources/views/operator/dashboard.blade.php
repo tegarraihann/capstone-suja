@@ -22,21 +22,27 @@
         <div class="mt-4 mb-2 flex items-center gap-2">
             <p class="text-gray-800">Pilih triwulan:</p>
             <div class="flex items-center">
-                <select name="triwulan_id" id="triwulan" class="px-4 py-2 pr-4 w-[200px] rounded-md shadow-sm outline-none border-none appearance-none text-gray-800 active:border-blue-500 active:border-2">
-                    <option selected value="">pilih</option>
+                <select name="triwulan_id" id="triwulan"
+                    class="px-4 py-2 pr-4 w-[200px] rounded-md shadow-sm outline-none border-none appearance-none text-gray-800 active:border-blue-500 active:border-2">
+                    <option selected value="0">pilih</option>
                     @foreach ($triwulan as $data)
                         @if ($data->status === 'open')
-                            <option value="{{$data->id}}">{{$data->triwulan}}</option>
+                            <option value="{{ $data->id }}">{{ $data->triwulan }}</option>
                         @elseif ($data->status === 'close')
-                            <option @disabled(true) class="disabled:text-gray-300" value="{{$data->id}}">{{$data->triwulan}}</option>
+                            <option @disabled(true) class="disabled:text-gray-300" value="{{ $data->id }}">
+                                {{ $data->triwulan }}</option>
                         @endif
                     @endforeach
                 </select>
-                <svg class="w-4 h-4 mt-px -ml-6 pointer-events-none " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                <svg class="w-4 h-4 mt-px -ml-6 pointer-events-none " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                    fill="currentColor">
+                    <path fill-rule="evenodd"
+                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                        clip-rule="evenodd" />
                 </svg>
             </div>
         </div>
+        @if (request()->has('triwulan') && !empty(request()->get('triwulan')) && $triwulanStatus !== 'close' && $triwulanStatus != null && request()->get('triwulan') != 0)
         <div class="mt-10 bg-white p-5 rounded shadow">
             <ul class="flex flex-col gap-4">
                 <li class="">
@@ -98,7 +104,7 @@
                                                                                             sudah
                                                                                             diisi
                                                                                         </span>
-                                                                                        <a href="{{ url('operator/edit-master-data/indikator/' . $indikator->id) }}"
+                                                                                        <a href="{{ url('operator/edit-master-data/indikator/' . $indikator->id . '?triwulan=' . $selectedTriwulan) }}"
                                                                                             class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-blue-500 to-blue-400 py-1 px-3 rounded-b-md text-white">
                                                                                             Edit
                                                                                             data
@@ -106,7 +112,7 @@
                                                                                     </div>
                                                                                 @else
                                                                                     <a
-                                                                                        href="{{ url('operator/tambah-master-data/indikator/' . $indikator->id) }}">
+                                                                                        href="{{ url('operator/tambah-master-data/indikator/' . $indikator->id . '?triwulan=' . $selectedTriwulan) }}">
                                                                                         <button
                                                                                             class="flex items-center gap-2 bg-gradient-to-r from-blue-500 to-blue-400 hover:bg-blue-600 text-white py-2 px-3 rounded-md font-medium transition-all text-sm whitespace-nowrap">
                                                                                             Input
@@ -164,7 +170,7 @@
                                                                                                                             sudah
                                                                                                                             diisi
                                                                                                                         </span>
-                                                                                                                        <a href="{{ url('operator/edit-master-data/sub_indikator/' . $sub_indikator->id) }}"
+                                                                                                                        <a href="{{ url('operator/edit-master-data/sub_indikator/' . $sub_indikator->id . '?triwulan=' . $selectedTriwulan ) }}"
                                                                                                                             class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-blue-500 to-blue-400 py-1 px-3 rounded-b-md text-white">
                                                                                                                             Edit
                                                                                                                             data
@@ -172,7 +178,7 @@
                                                                                                                     </div>
                                                                                                                 @else
                                                                                                                     <a
-                                                                                                                        href="{{ url('operator/tambah-master-data/sub_indikator/' . $sub_indikator->id) }}">
+                                                                                                                        href="{{ url('operator/tambah-master-data/sub_indikator/' . $sub_indikator->id . '?triwulan=' . $selectedTriwulan ) }}">
                                                                                                                         <button
                                                                                                                             class="flex items-center gap-2 bg-gradient-to-r from-blue-500 to-blue-400 hover:bg-blue-600 text-white py-2 px-3 rounded-md font-medium transition-all text-sm whitespace-nowrap">
                                                                                                                             Input
@@ -206,7 +212,7 @@
                                                                                                             sudah
                                                                                                             diisi
                                                                                                         </span>
-                                                                                                        <a href="{{ url('operator/edit-master-data/indikator_penunjang/' . $indikator_penunjang->id) }}"
+                                                                                                        <a href="{{ url('operator/edit-master-data/indikator_penunjang/' . $indikator_penunjang->id . '?triwulan=' . $selectedTriwulan) }}"
                                                                                                             class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-blue-500 to-blue-400 py-1 px-3 rounded-b-md text-white">
                                                                                                             Edit
                                                                                                             data
@@ -214,7 +220,7 @@
                                                                                                     </div>
                                                                                                 @else
                                                                                                     <a
-                                                                                                        href="{{ url('operator/tambah-master-data/indikator_penunjang/' . $indikator_penunjang->id) }}">
+                                                                                                        href="{{ url('operator/tambah-master-data/indikator_penunjang/' . $indikator_penunjang->id . '?triwulan=' . $selectedTriwulan) }}">
                                                                                                         <button
                                                                                                             class="flex items-center gap-2 bg-gradient-to-r from-blue-500 to-blue-400 hover:bg-blue-600 text-white py-2 px-3 rounded-md font-medium transition-all text-sm whitespace-nowrap">
                                                                                                             Input
@@ -251,7 +257,7 @@
                                                                                                         sudah
                                                                                                         diisi
                                                                                                     </span>
-                                                                                                    <a href="{{ url('operator/edit-master-data/sub_indikator/' . $sub_indikator->id) }}"
+                                                                                                    <a href="{{ url('operator/edit-master-data/sub_indikator/' . $sub_indikator->id . '?triwulan=' . $selectedTriwulan) }}"
                                                                                                         class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-blue-500 to-blue-400 py-1 px-3 rounded-b-md text-white">
                                                                                                         Edit
                                                                                                         data
@@ -259,7 +265,7 @@
                                                                                                 </div>
                                                                                             @else
                                                                                                 <a
-                                                                                                    href="{{ url('operator/tambah-master-data/sub_indikator/' . $sub_indikator->id) }}">
+                                                                                                    href="{{ url('operator/tambah-master-data/sub_indikator/' . $sub_indikator->id . '?triwulan=' . $selectedTriwulan) }}">
                                                                                                     <button
                                                                                                         class="flex items-center gap-2 bg-gradient-to-r from-blue-500 to-blue-400 hover:bg-blue-600 text-white py-2 px-3 rounded-md font-medium transition-all text-sm whitespace-nowrap">
                                                                                                         Input
@@ -289,7 +295,7 @@
                                                                                         sudah
                                                                                         diisi
                                                                                     </span>
-                                                                                    <a href="{{ url('operator/edit-master-data/indikator/' . $indikator->id) }}"
+                                                                                    <a href="{{ url('operator/edit-master-data/indikator/' . $indikator->id . '?triwulan=' . $selectedTriwulan) }}"
                                                                                         class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-blue-500 to-blue-400 py-1 px-3 rounded-b-md text-white">
                                                                                         Edit
                                                                                         data
@@ -297,7 +303,7 @@
                                                                                 </div>
                                                                             @else
                                                                                 <a
-                                                                                    href="{{ url('operator/tambah-master-data/indikator/' . $indikator->id) }}">
+                                                                                    href="{{ url('operator/tambah-master-data/indikator/' . $indikator->id . '?triwulan=' . $selectedTriwulan) }}">
                                                                                     <button
                                                                                         class="flex items-center gap-2 bg-gradient-to-r from-blue-500 to-blue-400 hover:bg-blue-600 text-white py-2 px-3 rounded-md font-medium transition-all text-sm whitespace-nowrap">
                                                                                         Input
@@ -406,7 +412,7 @@
                                                                                                                             sudah
                                                                                                                             diisi
                                                                                                                         </span>
-                                                                                                                        <a href="{{ url('operator/edit-master-data/sub_indikator/' . $sub_indikator->id) }}"
+                                                                                                                        <a href="{{ url('operator/edit-master-data/sub_indikator/' . $sub_indikator->id . '?triwulan=' . $selectedTriwulan) }}"
                                                                                                                             class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-blue-500 to-blue-400 py-1 px-3 rounded-b-md text-white">
                                                                                                                             Edit
                                                                                                                             data
@@ -414,7 +420,7 @@
                                                                                                                     </div>
                                                                                                                 @else
                                                                                                                     <a
-                                                                                                                        href="{{ url('operator/tambah-master-data/sub_indikator/' . $sub_indikator->id) }}">
+                                                                                                                        href="{{ url('operator/tambah-master-data/sub_indikator/' . $sub_indikator->id . '?triwulan=' . $selectedTriwulan) }}">
                                                                                                                         <button
                                                                                                                             class="flex items-center gap-2 bg-gradient-to-r from-blue-500 to-blue-400 hover:bg-blue-600 text-white py-2 px-3 rounded-md font-medium transition-all text-sm whitespace-nowrap">
                                                                                                                             Input
@@ -449,7 +455,7 @@
                                                                                                             sudah
                                                                                                             diisi
                                                                                                         </span>
-                                                                                                        <a href="{{ url('operator/edit-master-data/indikator_penunjang/' . $indikator_penunjang->id) }}"
+                                                                                                        <a href="{{ url('operator/edit-master-data/indikator_penunjang/' . $indikator_penunjang->id . '?triwulan=' . $selectedTriwulan) }}"
                                                                                                             class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-blue-500 to-blue-400 py-1 px-3 rounded-b-md text-white">
                                                                                                             Edit
                                                                                                             data
@@ -457,7 +463,7 @@
                                                                                                     </div>
                                                                                                 @else
                                                                                                     <a
-                                                                                                        href="{{ url('operator/tambah-master-data/indikator_penunjang/' . $indikator_penunjang->id) }}">
+                                                                                                        href="{{ url('operator/tambah-master-data/indikator_penunjang/' . $indikator_penunjang->id . '?triwulan=' . $selectedTriwulan) }}">
                                                                                                         <button
                                                                                                             class="flex items-center gap-2 bg-gradient-to-r from-blue-500 to-blue-400 hover:bg-blue-600 text-white py-2 px-3 rounded-md font-medium transition-all text-sm whitespace-nowrap">
                                                                                                             Input
@@ -495,7 +501,7 @@
                                                                                                         sudah
                                                                                                         diisi
                                                                                                     </span>
-                                                                                                    <a href="{{ url('operator/edit-master-data/sub_indikator/' . $sub_indikator->id) }}"
+                                                                                                    <a href="{{ url('operator/edit-master-data/sub_indikator/' . $sub_indikator->id . '?triwulan=' . $selectedTriwulan) }}"
                                                                                                         class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-blue-500 to-blue-400 py-1 px-3 rounded-b-md text-white">
                                                                                                         Edit
                                                                                                         data
@@ -503,7 +509,7 @@
                                                                                                 </div>
                                                                                             @else
                                                                                                 <a
-                                                                                                    href="{{ url('operator/tambah-master-data/sub_indikator/' . $sub_indikator->id) }}">
+                                                                                                    href="{{ url('operator/tambah-master-data/sub_indikator/' . $sub_indikator->id . '?triwulan=' . $selectedTriwulan) }}">
                                                                                                     <button
                                                                                                         class="flex items-center gap-2 bg-gradient-to-r from-blue-500 to-blue-400 hover:bg-blue-600 text-white py-2 px-3 rounded-md font-medium transition-all text-sm whitespace-nowrap">
                                                                                                         Input
@@ -534,7 +540,7 @@
                                                                                         sudah
                                                                                         diisi
                                                                                     </span>
-                                                                                    <a href="{{ url('operator/edit-master-data/indikator/' . $indikator->id) }}"
+                                                                                    <a href="{{ url('operator/edit-master-data/indikator/' . $indikator->id . '?triwulan=' . $selectedTriwulan) }}"
                                                                                         class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-blue-500 to-blue-400 py-1 px-3 rounded-b-md text-white">
                                                                                         Edit
                                                                                         data
@@ -542,7 +548,7 @@
                                                                                 </div>
                                                                             @else
                                                                                 <a
-                                                                                    href="{{ url('operator/tambah-master-data/indikator/' . $indikator->id) }}">
+                                                                                    href="{{ url('operator/tambah-master-data/indikator/' . $indikator->id . '?triwulan=' . $selectedTriwulan) }}">
                                                                                     <button
                                                                                         class="flex items-center gap-2 bg-gradient-to-r from-blue-500 to-blue-400 hover:bg-blue-600 text-white py-2 px-3 rounded-md font-medium transition-all text-sm whitespace-nowrap">
                                                                                         Input
@@ -615,7 +621,7 @@
                                                                             sudah
                                                                             diisi
                                                                         </span>
-                                                                        <a href="{{ url('operator/edit-master-data/indikator/' . $indikator->id) }}"
+                                                                        <a href="{{ url('operator/edit-master-data/indikator/' . $indikator->id . '?triwulan=' . $selectedTriwulan) }}"
                                                                             class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-blue-500 to-blue-400 py-1 px-3 rounded-b-md text-white">
                                                                             Edit
                                                                             data
@@ -623,7 +629,7 @@
                                                                     </div>
                                                                 @else
                                                                     <a
-                                                                        href="{{ url('operator/tambah-master-data/indikator/' . $indikator->id) }}">
+                                                                        href="{{ url('operator/tambah-master-data/indikator/' . $indikator->id . '?triwulan=' . $selectedTriwulan) }}">
                                                                         <button
                                                                             class="flex items-center gap-2 bg-gradient-to-r from-blue-500 to-blue-400 hover:bg-blue-600 text-white py-2 px-3 rounded-md font-medium transition-all text-sm whitespace-nowrap">
                                                                             Input
@@ -645,5 +651,8 @@
                 </li>
             </ul>
         </div>
+        @else
+            <p class="mt-3 px-5 py-2 rounded-md border-red-500 border-2 flex justify-between w-fit items-center bg-red-50">Pilih triwulan terlebih dahulu</p>
+        @endif
     </div>
 @endsection
