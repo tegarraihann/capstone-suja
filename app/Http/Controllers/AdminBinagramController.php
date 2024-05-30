@@ -360,6 +360,7 @@ class AdminBinagramController extends Controller
     {
         $dataIku = DataIku::findOrFail($id);
         $dataIku->status = 'approved_by_ab';
+        $dataIku->approve_by = Auth::id();
         $dataIku->save();
 
         return response()->json(['success' => [
@@ -374,7 +375,7 @@ class AdminBinagramController extends Controller
 
         $dataIku->status = 'rejected';
         $dataIku->reject_comment = $request->reject_comment;
-
+        $dataIku->reject_by = Auth::id();
         $dataIku->save();
 
         return response()->json(['success' => [
