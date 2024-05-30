@@ -54,7 +54,8 @@ Route::group(['middleware' => ['adminbinagram', 'no-cache']], function () {
 Route::group(['middleware' => ['adminapproval', 'no-cache']], function () {
     Route::get('adminapproval/dashboard', [DashboardController::class, "dashboard"]);
     Route::get('adminapproval/dashboard', [AdminApprovalController::class, "view_pending_data"]);
-    Route::get('adminapproval/dokumen-approved', [AdminApprovalController::class, "view_approved_data"]);
+    Route::get('adminapproval/approved-master-data', [AdminApprovalController::class, "view_approved_master_data"]);
+    Route::get('adminapproval/rejected-master-data', [AdminApprovalController::class, 'view_rejected_master_data'])->name('search-data-rejected');
     Route::get('adminapproval/edit-user/{id}', [AdminSistemController::class, "view_update_user"]);
     Route::put('adminapproval/edit-user/{id}', [AdminSistemController::class, "edit_user"]);
 });
