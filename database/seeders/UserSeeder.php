@@ -68,17 +68,15 @@ class UserSeeder extends Seeder
         ];
 
         foreach ($users as $user) {
-            // User::create([
-            //     "name" => $user['name'],
-            //     "email" => $user['email'],
-            //     "password" => Hash::make($user['password']),
-            //     "remember_token" => Str::random(50),
-            //     "role" => $user['role'],
-            //     "nip" => $user['nip'],
-            //     "bidang_id" => $user['bidang_id']
-            // ]);
-
-            User::create($user);
+            User::create([
+                "name" => $user['name'],
+                "email" => $user['email'],
+                "password" => Hash::make($user['password']),
+                "remember_token" => Str::random(50),
+                "role" => $user['role'],
+                "nip" => $user['nip'],
+                "bidang_id" => $user['bidang_id']
+            ]);
         }
     }
 }
