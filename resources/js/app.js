@@ -1246,7 +1246,7 @@ function handleDropdown() {
             if (isMatch) {
                 dropdown.classList.add("open");
                 icon.classList.add("open");
-                dropdown.style.maxHeight = dropdown.scrollHeight + "px";
+                dropdown.style.maxHeight = dropdown.scrollHeight + 20 + "px";
             }
         };
 
@@ -1254,7 +1254,7 @@ function handleDropdown() {
             const isOpen = dropdown.classList.toggle("open");
             icon.classList.toggle("open", isOpen);
             dropdown.style.maxHeight = isOpen
-                ? dropdown.scrollHeight + "px"
+                ? dropdown.scrollHeight + 20 + "px"
                 : "0px";
         });
 
