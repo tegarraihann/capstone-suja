@@ -1,3 +1,3 @@
 CREATE DATABASE dashboard_iku
-use database laravel
+use database iku
 DROP TABLE data_iku from database laravel

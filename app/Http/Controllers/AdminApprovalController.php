@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\DataIku;
+use App\Models\Indikator;
+use App\Models\IndikatorPenunjang;
+use App\Models\SubIndikator;
+use App\Models\Triwulan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -138,4 +142,142 @@ class AdminApprovalController extends Controller
             'dataIku' => $dataIku,
         ]);
     }
+    public function view_edit_master_data()
+    {
+        // $triwulan_id = $request->input('triwulan');
+
+        // // Fetch entity based on type and id
+        // if ($type === 'sub_indikator') {
+        //     $entity = SubIndikator::find($id);
+        //     $entityName = $entity->sub_indikator ?? null;
+        // } elseif ($type === 'indikator_penunjang') {
+        //     $entity = IndikatorPenunjang::find($id);
+        //     $entityName = $entity->indikator_penunjang ?? null;
+        // } elseif ($type === 'indikator') {
+        //     $entity = Indikator::find($id);
+        //     $entityName = $entity->indikator ?? null;
+        // } else {
+        //     $entity = null;
+        //     $entityName = null;
+        // }
+
+        // if (!$entity) {
+        //     return redirect()->back()->with('error', 'Entitas tidak ditemukan');
+        // }
+
+        // // Fetch DataIku based on entity id
+        // $dataIku = DataIku::where('sub_indikator_id', $id)
+        //     ->orWhere('indikator_penunjang_id', $id)
+        //     ->orWhere('indikator_id', $id)
+        //     ->first();
+
+        // if (!$dataIku) {
+        //     return redirect()->back()->with('error', 'Data IKU tidak ditemukan');
+        // }
+
+        // $selectedTriwulan = $request->query('triwulan', null);
+        // $triwulanStatus = Triwulan::find($selectedTriwulan)->status ?? null;
+
+        // // Memeriksa apakah triwulan memiliki status 'close'
+        // if ($triwulanStatus === 'close') {
+        //     // Jika triwulan memiliki status 'close', lakukan redirect atau tampilkan pesan kesalahan
+        //     return redirect()->back()->with([
+        //         'error' => [
+        //             "title" => "Cannot Edit Data",
+        //             "message" => "Triwulan sedang ditutup"
+        //         ]
+        //     ]);
+        // }
+
+        // return view('adminapproval.edit-master-data', [
+        //     'entityType' => $type,
+        //     'entityName' => $entityName,
+        //     'entityId' => $id,
+        //     'dataIku' => $dataIku,
+        //     'triwulan' => $triwulan_id,
+        //     'triwulanStatus' => $triwulanStatus
+        // ]);
+
+        return view('adminapproval.edit-master-datas');
+    }
+
+    public function update_master_data(Request $request, $id)
+    {
+        // Validasi input
+        $request->validate([
+            'perjanjian_kinerja_target_kumulatif' => 'required|integer',
+            'perjanjian_kinerja_realisasi_kumulatif' => 'required|integer',
+            'capaian_kinerja_kumulatif' => 'required|numeric',
+            'capaian_kinerja_target_setahun' => 'required|numeric',
+            'link_bukti_dukung_capaian' => 'required|string',
+            'upaya_yang_dilakukan' => 'required|string',
+            'link_bukti_dukung_upaya_yang_dilakukan' => 'required|string',
+            'kendala' => 'required|string',
+            'solusi_atas_kendala' => 'required|string',
+            'rencana_tidak_lanjut' => 'required|string',
+            'pic_tidak_lanjut' => 'required|string',
+            'tenggat_tidak_lanjut' => 'required|date',
+        ]);
+
+        // Cari data yang akan diupdate
+        $data = DataIku::findOrFail($id);
+
+        // Memeriksa apakah semua input sama dengan nilai sebelumnya
+        if (
+            $data->perjanjian_kinerja_target_kumulatif == $request->input('perjanjian_kinerja_target_kumulatif') &&
+            $data->perjanjian_kinerja_realisasi_kumulatif == $request->input('perjanjian_kinerja_realisasi_kumulatif') &&
+            $data->capaian_kinerja_kumulatif == $request->input('capaian_kinerja_kumulatif') &&
+            $data->capaian_kinerja_target_setahun == $request->input('capaian_kinerja_target_setahun') &&
+            $data->link_bukti_dukung_capaian == $request->input('link_bukti_dukung_capaian') &&
+            $data->upaya_yang_dilakukan == $request->input('upaya_yang_dilakukan') &&
+            $data->link_bukti_dukung_upaya_yang_dilakukan == $request->input('link_bukti_dukung_upaya_yang_dilakukan') &&
+            $data->kendala == $request->input('kendala') &&
+            $data->solusi_atas_kendala == $request->input('solusi_atas_kendala') &&
+            $data->rencana_tidak_lanjut == $request->input('rencana_tidak_lanjut') &&
+            $data->pic_tidak_lanjut == $request->input('pic_tidak_lanjut') &&
+            $data->tenggat_tidak_lanjut == $request->input('tenggat_tidak_lanjut')
+        ) {
+            return redirect()->back()->with([
+                'warning' => [
+                    "title" => "No Changes Made",
+                    "message" => "Tidak ada perubahan yang dilakukan."
+                ]
+            ]);
+        }
+
+        // Memperbarui data
+        $data->update([
+            'perjanjian_kinerja_target_kumulatif' => $request->input('perjanjian_kinerja_target_kumulatif'),
+            'perjanjian_kinerja_realisasi_kumulatif' => $request->input('perjanjian_kinerja_realisasi_kumulatif'),
+            'capaian_kinerja_kumulatif' => $request->input('capaian_kinerja_kumulatif'),
+            'capaian_kinerja_target_setahun' => $request->input('capaian_kinerja_target_setahun'),
+            'link_bukti_dukung_capaian' => $request->input('link_bukti_dukung_capaian'),
+            'upaya_yang_dilakukan' => $request->input('upaya_yang_dilakukan'),
+            'link_bukti_dukung_upaya_yang_dilakukan' => $request->input('link_bukti_dukung_upaya_yang_dilakukan'),
+            'kendala' => $request->input('kendala'),
+            'solusi_atas_kendala' => $request->input('solusi_atas_kendala'),
+            'rencana_tidak_lanjut' => $request->input('rencana_tidak_lanjut'),
+            'pic_tidak_lanjut' => $request->input('pic_tidak_lanjut'),
+            'tenggat_tidak_lanjut' => $request->input('tenggat_tidak_lanjut'),
+            'upload_by' => Auth::id()
+        ]);
+
+        try {
+            // Memasukkan data ke dalam database
+            $data->save();
+
+            return redirect()->back()->with([
+                'success' => [
+                    "title" => "Data Updated Successfully",
+                    "message" => "Data berhasil diperbarui."
+                ]
+            ]);
+        } catch (\Illuminate\Database\QueryException $e) {
+            if ($e->errorInfo[1] == 1062) {
+                return redirect()->back()->withErrors(['error' => 'Duplikat entri terdeteksi. Data dengan ID yang sama sudah ada.'])->withInput();
+            }
+            return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan saat menyimpan data.'])->withInput();
+        }
+    }
+
 }

@@ -62,7 +62,7 @@ class UserSeeder extends Seeder
                 "email" => "operator@gmail.com",
                 "password" => "operator123",
                 "role" => "0",
-                "nip" => "132131231231312313123",
+                "nip" => "132131231231312313126873",
                 "bidang_id" => $bidangUmum->id
             ]
         ];
