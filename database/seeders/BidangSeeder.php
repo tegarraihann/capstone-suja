@@ -15,9 +15,6 @@ class BidangSeeder extends Seeder
     {
         $bidang = [
             [
-                "nama_bidang" => "Pimpinan",
-            ],
-            [
                 "nama_bidang" => "Bagian Umum",
             ],
             [
@@ -34,6 +31,9 @@ class BidangSeeder extends Seeder
             ],
             [
                 "nama_bidang" => "Fungsi IPDS",
+            ],
+            [
+                "nama_bidang" => "Pimpinan",
             ],
         ];
 
