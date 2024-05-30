@@ -2,6 +2,8 @@ import axios from "axios";
 import "./bootstrap";
 
 document.addEventListener("DOMContentLoaded", function () {
+    approveApprovalButton()
+    rejectApprovalButton();
     rejectBinagramButton();
     approveBinagramButton();
     getTriwulanParams();
@@ -1457,6 +1459,111 @@ function rejectBinagramButton() {
                             }).then(() => {
                                 window.location.href =
                                     "/adminbinagram/pending-master-data";
+                            });
+                        })
+                        .catch((error) => {
+                            swal({
+                                icon: "error",
+                                title: "Failed Reject",
+                                text: "Gagal menolak data",
+                            });
+                        });
+                }
+            });
+        });
+    });
+}
+
+function approveApprovalButton() {
+    document.querySelectorAll(".approve-approval").forEach((btn) => {
+        btn.addEventListener("click", function () {
+            const id = this.dataset.id;
+            const text = this.dataset.text;
+
+            swal({
+                title: "Setujui dokumen ini?",
+                text: text,
+                icon: "warning",
+                buttons: ["Cancel", "Setuju"]
+            }).then((value) => {
+                if (value) {
+                    axios
+                        .put(`/adminapproval/approve-master-data/${id}`)
+                        .then((response) => {
+                            swal({
+                                icon: "success",
+                                title: "Successfully Approve",
+                                text: "Data disetujui",
+                            }).then(() => {
+                                window.location.href =
+                                    "/adminapproval/dashboard";
+                            });
+                        })
+                        .catch((error) => {
+                            console.log(error)
+                            swal({
+                                icon: "error",
+                                title: "Failed Approve",
+                                text: "Gagal menyetujui data",
+                            });
+                        });
+                }
+            });
+        });
+    });
+}
+
+function rejectApprovalButton() {
+    document.querySelectorAll(".reject-approval").forEach((btn) => {
+        btn.addEventListener("click", function () {
+            const id = this.dataset.id;
+            const text = this.dataset.text;
+
+            swal({
+                text: "Masukkan Komentar",
+                content: {
+                    element: "input",
+                    attributes: {
+                        value: "",
+                        placeholder: "Komentar tidak boleh kosong!"
+                    },
+                },
+                buttons: {
+                    cancel: true,
+                    confirm: {
+                        text: "Tolak",
+                        closeModal: false,
+                    },
+                },
+                dangerMode: true
+            }).then((value) => {
+                if (value === null) {
+                    return;
+                }
+
+                if(value === ""){
+                    swal({
+                        icon: "error",
+                        title: "Failed Reject",
+                        text: "Komentar tidak boleh kosong",
+                    });
+                    return;
+                }
+                
+                if (value) {
+                    const data = {
+                        reject_comment: value,
+                    };
+                    axios
+                        .put(`/adminapproval/reject-master-data/${id}`, data)
+                        .then((response) => {
+                            swal({
+                                icon: "success",
+                                title: "Successfully Reject",
+                                text: "Data ditolak",
+                            }).then(() => {
+                                window.location.href =
+                                    "/adminapproval/dashboard";
                             });
                         })
                         .catch((error) => {

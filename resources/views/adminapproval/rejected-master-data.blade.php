@@ -9,7 +9,7 @@
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg p-4 bg-white mt-3">
             <div class="w-full flex justify-between">
                 <div class="bg-white">
-                    <form action="{{ route('search-data-rejected') }}" method="GET"
+                    <form action="{{ route('search-data-rejected-ap') }}" method="GET"
                         class="flex items-center text-gray-900 border border-gray-300 rounded-md w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 overflow-hidden">
                         <input type="text" name="search" id="table-search"
                             class="block py-2 px-4 outline-none text-sm w-full" placeholder="Cari data"

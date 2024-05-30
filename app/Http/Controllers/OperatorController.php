@@ -379,11 +379,19 @@ class OperatorController extends Controller
 
         // Inisialisasi query
         $dataIkuQuery = DataIku::where('status', 'approved_by_ab')
-            ->whereHas('sub_indikator', function ($query) use ($bidangId) {
-                $query->whereNull('bidang_id')
+        ->where(function ($query) use ($bidangId) {
+            $query->whereHas('sub_indikator', function ($q) use ($bidangId) {
+                $q->whereNull('bidang_id')
                     ->orWhere('bidang_id', $bidangId);
             })
-            ->with(['sub_indikator', 'indikator_penunjang', 'indikator', 'user', 'approved_by']);
+                ->orWhereHas('indikator', function ($q) use ($bidangId) {
+                    $q->whereNull('bidang_id')
+                        ->orWhere('bidang_id', $bidangId);
+                })
+                ->orWhereHas('indikator_penunjang');
+        })
+        ->with(['sub_indikator', 'indikator_penunjang', 'indikator', 'user', 'approved_by'])
+        ->orderBy('created_at', 'desc');
 
         // Tambahkan kondisi pencarian jika ada
         if ($search) {
@@ -419,11 +427,19 @@ class OperatorController extends Controller
 
         // Inisialisasi query
         $dataIkuQuery = DataIku::where('status', 'rejected')
-            ->whereHas('sub_indikator', function ($query) use ($bidangId) {
-                $query->whereNull('bidang_id')
+        ->where(function ($query) use ($bidangId) {
+            $query->whereHas('sub_indikator', function ($q) use ($bidangId) {
+                $q->whereNull('bidang_id')
                     ->orWhere('bidang_id', $bidangId);
             })
-            ->with(['sub_indikator', 'indikator_penunjang', 'indikator', 'user', 'rejected_by']);
+                ->orWhereHas('indikator', function ($q) use ($bidangId) {
+                    $q->whereNull('bidang_id')
+                        ->orWhere('bidang_id', $bidangId);
+                })
+                ->orWhereHas('indikator_penunjang');
+        })
+        ->with(['sub_indikator', 'indikator_penunjang', 'indikator', 'user', 'rejected_by'])
+        ->orderBy('created_at', 'desc');
 
         // Tambahkan kondisi pencarian jika ada
         if ($search) {

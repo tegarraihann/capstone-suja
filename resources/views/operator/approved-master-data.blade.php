@@ -67,7 +67,7 @@
                                 <td class="py-4 px-6 text-left whitespace-nowrap">{{ $data->approved_by->name }} | <span class="text-blue-600">{{$data->approved_by->bidang->nama_bidang}}</span></td>
                                 </td>
                                 <td class="py-4 px-6 text-center">{{ $data->triwulan_id }}</td>
-                                <td class="py-4 px-6 text-left"><p class="px-3 py-1 rounded-md border-orange-300 border-2 flex justify-between w-fit items-center bg-orange-50">{{ ucfirst($data->status) }}</p></td>
+                                <td class="py-4 px-6 text-left"><p class="px-3 py-1 rounded-md border-green-500 border-2 flex justify-between w-fit items-center bg-green-200">Approve</p></td>
                             </tr>
                         @elseif (!$data->sub_indikator)
                             <tr class="bg-white border-b hover:bg-gray-50 h-full">

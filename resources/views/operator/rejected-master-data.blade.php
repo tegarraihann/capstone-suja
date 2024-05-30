@@ -3,8 +3,21 @@
 @section('title', 'Daftar master data rejected')
 
 @section('content')
+    @if (!empty(session('error')))
+        <script>
+            swal({
+                title: "{{ Session::get('error.title') }}",
+                text: "{{ Session::get('error.message') }}",
+                icon: "error",
+                button: {
+                    text: "OK",
+                    closeModal: true,
+                }
+            })
+        </script>
+    @endif
     <div class="w-full p-5 h-full">
-        
+
         <h2 class="text-gray-600 font-semibold text-2xl">Data Tidak Disetujui</h2>
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg p-4 bg-white mt-3">
             <div class="w-full flex justify-between">
@@ -52,7 +65,9 @@
                     @forelse ($dataIku as $data)
                         @if (
                             $data->sub_indikator &&
-                                ($data->sub_indikator->bidang_id === null || $data->sub_indikator->bidang_id === Auth::user()->bidang_id || $data->indikator->bidang_id === Auth::user()->bidang_id))
+                                ($data->sub_indikator->bidang_id === null ||
+                                    $data->sub_indikator->bidang_id === Auth::user()->bidang_id ||
+                                    $data->indikator->bidang_id === Auth::user()->bidang_id))
                             <tr class="bg-white border-b hover:bg-gray-50">
                                 <td class="py-4 px-6 w-[30px]">{{ $index++ }}</td>
                                 <td class="py-4 px-6 text-left">
@@ -66,12 +81,18 @@
                                         N/A
                                     @endif
                                 </td>
-                                <td class="py-4 px-6 text-left whitespace-nowrap">{{ $data->user->name }} | <span class="text-blue-600">{{$data->user->bidang->nama_bidang}}</span></td>
+                                <td class="py-4 px-6 text-left whitespace-nowrap">{{ $data->user->name }} | <span
+                                        class="text-blue-600">{{ $data->user->bidang->nama_bidang }}</span></td>
                                 </td>
-                                <td class="py-4 px-6 text-left whitespace-nowrap">{{ $data->rejected_by->name }} | <span class="text-blue-600">{{$data->rejected_by->bidang->nama_bidang}}</span></td>
+                                <td class="py-4 px-6 text-left whitespace-nowrap">{{ $data->rejected_by->name }} | <span
+                                        class="text-blue-600">{{ $data->rejected_by->bidang->nama_bidang }}</span></td>
                                 </td>
                                 <td class="py-4 px-6 text-center">{{ $data->triwulan_id }}</td>
-                                <td class="py-4 px-6 text-left"><p class="px-3 py-1 rounded-md border-red-500 border-2 flex justify-between w-fit items-center bg-red-200">{{ ucfirst($data->status) }}</p></td>
+                                <td class="py-4 px-6 text-left">
+                                    <p
+                                        class="px-3 py-1 rounded-md border-red-500 border-2 flex justify-between w-fit items-center bg-red-200">
+                                        {{ ucfirst($data->status) }}</p>
+                                </td>
                                 <td class="py-4 px-6 text-center gap-3">
                                     <div class="flex justify-center items-center gap-3">
                                         @if ($data->sub_indikator)
@@ -105,12 +126,18 @@
                                         N/A
                                     @endif
                                 </td>
-                                <td class="py-4 px-6 text-left whitespace-nowrap">{{ $data->user->name }} | <span class="text-blue-600">{{$data->user->bidang->nama_bidang}}</span></td>
+                                <td class="py-4 px-6 text-left whitespace-nowrap">{{ $data->user->name }} | <span
+                                        class="text-blue-600">{{ $data->user->bidang->nama_bidang }}</span></td>
                                 </td>
-                                <td class="py-4 px-6 text-left whitespace-nowrap">{{ $data->rejected_by->name }} | <span class="text-blue-600">{{$data->rejected_by->bidang->nama_bidang}}</span></td>
+                                <td class="py-4 px-6 text-left whitespace-nowrap">{{ $data->rejected_by->name }} | <span
+                                        class="text-blue-600">{{ $data->rejected_by->bidang->nama_bidang }}</span></td>
                                 </td>
                                 <td class="py-4 px-6 text-center">{{ $data->triwulan_id }}</td>
-                                <td class="py-4 px-6 text-left"><p class="px-3 py-1 rounded-md border-orange-300 border-2 flex justify-between w-fit items-center bg-orange-50">{{ ucfirst($data->status) }}</p></td>
+                                <td class="py-4 px-6 text-left">
+                                    <p
+                                        class="px-3 py-1 rounded-md border-red-500 border-2 flex justify-between w-fit items-center bg-red-200">
+                                        {{ ucfirst($data->status) }}</p>
+                                </td>
                                 <td class="py-4 px-6 text-center gap-3">
                                     <div class="flex justify-center items-center gap-3">
                                         @if ($data->indikator_penunjang)

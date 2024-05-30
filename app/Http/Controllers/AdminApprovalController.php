@@ -200,6 +200,38 @@ class AdminApprovalController extends Controller
         ]);
     }
 
+    public function approve_data(Request $request, $id)
+    {
+        $selectedTriwulan = $request->query('triwulan', null);
+
+        $dataIku = DataIku::findOrFail($id);
+        if ($dataIku->triwulan_id === $selectedTriwulan) {
+            $dataIku->status = 'approved_by_ap';
+            $dataIku->approve_by = Auth::id();
+            $dataIku->update();
+        }
+
+        return response()->json(['success' => [
+            "title" => "Data Approve Succesfully",
+            "message" => "Data berhasil disetujui"
+        ]], 200);
+    }
+
+    public function reject_data(Request $request, $id)
+    {
+        $dataIku = DataIku::findOrFail($id);
+
+        $dataIku->status = 'rejected';
+        $dataIku->reject_comment = $request->reject_comment;
+        $dataIku->reject_by = Auth::id();
+        $dataIku->save();
+
+        return response()->json(['success' => [
+            "title" => "Data Reject Succesfully",
+            "message" => "Data berhasil ditolak"
+        ]], 200);
+    }
+
     public function update_master_data(Request $request, $id)
     {
         // Validasi input

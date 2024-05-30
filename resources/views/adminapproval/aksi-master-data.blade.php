@@ -18,7 +18,7 @@
                     closeModal: true,
                 }
             }).then(() => {
-                window.location.href = "{{ url('adminbinagram/dashboard') }}";
+                window.location.href = "{{ url('adminapproval/dashboard') }}";
             });
         </script>
     @endif
@@ -64,6 +64,7 @@
                     {{ method_field('PUT') }}
                     <input type="hidden" name="type" value="{{ $entityType }}">
                     <input type="hidden" name="entity_id" value="{{ $entityId }}">
+                    <input type="hidden" name="triwulan_id" value="{{ $triwulan }}">
 
                     <div>
                         <p class="w-full font-semibold border-b-2 py-2 mb-4 text-gray-600">Perjanjian Kinerja</p>
@@ -183,13 +184,13 @@
                     </div>
                     <div class="flex gap-4">
                         <i
-                            class="approve-binagram not-italic cursor-pointer text-white bg-green-500 hover:bg-green-600 transition-all focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                            class="approve-approval not-italic cursor-pointer text-white bg-green-500 hover:bg-green-600 transition-all focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
                             data-id="{{$dataIku->id}}"
                             data-text="{{$entityName}}">
                             Disetujui
                         </i>
                         <i
-                            class="reject-binagram not-italic cursor-pointer text-white bg-red-500 hover:bg-red-600 transition-all focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                            class="reject-approval not-italic cursor-pointer text-white bg-red-500 hover:bg-red-600 transition-all focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
                             data-id="{{$dataIku->id}}"
                             data-text="{{$entityName}}">
                             Ditolak

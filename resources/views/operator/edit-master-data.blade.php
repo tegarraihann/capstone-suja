@@ -6,7 +6,7 @@
 
     @php
         $triwulan = request()->query('triwulan');
-    @endphp 
+    @endphp
     @if (!empty(session('success')))
         <script>
             swal({
@@ -54,7 +54,7 @@
         $daftarMasterDataUrl = url('operator/pending-master-data');
         $rejectedMasterDataUrl = url('operator/rejected-master-data');
     @endphp
-    @if ($triwulanStatus !== 'close' && $triwulanStatus != null)    
+    @if ($triwulanStatus !== 'close' && $triwulanStatus != null)
         <div class="w-full p-5 h-full">
             <a class="text-gray-600 font-semibold text-2xl flex items-center gap-3"
                 href="{{ $previousUrl === $dashboardUrl ? $dashboardUrl : ($previousUrl === $rejectedMasterDataUrl ? $rejectedMasterDataUrl : $daftarMasterDataUrl) }}">
@@ -65,8 +65,10 @@
                     {{ $entityName ?? 'Entitas tidak ditemukan' }}
                 </p>
                 <p class="font-medium text-gray-600 mb-7">Triwulan Ke-{{ $triwulan }}</p>
-                @if ($dataIku->reject_comment !== null)
-                    <p class="px-3 py-2 rounded-md border-red-500 border-2 flex justify-between w-full items-center bg-red-50">Komentar : <br><br>{{$dataIku->reject_comment}}</p>
+                @if ($dataIku->reject_comment !== null && $dataIku->triwulan_id == $triwulan)
+                    <p
+                        class="px-3 py-2 rounded-md border-red-500 border-2 flex justify-between w-full items-center bg-red-50">
+                        Komentar : <br><br>{{ $dataIku->reject_comment }}</p>
                 @endif
                 <form class="mx-auto" action="{{ url('operator/edit-master-data/' . $dataIku->id) }}" method="post">
                     {{ csrf_field() }}
@@ -81,8 +83,8 @@
                             <div class="mb-5 w-1/2">
                                 <label for="perjanjian_kinerja_target_kumulatif"
                                     class="block mb-2 text-sm font-medium text-gray-900">Target komulatif</label>
-                                <input type="number" min="0" max="100" name="perjanjian_kinerja_target_kumulatif"
-                                    id="perjanjian_kinerja_target_kumulatif"
+                                <input type="number" min="0" max="100"
+                                    name="perjanjian_kinerja_target_kumulatif" id="perjanjian_kinerja_target_kumulatif"
                                     class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                     placeholder="0" required
                                     value="{{ old('perjanjian_kinerja_target_kumulatif', $dataIku->perjanjian_kinerja_target_kumulatif) }}" />
@@ -91,7 +93,8 @@
                                 <label for="perjanjian_kinerja_realisasi_kumulatif"
                                     class="block mb-2 text-sm font-medium text-gray-900">Realisasi komulatif</label>
                                 <input type="number" min="0" max="100"
-                                    name="perjanjian_kinerja_realisasi_kumulatif" id="perjanjian_kinerja_realisasi_kumulatif"
+                                    name="perjanjian_kinerja_realisasi_kumulatif"
+                                    id="perjanjian_kinerja_realisasi_kumulatif"
                                     class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                     placeholder="0" required
                                     value="{{ old('perjanjian_kinerja_realisasi_kumulatif', $dataIku->perjanjian_kinerja_realisasi_kumulatif) }}" />
@@ -132,7 +135,8 @@
                                 value="{{ old('link_bukti_dukung_capaian', $dataIku->link_bukti_dukung_capaian) }}" />
                         </div>
                         <div class="mb-5 w-full">
-                            <label for="upaya_yang_dilakukan" class="block mb-2 text-sm font-medium text-gray-900">Upaya yang
+                            <label for="upaya_yang_dilakukan" class="block mb-2 text-sm font-medium text-gray-900">Upaya
+                                yang
                                 dilakukan</label>
                             <textarea type="text" name="upaya_yang_dilakukan" id="upaya_yang_dilakukan"
                                 class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
@@ -184,7 +188,8 @@
                                 value="{{ old('pic_tidak_lanjut', $dataIku->pic_tidak_lanjut) }}" />
                         </div>
                         <div class="mb-5 w-1/4">
-                            <label for="tenggat_tidak_lanjut" class="block mb-2 text-sm font-medium text-gray-900">Batas waktu
+                            <label for="tenggat_tidak_lanjut" class="block mb-2 text-sm font-medium text-gray-900">Batas
+                                waktu
                                 tindak lanjut</label>
                             <input type="date" name="tenggat_tidak_lanjut" id="tenggat_tidak_lanjut"
                                 class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
