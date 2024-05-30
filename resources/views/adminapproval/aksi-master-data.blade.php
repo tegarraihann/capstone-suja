@@ -4,7 +4,7 @@
 
 @section('content')
 
-    {{-- @php
+    @php
         $triwulan = request()->query('triwulan');
     @endphp 
     @if (!empty(session('success')))
@@ -18,7 +18,7 @@
                     closeModal: true,
                 }
             }).then(() => {
-                window.location.href = "{{ url('adminapproval/dashboard') }}";
+                window.location.href = "{{ url('adminbinagram/dashboard') }}";
             });
         </script>
     @endif
@@ -51,7 +51,7 @@
     @if ($triwulanStatus !== 'close' && $triwulanStatus != null)    
         <div class="w-full p-5 h-full">
             <a class="text-gray-600 font-semibold text-2xl flex items-center gap-3"
-                href="{{ url('adminapproval/pending-master-data') }}">
+                href="{{ url('adminapproval/dashboard') }}">
                 <i class="fa-solid fa-angle-left text-lg"></i> Keterangan Master Data
             </a>
             <div class="relative overflow-x-auto shadow-md sm:rounded-lg p-5 bg-white mt-5">
@@ -198,6 +198,5 @@
                 </form>
             </div>
         </div>
-    @endif --}}
-    <p>test</p>
+    @endif
 @endsection

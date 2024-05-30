@@ -142,63 +142,62 @@ class AdminApprovalController extends Controller
             'dataIku' => $dataIku,
         ]);
     }
-    public function view_edit_master_data()
+
+    public function view_aksi_master_data(Request $request, $type, $id)
     {
-        // $triwulan_id = $request->input('triwulan');
+        $triwulan_id = $request->input('triwulan');
 
-        // // Fetch entity based on type and id
-        // if ($type === 'sub_indikator') {
-        //     $entity = SubIndikator::find($id);
-        //     $entityName = $entity->sub_indikator ?? null;
-        // } elseif ($type === 'indikator_penunjang') {
-        //     $entity = IndikatorPenunjang::find($id);
-        //     $entityName = $entity->indikator_penunjang ?? null;
-        // } elseif ($type === 'indikator') {
-        //     $entity = Indikator::find($id);
-        //     $entityName = $entity->indikator ?? null;
-        // } else {
-        //     $entity = null;
-        //     $entityName = null;
-        // }
+        // Fetch entity based on type and id
+        if ($type === 'sub_indikator') {
+            $entity = SubIndikator::find($id);
+            $entityName = $entity->sub_indikator ?? null;
+        } elseif ($type === 'indikator_penunjang') {
+            $entity = IndikatorPenunjang::find($id);
+            $entityName = $entity->indikator_penunjang ?? null;
+        } elseif ($type === 'indikator') {
+            $entity = Indikator::find($id);
+            $entityName = $entity->indikator ?? null;
+        } else {
+            $entity = null;
+            $entityName = null;
+        }
 
-        // if (!$entity) {
-        //     return redirect()->back()->with('error', 'Entitas tidak ditemukan');
-        // }
+        if (!$entity) {
+            return redirect()->back()->with('error', 'Entitas tidak ditemukan');
+        }
 
-        // // Fetch DataIku based on entity id
-        // $dataIku = DataIku::where('sub_indikator_id', $id)
-        //     ->orWhere('indikator_penunjang_id', $id)
-        //     ->orWhere('indikator_id', $id)
-        //     ->first();
+        // Fetch DataIku based on entity id
+        $dataIku = DataIku::where('sub_indikator_id', $id)
+            ->orWhere('indikator_penunjang_id', $id)
+            ->orWhere('indikator_id', $id)
+            ->first();
 
-        // if (!$dataIku) {
-        //     return redirect()->back()->with('error', 'Data IKU tidak ditemukan');
-        // }
+        if (!$dataIku) {
+            return redirect()->back()->with('error', 'Data IKU tidak ditemukan');
+        }
 
-        // $selectedTriwulan = $request->query('triwulan', null);
-        // $triwulanStatus = Triwulan::find($selectedTriwulan)->status ?? null;
+        $selectedTriwulan = $request->query('triwulan', null);
+        $triwulanStatus = Triwulan::find($selectedTriwulan)->status ?? null;
 
-        // // Memeriksa apakah triwulan memiliki status 'close'
-        // if ($triwulanStatus === 'close') {
-        //     // Jika triwulan memiliki status 'close', lakukan redirect atau tampilkan pesan kesalahan
-        //     return redirect()->back()->with([
-        //         'error' => [
-        //             "title" => "Cannot Edit Data",
-        //             "message" => "Triwulan sedang ditutup"
-        //         ]
-        //     ]);
-        // }
+        // Memeriksa apakah triwulan memiliki status 'close'
+        if ($triwulanStatus === 'close') {
+            // Jika triwulan memiliki status 'close', lakukan redirect atau tampilkan pesan kesalahan
+            return redirect()->back()->with([
+                'error' => [
+                    "title" => "Cannot Edit Data",
+                    "message" => "Triwulan sedang ditutup"
+                ]
+            ]);
+        }
 
-        // return view('adminapproval.edit-master-data', [
-        //     'entityType' => $type,
-        //     'entityName' => $entityName,
-        //     'entityId' => $id,
-        //     'dataIku' => $dataIku,
-        //     'triwulan' => $triwulan_id,
-        //     'triwulanStatus' => $triwulanStatus
-        // ]);
-
-        return view('adminapproval.edit-master-datas');
+        return view('adminapproval.aksi-master-data', [
+            'entityType' => $type,
+            'entityName' => $entityName,
+            'entityId' => $id,
+            'dataIku' => $dataIku,
+            'triwulan' => $triwulan_id,
+            'triwulanStatus' => $triwulanStatus
+        ]);
     }
 
     public function update_master_data(Request $request, $id)
