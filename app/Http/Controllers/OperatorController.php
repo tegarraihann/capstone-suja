@@ -80,13 +80,21 @@ class OperatorController extends Controller
 
         $triwulan = Triwulan::all();
         $selectedTriwulan = $request->query('triwulan', null);
+        $triwulanStatus = Triwulan::find($selectedTriwulan)->status ?? null;
+
+        // Memeriksa apakah triwulan memiliki status 'close'
+        if ($triwulanStatus === 'close') {
+            // Jika triwulan memiliki status 'close', lakukan redirect atau tampilkan pesan kesalahan
+            return redirect()->back()->with('error', 'Data untuk triwulan ' . $selectedTriwulan . ' tidak tersedia.');
+        }
 
         return view('operator.tambah-master-data', [
             'entityType' => $type,
             'entityName' => $entityName,
             'entityId' => $id,
             'triwulan' => $triwulan,
-            'selectedTriwulan' => $selectedTriwulan
+            'selectedTriwulan' => $selectedTriwulan,
+            'triwulanStatus' => $triwulanStatus,
         ]);
     }
 
@@ -125,12 +133,27 @@ class OperatorController extends Controller
             return redirect()->back()->with('error', 'Data IKU tidak ditemukan');
         }
 
+        $selectedTriwulan = $request->query('triwulan', null);
+        $triwulanStatus = Triwulan::find($selectedTriwulan)->status ?? null;
+
+        // Memeriksa apakah triwulan memiliki status 'close'
+        if ($triwulanStatus === 'close') {
+            // Jika triwulan memiliki status 'close', lakukan redirect atau tampilkan pesan kesalahan
+            return redirect()->back()->with([
+                'error' => [
+                    "title" => "Cannot Edit Data",
+                    "message" => "Triwulan sedang ditutup"
+                ]
+            ]);
+        }
+
         return view('operator.edit-master-data', [
             'entityType' => $type,
             'entityName' => $entityName,
             'entityId' => $id,
             'dataIku' => $dataIku,
-            'triwulan' => $triwulan_id
+            'triwulan' => $triwulan_id,
+            'triwulanStatus' => $triwulanStatus
         ]);
     }
 

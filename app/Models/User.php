@@ -60,6 +60,11 @@ class User extends Authenticatable
         return $this->hasMany(DataIku::class, 'upload_by', 'id');
     }
 
+    public function approve_data_iku(): HasMany
+    {
+        return $this->hasMany(DataIku::class, 'approve_by', 'id');
+    }
+
     // protected static function boot()
     // {
     //     parent::boot();

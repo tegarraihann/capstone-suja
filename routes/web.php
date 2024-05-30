@@ -45,6 +45,10 @@ Route::group(['middleware' => ['adminbinagram', 'no-cache']], function () {
     Route::put('adminbinagram/dashboard/update/{id}', [AdminBinagramController::class, 'update']);
     Route::put('adminbinagram/dashboard/actived-triwulan/{id}', [AdminBinagramController::class, 'activate_triwulan']);
     Route::delete('adminbinagram/dashboard/delete/{id}', [AdminBinagramController::class, 'delete']);
+    Route::get('adminbinagram/pending-master-data', [AdminBinagramController::class, 'view_uploaded_master_data'])->name('search-data-pending-ab');
+    Route::get('adminbinagram/edit-master-data/{type}/{id}', [AdminBinagramController::class, 'view_edit_master_data']);
+    Route::put('adminbinagram/approve-master-data/{id}', [AdminBinagramController::class, "approve_data"]);
+    Route::put('adminbinagram/reject-master-data/{id}', [AdminBinagramController::class, "reject_data"]);
 });
 
 Route::group(['middleware' => ['adminapproval', 'no-cache']], function () {
@@ -52,7 +56,6 @@ Route::group(['middleware' => ['adminapproval', 'no-cache']], function () {
     Route::get('adminapproval/dokumen-approved', [AdminApprovalController::class, "view_approved_data"]);
     Route::get('adminapproval/edit-user/{id}', [AdminSistemController::class, "view_update_user"]);
     Route::put('adminapproval/edit-user/{id}', [AdminSistemController::class, "edit_user"]);
-
 });
 
 Route::group(['middleware' => ['operator', 'no-cache']], function () {

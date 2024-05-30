@@ -178,11 +178,11 @@
                                     <p class="text-sm">Dashboard</p>
                                 </div>
                             </a>
-                            <a href="/adminbinagram/approval" class="w-full menu-item">
+                            <a href="/adminbinagram/pending-master-data" class="w-full menu-item">
                                 <div
                                     class="flex justify-left gap-6 w-full rounded-lg py-3 px-6 hover:bg-blue-50 hover:text-blue-600">
                                     <i class="fa-solid fa-file-circle-check my-auto text-xs w-1/12"></i>
-                                    <p class="text-sm">Daftar Approval</p>
+                                    <p class="text-sm">Dokumen</p>
                                 </div>
                             </a>
                         </div>
