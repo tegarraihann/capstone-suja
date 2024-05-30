@@ -10,6 +10,7 @@ use App\Models\Triwulan;
 use App\Models\Tujuan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\Rule;
 
 class OperatorController extends Controller
@@ -53,7 +54,7 @@ class OperatorController extends Controller
             'existingDataSubIndikator' => $existingDataSubIndikator,
             'existingDataIndikatorPenunjang' => $existingDataIndikatorPenunjang,
             'existingDataIndikator' => $existingDataIndikator,
-            'selectedTriwulan' => $selectedTriwulan
+            'selectedTriwulan' => $selectedTriwulan,
         ]);
     }
 

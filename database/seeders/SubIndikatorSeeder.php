@@ -336,42 +336,52 @@ class SubIndikatorSeeder extends Seeder
             [
                 'sub_indikator' => 'Perkembangan Indeks Harga Konsumen',
                 'indikator_penunjang_id' => '2',
+                'bidang_id' => '4'
             ],
             [
                 'sub_indikator' => 'Perkembangan Nilai Tukar Petani',
                 'indikator_penunjang_id' => '2',
+                'bidang_id' => '4'
             ],
             [
                 'sub_indikator' => 'Perkembangan Pariwisata',
                 'indikator_penunjang_id' => '2',
+                'bidang_id' => '4'
             ],
             [
                 'sub_indikator' => 'Profil Kemiskinan',
                 'indikator_penunjang_id' => '2',
+                'bidang_id' => '2'
             ],
             [
                 'sub_indikator' => 'Tingkat Ketimpangan Pengeluaran Penduduk',
                 'indikator_penunjang_id' => '2',
+                'bidang_id' => '2'
             ],
             [
                 'sub_indikator' => 'Perkembangan Ekspor dan Impor',
                 'indikator_penunjang_id' => '2',
+                'bidang_id' => '5'
             ],
             [
                 'sub_indikator' => 'Pertumbuhan Ekonomi',
                 'indikator_penunjang_id' => '2',
+                'bidang_id' => '5'
             ],
             [
                 'sub_indikator' => 'Indeks Pembangunan Manusia (IPM)',
                 'indikator_penunjang_id' => '2',
+                'bidang_id' => '5'
             ],
             [
                 'sub_indikator' => 'Keadaan Ketenagakerjaan',
                 'indikator_penunjang_id' => '2',
+                'bidang_id' => '2'
             ],
             [
                 'sub_indikator' => 'Luas Panen dan Produksi Padi ',
                 'indikator_penunjang_id' => '2',
+                'bidang_id' => '3'
             ],
 
             // *****************************************
