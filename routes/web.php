@@ -74,5 +74,4 @@ Route::group(['middleware' => ['operator', 'no-cache']], function () {
     Route::put('operator/edit-master-data/{id}', [OperatorController::class, "update_master_data"]);
     Route::get('operator/edit-user/{id}', [AdminSistemController::class, "view_update_user"]);
     Route::put('operator/edit-user/{id}', [AdminSistemController::class, "edit_user"]);
-
 });

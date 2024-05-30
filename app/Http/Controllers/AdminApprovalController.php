@@ -74,7 +74,7 @@ class AdminApprovalController extends Controller
                 $query->whereNull('bidang_id')
                     ->orWhere('bidang_id', $bidangId);
             })
-            ->with(['sub_indikator', 'indikator_penunjang', 'indikator', 'user']);
+            ->with(['sub_indikator', 'indikator_penunjang', 'indikator', 'user', 'approved_by']);
 
         // Tambahkan kondisi pencarian jika ada
         if ($search) {
@@ -114,7 +114,7 @@ class AdminApprovalController extends Controller
                 $query->whereNull('bidang_id')
                     ->orWhere('bidang_id', $bidangId);
             })
-            ->with(['sub_indikator', 'indikator_penunjang', 'indikator', 'user']);
+            ->with(['sub_indikator', 'indikator_penunjang', 'indikator', 'user', 'rejected_by']);
 
         // Tambahkan kondisi pencarian jika ada
         if ($search) {

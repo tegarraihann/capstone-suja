@@ -33,6 +33,9 @@
                         <th scope="col" class="px-6 py-3 text-left whitespace-nowrap">
                             Approved By
                         </th>
+                        <th scope="col" class="px-6 py-3 text-left whitespace-nowrap">
+                            Triwulan
+                        </th>
                         <th scope="col" class="px-6 py-3 text-left">
                             Status
                         </th>
@@ -40,12 +43,14 @@
                 </thead>
                 <tbody>
                     @php
-                        $originalIndex = 0;
+                        $index = $dataIku->firstItem();
                     @endphp
                     @forelse ($dataIku as $data)
-                        @if ($data->sub_indikator->bidang_id === null || $data->sub_indikator->bidang_id === Auth::user()->bidang_id)
+                        @if (
+                            $data->sub_indikator &&
+                                ($data->sub_indikator->bidang_id === null || $data->sub_indikator->bidang_id === Auth::user()->bidang_id || $data->indikator->bidang_id === Auth::user()->bidang_id))
                             <tr class="bg-white border-b hover:bg-gray-50">
-                                <td class="py-4 px-6 w-[30px]">{{ $originalIndex + 1 }}</td>
+                                <td class="py-4 px-6 w-[30px]">{{ $index++ }}</td>
                                 <td class="py-4 px-6 text-left">
                                     @if ($data->sub_indikator)
                                         [SUB INDIKATOR] {{ $data->sub_indikator->sub_indikator }}
@@ -57,40 +62,18 @@
                                         N/A
                                     @endif
                                 </td>
-                                <td class="py-4 px-6 text-left whitespace-nowrap">{{ $data->user->name }}</td>
-                                <td class="py-4 px-6 text-left">{{ ucfirst($data->status) }}</td>
-                                <td class="py-4 px-6 text-center gap-3 flex items-center justify-center">
-                                    @if ($data->sub_indikator)
-                                        <a href="{{ url('operator/edit-master-data/sub_indikator/' . $data->sub_indikator->id) }}"
-                                            class="text-blue-500 hover:text-blue-700">
-                                            <i class="fa-regular fa-pen-to-square"></i>
-                                        </a>
-                                    @elseif($data->indikator_penunjang)
-                                        <a
-                                            href="{{ url('operator/tambah-master-data/indikator_penunjang/' . $data->indikator_penunjang->id) }}">
-                                            <button
-                                                class="flex items-center gap-2 bg-gradient-to-r from-blue-500 to-blue-400 hover:bg-blue-600 text-white py-2 px-3 rounded-md font-medium transition-all text-sm whitespace-nowrap">
-                                                Input data
-                                            </button>
-                                        </a>
-                                    @elseif($data->indikator)
-                                        <a
-                                            href="{{ url('operator/tambah-master-data/indikator/' . $data->indikator->id) }}">
-                                            <button
-                                                class="flex items-center gap-2 bg-gradient-to-r from-blue-500 to-blue-400 hover:bg-blue-600 text-white py-2 px-3 rounded-md font-medium transition-all text-sm whitespace-nowrap">
-                                                Input data
-                                            </button>
-                                        </a>
-                                    @endif
+                                <td class="py-4 px-6 text-left whitespace-nowrap">{{ $data->user->name }} | <span class="text-blue-600">{{$data->user->bidang->nama_bidang}}</span></td>
                                 </td>
+                                <td class="py-4 px-6 text-left whitespace-nowrap">{{ $data->approved_by->name }} | <span class="text-blue-600">{{$data->approved_by->bidang->nama_bidang}}</span></td>
+                                </td>
+                                <td class="py-4 px-6 text-center">{{ $data->triwulan_id }}</td>
+                                <td class="py-4 px-6 text-left"><p class="px-3 py-1 rounded-md border-orange-300 border-2 flex justify-between w-fit items-center bg-orange-50">{{ ucfirst($data->status) }}</p></td>
                             </tr>
-                        @elseif($data->indikator_penunjang)
-                            <tr class="bg-white border-b hover:bg-gray-50">
-                                <td class="py-4 px-6 w-[30px]">{{ $originalIndex + 1 }}</td>
+                        @elseif (!$data->sub_indikator)
+                            <tr class="bg-white border-b hover:bg-gray-50 h-full">
+                                <td class="py-4 px-6 w-[30px]">{{ $index++ }}</td>
                                 <td class="py-4 px-6 text-left">
-                                    @if ($data->sub_indikator)
-                                        [SUB INDIKATOR] {{ $data->sub_indikator->sub_indikator }}
-                                    @elseif($data->indikator_penunjang)
+                                    @if ($data->indikator_penunjang)
                                         [INDIKATOR PENUNJANG] {{ $data->indikator_penunjang->indikator_penunjang }}
                                     @elseif($data->indikator)
                                         [INDIKATOR] {{ $data->indikator->indikator }}
@@ -98,78 +81,17 @@
                                         N/A
                                     @endif
                                 </td>
-                                <td class="py-4 px-6 text-left whitespace-nowrap">{{ $data->user->name }}</td>
-                                <td class="py-4 px-6 text-left">{{ ucfirst($data->status) }}</td>
-                                <td class="py-4 px-6 text-center gap-3 flex items-center justify-center">
-                                    @if ($data->sub_indikator)
-                                        <a href="{{ url('operator/edit-master-data/sub_indikator/' . $data->sub_indikator->id) }}"
-                                            class="text-blue-500 hover:text-blue-700">
-                                            <i class="fa-regular fa-pen-to-square"></i>
-                                        </a>
-                                    @elseif($data->indikator_penunjang)
-                                        <a
-                                            href="{{ url('operator/tambah-master-data/indikator_penunjang/' . $data->indikator_penunjang->id) }}">
-                                            <button
-                                                class="flex items-center gap-2 bg-gradient-to-r from-blue-500 to-blue-400 hover:bg-blue-600 text-white py-2 px-3 rounded-md font-medium transition-all text-sm whitespace-nowrap">
-                                                Input data
-                                            </button>
-                                        </a>
-                                    @elseif($data->indikator)
-                                        <a
-                                            href="{{ url('operator/tambah-master-data/indikator/' . $data->indikator->id) }}">
-                                            <button
-                                                class="flex items-center gap-2 bg-gradient-to-r from-blue-500 to-blue-400 hover:bg-blue-600 text-white py-2 px-3 rounded-md font-medium transition-all text-sm whitespace-nowrap">
-                                                Input data
-                                            </button>
-                                        </a>
-                                    @endif
+                                <td class="py-4 px-6 text-left whitespace-nowrap">{{ $data->user->name }} | <span class="text-blue-600">{{$data->user->bidang->nama_bidang}}</span></td>
                                 </td>
-                            </tr>
-                        @elseif($data->indikator)
-                            <tr class="bg-white border-b hover:bg-gray-50">
-                                <td class="py-4 px-6 w-[30px]">{{ $originalIndex + 1 }}</td>
-                                <td class="py-4 px-6 text-left">
-                                    @if ($data->sub_indikator)
-                                        [SUB INDIKATOR] {{ $data->sub_indikator->sub_indikator }}
-                                    @elseif($data->indikator_penunjang)
-                                        [INDIKATOR PENUNJANG] {{ $data->indikator_penunjang->indikator_penunjang }}
-                                    @elseif($data->indikator)
-                                        [INDIKATOR] {{ $data->indikator->indikator }}
-                                    @else
-                                        N/A
-                                    @endif
+                                <td class="py-4 px-6 text-left whitespace-nowrap">{{ $data->approved_by->name }} | <span class="text-blue-600">{{$data->approved_by->bidang->nama_bidang}}</span></td>
                                 </td>
-                                <td class="py-4 px-6 text-left whitespace-nowrap">{{ $data->user->name }}</td>
-                                <td class="py-4 px-6 text-left">{{ ucfirst($data->status) }}</td>
-                                <td class="py-4 px-6 text-center gap-3 flex items-center justify-center">
-                                    @if ($data->sub_indikator)
-                                        <a href="{{ url('operator/edit-master-data/sub_indikator/' . $data->sub_indikator->id) }}"
-                                            class="text-blue-500 hover:text-blue-700">
-                                            <i class="fa-regular fa-pen-to-square"></i>
-                                        </a>
-                                    @elseif($data->indikator_penunjang)
-                                        <a
-                                            href="{{ url('operator/tambah-master-data/indikator_penunjang/' . $data->indikator_penunjang->id) }}">
-                                            <button
-                                                class="flex items-center gap-2 bg-gradient-to-r from-blue-500 to-blue-400 hover:bg-blue-600 text-white py-2 px-3 rounded-md font-medium transition-all text-sm whitespace-nowrap">
-                                                Input data
-                                            </button>
-                                        </a>
-                                    @elseif($data->indikator)
-                                        <a
-                                            href="{{ url('operator/tambah-master-data/indikator/' . $data->indikator->id) }}">
-                                            <button
-                                                class="flex items-center gap-2 bg-gradient-to-r from-blue-500 to-blue-400 hover:bg-blue-600 text-white py-2 px-3 rounded-md font-medium transition-all text-sm whitespace-nowrap">
-                                                Input data
-                                            </button>
-                                        </a>
-                                    @endif
-                                </td>
+                                <td class="py-4 px-6 text-center">{{ $data->triwulan_id }}</td>
+                                <td class="py-4 px-6 text-left"><p class="px-3 py-1 rounded-md border-orange-300 border-2 flex justify-between w-fit items-center bg-orange-50">{{ ucfirst($data->status) }}</p></td>
                             </tr>
                         @endif
                     @empty
                         <tr class="bg-white border-b hover:bg-gray-50 text-center">
-                            <td colspan="5" class="py-5 font-bold">Tidak ada data</td>
+                            <td colspan="6" class="py-5 font-bold">Tidak ada data</td>
                         </tr>
                     @endforelse
                 </tbody>
