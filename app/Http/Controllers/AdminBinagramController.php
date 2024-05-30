@@ -290,7 +290,7 @@ class AdminBinagramController extends Controller
         }
 
         // Paginate the results
-        $dataIku = $dataIkuQuery->paginate(7);
+        $dataIku = $dataIkuQuery->paginate(5);
 
         // Return view with the data
         return view('adminbinagram.pending-master-data', [
@@ -323,9 +323,16 @@ class AdminBinagramController extends Controller
         }
 
         // Fetch DataIku based on entity id
-        $dataIku = DataIku::where('sub_indikator_id', $id)
-            ->orWhere('indikator_penunjang_id', $id)
-            ->orWhere('indikator_id', $id)
+        $dataIku = DataIku::where(function ($query) use ($id, $type) {
+            if ($type === 'sub_indikator') {
+                $query->where('sub_indikator_id', $id);
+            } elseif ($type === 'indikator_penunjang') {
+                $query->where('indikator_penunjang_id', $id);
+            } elseif ($type === 'indikator') {
+                $query->where('indikator_id', $id);
+            }
+        })
+            ->where('triwulan_id', $triwulan_id)
             ->first();
 
         if (!$dataIku) {
@@ -358,7 +365,7 @@ class AdminBinagramController extends Controller
 
     public function approve_data($id)
     {
-        $dataIku = DataIku::findOrFail($id);
+        $dataIku = DataIku::find($id);
         $dataIku->status = 'approved_by_ab';
         $dataIku->approve_by = Auth::id();
         $dataIku->save();

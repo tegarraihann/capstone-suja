@@ -1479,6 +1479,7 @@ function approveApprovalButton() {
         btn.addEventListener("click", function () {
             const id = this.dataset.id;
             const text = this.dataset.text;
+            const triwulan = this.dataset.triwulan;
 
             swal({
                 title: "Setujui dokumen ini?",
@@ -1488,7 +1489,7 @@ function approveApprovalButton() {
             }).then((value) => {
                 if (value) {
                     axios
-                        .put(`/adminapproval/approve-master-data/${id}`)
+                        .put(`/adminapproval/approve-master-data/${id}?triwulan=${triwulan}`)
                         .then((response) => {
                             swal({
                                 icon: "success",
@@ -1518,6 +1519,7 @@ function rejectApprovalButton() {
         btn.addEventListener("click", function () {
             const id = this.dataset.id;
             const text = this.dataset.text;
+            const triwulan = this.dataset.triwulan;
 
             swal({
                 text: "Masukkan Komentar",
@@ -1555,7 +1557,7 @@ function rejectApprovalButton() {
                         reject_comment: value,
                     };
                     axios
-                        .put(`/adminapproval/reject-master-data/${id}`, data)
+                        .put(`/adminapproval/reject-master-data/${id}?triwulan=${triwulan}`, data)
                         .then((response) => {
                             swal({
                                 icon: "success",

@@ -54,7 +54,7 @@ class AdminApprovalController extends Controller
         }
 
         // Paginate the results
-        $dataIku = $dataIkuQuery->paginate(7);
+        $dataIku = $dataIkuQuery->paginate(5);
 
         // Return view with the data
         return view('adminapproval.dashboard', [
@@ -95,7 +95,7 @@ class AdminApprovalController extends Controller
         }
 
         // Paginate the results
-        $dataIku = $dataIkuQuery->paginate(3);
+        $dataIku = $dataIkuQuery->paginate(5);
 
         // Return view with the data
         return view('adminapproval.approved-master-data', [
@@ -110,11 +110,19 @@ class AdminApprovalController extends Controller
 
         // Inisialisasi query
         $dataIkuQuery = DataIku::where('status', 'rejected')
-            ->whereHas('sub_indikator', function ($query) use ($bidangId) {
-                $query->whereNull('bidang_id')
+        ->where(function ($query) use ($bidangId) {
+            $query->whereHas('sub_indikator', function ($q) use ($bidangId) {
+                $q->whereNull('bidang_id')
                     ->orWhere('bidang_id', $bidangId);
             })
-            ->with(['sub_indikator', 'indikator_penunjang', 'indikator', 'user', 'rejected_by']);
+                ->orWhereHas('indikator', function ($q) use ($bidangId) {
+                    $q->whereNull('bidang_id')
+                        ->orWhere('bidang_id', $bidangId);
+                })
+                ->orWhereHas('indikator_penunjang');
+        })
+        ->with(['sub_indikator', 'indikator_penunjang', 'indikator', 'user', 'rejected_by'])
+        ->orderBy('created_at', 'desc');
 
         // Tambahkan kondisi pencarian jika ada
         if ($search) {
@@ -135,7 +143,7 @@ class AdminApprovalController extends Controller
         }
 
         // Paginate the results
-        $dataIku = $dataIkuQuery->paginate(3);
+        $dataIku = $dataIkuQuery->paginate(5);
 
         // Return view with the data
         return view('adminapproval.rejected-master-data', [
@@ -167,9 +175,16 @@ class AdminApprovalController extends Controller
         }
 
         // Fetch DataIku based on entity id
-        $dataIku = DataIku::where('sub_indikator_id', $id)
-            ->orWhere('indikator_penunjang_id', $id)
-            ->orWhere('indikator_id', $id)
+        $dataIku = DataIku::where(function ($query) use ($id, $type) {
+            if ($type === 'sub_indikator') {
+                $query->where('sub_indikator_id', $id);
+            } elseif ($type === 'indikator_penunjang') {
+                $query->where('indikator_penunjang_id', $id);
+            } elseif ($type === 'indikator') {
+                $query->where('indikator_id', $id);
+            }
+        })
+            ->where('triwulan_id', $triwulan_id)
             ->first();
 
         if (!$dataIku) {
@@ -202,34 +217,46 @@ class AdminApprovalController extends Controller
 
     public function approve_data(Request $request, $id)
     {
-        $selectedTriwulan = $request->query('triwulan', null);
+        $selectedTriwulan = (int) $request->query('triwulan', null);
 
-        $dataIku = DataIku::findOrFail($id);
-        if ($dataIku->triwulan_id === $selectedTriwulan) {
-            $dataIku->status = 'approved_by_ap';
-            $dataIku->approve_by = Auth::id();
-            $dataIku->update();
-        }
+        // Cari dataIku berdasarkan id dan triwulan_id
+        // $dataIku = DataIku::where('triwulan_id', $selectedTriwulan)
+        //     ->firstOrFail();
+        $dataIku = DataIku::find($id);
 
-        return response()->json(['success' => [
-            "title" => "Data Approve Succesfully",
-            "message" => "Data berhasil disetujui"
-        ]], 200);
+        // Jika data ditemukan, ubah statusnya
+        $dataIku->status = 'approved_by_ap';
+        $dataIku->approve_by = Auth::id();
+        $dataIku->save();
+
+        return response()->json([
+            'success' => [
+                "title" => "Data Approve Succesfully",
+                "message" => "Data berhasil disetujui"
+            ]
+        ], 200);
     }
 
     public function reject_data(Request $request, $id)
     {
-        $dataIku = DataIku::findOrFail($id);
+        $selectedTriwulan = (int) $request->query('triwulan', null);
+
+        // Cari dataIku berdasarkan id dan triwulan_id
+        // $dataIku = DataIku::where('triwulan_id', $selectedTriwulan)
+        //     ->firstOrFail();
+        $dataIku = DataIku::find($id);
 
         $dataIku->status = 'rejected';
         $dataIku->reject_comment = $request->reject_comment;
         $dataIku->reject_by = Auth::id();
         $dataIku->save();
 
-        return response()->json(['success' => [
-            "title" => "Data Reject Succesfully",
-            "message" => "Data berhasil ditolak"
-        ]], 200);
+        return response()->json([
+            'success' => [
+                "title" => "Data Reject Succesfully",
+                "message" => "Data berhasil ditolak"
+            ]
+        ], 200);
     }
 
     public function update_master_data(Request $request, $id)

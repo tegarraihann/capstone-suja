@@ -80,23 +80,25 @@
                                 </td>
                                 <td class="py-4 px-6 text-center">{{ $data->triwulan_id }}</td>
                                 <td class="py-4 px-6 text-left"><p class="px-3 py-1 rounded-md border-orange-300 border-2 flex justify-between w-fit items-center bg-orange-50">{{ ucfirst($data->status) }}</p></td>
-                                <td class="py-4 px-6 text-center gap-3 flex items-center justify-center h-auto">
-                                    @if ($data->sub_indikator)
-                                        <a href="{{ url('adminapproval/edit-master-data/sub_indikator/' . $data->sub_indikator->id . '?triwulan=' . $data->triwulan_id) }}"
-                                            class="text-blue-500 hover:text-blue-700">
-                                            <i class="fa-regular fa-pen-to-square"></i>
-                                        </a>
-                                    @elseif($data->indikator_penunjang)
-                                        <a href="{{ url('adminapproval/edit-master-data/indikator_penunjang/' . $data->indikator_penunjang->id . '?triwulan=' . $data->triwulan_id) }}"
-                                            class="text-blue-500 hover:text-blue-700">
-                                            <i class="fa-regular fa-pen-to-square"></i>
-                                        </a>
-                                    @elseif($data->indikator)
-                                        <a href="{{ url('adminapproval/edit-master-data/indikator/' . $data->indikator->id . '?triwulan=' . $data->triwulan_id) }}"
-                                            class="text-blue-500 hover:text-blue-700">
-                                            <i class="fa-regular fa-pen-to-square"></i>
-                                        </a>
-                                    @endif
+                                <td class="py-4 px-6 text-center gap-3">
+                                    <div class="flex items-center justify-center">
+                                        @if ($data->sub_indikator)
+                                            <a href="{{ url('adminapproval/edit-master-data/sub_indikator/' . $data->sub_indikator->id . '?triwulan=' . $data->triwulan_id) }}"
+                                                class="text-blue-500 hover:text-blue-700">
+                                                <i class="fa-regular fa-pen-to-square"></i>
+                                            </a>
+                                        @elseif($data->indikator_penunjang)
+                                            <a href="{{ url('adminapproval/edit-master-data/indikator_penunjang/' . $data->indikator_penunjang->id . '?triwulan=' . $data->triwulan_id) }}"
+                                                class="text-blue-500 hover:text-blue-700">
+                                                <i class="fa-regular fa-pen-to-square"></i>
+                                            </a>
+                                        @elseif($data->indikator)
+                                            <a href="{{ url('adminapproval/edit-master-data/indikator/' . $data->indikator->id . '?triwulan=' . $data->triwulan_id) }}"
+                                                class="text-blue-500 hover:text-blue-700">
+                                                <i class="fa-regular fa-pen-to-square"></i>
+                                            </a>
+                                        @endif
+                                    </div>
                                 </td>
                             </tr>
                         @elseif (!$data->sub_indikator)
@@ -115,18 +117,20 @@
                                 </td>
                                 <td class="py-4 px-6 text-center">{{ $data->triwulan_id }}</td>
                                 <td class="py-4 px-6 text-left"><p class="px-3 py-1 rounded-md border-orange-300 border-2 flex justify-between w-fit items-center bg-orange-50">{{ ucfirst($data->status) }}</p></td>
-                                <td class="py-4 px-6 text-center gap-3 flex items-center justify-center">
-                                    @if ($data->indikator_penunjang)
-                                        <a href="{{ url('adminapproval/edit-master-data/indikator_penunjang/' . $data->indikator_penunjang->id . '?triwulan=' . $data->triwulan_id) }}"
-                                            class="text-blue-500 hover:text-blue-700">
-                                            <i class="fa-regular fa-pen-to-square"></i>
-                                        </a>
-                                    @elseif($data->indikator)
-                                        <a href="{{ url('adminapproval/edit-master-data/indikator/' . $data->indikator->id . '?triwulan=' . $data->triwulan_id) }}"
-                                            class="text-blue-500 hover:text-blue-700">
-                                            <i class="fa-regular fa-pen-to-square"></i>
-                                        </a>
-                                    @endif
+                                <td class="py-4 px-6 text-center gap-3">
+                                    <div class="flex items-center justify-center">
+                                        @if ($data->indikator_penunjang)
+                                            <a href="{{ url('adminapproval/edit-master-data/indikator_penunjang/' . $data->indikator_penunjang->id . '?triwulan=' . $data->triwulan_id) }}"
+                                                class="text-blue-500 hover:text-blue-700">
+                                                <i class="fa-regular fa-pen-to-square"></i>
+                                            </a>
+                                        @elseif($data->indikator)
+                                            <a href="{{ url('adminapproval/edit-master-data/indikator/' . $data->indikator->id . '?triwulan=' . $data->triwulan_id) }}"
+                                                class="text-blue-500 hover:text-blue-700">
+                                                <i class="fa-regular fa-pen-to-square"></i>
+                                            </a>
+                                        @endif
+                                    </div>
                                 </td>
                             </tr>
                         @endif

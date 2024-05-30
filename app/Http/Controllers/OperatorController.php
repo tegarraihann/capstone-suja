@@ -123,10 +123,17 @@ class OperatorController extends Controller
             return redirect()->back()->with('error', 'Entitas tidak ditemukan');
         }
 
-        // Fetch DataIku based on entity id
-        $dataIku = DataIku::where('sub_indikator_id', $id)
-            ->orWhere('indikator_penunjang_id', $id)
-            ->orWhere('indikator_id', $id)
+        // Fetch DataIku based on entity id and triwulan_id
+        $dataIku = DataIku::where(function ($query) use ($id, $type) {
+            if ($type === 'sub_indikator') {
+                $query->where('sub_indikator_id', $id);
+            } elseif ($type === 'indikator_penunjang') {
+                $query->where('indikator_penunjang_id', $id);
+            } elseif ($type === 'indikator') {
+                $query->where('indikator_id', $id);
+            }
+        })
+            ->where('triwulan_id', $triwulan_id)
             ->first();
 
         if (!$dataIku) {
@@ -156,6 +163,7 @@ class OperatorController extends Controller
             'triwulanStatus' => $triwulanStatus
         ]);
     }
+
 
     public function add_master_data(Request $request)
     {
@@ -363,7 +371,7 @@ class OperatorController extends Controller
         }
 
         // Paginate the results
-        $dataIku = $dataIkuQuery->paginate(7);
+        $dataIku = $dataIkuQuery->paginate(5);
 
         // Return view with the data
         return view('operator.pending-master-data', [
@@ -379,19 +387,19 @@ class OperatorController extends Controller
 
         // Inisialisasi query
         $dataIkuQuery = DataIku::where('status', 'approved_by_ab')
-        ->where(function ($query) use ($bidangId) {
-            $query->whereHas('sub_indikator', function ($q) use ($bidangId) {
-                $q->whereNull('bidang_id')
-                    ->orWhere('bidang_id', $bidangId);
-            })
-                ->orWhereHas('indikator', function ($q) use ($bidangId) {
+            ->where(function ($query) use ($bidangId) {
+                $query->whereHas('sub_indikator', function ($q) use ($bidangId) {
                     $q->whereNull('bidang_id')
                         ->orWhere('bidang_id', $bidangId);
                 })
-                ->orWhereHas('indikator_penunjang');
-        })
-        ->with(['sub_indikator', 'indikator_penunjang', 'indikator', 'user', 'approved_by'])
-        ->orderBy('created_at', 'desc');
+                    ->orWhereHas('indikator', function ($q) use ($bidangId) {
+                        $q->whereNull('bidang_id')
+                            ->orWhere('bidang_id', $bidangId);
+                    })
+                    ->orWhereHas('indikator_penunjang');
+            })
+            ->with(['sub_indikator', 'indikator_penunjang', 'indikator', 'user', 'approved_by'])
+            ->orderBy('created_at', 'desc');
 
         // Tambahkan kondisi pencarian jika ada
         if ($search) {
@@ -412,7 +420,7 @@ class OperatorController extends Controller
         }
 
         // Paginate the results
-        $dataIku = $dataIkuQuery->paginate(3);
+        $dataIku = $dataIkuQuery->paginate(5);
 
         // Return view with the data
         return view('operator.approved-master-data', [
@@ -427,19 +435,19 @@ class OperatorController extends Controller
 
         // Inisialisasi query
         $dataIkuQuery = DataIku::where('status', 'rejected')
-        ->where(function ($query) use ($bidangId) {
-            $query->whereHas('sub_indikator', function ($q) use ($bidangId) {
-                $q->whereNull('bidang_id')
-                    ->orWhere('bidang_id', $bidangId);
-            })
-                ->orWhereHas('indikator', function ($q) use ($bidangId) {
+            ->where(function ($query) use ($bidangId) {
+                $query->whereHas('sub_indikator', function ($q) use ($bidangId) {
                     $q->whereNull('bidang_id')
                         ->orWhere('bidang_id', $bidangId);
                 })
-                ->orWhereHas('indikator_penunjang');
-        })
-        ->with(['sub_indikator', 'indikator_penunjang', 'indikator', 'user', 'rejected_by'])
-        ->orderBy('created_at', 'desc');
+                    ->orWhereHas('indikator', function ($q) use ($bidangId) {
+                        $q->whereNull('bidang_id')
+                            ->orWhere('bidang_id', $bidangId);
+                    })
+                    ->orWhereHas('indikator_penunjang');
+            })
+            ->with(['sub_indikator', 'indikator_penunjang', 'indikator', 'user', 'rejected_by'])
+            ->orderBy('created_at', 'desc');
 
         // Tambahkan kondisi pencarian jika ada
         if ($search) {
@@ -460,7 +468,7 @@ class OperatorController extends Controller
         }
 
         // Paginate the results
-        $dataIku = $dataIkuQuery->paginate(3);
+        $dataIku = $dataIkuQuery->paginate(5);
 
         // Return view with the data
         return view('operator.rejected-master-data', [
