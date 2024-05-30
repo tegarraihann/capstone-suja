@@ -52,23 +52,28 @@
         $previousUrl = url()->previous();
         $dashboardUrl = url('operator/dashboard');
         $daftarMasterDataUrl = url('operator/pending-master-data');
+        $rejectedMasterDataUrl = url('operator/rejected-master-data');
     @endphp
     @if ($triwulanStatus !== 'close' && $triwulanStatus != null)    
         <div class="w-full p-5 h-full">
             <a class="text-gray-600 font-semibold text-2xl flex items-center gap-3"
-                href="{{ $previousUrl === $dashboardUrl ? $dashboardUrl : $daftarMasterDataUrl }}">
+                href="{{ $previousUrl === $dashboardUrl ? $dashboardUrl : ($previousUrl === $rejectedMasterDataUrl ? $rejectedMasterDataUrl : $daftarMasterDataUrl) }}">
                 <i class="fa-solid fa-angle-left text-lg"></i> Edit Master Data
             </a>
             <div class="relative overflow-x-auto shadow-md sm:rounded-lg p-5 bg-white mt-5">
                 <p class="font-semibold text-lg text-gray-600 mb-3">
                     {{ $entityName ?? 'Entitas tidak ditemukan' }}
                 </p>
-                <p class="font-medium text-gray-600 mb-10">Triwulan Ke-{{ $triwulan }}</p>
+                <p class="font-medium text-gray-600 mb-7">Triwulan Ke-{{ $triwulan }}</p>
+                @if ($dataIku->reject_comment !== null)
+                    <p class="px-3 py-2 rounded-md border-red-500 border-2 flex justify-between w-full items-center bg-red-50">Komentar : <br><br>{{$dataIku->reject_comment}}</p>
+                @endif
                 <form class="mx-auto" action="{{ url('operator/edit-master-data/' . $dataIku->id) }}" method="post">
                     {{ csrf_field() }}
                     {{ method_field('PUT') }}
                     <input type="hidden" name="type" value="{{ $entityType }}">
                     <input type="hidden" name="entity_id" value="{{ $entityId }}">
+                    <input type="hidden" name="reject_comment" value="">
 
                     <div>
                         <p class="w-full font-semibold border-b-2 py-2 mb-4 text-gray-600">Perjanjian Kinerja</p>

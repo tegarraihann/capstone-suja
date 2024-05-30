@@ -30,7 +30,7 @@ class UserSeeder extends Seeder
                 "email" => "pimpinan@gmail.com",
                 "password" => "pimpinan123",
                 "role" => "4",
-                "nip" => "132131231231312313123",
+                "nip" => "222",
                 "bidang_id" => $pimpinan->id
             ],
             [
@@ -62,7 +62,7 @@ class UserSeeder extends Seeder
                 "email" => "operator@gmail.com",
                 "password" => "operator123",
                 "role" => "0",
-                "nip" => "132131231231312313123",
+                "nip" => "132131231231312313123222",
                 "bidang_id" => $bidangUmum->id
             ]
         ];

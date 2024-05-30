@@ -235,9 +235,6 @@ class OperatorController extends Controller
         }
     }
 
-
-
-
     public function update_master_data(Request $request, $id)
     {
         // Validasi input
@@ -296,8 +293,15 @@ class OperatorController extends Controller
             'rencana_tidak_lanjut' => $request->input('rencana_tidak_lanjut'),
             'pic_tidak_lanjut' => $request->input('pic_tidak_lanjut'),
             'tenggat_tidak_lanjut' => $request->input('tenggat_tidak_lanjut'),
-            'upload_by' => Auth::id()
+            'upload_by' => Auth::id(),
+            'status' => "pending",
         ]);
+
+        if ($request->has('reject_comment')) {
+            $data->update([
+                'reject_comment' => null
+            ]);
+        }
 
         try {
             // Memasukkan data ke dalam database
@@ -316,7 +320,6 @@ class OperatorController extends Controller
             return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan saat menyimpan data.'])->withInput();
         }
     }
-
 
     public function view_uploaded_master_data(Request $request)
     {
@@ -380,7 +383,7 @@ class OperatorController extends Controller
                 $query->whereNull('bidang_id')
                     ->orWhere('bidang_id', $bidangId);
             })
-            ->with(['sub_indikator', 'indikator_penunjang', 'indikator', 'user']);
+            ->with(['sub_indikator', 'indikator_penunjang', 'indikator', 'user', 'approved_by']);
 
         // Tambahkan kondisi pencarian jika ada
         if ($search) {
@@ -420,7 +423,7 @@ class OperatorController extends Controller
                 $query->whereNull('bidang_id')
                     ->orWhere('bidang_id', $bidangId);
             })
-            ->with(['sub_indikator', 'indikator_penunjang', 'indikator', 'user']);
+            ->with(['sub_indikator', 'indikator_penunjang', 'indikator', 'user', 'rejected_by']);
 
         // Tambahkan kondisi pencarian jika ada
         if ($search) {

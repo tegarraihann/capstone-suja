@@ -32,7 +32,7 @@ return new class extends Migration
             $table->foreignId('approve_by')->nullable()->constrained('users')->onDelete('cascade');
             $table->foreignId('reject_by')->nullable()->constrained('users')->onDelete('cascade');
             $table->foreignId('triwulan_id')->nullable(false)->constrained('triwulan')->onDelete('cascade');
-            $table->text('reject_comment')->nullable();
+            $table->string('reject_comment')->nullable();
         
             $table->foreignId('indikator_id')->nullable()->constrained('md_indikator')->onDelete('cascade');
             $table->foreignId('indikator_penunjang_id')->nullable()->constrained('md_indikator_penunjang')->onDelete('cascade');
