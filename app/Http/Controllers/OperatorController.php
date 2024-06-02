@@ -46,6 +46,21 @@ class OperatorController extends Controller
             return $query->where('triwulan_id', $selectedTriwulan);
         })->pluck('indikator_id')->toArray();
 
+        $existingDataSubIndikatorApproved = DataIku::when($selectedTriwulan, function ($query, $selectedTriwulan) {
+            return $query->where('triwulan_id', $selectedTriwulan)
+                         ->Where('status', 'approved_by_ab');
+        })->pluck('sub_indikator_id')->toArray();
+
+        $existingDataIndikatorPenunjangApproved = DataIku::when($selectedTriwulan, function ($query, $selectedTriwulan) {
+            return $query->where('triwulan_id', $selectedTriwulan)
+                         ->Where('status', 'approved_by_ab');
+        })->pluck('indikator_penunjang_id')->toArray();
+
+        $existingDataIndikatorApproved = DataIku::when($selectedTriwulan, function ($query, $selectedTriwulan) {
+            return $query->where('triwulan_id', $selectedTriwulan)
+                         ->Where('status', 'approved_by_ab');
+        })->pluck('indikator_id')->toArray();
+
         return view('operator.dashboard', [
             'iku' => $iku,
             'iku_sup' => $iku_sup,
@@ -55,6 +70,9 @@ class OperatorController extends Controller
             'existingDataIndikatorPenunjang' => $existingDataIndikatorPenunjang,
             'existingDataIndikator' => $existingDataIndikator,
             'selectedTriwulan' => $selectedTriwulan,
+            'existingDataSubIndikatorApproved' => $existingDataSubIndikatorApproved,
+            'existingDataIndikatorPenunjangApproved' => $existingDataIndikatorPenunjangApproved,
+            'existingDataIndikatorApproved' => $existingDataIndikatorApproved
         ]);
     }
 

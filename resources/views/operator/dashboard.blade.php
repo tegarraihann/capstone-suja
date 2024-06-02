@@ -151,20 +151,23 @@
                                                                                                                         {{ $sub_indikator->sub_indikator }}
                                                                                                                     </p>
                                                                                                                     @if (in_array($sub_indikator->id, $existingDataSubIndikator))
-                                                                                                                        <div
-                                                                                                                            class="flex flex-col items-center text-center">
-                                                                                                                            <span
-                                                                                                                                class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-red-500 to-red-400 py-1 px-3 rounded-t-md text-white">
-                                                                                                                                Data
-                                                                                                                                sudah
-                                                                                                                                diisi
-                                                                                                                            </span>
-                                                                                                                            <a href="{{ url('operator/edit-master-data/sub_indikator/' . $sub_indikator->id . '?triwulan=' . $selectedTriwulan) }}"
+                                                                                                                        @if (in_array($sub_indikator->id, $existingDataSubIndikatorApproved))
+                                                                                                                            <div class="flex flex-col items-center text-center">
+                                                                                                                                <span class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-green-500 to-green-400 py-2 px-3 rounded-md text-white">
+                                                                                                                                    Approved
+                                                                                                                                </span>
+                                                                                                                            </div>
+                                                                                                                        @else
+                                                                                                                            <div class="flex flex-col items-center text-center">
+                                                                                                                                <span class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-red-500 to-red-400 py-1 px-3 rounded-t-md text-white">
+                                                                                                                                    Data sudah diisi
+                                                                                                                                </span>
+                                                                                                                                <a href="{{ url('operator/edit-master-data/sub_indikator/' . $sub_indikator->id . '?triwulan=' . $selectedTriwulan) }}"
                                                                                                                                 class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-blue-500 to-blue-400 py-1 px-3 rounded-b-md text-white">
-                                                                                                                                Edit
-                                                                                                                                data
-                                                                                                                            </a>
-                                                                                                                        </div>
+                                                                                                                                    Edit data
+                                                                                                                                </a>
+                                                                                                                            </div>
+                                                                                                                        @endif
                                                                                                                     @else
                                                                                                                         <a
                                                                                                                             href="{{ url('operator/tambah-master-data/sub_indikator/' . $sub_indikator->id . '?triwulan=' . $selectedTriwulan) }}">
@@ -203,20 +206,23 @@
                                                                                                     {{ $sub_indikator->sub_indikator }}
                                                                                                 </p>
                                                                                                 @if (in_array($sub_indikator->id, $existingDataSubIndikator))
-                                                                                                    <div
-                                                                                                        class="flex flex-col items-center text-center">
-                                                                                                        <span
-                                                                                                            class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-red-500 to-red-400 py-1 px-3 rounded-t-md text-white">
-                                                                                                            Data
-                                                                                                            sudah
-                                                                                                            diisi
-                                                                                                        </span>
-                                                                                                        <a href="{{ url('operator/edit-master-data/sub_indikator/' . $sub_indikator->id . '?triwulan=' . $selectedTriwulan) }}"
+                                                                                                    @if (in_array($sub_indikator->id, $existingDataSubIndikatorApproved))
+                                                                                                        <div class="flex flex-col items-center text-center">
+                                                                                                            <span class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-green-500 to-green-400 py-2 px-3 rounded-md text-white">
+                                                                                                                Approved
+                                                                                                            </span>
+                                                                                                        </div>
+                                                                                                    @else
+                                                                                                        <div class="flex flex-col items-center text-center">
+                                                                                                            <span class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-red-500 to-red-400 py-1 px-3 rounded-t-md text-white">
+                                                                                                                Data sudah diisi
+                                                                                                            </span>
+                                                                                                            <a href="{{ url('operator/edit-master-data/sub_indikator/' . $sub_indikator->id . '?triwulan=' . $selectedTriwulan) }}"
                                                                                                             class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-blue-500 to-blue-400 py-1 px-3 rounded-b-md text-white">
-                                                                                                            Edit
-                                                                                                            data
-                                                                                                        </a>
-                                                                                                    </div>
+                                                                                                                Edit data
+                                                                                                            </a>
+                                                                                                        </div>
+                                                                                                    @endif
                                                                                                 @else
                                                                                                     <a
                                                                                                         href="{{ url('operator/tambah-master-data/sub_indikator/' . $sub_indikator->id . '?triwulan=' . $selectedTriwulan) }}">
@@ -242,20 +248,28 @@
                                                                                         INDIKATOR ]</span>
                                                                                     {{ $indikator->indikator }}</p>
                                                                                 @if (in_array($indikator->id, $existingDataIndikator))
-                                                                                    <div
-                                                                                        class="flex flex-col items-center text-center">
-                                                                                        <span
-                                                                                            class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-red-500 to-red-400 py-1 px-3 rounded-t-md text-white">
-                                                                                            Data
-                                                                                            sudah
-                                                                                            diisi
-                                                                                        </span>
-                                                                                        <a href="{{ url('operator/edit-master-data/indikator/' . $indikator->id . '?triwulan=' . $selectedTriwulan) }}"
-                                                                                            class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-blue-500 to-blue-400 py-1 px-3 rounded-b-md text-white">
-                                                                                            Edit
-                                                                                            data
-                                                                                        </a>
-                                                                                    </div>
+                                                                                    @if (in_array($indikator->id, $existingDataIndikatorApproved))
+                                                                                        <div class="flex flex-col items-center text-center">
+                                                                                            <span class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-green-500 to-green-400 py-2 px-3 rounded-md text-white">
+                                                                                                Approved
+                                                                                            </span>
+                                                                                        </div>
+                                                                                    @else
+                                                                                        <div
+                                                                                            class="flex flex-col items-center text-center">
+                                                                                            <span
+                                                                                                class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-red-500 to-red-400 py-1 px-3 rounded-t-md text-white">
+                                                                                                Data
+                                                                                                sudah
+                                                                                                diisi
+                                                                                            </span>
+                                                                                            <a href="{{ url('operator/edit-master-data/indikator/' . $indikator->id . '?triwulan=' . $selectedTriwulan) }}"
+                                                                                                class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-blue-500 to-blue-400 py-1 px-3 rounded-b-md text-white">
+                                                                                                Edit
+                                                                                                data
+                                                                                            </a>
+                                                                                        </div>
+                                                                                    @endif
                                                                                 @else
                                                                                     <a
                                                                                         href="{{ url('operator/tambah-master-data/indikator/' . $indikator->id . '?triwulan=' . $selectedTriwulan) }}">
@@ -277,7 +291,7 @@
                                             @endforeach
                                         </ul>
                                     </li>
-                                @elseif (Auth::user()->bidang_id === 1 && $tujuan->id === 5)
+                                @elseif (Auth::user()->bidang_id === 1 && ($tujuan->id === 5 || $tujuan->id === 4))
                                     <li class="ml-7 mt-4">
                                         <div class="parent flex items-center gap-5">
                                             <i
@@ -307,7 +321,7 @@
                                                             class="child hidden ml-[14px] flex flex-col border-yellow-300 border-l-2">
                                                             @foreach ($sasaran->indikator as $indikator)
                                                                 <li class="ml-7 mt-4">
-                                                                    @if ($indikator->indikator_penunjang()->exists() || $indikator->sub_indikator->isNotEmpty())
+                                                                    @if ($indikator->indikator_penunjang()->exists() || $indikator->sub_indikator->isNotEmpty() && $indikator->id !== 7)
                                                                         <div class="parent flex items-center gap-5">
                                                                             <i
                                                                                 class="fa-solid btn fa-plus cursor-pointer p-2 rounded-md text-gray-800 w-auto h-auto bg-gray-100 hover:bg-gray-200 block"></i>
@@ -362,20 +376,23 @@
                                                                                                                         {{ $sub_indikator->sub_indikator }}
                                                                                                                     </p>
                                                                                                                     @if (in_array($sub_indikator->id, $existingDataSubIndikator))
-                                                                                                                        <div
-                                                                                                                            class="flex flex-col items-center text-center">
-                                                                                                                            <span
-                                                                                                                                class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-red-500 to-red-400 py-1 px-3 rounded-t-md text-white">
-                                                                                                                                Data
-                                                                                                                                sudah
-                                                                                                                                diisi
-                                                                                                                            </span>
-                                                                                                                            <a href="{{ url('operator/edit-master-data/sub_indikator/' . $sub_indikator->id . '?triwulan=' . $selectedTriwulan) }}"
+                                                                                                                        @if (in_array($sub_indikator->id, $existingDataSubIndikatorApproved))
+                                                                                                                            <div class="flex flex-col items-center text-center">
+                                                                                                                                <span class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-green-500 to-green-400 py-2 px-3 rounded-md text-white">
+                                                                                                                                    Approved
+                                                                                                                                </span>
+                                                                                                                            </div>
+                                                                                                                        @else
+                                                                                                                            <div class="flex flex-col items-center text-center">
+                                                                                                                                <span class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-red-500 to-red-400 py-1 px-3 rounded-t-md text-white">
+                                                                                                                                    Data sudah diisi
+                                                                                                                                </span>
+                                                                                                                                <a href="{{ url('operator/edit-master-data/sub_indikator/' . $sub_indikator->id . '?triwulan=' . $selectedTriwulan) }}"
                                                                                                                                 class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-blue-500 to-blue-400 py-1 px-3 rounded-b-md text-white">
-                                                                                                                                Edit
-                                                                                                                                data
-                                                                                                                            </a>
-                                                                                                                        </div>
+                                                                                                                                    Edit data
+                                                                                                                                </a>
+                                                                                                                            </div>
+                                                                                                                        @endif
                                                                                                                     @else
                                                                                                                         <a
                                                                                                                             href="{{ url('operator/tambah-master-data/sub_indikator/' . $sub_indikator->id . '?triwulan=' . $selectedTriwulan) }}">
@@ -407,20 +424,28 @@
                                                                                                         {{ $indikator_penunjang->indikator_penunjang }}
                                                                                                     </p>
                                                                                                     @if (in_array($indikator_penunjang->id, $existingDataIndikatorPenunjang))
-                                                                                                        <div
-                                                                                                            class="flex flex-col items-center text-center">
-                                                                                                            <span
-                                                                                                                class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-red-500 to-red-400 py-1 px-3 rounded-t-md text-white">
-                                                                                                                Data
-                                                                                                                sudah
-                                                                                                                diisi
-                                                                                                            </span>
-                                                                                                            <a href="{{ url('operator/edit-master-data/indikator_penunjang/' . $indikator_penunjang->id . '?triwulan=' . $selectedTriwulan) }}"
-                                                                                                                class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-blue-500 to-blue-400 py-1 px-3 rounded-b-md text-white">
-                                                                                                                Edit
-                                                                                                                data
-                                                                                                            </a>
-                                                                                                        </div>
+                                                                                                        @if (in_array($indikator_penunjang->id, $existingDataIndikatorPenunjangApproved))
+                                                                                                            <div class="flex flex-col items-center text-center">
+                                                                                                                <span class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-green-500 to-green-400 py-2 px-3 rounded-md text-white">
+                                                                                                                    Approved
+                                                                                                                </span>
+                                                                                                            </div>
+                                                                                                        @else
+                                                                                                            <div
+                                                                                                                class="flex flex-col items-center text-center">
+                                                                                                                <span
+                                                                                                                    class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-red-500 to-red-400 py-1 px-3 rounded-t-md text-white">
+                                                                                                                    Data
+                                                                                                                    sudah
+                                                                                                                    diisi
+                                                                                                                </span>
+                                                                                                                <a href="{{ url('operator/edit-master-data/indikator_penunjang/' . $indikator_penunjang->id . '?triwulan=' . $selectedTriwulan) }}"
+                                                                                                                    class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-blue-500 to-blue-400 py-1 px-3 rounded-b-md text-white">
+                                                                                                                    Edit
+                                                                                                                    data
+                                                                                                                </a>
+                                                                                                            </div>
+                                                                                                        @endif
                                                                                                     @else
                                                                                                         <a
                                                                                                             href="{{ url('operator/tambah-master-data/indikator_penunjang/' . $indikator_penunjang->id . '?triwulan=' . $selectedTriwulan) }}">
@@ -453,20 +478,23 @@
                                                                                                     {{ $sub_indikator->sub_indikator }}
                                                                                                 </p>
                                                                                                 @if (in_array($sub_indikator->id, $existingDataSubIndikator))
-                                                                                                    <div
-                                                                                                        class="flex flex-col items-center text-center">
-                                                                                                        <span
-                                                                                                            class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-red-500 to-red-400 py-1 px-3 rounded-t-md text-white">
-                                                                                                            Data
-                                                                                                            sudah
-                                                                                                            diisi
-                                                                                                        </span>
-                                                                                                        <a href="{{ url('operator/edit-master-data/sub_indikator/' . $sub_indikator->id . '?triwulan=' . $selectedTriwulan) }}"
+                                                                                                    @if (in_array($sub_indikator->id, $existingDataSubIndikatorApproved))
+                                                                                                        <div class="flex flex-col items-center text-center">
+                                                                                                            <span class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-green-500 to-green-400 py-2 px-3 rounded-md text-white">
+                                                                                                                Approved
+                                                                                                            </span>
+                                                                                                        </div>
+                                                                                                    @else
+                                                                                                        <div class="flex flex-col items-center text-center">
+                                                                                                            <span class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-red-500 to-red-400 py-1 px-3 rounded-t-md text-white">
+                                                                                                                Data sudah diisi
+                                                                                                            </span>
+                                                                                                            <a href="{{ url('operator/edit-master-data/sub_indikator/' . $sub_indikator->id . '?triwulan=' . $selectedTriwulan) }}"
                                                                                                             class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-blue-500 to-blue-400 py-1 px-3 rounded-b-md text-white">
-                                                                                                            Edit
-                                                                                                            data
-                                                                                                        </a>
-                                                                                                    </div>
+                                                                                                                Edit data
+                                                                                                            </a>
+                                                                                                        </div>
+                                                                                                    @endif
                                                                                                 @else
                                                                                                     <a
                                                                                                         href="{{ url('operator/tambah-master-data/sub_indikator/' . $sub_indikator->id . '?triwulan=' . $selectedTriwulan) }}">
@@ -483,7 +511,7 @@
                                                                                 @endforeach
                                                                             </ul>
                                                                         @endif
-                                                                    @else
+                                                                    @elseif($indikator->id !== 7)
                                                                         <div class="parent flex items-center gap-5">
                                                                             <div
                                                                                 class="ml-12 p-4 rounded-md border-yellow-300 border-2 flex justify-between w-full items-center bg-yellow-50">
@@ -492,20 +520,28 @@
                                                                                         ]</span>
                                                                                     {{ $indikator->indikator }}</p>
                                                                                 @if (in_array($indikator->id, $existingDataIndikator))
-                                                                                    <div
-                                                                                        class="flex flex-col items-center text-center">
-                                                                                        <span
-                                                                                            class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-red-500 to-red-400 py-1 px-3 rounded-t-md text-white">
-                                                                                            Data
-                                                                                            sudah
-                                                                                            diisi
-                                                                                        </span>
-                                                                                        <a href="{{ url('operator/edit-master-data/indikator/' . $indikator->id . '?triwulan=' . $selectedTriwulan) }}"
-                                                                                            class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-blue-500 to-blue-400 py-1 px-3 rounded-b-md text-white">
-                                                                                            Edit
-                                                                                            data
-                                                                                        </a>
-                                                                                    </div>
+                                                                                    @if (in_array($indikator->id, $existingDataIndikatorApproved))
+                                                                                        <div class="flex flex-col items-center text-center">
+                                                                                            <span class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-green-500 to-green-400 py-2 px-3 rounded-md text-white">
+                                                                                                Approved
+                                                                                            </span>
+                                                                                        </div>
+                                                                                    @else
+                                                                                        <div
+                                                                                            class="flex flex-col items-center text-center">
+                                                                                            <span
+                                                                                                class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-red-500 to-red-400 py-1 px-3 rounded-t-md text-white">
+                                                                                                Data
+                                                                                                sudah
+                                                                                                diisi
+                                                                                            </span>
+                                                                                            <a href="{{ url('operator/edit-master-data/indikator/' . $indikator->id . '?triwulan=' . $selectedTriwulan) }}"
+                                                                                                class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-blue-500 to-blue-400 py-1 px-3 rounded-b-md text-white">
+                                                                                                Edit
+                                                                                                data
+                                                                                            </a>
+                                                                                        </div>
+                                                                                    @endif
                                                                                 @else
                                                                                     <a
                                                                                         href="{{ url('operator/tambah-master-data/indikator/' . $indikator->id . '?triwulan=' . $selectedTriwulan) }}">
@@ -612,20 +648,23 @@
                                                                                                                         {{ $sub_indikator->sub_indikator }}
                                                                                                                     </p>
                                                                                                                     @if (in_array($sub_indikator->id, $existingDataSubIndikator))
-                                                                                                                        <div
-                                                                                                                            class="flex flex-col items-center text-center">
-                                                                                                                            <span
-                                                                                                                                class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-red-500 to-red-400 py-1 px-3 rounded-t-md text-white">
-                                                                                                                                Data
-                                                                                                                                sudah
-                                                                                                                                diisi
-                                                                                                                            </span>
-                                                                                                                            <a href="{{ url('operator/edit-master-data/sub_indikator/' . $sub_indikator->id . '?triwulan=' . $selectedTriwulan) }}"
+                                                                                                                        @if (in_array($sub_indikator->id, $existingDataSubIndikatorApproved))
+                                                                                                                            <div class="flex flex-col items-center text-center">
+                                                                                                                                <span class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-green-500 to-green-400 py-2 px-3 rounded-md text-white">
+                                                                                                                                    Approved
+                                                                                                                                </span>
+                                                                                                                            </div>
+                                                                                                                        @else
+                                                                                                                            <div class="flex flex-col items-center text-center">
+                                                                                                                                <span class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-red-500 to-red-400 py-1 px-3 rounded-t-md text-white">
+                                                                                                                                    Data sudah diisi
+                                                                                                                                </span>
+                                                                                                                                <a href="{{ url('operator/edit-master-data/sub_indikator/' . $sub_indikator->id . '?triwulan=' . $selectedTriwulan) }}"
                                                                                                                                 class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-blue-500 to-blue-400 py-1 px-3 rounded-b-md text-white">
-                                                                                                                                Edit
-                                                                                                                                data
-                                                                                                                            </a>
-                                                                                                                        </div>
+                                                                                                                                    Edit data
+                                                                                                                                </a>
+                                                                                                                            </div>
+                                                                                                                        @endif
                                                                                                                     @else
                                                                                                                         <a
                                                                                                                             href="{{ url('operator/tambah-master-data/sub_indikator/' . $sub_indikator->id . '?triwulan=' . $selectedTriwulan) }}">
@@ -657,20 +696,28 @@
                                                                                                         {{ $indikator_penunjang->indikator_penunjang }}
                                                                                                     </p>
                                                                                                     @if (in_array($indikator_penunjang->id, $existingDataIndikatorPenunjang))
-                                                                                                        <div
-                                                                                                            class="flex flex-col items-center text-center">
-                                                                                                            <span
-                                                                                                                class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-red-500 to-red-400 py-1 px-3 rounded-t-md text-white">
-                                                                                                                Data
-                                                                                                                sudah
-                                                                                                                diisi
-                                                                                                            </span>
-                                                                                                            <a href="{{ url('operator/edit-master-data/indikator_penunjang/' . $indikator_penunjang->id . '?triwulan=' . $selectedTriwulan) }}"
-                                                                                                                class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-blue-500 to-blue-400 py-1 px-3 rounded-b-md text-white">
-                                                                                                                Edit
-                                                                                                                data
-                                                                                                            </a>
-                                                                                                        </div>
+                                                                                                        @if (in_array($indikator_penunjang->id, $existingDataIndikatorPenunjangApproved))
+                                                                                                            <div class="flex flex-col items-center text-center">
+                                                                                                                <span class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-green-500 to-green-400 py-2 px-3 rounded-md text-white">
+                                                                                                                    Approved
+                                                                                                                </span>
+                                                                                                            </div>
+                                                                                                        @else
+                                                                                                            <div
+                                                                                                                class="flex flex-col items-center text-center">
+                                                                                                                <span
+                                                                                                                    class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-red-500 to-red-400 py-1 px-3 rounded-t-md text-white">
+                                                                                                                    Data
+                                                                                                                    sudah
+                                                                                                                    diisi
+                                                                                                                </span>
+                                                                                                                <a href="{{ url('operator/edit-master-data/indikator_penunjang/' . $indikator_penunjang->id . '?triwulan=' . $selectedTriwulan) }}"
+                                                                                                                    class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-blue-500 to-blue-400 py-1 px-3 rounded-b-md text-white">
+                                                                                                                    Edit
+                                                                                                                    data
+                                                                                                                </a>
+                                                                                                            </div>
+                                                                                                        @endif
                                                                                                     @else
                                                                                                         <a
                                                                                                             href="{{ url('operator/tambah-master-data/indikator_penunjang/' . $indikator_penunjang->id . '?triwulan=' . $selectedTriwulan) }}">
@@ -703,20 +750,23 @@
                                                                                                     {{ $sub_indikator->sub_indikator }}
                                                                                                 </p>
                                                                                                 @if (in_array($sub_indikator->id, $existingDataSubIndikator))
-                                                                                                    <div
-                                                                                                        class="flex flex-col items-center text-center">
-                                                                                                        <span
-                                                                                                            class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-red-500 to-red-400 py-1 px-3 rounded-t-md text-white">
-                                                                                                            Data
-                                                                                                            sudah
-                                                                                                            diisi
-                                                                                                        </span>
-                                                                                                        <a href="{{ url('operator/edit-master-data/sub_indikator/' . $sub_indikator->id . '?triwulan=' . $selectedTriwulan) }}"
+                                                                                                    @if (in_array($sub_indikator->id, $existingDataSubIndikatorApproved))
+                                                                                                        <div class="flex flex-col items-center text-center">
+                                                                                                            <span class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-green-500 to-green-400 py-2 px-3 rounded-md text-white">
+                                                                                                                Approved
+                                                                                                            </span>
+                                                                                                        </div>
+                                                                                                    @else
+                                                                                                        <div class="flex flex-col items-center text-center">
+                                                                                                            <span class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-red-500 to-red-400 py-1 px-3 rounded-t-md text-white">
+                                                                                                                Data sudah diisi
+                                                                                                            </span>
+                                                                                                            <a href="{{ url('operator/edit-master-data/sub_indikator/' . $sub_indikator->id . '?triwulan=' . $selectedTriwulan) }}"
                                                                                                             class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-blue-500 to-blue-400 py-1 px-3 rounded-b-md text-white">
-                                                                                                            Edit
-                                                                                                            data
-                                                                                                        </a>
-                                                                                                    </div>
+                                                                                                                Edit data
+                                                                                                            </a>
+                                                                                                        </div>
+                                                                                                    @endif
                                                                                                 @else
                                                                                                     <a
                                                                                                         href="{{ url('operator/tambah-master-data/sub_indikator/' . $sub_indikator->id . '?triwulan=' . $selectedTriwulan) }}">
@@ -747,39 +797,13 @@
                                                                                     INDIKATOR ]</span>
                                                                                 {{ $indikator->indikator }}</p>
                                                                             @if (in_array($indikator->id, $existingDataIndikator))
-                                                                                <div
-                                                                                    class="flex flex-col items-center text-center">
-                                                                                    <span
-                                                                                        class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-red-500 to-red-400 py-1 px-3 rounded-t-md text-white">
-                                                                                        Data
-                                                                                        sudah
-                                                                                        diisi
-                                                                                    </span>
-                                                                                    <a href="{{ url('operator/edit-master-data/indikator/' . $indikator->id . '?triwulan=' . $selectedTriwulan) }}"
-                                                                                        class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-blue-500 to-blue-400 py-1 px-3 rounded-b-md text-white">
-                                                                                        Edit
-                                                                                        data
-                                                                                    </a>
-                                                                                </div>
-                                                                            @else
-                                                                                <a
-                                                                                    href="{{ url('operator/tambah-master-data/indikator/' . $indikator->id . '?triwulan=' . $selectedTriwulan) }}">
-                                                                                    <button
-                                                                                        class="flex items-center gap-2 bg-gradient-to-r from-blue-500 to-blue-400 hover:bg-blue-600 text-white py-2 px-3 rounded-md font-medium transition-all text-sm whitespace-nowrap">
-                                                                                        Input
-                                                                                        data
-                                                                                    </button>
-                                                                                </a>
-                                                                            @endif
-                                                                        </div>
-                                                                            @else
-                                                                            <div
-                                                                                class="ml-12 p-4 rounded-md border-yellow-300 border-2 flex justify-between w-full items-center bg-yellow-50">
-                                                                                <p class="block w-[85%] "><span
-                                                                                        class="">[
-                                                                                        INDIKATOR ]</span>
-                                                                                    {{ $indikator->indikator }}</p>
-                                                                                @if (in_array($indikator->id, $existingDataIndikator))
+                                                                                @if (in_array($indikator->id, $existingDataIndikatorApproved))
+                                                                                    <div class="flex flex-col items-center text-center">
+                                                                                        <span class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-green-500 to-green-400 py-2 px-3 rounded-md text-white">
+                                                                                            Approved
+                                                                                        </span>
+                                                                                    </div>
+                                                                                @else
                                                                                     <div
                                                                                         class="flex flex-col items-center text-center">
                                                                                         <span
@@ -794,13 +818,55 @@
                                                                                             data
                                                                                         </a>
                                                                                     </div>
+                                                                                @endif
+                                                                            @else
+                                                                                <a
+                                                                                    href="{{ url('operator/tambah-master-data/indikator/' . $indikator->id . '?triwulan=' . $selectedTriwulan) }}">
+                                                                                    <button
+                                                                                        class="flex items-center gap-2 bg-gradient-to-r from-blue-500 to-blue-400 hover:bg-blue-600 text-white py-2 px-3 rounded-md font-medium transition-all text-sm whitespace-nowrap">
+                                                                                        Input
+                                                                                        data
+                                                                                    </button>
+                                                                                </a>
+                                                                            @endif
+                                                                        </div>
+                                                                            @elseif($indikator->id !== 6)
+                                                                            <div
+                                                                                class="ml-12 p-4 rounded-md border-yellow-300 border-2 flex justify-between w-full items-center bg-yellow-50">
+                                                                                <p class="block w-[85%] "><span
+                                                                                        class="">[
+                                                                                        INDIKATOR ]</span>
+                                                                                    {{ $indikator->indikator }}</p>
+                                                                                @if (in_array($indikator->id, $existingDataIndikator))
+                                                                                    @if (in_array($indikator->id, $existingDataIndikatorApproved))
+                                                                                        <div class="flex flex-col items-center text-center">
+                                                                                            <span class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-green-500 to-green-400 py-2 px-3 rounded-md text-white">
+                                                                                                Approved
+                                                                                            </span>
+                                                                                        </div>
+                                                                                    @else
+                                                                                        <div
+                                                                                            class="flex flex-col items-center text-center">
+                                                                                            <span
+                                                                                                class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-red-500 to-red-400 py-1 px-3 rounded-t-md text-white">
+                                                                                                Data
+                                                                                                sudah
+                                                                                                diisi
+                                                                                            </span>
+                                                                                            <a href="{{ url('operator/edit-master-data/indikator/' . $indikator->id . '?triwulan=' . $selectedTriwulan) }}"
+                                                                                                class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-blue-500 to-blue-400 py-1 px-3 rounded-b-md text-white">
+                                                                                                Edit
+                                                                                                data
+                                                                                            </a>
+                                                                                        </div>
+                                                                                    @endif
                                                                                 @else
                                                                                     <a
                                                                                         href="{{ url('operator/tambah-master-data/indikator/' . $indikator->id . '?triwulan=' . $selectedTriwulan) }}">
                                                                                         <button
                                                                                             class="flex items-center gap-2 bg-gradient-to-r from-blue-500 to-blue-400 hover:bg-blue-600 text-white py-2 px-3 rounded-md font-medium transition-all text-sm whitespace-nowrap">
                                                                                             Input
-                                                                                            data
+                                                                                            dataaa
                                                                                         </button>
                                                                                     </a>
                                                                                 @endif
@@ -850,27 +916,27 @@
                                                                                                                         {{ $sub_indikator->sub_indikator }}
                                                                                                                     </p>
                                                                                                                     @if (in_array($sub_indikator->id, $existingDataSubIndikator))
-                                                                                                                        <div
-                                                                                                                            class="flex flex-col items-center text-center">
-                                                                                                                            <span
-                                                                                                                                class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-red-500 to-red-400 py-1 px-3 rounded-t-md text-white">
-                                                                                                                                Data
-                                                                                                                                sudah
-                                                                                                                                diisi
-                                                                                                                            </span>
-                                                                                                                            <a href="{{ url('operator/edit-master-data/sub_indikator/' . $sub_indikator->id . '?triwulan=' . $selectedTriwulan) }}"
+                                                                                                                        @if (in_array($sub_indikator->id, $existingDataSubIndikatorApproved))
+                                                                                                                            <div class="flex flex-col items-center text-center">
+                                                                                                                                <span class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-green-500 to-green-400 py-2 px-3 rounded-md text-white">
+                                                                                                                                    Approved
+                                                                                                                                </span>
+                                                                                                                            </div>
+                                                                                                                        @else
+                                                                                                                            <div class="flex flex-col items-center text-center">
+                                                                                                                                <span class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-red-500 to-red-400 py-1 px-3 rounded-t-md text-white">
+                                                                                                                                    Data sudah diisi
+                                                                                                                                </span>
+                                                                                                                                <a href="{{ url('operator/edit-master-data/sub_indikator/' . $sub_indikator->id . '?triwulan=' . $selectedTriwulan) }}"
                                                                                                                                 class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-blue-500 to-blue-400 py-1 px-3 rounded-b-md text-white">
-                                                                                                                                Edit
-                                                                                                                                data
-                                                                                                                            </a>
-                                                                                                                        </div>
+                                                                                                                                    Edit data
+                                                                                                                                </a>
+                                                                                                                            </div>
+                                                                                                                        @endif
                                                                                                                     @else
-                                                                                                                        <a
-                                                                                                                            href="{{ url('operator/tambah-master-data/sub_indikator/' . $sub_indikator->id . '?triwulan=' . $selectedTriwulan) }}">
-                                                                                                                            <button
-                                                                                                                                class="flex items-center gap-2 bg-gradient-to-r from-blue-500 to-blue-400 hover:bg-blue-600 text-white py-2 px-3 rounded-md font-medium transition-all text-sm whitespace-nowrap">
-                                                                                                                                Input
-                                                                                                                                data
+                                                                                                                        <a href="{{ url('operator/tambah-master-data/sub_indikator/' . $sub_indikator->id . '?triwulan=' . $selectedTriwulan) }}">
+                                                                                                                            <button class="flex items-center gap-2 bg-gradient-to-r from-blue-500 to-blue-400 hover:bg-blue-600 text-white py-2 px-3 rounded-md font-medium transition-all text-sm whitespace-nowrap">
+                                                                                                                                Input data
                                                                                                                             </button>
                                                                                                                         </a>
                                                                                                                     @endif
@@ -895,20 +961,28 @@
                                                                                                         {{ $indikator_penunjang->indikator_penunjang }}
                                                                                                     </p>
                                                                                                     @if (in_array($indikator_penunjang->id, $existingDataIndikatorPenunjang))
-                                                                                                        <div
-                                                                                                            class="flex flex-col items-center text-center">
-                                                                                                            <span
-                                                                                                                class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-red-500 to-red-400 py-1 px-3 rounded-t-md text-white">
-                                                                                                                Data
-                                                                                                                sudah
-                                                                                                                diisi
-                                                                                                            </span>
-                                                                                                            <a href="{{ url('operator/edit-master-data/indikator_penunjang/' . $indikator_penunjang->id . '?triwulan=' . $selectedTriwulan) }}"
-                                                                                                                class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-blue-500 to-blue-400 py-1 px-3 rounded-b-md text-white">
-                                                                                                                Edit
-                                                                                                                data
-                                                                                                            </a>
-                                                                                                        </div>
+                                                                                                        @if (in_array($indikator_penunjang->id, $existingDataIndikatorPenunjangApproved))
+                                                                                                            <div class="flex flex-col items-center text-center">
+                                                                                                                <span class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-green-500 to-green-400 py-2 px-3 rounded-md text-white">
+                                                                                                                    Approved
+                                                                                                                </span>
+                                                                                                            </div>
+                                                                                                        @else
+                                                                                                            <div
+                                                                                                                class="flex flex-col items-center text-center">
+                                                                                                                <span
+                                                                                                                    class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-red-500 to-red-400 py-1 px-3 rounded-t-md text-white">
+                                                                                                                    Data
+                                                                                                                    sudah
+                                                                                                                    diisi
+                                                                                                                </span>
+                                                                                                                <a href="{{ url('operator/edit-master-data/indikator_penunjang/' . $indikator_penunjang->id . '?triwulan=' . $selectedTriwulan) }}"
+                                                                                                                    class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-blue-500 to-blue-400 py-1 px-3 rounded-b-md text-white">
+                                                                                                                    Edit
+                                                                                                                    data
+                                                                                                                </a>
+                                                                                                            </div>
+                                                                                                        @endif
                                                                                                     @else
                                                                                                         <a
                                                                                                             href="{{ url('operator/tambah-master-data/indikator_penunjang/' . $indikator_penunjang->id . '?triwulan=' . $selectedTriwulan) }}">
@@ -941,20 +1015,23 @@
                                                                                                     {{ $sub_indikator->sub_indikator }}
                                                                                                 </p>
                                                                                                 @if (in_array($sub_indikator->id, $existingDataSubIndikator))
-                                                                                                    <div
-                                                                                                        class="flex flex-col items-center text-center">
-                                                                                                        <span
-                                                                                                            class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-red-500 to-red-400 py-1 px-3 rounded-t-md text-white">
-                                                                                                            Data
-                                                                                                            sudah
-                                                                                                            diisi
-                                                                                                        </span>
-                                                                                                        <a href="{{ url('operator/edit-master-data/sub_indikator/' . $sub_indikator->id . '?triwulan=' . $selectedTriwulan) }}"
+                                                                                                    @if (in_array($sub_indikator->id, $existingDataSubIndikatorApproved))
+                                                                                                        <div class="flex flex-col items-center text-center">
+                                                                                                            <span class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-green-500 to-green-400 py-2 px-3 rounded-md text-white">
+                                                                                                                Approved
+                                                                                                            </span>
+                                                                                                        </div>
+                                                                                                    @else
+                                                                                                        <div class="flex flex-col items-center text-center">
+                                                                                                            <span class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-red-500 to-red-400 py-1 px-3 rounded-t-md text-white">
+                                                                                                                Data sudah diisi
+                                                                                                            </span>
+                                                                                                            <a href="{{ url('operator/edit-master-data/sub_indikator/' . $sub_indikator->id . '?triwulan=' . $selectedTriwulan) }}"
                                                                                                             class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-blue-500 to-blue-400 py-1 px-3 rounded-b-md text-white">
-                                                                                                            Edit
-                                                                                                            data
-                                                                                                        </a>
-                                                                                                    </div>
+                                                                                                                Edit data
+                                                                                                            </a>
+                                                                                                        </div>
+                                                                                                    @endif
                                                                                                 @else
                                                                                                     <a
                                                                                                         href="{{ url('operator/tambah-master-data/sub_indikator/' . $sub_indikator->id . '?triwulan=' . $selectedTriwulan) }}">
@@ -982,7 +1059,7 @@
                                     </li>
                                 @endif
                             @endforeach
-                        </ul>
+                    		</ul>
                     </li>
                     <li class="">
                         <div class="parent flex items-center gap-5">
@@ -1029,20 +1106,28 @@
                                                                             ]</span>
                                                                         {{ $indikator->indikator }}</p>
                                                                     @if (in_array($indikator->id, $existingDataIndikator))
-                                                                        <div
-                                                                            class="flex flex-col items-center text-center">
-                                                                            <span
-                                                                                class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-red-500 to-red-400 py-1 px-3 rounded-t-md text-white">
-                                                                                Data
-                                                                                sudah
-                                                                                diisi
-                                                                            </span>
-                                                                            <a href="{{ url('operator/edit-master-data/indikator/' . $indikator->id . '?triwulan=' . $selectedTriwulan) }}"
-                                                                                class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-blue-500 to-blue-400 py-1 px-3 rounded-b-md text-white">
-                                                                                Edit
-                                                                                data
-                                                                            </a>
-                                                                        </div>
+                                                                        @if (in_array($indikator->id, $existingDataIndikatorApproved))
+                                                                            <div class="flex flex-col items-center text-center">
+                                                                                <span class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-green-500 to-green-400 py-2 px-3 rounded-md text-white">
+                                                                                    Approved
+                                                                                </span>
+                                                                            </div>
+                                                                        @else
+                                                                            <div
+                                                                                class="flex flex-col items-center text-center">
+                                                                                <span
+                                                                                    class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-red-500 to-red-400 py-1 px-3 rounded-t-md text-white">
+                                                                                    Data
+                                                                                    sudah
+                                                                                    diisi
+                                                                                </span>
+                                                                                <a href="{{ url('operator/edit-master-data/indikator/' . $indikator->id . '?triwulan=' . $selectedTriwulan) }}"
+                                                                                    class="w-full text-sm whitespace-nowrap bg-gradient-to-r from-blue-500 to-blue-400 py-1 px-3 rounded-b-md text-white">
+                                                                                    Edit
+                                                                                    data
+                                                                                </a>
+                                                                            </div>
+                                                                        @endif
                                                                     @else
                                                                         <a
                                                                             href="{{ url('operator/tambah-master-data/indikator/' . $indikator->id . '?triwulan=' . $selectedTriwulan) }}">

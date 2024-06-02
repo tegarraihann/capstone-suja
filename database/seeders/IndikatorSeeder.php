@@ -36,7 +36,8 @@ class IndikatorSeeder extends Seeder
             ],
             [
                 'indikator' => 'Hasil penilaian implementasi SAKIP',
-                'sasaran_id' => '4'
+                'sasaran_id' => '4',
+                'bidang_id' => '1'
             ],
             [
                 'indikator' => 'Persentase kepuasan pengguna data terhadap sarana dan prasarana pelayanan BPS Provinsi (%)',
