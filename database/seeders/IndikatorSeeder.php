@@ -16,7 +16,8 @@ class IndikatorSeeder extends Seeder
         $indikator = [
             [
                 'indikator' => 'Persentase pengguna data yang menggunakan data BPS sebagai dasar perencanaan, monitoring dan evaluasi pembangunan (%)',
-                'sasaran_id' => '1'
+                'sasaran_id' => '1',
+                'bidang_id' => '6'
             ],
             [
                 'indikator' => 'Persentase publikasi statistik yang menerapkan standar akurasi (%)',

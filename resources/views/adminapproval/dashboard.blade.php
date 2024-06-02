@@ -61,8 +61,10 @@
                     @endphp
                     @forelse ($dataIku as $data)
                         @if (
-                            $data->sub_indikator &&
-                                ($data->sub_indikator->bidang_id === null || $data->sub_indikator->bidang_id === Auth::user()->bidang_id || $data->indikator->bidang_id === Auth::user()->bidang_id))
+                            ($data->sub_indikator && $data->sub_indikator->bidang_id === Auth::user()->bidang_id) ||
+                                ($data->indikator &&
+                                    ($data->indikator->bidang_id === null || $data->indikator->bidang_id === Auth::user()->bidang_id)) ||
+                                ($data->indikator_penunjang && $data->indikator_penunjang->bidang_id === Auth::user()->bidang_id))
                             <tr class="bg-white border-b hover:bg-gray-50">
                                 <td class="py-4 px-6 w-[30px]">{{ $index++ }}</td>
                                 <td class="py-4 px-6 text-left">
@@ -76,10 +78,15 @@
                                         N/A
                                     @endif
                                 </td>
-                                <td class="py-4 px-6 text-left whitespace-nowrap">{{ $data->user->name }} | <span class="text-blue-600">{{$data->user->bidang->nama_bidang}}</span></td>
+                                <td class="py-4 px-6 text-left whitespace-nowrap">{{ $data->user->name }} | <span
+                                        class="text-blue-600">{{ $data->user->bidang->nama_bidang }}</span></td>
                                 </td>
                                 <td class="py-4 px-6 text-center">{{ $data->triwulan_id }}</td>
-                                <td class="py-4 px-6 text-left"><p class="px-3 py-1 rounded-md border-orange-300 border-2 flex justify-between w-fit items-center bg-orange-50">{{ ucfirst($data->status) }}</p></td>
+                                <td class="py-4 px-6 text-left">
+                                    <p
+                                        class="px-3 py-1 rounded-md border-orange-300 border-2 flex justify-between w-fit items-center bg-orange-50">
+                                        {{ ucfirst($data->status) }}</p>
+                                </td>
                                 <td class="py-4 px-6 text-center gap-3">
                                     <div class="flex items-center justify-center">
                                         @if ($data->sub_indikator)
@@ -88,38 +95,6 @@
                                                 <i class="fa-regular fa-pen-to-square"></i>
                                             </a>
                                         @elseif($data->indikator_penunjang)
-                                            <a href="{{ url('adminapproval/edit-master-data/indikator_penunjang/' . $data->indikator_penunjang->id . '?triwulan=' . $data->triwulan_id) }}"
-                                                class="text-blue-500 hover:text-blue-700">
-                                                <i class="fa-regular fa-pen-to-square"></i>
-                                            </a>
-                                        @elseif($data->indikator)
-                                            <a href="{{ url('adminapproval/edit-master-data/indikator/' . $data->indikator->id . '?triwulan=' . $data->triwulan_id) }}"
-                                                class="text-blue-500 hover:text-blue-700">
-                                                <i class="fa-regular fa-pen-to-square"></i>
-                                            </a>
-                                        @endif
-                                    </div>
-                                </td>
-                            </tr>
-                        @elseif (!$data->sub_indikator)
-                            <tr class="bg-white border-b hover:bg-gray-50 h-full">
-                                <td class="py-4 px-6 w-[30px]">{{ $index++ }}</td>
-                                <td class="py-4 px-6 text-left">
-                                    @if ($data->indikator_penunjang)
-                                        [INDIKATOR PENUNJANG] {{ $data->indikator_penunjang->indikator_penunjang }}
-                                    @elseif($data->indikator)
-                                        [INDIKATOR] {{ $data->indikator->indikator }}
-                                    @else
-                                        N/A
-                                    @endif
-                                </td>
-                                <td class="py-4 px-6 text-left whitespace-nowrap">{{ $data->user->name }} | <span class="text-blue-600">{{$data->user->bidang->nama_bidang}}</span></td>
-                                </td>
-                                <td class="py-4 px-6 text-center">{{ $data->triwulan_id }}</td>
-                                <td class="py-4 px-6 text-left"><p class="px-3 py-1 rounded-md border-orange-300 border-2 flex justify-between w-fit items-center bg-orange-50">{{ ucfirst($data->status) }}</p></td>
-                                <td class="py-4 px-6 text-center gap-3">
-                                    <div class="flex items-center justify-center">
-                                        @if ($data->indikator_penunjang)
                                             <a href="{{ url('adminapproval/edit-master-data/indikator_penunjang/' . $data->indikator_penunjang->id . '?triwulan=' . $data->triwulan_id) }}"
                                                 class="text-blue-500 hover:text-blue-700">
                                                 <i class="fa-regular fa-pen-to-square"></i>

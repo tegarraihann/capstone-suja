@@ -24,7 +24,8 @@ class IndikatorPenunjangSeeder extends Seeder
             ],
             [
                 'indikator_penunjang' => 'Jumlah pengunjung eksternal yang mengakses data dan informasi statistik melalui website BPS',
-                'indikator_id' => '1'
+                'indikator_id' => '1',
+                'bidang_id' => '6'
             ],
             [
                 'indikator_penunjang' => 'Jumlah publikasi statistik yang dihasilkan yang bersumber dari aktivitas statistik menerapkan standar akurasi',
@@ -37,10 +38,7 @@ class IndikatorPenunjangSeeder extends Seeder
         ];
 
         foreach ($indikatorPenunjang as $idktrPnnjg) {
-            IndikatorPenunjang::create([
-                'indikator_penunjang' => $idktrPnnjg['indikator_penunjang'],
-                'indikator_id' => $idktrPnnjg['indikator_id']
-            ]);
+            IndikatorPenunjang::create($idktrPnnjg);
         }
     }
 }
