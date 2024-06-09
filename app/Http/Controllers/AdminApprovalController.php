@@ -16,6 +16,7 @@ class AdminApprovalController extends Controller
     {
         $search = $request->input('search');
         $bidangId = Auth::user()->bidang_id;
+
         $triwulan_id = $request->input('triwulan');
 
         // Inisialisasi query
@@ -29,10 +30,7 @@ class AdminApprovalController extends Controller
                         $q->whereNull('bidang_id')
                             ->orWhere('bidang_id', $bidangId);
                     })
-                    ->orWhereHas('indikator_penunjang', function ($q) use ($bidangId) {
-                        $q->whereNull('bidang_id')
-                            ->orWhere('bidang_id', $bidangId);
-                    });
+                    ->orWhereHas('indikator_penunjang');
             })
             ->with(['sub_indikator', 'indikator_penunjang', 'indikator', 'user'])
             ->orderBy('created_at', 'desc');
@@ -72,22 +70,11 @@ class AdminApprovalController extends Controller
 
         // Inisialisasi query
         $dataIkuQuery = DataIku::where('status', 'approved_by_ab')
-            ->where(function ($query) use ($bidangId) {
-                $query->whereHas('sub_indikator', function ($q) use ($bidangId) {
-                    $q->whereNull('bidang_id')
-                        ->orWhere('bidang_id', $bidangId);
-                })
-                    ->orWhereHas('indikator', function ($q) use ($bidangId) {
-                        $q->whereNull('bidang_id')
-                            ->orWhere('bidang_id', $bidangId);
-                    })
-                    ->orWhereHas('indikator_penunjang', function ($q) use ($bidangId) {
-                        $q->whereNull('bidang_id')
-                            ->orWhere('bidang_id', $bidangId);
-                    });
+            ->whereHas('sub_indikator', function ($query) use ($bidangId) {
+                $query->whereNull('bidang_id')
+                    ->orWhere('bidang_id', $bidangId);
             })
-            ->with(['sub_indikator', 'indikator_penunjang', 'indikator', 'user', 'approved_by'])
-            ->orderBy('created_at', 'desc');
+            ->with(['sub_indikator', 'indikator_penunjang', 'indikator', 'user', 'approved_by']);
 
         // Tambahkan kondisi pencarian jika ada
         if ($search) {
@@ -132,10 +119,7 @@ class AdminApprovalController extends Controller
                     $q->whereNull('bidang_id')
                         ->orWhere('bidang_id', $bidangId);
                 })
-                ->orWhereHas('indikator_penunjang', function ($q) use ($bidangId) {
-                    $q->whereNull('bidang_id')
-                        ->orWhere('bidang_id', $bidangId);
-                });
+                ->orWhereHas('indikator_penunjang');
         })
         ->with(['sub_indikator', 'indikator_penunjang', 'indikator', 'user', 'rejected_by'])
         ->orderBy('created_at', 'desc');

@@ -352,6 +352,7 @@ class OperatorController extends Controller
     {
         $search = $request->input('search');
         $bidangId = Auth::user()->bidang_id;
+
         $triwulan_id = $request->input('triwulan');
 
         // Inisialisasi query
@@ -365,10 +366,7 @@ class OperatorController extends Controller
                         $q->whereNull('bidang_id')
                             ->orWhere('bidang_id', $bidangId);
                     })
-                    ->orWhereHas('indikator_penunjang', function ($q) use ($bidangId) {
-                        $q->whereNull('bidang_id')
-                            ->orWhere('bidang_id', $bidangId);
-                    });
+                    ->orWhereHas('indikator_penunjang');
             })
             ->with(['sub_indikator', 'indikator_penunjang', 'indikator', 'user'])
             ->orderBy('created_at', 'desc');
@@ -417,10 +415,7 @@ class OperatorController extends Controller
                         $q->whereNull('bidang_id')
                             ->orWhere('bidang_id', $bidangId);
                     })
-                    ->orWhereHas('indikator_penunjang', function ($q) use ($bidangId) {
-                        $q->whereNull('bidang_id')
-                            ->orWhere('bidang_id', $bidangId);
-                    });
+                    ->orWhereHas('indikator_penunjang');
             })
             ->with(['sub_indikator', 'indikator_penunjang', 'indikator', 'user', 'approved_by'])
             ->orderBy('created_at', 'desc');
@@ -468,10 +463,7 @@ class OperatorController extends Controller
                         $q->whereNull('bidang_id')
                             ->orWhere('bidang_id', $bidangId);
                     })
-                    ->orWhereHas('indikator_penunjang', function ($q) use ($bidangId) {
-                        $q->whereNull('bidang_id')
-                            ->orWhere('bidang_id', $bidangId);
-                    });
+                    ->orWhereHas('indikator_penunjang');
             })
             ->with(['sub_indikator', 'indikator_penunjang', 'indikator', 'user', 'rejected_by'])
             ->orderBy('created_at', 'desc');

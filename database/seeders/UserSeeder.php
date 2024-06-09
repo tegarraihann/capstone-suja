@@ -25,46 +25,136 @@ class UserSeeder extends Seeder
         $pimpinan = Bidang::where('nama_bidang', 'Pimpinan')->first();
         
         $users = [
+
+            // PIMPINAN
             [
                 "name" => "Joe Gon",
                 "email" => "pimpinan@gmail.com",
-                "password" => "pimpinan123",
+                "password" => "bps123",
                 "role" => "4",
                 "nip" => "222",
                 "bidang_id" => $pimpinan->id
             ],
+
+            // ADMIN SISTTEM
             [
                 "name" => "John Doe",
                 "email" => "adminsistem@gmail.com",
-                "password" => "admin123",
+                "password" => "bps123",
                 "role" => "3",
                 "nip" => "132131231231312313124",
                 "bidang_id" => $bidangIPDS->id
             ],
+
+            // ADMIN BINAGRAM
             [
                 "name" => "Mils Way",
                 "email" => "adminbinagram@gmail.com",
-                "password" => "admin123",
+                "password" => "bps123",
                 "role" => "2",
                 "nip" => "132131231231312313125",
                 "bidang_id" => $bidangIPDS->id
             ],
+
+            // ADMIN APPROVAL
             [
                 "name" => "Clerk Emily",
-                "email" => "adminapproval@gmail.com",
-                "password" => "admin123",
+                "email" => "approvalsosial@gmail.com",
+                "password" => "bps123",
                 "role" => "1",
                 "nip" => "132131231231312313126",
                 "bidang_id" => $bidangStatSosial->id
             ],
             [
+                "name" => "Jehan Roy",
+                "email" => "approvalumum@gmail.com",
+                "password" => "bps123",
+                "role" => "1",
+                "nip" => "132131231231312315232",
+                "bidang_id" => $bidangUmum->id
+            ],
+            [
+                "name" => "Komer Sihan",
+                "email" => "approvalproduksi@gmail.com",
+                "password" => "bps123",
+                "role" => "1",
+                "nip" => "132131231231312315233",
+                "bidang_id" => $bidangStatProduksi->id
+            ],
+            [
+                "name" => "Celo Shank",
+                "email" => "approvaldistribusi@gmail.com",
+                "password" => "bps123",
+                "role" => "1",
+                "nip" => "132131231231312315234",
+                "bidang_id" => $bidangStatDistribusi->id
+            ],
+            [
+                "name" => "Suhail Miwa",
+                "email" => "approvalnerwilis@gmail.com",
+                "password" => "bps123",
+                "role" => "1",
+                "nip" => "132131231231312315235",
+                "bidang_id" => $bidangNerwilis->id
+            ],
+            [
+                "name" => "King Jhon",
+                "email" => "approvalipds@gmail.com",
+                "password" => "bps123",
+                "role" => "1",
+                "nip" => "132131231231312315236",
+                "bidang_id" => $bidangIPDS->id
+            ],
+
+            // OPERATOR
+            [
                 "name" => "Ronald Roy",
-                "email" => "operator@gmail.com",
-                "password" => "operator123",
+                "email" => "umum@gmail.com",
+                "password" => "bps123",
                 "role" => "0",
                 "nip" => "132131231231312313126873",
                 "bidang_id" => $bidangUmum->id
-            ]
+            ],
+            [
+                "name" => "Jakie Chan",
+                "email" => "sosial@gmail.com",
+                "password" => "bps123",
+                "role" => "0",
+                "nip" => "132131231231312313126891",
+                "bidang_id" => $bidangStatSosial->id
+            ],
+            [
+                "name" => "Marie Lim",
+                "email" => "produksi@gmail.com",
+                "password" => "bps123",
+                "role" => "0",
+                "nip" => "132131231231312313126892",
+                "bidang_id" => $bidangStatProduksi->id
+            ],
+            [
+                "name" => "Ana Sher",
+                "email" => "distribusi@gmail.com",
+                "password" => "bps123",
+                "role" => "0",
+                "nip" => "132131231231312313126893",
+                "bidang_id" => $bidangStatDistribusi->id
+            ],
+            [
+                "name" => "Medya Boo",
+                "email" => "nerwilis@gmail.com",
+                "password" => "bps123",
+                "role" => "0",
+                "nip" => "132131231231312313126894",
+                "bidang_id" => $bidangNerwilis->id
+            ],
+            [
+                "name" => "Rada Loyu",
+                "email" => "ipds@gmail.com",
+                "password" => "bps123",
+                "role" => "0",
+                "nip" => "132131231231312313126895",
+                "bidang_id" => $bidangIPDS->id
+            ],
         ];
 
         foreach ($users as $user) {

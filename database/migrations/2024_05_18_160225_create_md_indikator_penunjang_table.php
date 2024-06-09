@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('indikator_penunjang')->nullable(false);
             $table->foreignId('indikator_id')->constrained('md_indikator')->onDelete('cascade');
-            $table->foreignId('bidang_id')->nullable()->constrained('bidang')->onDelete('cascade');
             $table->timestamps();
         });
     }

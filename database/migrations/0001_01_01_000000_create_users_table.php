@@ -11,6 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
+        Schema::create('bidang', function (Blueprint $table) {
+            $table->id("id");
+            $table->string("nama_bidang")->nullable(false);
+        });
+
         Schema::create('users', function (Blueprint $table) {
             $table->id()->primary();
             $table->string('name');
@@ -19,6 +24,9 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->tinyInteger('role')->default("0");
+            $table->string("nip")->nullable(false)->unique();
+            $table->unsignedBigInteger("bidang_id")->nullable(false);
+            $table->foreign("bidang_id")->on("bidang")->references("id");
             $table->timestamps();
         });
 
@@ -43,6 +51,7 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::dropIfExists('bidang');
         Schema::dropIfExists('users');
         Schema::dropIfExists('password_reset_tokens');
         Schema::dropIfExists('sessions');
