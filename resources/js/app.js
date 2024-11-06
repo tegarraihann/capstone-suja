@@ -1,5 +1,7 @@
 import axios from "axios";
 import "./bootstrap";
+import ApexCharts from 'apexcharts';
+
 
 document.addEventListener("DOMContentLoaded", function () {
     approveApprovalButton()
@@ -1444,7 +1446,7 @@ function rejectBinagramButton() {
                     });
                     return;
                 }
-                
+
                 if (value) {
                     const data = {
                         reject_comment: value,
@@ -1551,7 +1553,7 @@ function rejectApprovalButton() {
                     });
                     return;
                 }
-                
+
                 if (value) {
                     const data = {
                         reject_comment: value,

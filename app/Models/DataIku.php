@@ -31,7 +31,13 @@ class DataIku extends Model
         "upload_by",
         "approve_by",
         "reject_by",
-        "triwulan"
+        "triwulan_id",
+        "reject_comment",
+        "indikator_id",
+        "indikator_penunjang_id",
+        "sub_indikator_id",
+        "foto_before",
+        "foto_after"
     ];
 
     public function user(): BelongsTo
@@ -62,5 +68,10 @@ class DataIku extends Model
     public function sub_indikator(): BelongsTo
     {
         return $this->belongsTo(SubIndikator::class, 'sub_indikator_id', 'id');
+    }
+
+    public function triwulan()
+    {
+        return $this->belongsTo(Triwulan::class, 'triwulan_id');
     }
 }

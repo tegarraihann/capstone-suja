@@ -17,9 +17,9 @@
             ['value' => '3', 'label' => 'Admin Sistem'],
             ['value' => '2', 'label' => 'Admin Binagram'],
             ['value' => '1', 'label' => 'Admin Approval'],
-            ['value' => '0', 'label' => 'Operator'],
+            ['value' => '0', 'label' => 'Office Boy'],
         ];
-    
+
         $bidangOptions = [
             7 => 'Pimpinan',
             6 => 'Fungsi IPDS',
@@ -48,7 +48,7 @@
         <header
             class="flex items-center justify-between py-4 px-10 h-20 fixed left-0 bg-white z-20 top-0 w-full border-b-2">
             @if (Auth::check())
-                <img src="{{ asset('assets/logo.png') }}" class="w-16" />
+                <img src="{{ asset('assets/gambar-navv.jpg') }}" class="w-16" />
                 <div class="flex items-center gap-6">
                     <i class="logout-btn fa-solid fa-arrow-right-from-bracket cursor-pointer text-lg"></i>
                     <div class="relative">
@@ -299,7 +299,7 @@
                                     </div>
                                     <div
                                         class="pl-4 flex flex-col w-full gap-1 dropdown-child relative duration-300 transition-all max-h-0 overflow-hidden">
-                                        <a href="/operator/pending-master-data" class="w-full menu-item">
+                                        <a href="{{ route('search-data-pending') }}" class="w-full menu-item">
                                             <div
                                                 class="flex justify-left gap-6 w-full rounded-lg py-3 px-6 hover:bg-blue-50 hover:text-blue-600">
                                                 <i class="fa-solid fa-file-circle-question my-auto text-xs w-1/12"></i>
@@ -363,6 +363,8 @@
     <!-- Add your scripts here -->
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/sidebar.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
 
 </body>
 

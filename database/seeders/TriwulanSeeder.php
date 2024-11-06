@@ -15,16 +15,16 @@ class TriwulanSeeder extends Seeder
     {
         $triwulan = [
             [
-                'triwulan' => 'Triwulan 1',
+                'triwulan' => 'Minggu 1',
             ],
             [
-                'triwulan' => 'Triwulan 2',
+                'triwulan' => 'Minggu 2',
             ],
             [
-                'triwulan' => 'Triwulan 3',
+                'triwulan' => 'Minggu 3',
             ],
             [
-                'triwulan' => 'Triwulan 4',
+                'triwulan' => 'Minggu 4',
             ],
         ];
 

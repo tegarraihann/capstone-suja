@@ -17,7 +17,6 @@
         </script>
     @endif
     <div class="w-full p-5 h-full">
-
         <h2 class="text-gray-600 font-semibold text-2xl">Data Menunggu Persetujuan</h2>
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg p-4 bg-white mt-3">
             <div class="w-full flex justify-between">
@@ -60,80 +59,24 @@
                         $index = $dataIku->firstItem();
                     @endphp
                     @forelse ($dataIku as $data)
-                        @if (
-                            $data->sub_indikator &&
-                                ($data->sub_indikator->bidang_id === null || $data->sub_indikator->bidang_id === Auth::user()->bidang_id || $data->indikator->bidang_id === Auth::user()->bidang_id))
-                            <tr class="bg-white border-b hover:bg-gray-50">
-                                <td class="py-4 px-6 w-[30px]">{{ $index++ }}</td>
-                                <td class="py-4 px-6 text-left">
-                                    @if ($data->sub_indikator)
-                                        [SUB INDIKATOR] {{ $data->sub_indikator->sub_indikator }}
-                                    @elseif($data->indikator_penunjang)
-                                        [INDIKATOR PENUNJANG] {{ $data->indikator_penunjang->indikator_penunjang }}
-                                    @elseif($data->indikator)
-                                        [INDIKATOR] {{ $data->indikator->indikator }}
-                                    @else
-                                        N/A
-                                    @endif
-                                </td>
-                                <td class="py-4 px-6 text-left whitespace-nowrap">{{ $data->user->name }} | <span class="text-blue-600">{{$data->user->bidang->nama_bidang}}</span></td>
-                                </td>
-                                <td class="py-4 px-6 text-center">{{ $data->triwulan_id }}</td>
-                                <td class="py-4 px-6 text-left"><p class="px-3 py-1 rounded-md border-orange-300 border-2 flex justify-between w-fit items-center bg-orange-50">{{ ucfirst($data->status) }}</p></td>
-                                <td class="py-4 px-6 text-center gap-3">
-                                    <div class="flex justify-center items-center gap-3">
-                                        @if ($data->sub_indikator)
-                                            <a href="{{ url('operator/edit-master-data/sub_indikator/' . $data->sub_indikator->id . '?triwulan=' . $data->triwulan_id) }}"
-                                                class="text-blue-500 hover:text-blue-700">
-                                                <i class="fa-regular fa-pen-to-square"></i>
-                                            </a>
-                                        @elseif($data->indikator_penunjang)
-                                            <a href="{{ url('operator/edit-master-data/indikator_penunjang/' . $data->indikator_penunjang->id . '?triwulan=' . $data->triwulan_id) }}"
-                                                class="text-blue-500 hover:text-blue-700">
-                                                <i class="fa-regular fa-pen-to-square"></i>
-                                            </a>
-                                        @elseif($data->indikator)
-                                            <a href="{{ url('operator/edit-master-data/indikator/' . $data->indikator->id . '?triwulan=' . $data->triwulan_id) }}"
-                                                class="text-blue-500 hover:text-blue-700">
-                                                <i class="fa-regular fa-pen-to-square"></i>
-                                            </a>
-                                        @endif
-                                    </div>
-                                </td>
-                            </tr>
-                        @elseif (!$data->sub_indikator)
-                            <tr class="bg-white border-b hover:bg-gray-50 h-full">
-                                <td class="py-4 px-6 w-[30px]">{{ $index++ }}</td>
-                                <td class="py-4 px-6 text-left">
-                                    @if ($data->indikator_penunjang)
-                                        [INDIKATOR PENUNJANG] {{ $data->indikator_penunjang->indikator_penunjang }}
-                                    @elseif($data->indikator)
-                                        [INDIKATOR] {{ $data->indikator->indikator }}
-                                    @else
-                                        N/A
-                                    @endif
-                                </td>
-                                <td class="py-4 px-6 text-left whitespace-nowrap">{{ $data->user->name }} | <span class="text-blue-600">{{$data->user->bidang->nama_bidang}}</span></td>
-                                </td>
-                                <td class="py-4 px-6 text-center">{{ $data->triwulan_id }}</td>
-                                <td class="py-4 px-6 text-left"><p class="px-3 py-1 rounded-md border-orange-300 border-2 flex justify-between w-fit items-center bg-orange-50">{{ ucfirst($data->status) }}</p></td>
-                                <td class="py-4 px-6 text-center gap-3">
-                                    <div class="flex justify-center items-center gap-3">
-                                        @if ($data->indikator_penunjang)
-                                            <a href="{{ url('operator/edit-master-data/indikator_penunjang/' . $data->indikator_penunjang->id . '?triwulan=' . $data->triwulan_id) }}"
-                                                class="text-blue-500 hover:text-blue-700">
-                                                <i class="fa-regular fa-pen-to-square"></i>
-                                            </a>
-                                        @elseif($data->indikator)
-                                            <a href="{{ url('operator/edit-master-data/indikator/' . $data->indikator->id . '?triwulan=' . $data->triwulan_id) }}"
-                                                class="text-blue-500 hover:text-blue-700">
-                                                <i class="fa-regular fa-pen-to-square"></i>
-                                            </a>
-                                        @endif
-                                    </div>
-                                </td>
-                            </tr>
-                        @endif
+                        <tr class="bg-white border-b hover:bg-gray-50">
+                            <td class="py-4 px-6 w-[30px]">{{ $index++ }}</td>
+                            <td class="py-4 px-6 text-left">
+                                {{ $data->kinerja ?? 'N/A' }}
+                            </td>
+                            <td class="py-4 px-6 text-left whitespace-nowrap">{{ $data->user->name }} | <span class="text-blue-600">{{ $data->user->bidang->nama_bidang }}</span></td>
+                            <td class="py-4 px-6 text-center">{{ $data->triwulan_id }}</td>
+                            <td class="py-4 px-6 text-left">
+                                <p class="px-3 py-1 rounded-md border-orange-300 border-2 flex justify-between w-fit items-center bg-orange-50">{{ ucfirst($data->status) }}</p>
+                            </td>
+                            <td class="py-4 px-6 text-center gap-3">
+                                <div class="flex justify-center items-center gap-3">
+                                    <a href="{{ url('operator/edit-master-data/indikator/' . $data->id)}}" class="text-blue-500 hover:text-blue-700">
+                                        <i class="fa-regular fa-pen-to-square"></i> Edit
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
                     @empty
                         <tr class="bg-white border-b hover:bg-gray-50 text-center">
                             <td colspan="6" class="py-5 font-bold">Tidak ada data</td>

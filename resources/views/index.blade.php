@@ -49,15 +49,15 @@
         </script>
     @endif
     <div class="main-bg m-0 p-0 w-full h-[100vh] absolute">
-        <img src="{{ asset('assets/auth/BPS.jpg') }}" alt="BPS image"
+        <img src="{{ asset('assets/auth/test.jpg') }}" alt="BPS image"
             class= "object-cover w-full h-full filter brightness-50">
     </div>
     <div class="w-[100%] h-[100vh] flex justify-center items-center relative">
         <form action="{{ url('login_post') }}" method="post"
             class="form-control m-[20px] bg-[#fff] md:w-[70%] lg:w-[30%] flex justify-center flex-col gap-3 p-6 rounded-lg shadow-lg">
             {{ csrf_field() }}
-            <div class="img-logo w-[80%] text-center">
-                <img src="{{ asset('assets/auth/logo-auth.png') }}" alt="BPS logo image">
+            <div class="img-logo w-[15%] text-center">
+                <img src="{{ asset('assets/auth/logo-telkom.jpg') }}" alt="BPS logo image">
             </div>
             <div class="input-field relative w-full">
                 <i class="fas fa-user"></i>

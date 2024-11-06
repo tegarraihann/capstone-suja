@@ -58,9 +58,15 @@ Route::group(['middleware' => ['adminapproval', 'no-cache']], function () {
     Route::get('adminapproval/rejected-master-data', [AdminApprovalController::class, 'view_rejected_master_data'])->name('search-data-rejected-ap');
     Route::get('adminapproval/edit-user/{id}', [AdminSistemController::class, "view_update_user"]);
     Route::put('adminapproval/edit-user/{id}', [AdminSistemController::class, "edit_user"]);
-    Route::get('adminapproval/edit-master-data/{type}/{id}', [AdminApprovalController::class, 'view_aksi_master_data']);
+    Route::get('adminapproval/aksi-master-data/{id}', [AdminApprovalController::class, 'view_aksi_master_data'])->name('adminapproval.aksi-master-data');
     Route::put('adminapproval/approve-master-data/{id}', [AdminApprovalController::class, "approve_data"]);
     Route::put('adminapproval/reject-master-data/{id}', [AdminApprovalController::class, "reject_data"]);
+    Route::put('adminapproval/dashboard/actived-triwulan/{id}', [AdminApprovalController::class, 'activateTriwulan']);
+    Route::get('adminapproval/dashboard', [AdminApprovalController::class, 'viewPendingData'])->name('search-data-pending-ap');
+    Route::put('adminapproval/update-master-data/{id}', [AdminApprovalController::class, 'update_master_data'])->name('adminapproval.update-master-data');
+
+    Route::get('adminapproval/chart', [AdminApprovalController::class, 'getChartData'])->name('adminapproval.chart-data');
+
 
 });
 
@@ -73,7 +79,11 @@ Route::group(['middleware' => ['operator', 'no-cache']], function () {
     Route::get('operator/approved-master-data', [OperatorController::class, 'view_approved_master_data'])->name('search-data-approved');
     Route::get('operator/rejected-master-data', [OperatorController::class, 'view_rejected_master_data'])->name('search-data-rejected');
     Route::post('operator/tambah-master-data', [OperatorController::class, "add_master_data"]);
-    Route::put('operator/edit-master-data/{id}', [OperatorController::class, "update_master_data"]);
+    Route::get('operator/edit-master-data/{id}', [OperatorController::class, 'view_edit_master_data']);
+    Route::put('operator/update-master-data/{id}', [OperatorController::class, "update_master_data"])->name('operator.update_master_data');
     Route::get('operator/edit-user/{id}', [AdminSistemController::class, "view_update_user"]);
     Route::put('operator/edit-user/{id}', [AdminSistemController::class, "edit_user"]);
+    Route::post('operator/store', [OperatorController::class, 'tambah_master_data'])->name('operator.store');
+    Route::post('operator/store', [OperatorController::class, 'storeDataIku'])->name('operator.store');
+    Route::get('operator/pending', [OperatorController::class, 'viewPendingData'])->name('search-data-pending');
 });
