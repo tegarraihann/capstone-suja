@@ -83,7 +83,6 @@ Route::group(['middleware' => ['operator', 'no-cache']], function () {
     Route::put('operator/update-master-data/{id}', [OperatorController::class, "update_master_data"])->name('operator.update_master_data');
     Route::get('operator/edit-user/{id}', [AdminSistemController::class, "view_update_user"]);
     Route::put('operator/edit-user/{id}', [AdminSistemController::class, "edit_user"]);
-    Route::post('operator/store', [OperatorController::class, 'tambah_master_data'])->name('operator.store');
-    Route::post('operator/store', [OperatorController::class, 'storeDataIku'])->name('operator.store');
+    Route::post('operator/store', [OperatorController::class, 'storeDataKinerja'])->name('operator.store');
     Route::get('operator/pending', [OperatorController::class, 'viewPendingData'])->name('search-data-pending');
 });

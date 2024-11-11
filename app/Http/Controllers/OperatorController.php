@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\DataIku;
+use App\Models\DataKinerja;
 use App\Models\Indikator;
 use App\Models\IndikatorPenunjang;
 use App\Models\SubIndikator;
-use App\Models\Triwulan;
-use App\Models\Tujuan;
+use App\Models\Day;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -18,66 +17,28 @@ class OperatorController extends Controller
 {
     public function view_master_data(Request $request)
     {
-        $iku = Tujuan::where('iku', 0)->with(['sasaran.indikator.indikator_penunjang', 'sasaran.indikator.sub_indikator'])->get();
-        $iku_sup = Tujuan::where('iku', 1)->with(['sasaran.indikator.indikator_penunjang', 'sasaran.indikator.sub_indikator'])->get();
-        $triwulan = Triwulan::all();
+        $day = Day::all();
 
         // Mendapatkan nomor triwulan dari query parameter
-        $selectedTriwulan = $request->query('triwulan', null);
+        $selectedDay = $request->query('day', null);
 
         // Mengambil status triwulan dari database
-        $triwulanStatus = Triwulan::find($selectedTriwulan)->status ?? null;
+        $dayStatus = Day::find($selectedDay)->status ?? null;
 
         // Memeriksa apakah triwulan memiliki status 'close'
-        if ($triwulanStatus === 'close') {
+        if ($dayStatus === 'close') {
             // Jika triwulan memiliki status 'close', lakukan redirect atau tampilkan pesan kesalahan
-            return redirect()->back()->with('error', 'Data untuk triwulan ' . $selectedTriwulan . ' tidak tersedia.');
+            return redirect()->back()->with('error', 'Data untuk triwulan ' . $selectedDay . ' tidak tersedia.');
         }
 
-        // Filter DataIku based on selected triwulan
-        $existingDataSubIndikator = DataIku::when($selectedTriwulan, function ($query, $selectedTriwulan) {
-            return $query->where('triwulan_id', $selectedTriwulan);
-        })->pluck('sub_indikator_id')->toArray();
-
-        $existingDataIndikatorPenunjang = DataIku::when($selectedTriwulan, function ($query, $selectedTriwulan) {
-            return $query->where('triwulan_id', $selectedTriwulan);
-        })->pluck('indikator_penunjang_id')->toArray();
-
-        $existingDataIndikator = DataIku::when($selectedTriwulan, function ($query, $selectedTriwulan) {
-            return $query->where('triwulan_id', $selectedTriwulan);
-        })->pluck('indikator_id')->toArray();
-
-        $existingDataSubIndikatorApproved = DataIku::when($selectedTriwulan, function ($query, $selectedTriwulan) {
-            return $query->where('triwulan_id', $selectedTriwulan)
-                         ->Where('status', 'approved_by_ab');
-        })->pluck('sub_indikator_id')->toArray();
-
-        $existingDataIndikatorPenunjangApproved = DataIku::when($selectedTriwulan, function ($query, $selectedTriwulan) {
-            return $query->where('triwulan_id', $selectedTriwulan)
-                         ->Where('status', 'approved_by_ab');
-        })->pluck('indikator_penunjang_id')->toArray();
-
-        $existingDataIndikatorApproved = DataIku::when($selectedTriwulan, function ($query, $selectedTriwulan) {
-            return $query->where('triwulan_id', $selectedTriwulan)
-                         ->Where('status', 'approved_by_ab');
-        })->pluck('indikator_id')->toArray();
-
         return view('operator.dashboard', [
-            'iku' => $iku,
-            'iku_sup' => $iku_sup,
-            'triwulan' => $triwulan,
-            'triwulanStatus' => $triwulanStatus,
-            'existingDataSubIndikator' => $existingDataSubIndikator,
-            'existingDataIndikatorPenunjang' => $existingDataIndikatorPenunjang,
-            'existingDataIndikator' => $existingDataIndikator,
-            'selectedTriwulan' => $selectedTriwulan,
-            'existingDataSubIndikatorApproved' => $existingDataSubIndikatorApproved,
-            'existingDataIndikatorPenunjangApproved' => $existingDataIndikatorPenunjangApproved,
-            'existingDataIndikatorApproved' => $existingDataIndikatorApproved
+            'day' => $day,
+            'dayStatus' => $dayStatus,
+            'selectedDay' => $selectedDay,
         ]);
     }
 
-    public function storeDataIku(Request $request)
+    public function storeDataKinerja(Request $request)
     {
         // Validasi input
         $request->validate([
@@ -86,53 +47,32 @@ class OperatorController extends Controller
             'waktu' => 'required|date_format:H:i',
             'foto_before' => 'required|image|mimes:jpeg,png,jpg|max:2048',
             'foto_after' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-            'triwulan_id' => 'required|exists:triwulan,id',
+            'day_id' => 'required|exists:day,id',
         ]);
 
         // Simpan foto
         $fotoBeforePath = $request->file('foto_before')->store('public/foto_before');
         $fotoAfterPath = $request->file('foto_after')->store('public/foto_after');
 
-        // Konversi kriteria kebersihan ke bentuk numerik jika diperlukan
-        $kriteriaKebersihan = match ($request->input('kriteria_kebersihan')) {
-            'harum' => 3,
-            'wangi' => 2,
-            'bau' => 1,
-            default => 0,
-        };
+        // Simpan data ke dalam tabel data_kinerja
+        $dataKinerja = new DataKinerja();
+        $dataKinerja->kriteria_kebersihan = $request->input('kriteria_kebersihan');
+        $dataKinerja->tanggal = $request->input('tanggal');
+        $dataKinerja->waktu = $request->input('waktu');
+        $dataKinerja->day_id = $request->input('day_id');
+        $dataKinerja->upload_by = Auth::id();
 
-        // Buat data IKU baru
-        $dataIku = new DataIku();
-        $dataIku->perjanjian_kinerja_target_kumulatif = $kriteriaKebersihan;
-        $dataIku->perjanjian_kinerja_realisasi_kumulatif = 0;
-        $dataIku->capaian_kinerja_kumulatif = 0.0;
-        $dataIku->capaian_kinerja_target_setahun = 0.0;
-        $dataIku->link_bukti_dukung_capaian = null;
-        $dataIku->upaya_yang_dilakukan = 'N/A';
-        $dataIku->link_bukti_dukung_upaya_yang_dilakukan = null;
-        $dataIku->kendala = 'N/A';
-        $dataIku->solusi_atas_kendala = 'N/A';
-        $dataIku->rencana_tidak_lanjut = 'N/A';
-        $dataIku->pic_tidak_lanjut = 'N/A';
-        $dataIku->tenggat_tidak_lanjut = now();
-
-        $dataIku->status = 'pending';
-        $dataIku->upload_by = Auth::id();
-        $dataIku->approve_by = null;
-        $dataIku->reject_by = null;
-        $dataIku->triwulan_id = $request->input('triwulan_id');
-        $dataIku->reject_comment = null;
-
-        // Assign file paths to custom attributes for foto
-        $dataIku->foto_before = Storage::url($fotoBeforePath);
-        $dataIku->foto_after = Storage::url($fotoAfterPath);
+        // Assign file paths to attributes for foto
+        $dataKinerja->foto_before = Storage::url($fotoBeforePath);
+        $dataKinerja->foto_after = Storage::url($fotoAfterPath);
 
         // Simpan ke database
-        $dataIku->save();
+        $dataKinerja->save();
 
         // Redirect kembali ke halaman dengan pesan sukses
-        return redirect()->back()->with('success', 'Data berhasil disimpan');
+        return redirect()->back()->with('success', 'Data kinerja berhasil disimpan');
     }
+
 
     public function view_add_master_data(Request $request, $type, $id)
     {
@@ -155,23 +95,23 @@ class OperatorController extends Controller
             return redirect()->back()->with('error', 'Entitas tidak ditemukan');
         }
 
-        $triwulan = Triwulan::all();
-        $selectedTriwulan = $request->query('triwulan', null);
-        $triwulanStatus = Triwulan::find($selectedTriwulan)->status ?? null;
+        $day = Day::all();
+        $selectedDay = $request->query('day', null);
+        $dayStatus = Day::find($selectedDay)->status ?? null;
 
         // Memeriksa apakah triwulan memiliki status 'close'
-        if ($triwulanStatus === 'close') {
+        if ($dayStatus === 'close') {
             // Jika triwulan memiliki status 'close', lakukan redirect atau tampilkan pesan kesalahan
-            return redirect()->back()->with('error', 'Data untuk triwulan ' . $selectedTriwulan . ' tidak tersedia.');
+            return redirect()->back()->with('error', 'Data untuk hari ' . $selectedDay . ' tidak tersedia.');
         }
 
         return view('operator.tambah-master-data', [
             'entityType' => $type,
             'entityName' => $entityName,
             'entityId' => $id,
-            'triwulan' => $triwulan,
-            'selectedTriwulan' => $selectedTriwulan,
-            'triwulanStatus' => $triwulanStatus,
+            'day' => $day,
+            'selectedDay' => $selectedDay,
+            'dayStatus' => $dayStatus,
         ]);
     }
 
@@ -352,45 +292,17 @@ class OperatorController extends Controller
         $bidangId = Auth::user()->bidang_id;
 
         // Inisialisasi query
-        $dataIkuQuery = DataIku::where('status', 'approved_by_ab')
-            ->where(function ($query) use ($bidangId) {
-                $query->whereHas('sub_indikator', function ($q) use ($bidangId) {
-                    $q->whereNull('bidang_id')
-                        ->orWhere('bidang_id', $bidangId);
-                })
-                    ->orWhereHas('indikator', function ($q) use ($bidangId) {
-                        $q->whereNull('bidang_id')
-                            ->orWhere('bidang_id', $bidangId);
-                    })
-                    ->orWhereHas('indikator_penunjang');
-            })
-            ->with(['sub_indikator', 'indikator_penunjang', 'indikator', 'user', 'approved_by'])
-            ->orderBy('created_at', 'desc');
+        $dataKinerjaQuery = DataKinerja::where('status', 'approved_by_ap')
+            ->with(['user', 'approved_by']);
 
         // Tambahkan kondisi pencarian jika ada
-        if ($search) {
-            $dataIkuQuery->where(function ($query) use ($search) {
-                $query->whereHas('sub_indikator', function ($q) use ($search) {
-                    $q->where('sub_indikator', 'like', '%' . $search . '%');
-                })
-                    ->orWhereHas('indikator_penunjang', function ($q) use ($search) {
-                        $q->where('indikator_penunjang', 'like', '%' . $search . '%');
-                    })
-                    ->orWhereHas('indikator', function ($q) use ($search) {
-                        $q->where('indikator', 'like', '%' . $search . '%');
-                    })
-                    ->orWhereHas('user', function ($q) use ($search) {
-                        $q->where('name', 'like', '%' . $search . '%');
-                    });
-            });
-        }
 
         // Paginate the results
-        $dataIku = $dataIkuQuery->paginate(5);
+        $dataKinerja = $dataKinerjaQuery->paginate(5);
 
         // Return view with the data
         return view('operator.approved-master-data', [
-            'dataIku' => $dataIku,
+            'dataKinerja' => $dataKinerja,
         ]);
     }
 
@@ -400,73 +312,26 @@ class OperatorController extends Controller
         $bidangId = Auth::user()->bidang_id;
 
         // Inisialisasi query
-        $dataIkuQuery = DataIku::where('status', 'rejected')
-            ->where(function ($query) use ($bidangId) {
-                $query->whereHas('sub_indikator', function ($q) use ($bidangId) {
-                    $q->whereNull('bidang_id')
-                        ->orWhere('bidang_id', $bidangId);
-                })
-                    ->orWhereHas('indikator', function ($q) use ($bidangId) {
-                        $q->whereNull('bidang_id')
-                            ->orWhere('bidang_id', $bidangId);
-                    })
-                    ->orWhereHas('indikator_penunjang');
-            })
-            ->with(['sub_indikator', 'indikator_penunjang', 'indikator', 'user', 'rejected_by'])
-            ->orderBy('created_at', 'desc');
-
-        // Tambahkan kondisi pencarian jika ada
-        if ($search) {
-            $dataIkuQuery->where(function ($query) use ($search) {
-                $query->whereHas('sub_indikator', function ($q) use ($search) {
-                    $q->where('sub_indikator', 'like', '%' . $search . '%');
-                })
-                    ->orWhereHas('indikator_penunjang', function ($q) use ($search) {
-                        $q->where('indikator_penunjang', 'like', '%' . $search . '%');
-                    })
-                    ->orWhereHas('indikator', function ($q) use ($search) {
-                        $q->where('indikator', 'like', '%' . $search . '%');
-                    })
-                    ->orWhereHas('user', function ($q) use ($search) {
-                        $q->where('name', 'like', '%' . $search . '%');
-                    });
-            });
-        }
+        $dataKinerjaQuery = DataKinerja::where('status', 'rejected')
+            ->with(['user', 'rejected_by']);
 
         // Paginate the results
-        $dataIku = $dataIkuQuery->paginate(5);
+        $dataKinerja = $dataKinerjaQuery->paginate(5);
 
         // Return view with the data
         return view('operator.rejected-master-data', [
-            'dataIku' => $dataIku,
+            'dataKinerja' => $dataKinerja,
         ]);
     }
 
     public function viewPendingData(Request $request)
     {
         $search = $request->input('search');
-        $query = DataIku::where('status', 'pending')->with(['sub_indikator', 'indikator', 'indikator_penunjang', 'user']);
+        $query = DataKinerja::where('status', 'pending')->with(['user']);
 
-        if ($search) {
-            $query->where(function ($q) use ($search) {
-                $q->whereHas('sub_indikator', function ($subQuery) use ($search) {
-                    $subQuery->where('sub_indikator', 'like', '%' . $search . '%');
-                })
-                ->orWhereHas('indikator', function ($indQuery) use ($search) {
-                    $indQuery->where('indikator', 'like', '%' . $search . '%');
-                })
-                ->orWhereHas('indikator_penunjang', function ($indPenunjangQuery) use ($search) {
-                    $indPenunjangQuery->where('indikator_penunjang', 'like', '%' . $search . '%');
-                })
-                ->orWhereHas('user', function ($userQuery) use ($search) {
-                    $userQuery->where('name', 'like', '%' . $search . '%');
-                });
-            });
-        }
+        $dataKinerja = $query->paginate(10);
 
-        $dataIku = $query->paginate(10);
-
-        return view('operator.pending-master-data', compact('dataIku'));
+        return view('operator.pending-master-data', compact('dataKinerja'));
     }
 
 }

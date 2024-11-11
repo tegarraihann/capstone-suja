@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\DataIku;
+use App\Models\DataKinerja;
 use App\Models\Indikator;
 use App\Models\IndikatorPenunjang;
 use App\Models\SubIndikator;
-use App\Models\Triwulan;
+use App\Models\Day;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -53,29 +53,29 @@ class AdminApprovalController extends Controller
             (object) ['id' => 4, 'triwulan' => 'Triwulan 4', 'status' => 'close'],
         ]);
 
-        $triwulan_id = $request->input('triwulan');
+        $triwulan_id = $request->input('day');
 
         // Query untuk mendapatkan data yang statusnya pending
-        $dataIkuQuery = DataIku::where('status', 'pending')
+        $dataKinerjaQuery = DataKinerja::where('status', 'pending')
             ->with(['user'])
             ->orderBy('created_at', 'desc');
 
         // Filter pencarian
         if ($search) {
-            $dataIkuQuery->whereHas('user', function ($q) use ($search) {
+            $dataKinerjaQuery->whereHas('user', function ($q) use ($search) {
                 $q->where('name', 'like', '%' . $search . '%');
             });
         }
 
         // Paginasi
-        $dataIku = $dataIkuQuery->paginate(5);
+        $dataKinerja = $dataKinerjaQuery->paginate(5);
 
         // Ambil data triwulan
-        $triwulan = Triwulan::all();
+        $day = Day::all();
 
         return view('adminapproval.dashboard', [
-            'dataIku' => $dataIku,
-            'triwulan' => $triwulan,
+            'dataKinerja' => $dataKinerja,
+            'day' => $day,
             'chartData' => $chartData,
             'categories' => $categories
         ]);
@@ -87,7 +87,7 @@ class AdminApprovalController extends Controller
         $search = $request->input('search');
 
         // Query untuk mendapatkan data yang disetujui
-        $dataIkuQuery = DataIku::where('status', 'approved_by_ap')
+        $dataKinerjaQuery = DataKinerja::where('status', 'approved_by_ap')
             ->with(['user', 'approved_by']);
 
         // Filter pencarian
@@ -97,10 +97,10 @@ class AdminApprovalController extends Controller
             });
         }
 
-        $dataIku = $dataIkuQuery->paginate(5);
+        $dataKinerja = $dataKinerjaQuery->paginate(5);
 
         return view('adminapproval.approved-master-data', [
-            'dataIku' => $dataIku,
+            'dataKinerja' => $dataKinerja,
         ]);
     }
 
@@ -109,59 +109,59 @@ class AdminApprovalController extends Controller
         $search = $request->input('search');
 
         // Query untuk mendapatkan data yang ditolak
-        $dataIkuQuery = DataIku::where('status', 'rejected')
+        $dataKinerjaQuery = DataKinerja::where('status', 'rejected')
             ->with(['user', 'rejected_by'])
             ->orderBy('created_at', 'desc');
 
         // Filter pencarian
         if ($search) {
-            $dataIkuQuery->whereHas('user', function ($q) use ($search) {
+            $dataKinerjaQuery->whereHas('user', function ($q) use ($search) {
                 $q->where('name', 'like', '%' . $search . '%');
             });
         }
 
-        $dataIku = $dataIkuQuery->paginate(5);
+        $dataKinerja = $dataKinerjaQuery->paginate(5);
 
         return view('adminapproval.rejected-master-data', [
-            'dataIku' => $dataIku,
+            'dataKinerja' => $dataKinerja,
         ]);
     }
 
     public function view_aksi_master_data(Request $request, $id)
     {
         // Ambil data IKU berdasarkan ID
-        $dataIku = DataIku::find($id);
+        $dataKinerja = DataKinerja::find($id);
 
-        if (!$dataIku) {
-            return redirect()->back()->with('error', 'Data IKU tidak ditemukan');
+        if (!$dataKinerja) {
+            return redirect()->back()->with('error', 'Data Kinerja tidak ditemukan');
         }
 
-        $triwulan_id = $request->query('triwulan', $dataIku->triwulan_id);
-        $triwulanStatus = Triwulan::find($triwulan_id)->status ?? null;
+        $day_id = $request->query('day', $dataKinerja->day_id);
+        $dayStatus = Day::find($day_id)->status ?? null;
 
-        if ($triwulanStatus === 'close') {
+        if ($dayStatus === 'close') {
             return redirect()->back()->with([
                 'error' => [
                     "title" => "Cannot Edit Data",
-                    "message" => "Triwulan sedang ditutup"
+                    "message" => "Hari sedang ditutup"
                 ]
             ]);
         }
 
         return view('adminapproval.aksi-master-data', [
-            'dataIku' => $dataIku,
-            'triwulan' => $triwulan_id,
-            'triwulanStatus' => $triwulanStatus
+            'dataKinerja' => $dataKinerja,
+            'day' => $day_id,
+            'dayStatus' => $dayStatus
         ]);
     }
 
     public function approve_data(Request $request, $id)
     {
-        $dataIku = DataIku::find($id);
+        $dataKinerja = DataKinerja::find($id);
 
-        $dataIku->status = 'approved_by_ap';
-        $dataIku->approve_by = Auth::id();
-        $dataIku->save();
+        $dataKinerja->status = 'approved_by_ap';
+        $dataKinerja->approve_by = Auth::id();
+        $dataKinerja->save();
 
         return response()->json([
             'success' => [
@@ -173,12 +173,12 @@ class AdminApprovalController extends Controller
 
     public function reject_data(Request $request, $id)
     {
-        $dataIku = DataIku::find($id);
+        $dataKinerja = DataKinerja::find($id);
 
-        $dataIku->status = 'rejected';
-        $dataIku->reject_comment = $request->reject_comment;
-        $dataIku->reject_by = Auth::id();
-        $dataIku->save();
+        $dataKinerja->status = 'rejected';
+        $dataKinerja->reject_comment = $request->reject_comment;
+        $dataKinerja->reject_by = Auth::id();
+        $dataKinerja->save();
 
         return response()->json([
             'success' => [
@@ -270,48 +270,32 @@ class AdminApprovalController extends Controller
     public function activateTriwulan($id)
     {
         // Temukan triwulan berdasarkan ID
-        $triwulan = Triwulan::find($id);
+        $day = Day::find($id);
 
-        if (!$triwulan) {
+        if (!$day) {
             return response()->json(['message' => 'Triwulan tidak ditemukan'], 404);
         }
 
         // Ubah status triwulan menjadi "open" jika "close" dan sebaliknya
-        $triwulan->status = $triwulan->status === 'close' ? 'open' : 'close';
-        $triwulan->save();
+        $day->status = $day->status === 'close' ? 'open' : 'close';
+        $day->save();
 
-        return response()->json(['message' => 'Status triwulan berhasil diubah menjadi ' . ($triwulan->status === 'open' ? 'Dibuka' : 'Ditutup')]);
+        return response()->json(['message' => 'Status triwulan berhasil diubah menjadi ' . ($day->status === 'open' ? 'Dibuka' : 'Ditutup')]);
     }
 
     public function viewPendingData(Request $request)
     {
         $search = $request->input('search');
-        $query = DataIku::where('status', 'pending')->with(['sub_indikator', 'indikator', 'indikator_penunjang', 'user', 'triwulan']);
+        $query = DataKinerja::where('status', 'pending')->with(['user', 'day']);
 
-        if ($search) {
-            $query->where(function ($q) use ($search) {
-                $q->whereHas('sub_indikator', function ($subQuery) use ($search) {
-                    $subQuery->where('sub_indikator', 'like', '%' . $search . '%');
-                })
-                ->orWhereHas('indikator', function ($indQuery) use ($search) {
-                    $indQuery->where('indikator', 'like', '%' . $search . '%');
-                })
-                ->orWhereHas('indikator_penunjang', function ($indPenunjangQuery) use ($search) {
-                    $indPenunjangQuery->where('indikator_penunjang', 'like', '%' . $search . '%');
-                })
-                ->orWhereHas('user', function ($userQuery) use ($search) {
-                    $userQuery->where('name', 'like', '%' . $search . '%');
-                });
-            });
-        }
 
-        $dataIku = $query->paginate(10);
+        $dataKinerja = $query->paginate(10);
 
         // Fetch all triwulan data to pass to the view
-        $triwulan = Triwulan::all();
+        $day = Day::all();
 
 
-        return view('adminapproval.dashboard', compact('dataIku', 'triwulan'));
+        return view('adminapproval.dashboard', compact('dataKinerja', 'day'));
     }
 
     public function getChartData()

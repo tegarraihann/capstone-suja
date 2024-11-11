@@ -1308,7 +1308,7 @@ function activateTriwulanButton() {
                 if (value) {
                     // This checks if the confirm button was clicked
                     axios
-                        .put(`/adminbinagram/dashboard/actived-triwulan/${id}`)
+                        .put(`/adminapproval/dashboard/actived-triwulan/${id}`)
                         .then((response) => {
                             if (status === "close") {
                                 swal({
@@ -1317,7 +1317,7 @@ function activateTriwulanButton() {
                                     text: currentTriwulan + " berhasil dibuka",
                                 }).then(() => {
                                     window.location.href =
-                                        "/adminbinagram/dashboard";
+                                        "/adminapproval/dashboard";
                                 });
                             } else {
                                 swal({
@@ -1326,7 +1326,7 @@ function activateTriwulanButton() {
                                     text: currentTriwulan + " berhasil ditutup",
                                 }).then(() => {
                                     window.location.href =
-                                        "/adminbinagram/dashboard";
+                                        "/adminapproval/dashboard";
                                 });
                             }
                         })

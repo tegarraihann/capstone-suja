@@ -18,22 +18,7 @@ class BidangSeeder extends Seeder
                 "nama_bidang" => "Bagian Umum",
             ],
             [
-                "nama_bidang" => "Fungsi Statistik Sosial",
-            ],
-            [
-                "nama_bidang" => "Fungsi Statistik Produksi",
-            ],
-            [
-                "nama_bidang" => "Fungsi Statistik Distribusi",
-            ],
-            [
-                "nama_bidang" => "Fungsi Nerwilis",
-            ],
-            [
                 "nama_bidang" => "Fungsi IPDS",
-            ],
-            [
-                "nama_bidang" => "Pimpinan",
             ],
         ];
 

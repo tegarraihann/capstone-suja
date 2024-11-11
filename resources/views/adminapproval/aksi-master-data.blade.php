@@ -5,7 +5,7 @@
 @section('content')
 
     @php
-        $triwulan = request()->query('triwulan');
+        $day = request()->query('day');
     @endphp
 
     <div class="w-full p-5 h-full">
@@ -17,10 +17,10 @@
             <p class="font-semibold text-lg text-gray-600 mb-3">
                 Detail Capaian Kinerja
             </p>
-            <p class="font-medium text-gray-600 mb-10">Triwulan Ke-{{ $triwulan }}</p>
+            <p class="font-medium text-gray-600 mb-10">Hari Ke-{{ $day }}</p>
 
             <!-- Form -->
-            <form action="{{ route('adminapproval.update-master-data', $dataIku->id) }}" method="POST" class="mx-auto">
+            <form action="{{ route('adminapproval.update-master-data', $dataKinerja->id) }}" method="POST" class="mx-auto">
                 @csrf
                 @method('PUT')
 
@@ -30,9 +30,9 @@
                     <select name="kriteria_kebersihan" id="kriteria_kebersihan"
                             class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                             disabled>
-                        <option value="3" {{ old('kriteria_kebersihan', $dataIku->kriteria_kebersihan) == 3 ? 'selected' : '' }}>Harum</option>
-                        <option value="2" {{ old('kriteria_kebersihan', $dataIku->kriteria_kebersihan) == 2 ? 'selected' : '' }}>Wangi</option>
-                        <option value="1" {{ old('kriteria_kebersihan', $dataIku->kriteria_kebersihan) == 1 ? 'selected' : '' }}>Bau</option>
+                        <option value="3" {{ old('kriteria_kebersihan', $dataKinerja->kriteria_kebersihan) == 3 ? 'selected' : '' }}>Harum</option>
+                        <option value="2" {{ old('kriteria_kebersihan', $dataKinerja->kriteria_kebersihan) == 2 ? 'selected' : '' }}>Wangi</option>
+                        <option value="1" {{ old('kriteria_kebersihan', $dataKinerja->kriteria_kebersihan) == 1 ? 'selected' : '' }}>Bau</option>
                     </select>
                 </div>
 
@@ -41,7 +41,7 @@
                     <label for="tanggal" class="block mb-2 text-sm font-medium text-gray-900">Tanggal</label>
                     <input type="date" name="tanggal" id="tanggal"
                            class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                           value="{{ old('tanggal', \Carbon\Carbon::parse($dataIku->tanggal)->format('Y-m-d')) }}"
+                           value="{{ old('tanggal', \Carbon\Carbon::parse($dataKinerja->tanggal)->format('Y-m-d')) }}"
                            readonly>
                 </div>
 
@@ -50,7 +50,7 @@
                     <label for="waktu" class="block mb-2 text-sm font-medium text-gray-900">Waktu</label>
                     <input type="time" name="waktu" id="waktu"
                            class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                           value="{{ old('waktu', \Carbon\Carbon::parse($dataIku->waktu)->format('H:i')) }}"
+                           value="{{ old('waktu', \Carbon\Carbon::parse($dataKinerja->waktu)->format('H:i')) }}"
                            readonly>
                 </div>
 
@@ -58,8 +58,8 @@
                 <div class="mb-5 w-full">
                     <label for="foto_before" class="block mb-2 text-sm font-medium text-gray-900">Foto Sebelum</label>
                     <div class="flex items-center">
-                        @if ($dataIku->foto_before)
-                            <img src="{{ $dataIku->foto_before }}" alt="Foto Sebelum" class="max-w-xs max-h-40 object-cover">
+                        @if ($dataKinerja->foto_before)
+                            <img src="{{ $dataKinerja->foto_before }}" alt="Foto Sebelum" class="max-w-xs max-h-40 object-cover">
                         @else
                             <p class="text-gray-500">Tidak ada foto sebelum</p>
                         @endif
@@ -70,8 +70,8 @@
                 <div class="mb-5 w-full">
                     <label for="foto_after" class="block mb-2 text-sm font-medium text-gray-900">Foto Setelah</label>
                     <div class="flex items-center">
-                        @if ($dataIku->foto_after)
-                            <img src="{{ $dataIku->foto_after }}" alt="Foto Setelah" class="max-w-xs max-h-40 object-cover">
+                        @if ($dataKinerja->foto_after)
+                            <img src="{{ $dataKinerja->foto_after }}" alt="Foto Setelah" class="max-w-xs max-h-40 object-cover">
                         @else
                             <p class="text-gray-500">Tidak ada foto setelah</p>
                         @endif
@@ -82,16 +82,16 @@
                 <div class="flex gap-4">
                     <i
                         class="approve-approval not-italic cursor-pointer text-white bg-green-500 hover:bg-green-600 transition-all focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-                        data-id="{{$dataIku->id}}"
+                        data-id="{{$dataKinerja->id}}"
                         data-text="Capaian Kinerja"
-                        data-triwulan="{{$triwulan}}">
+                        data-day="{{$day}}">
                         Disetujui
                     </i>
                     <i
                         class="reject-approval not-italic cursor-pointer text-white bg-red-500 hover:bg-red-600 transition-all focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-                        data-id="{{$dataIku->id}}"
+                        data-id="{{$dataKinerja->id}}"
                         data-text="Capaian Kinerja"
-                        data-triwulan="{{$triwulan}}">
+                        data-day="{{$day}}">
                         Ditolak
                     </i>
                 </div>

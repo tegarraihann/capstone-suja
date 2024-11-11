@@ -5,9 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Triwulan extends Model
+class Day extends Model
 {
-    protected $table = 'triwulan';
+    protected $table = 'day';
     protected $primaryKey = "id";
     protected $keyType = "int";
     public $incrementing = true;

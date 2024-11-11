@@ -23,12 +23,12 @@
     <div class="mt-4 mb-2 flex items-center gap-2">
         <p class="text-gray-800">Pilih Minggu:</p>
         <div class="flex items-center">
-            <select name="triwulan_id" id="triwulan" onchange="selectTriwulan()"
+            <select name="day_id" id="day" onchange="selectTriwulan()"
                     class="px-4 py-2 pr-4 w-full rounded-md shadow-sm border-gray-300 text-gray-800">
-                <option selected value="0">Pilih Minggu</option>
-                @foreach ($triwulan as $data)
+                <option selected value="0">Pilih Hari</option>
+                @foreach ($day as $data)
                     <option value="{{ $data->id }}" @if($data->status === 'close') disabled @endif>
-                        {{ $data->triwulan }} {{ $data->status === 'close' ? '(Closed)' : '' }}
+                        {{ $data->day }} {{ $data->status === 'close' ? '(Closed)' : '' }}
                     </option>
                 @endforeach
             </select>
@@ -39,7 +39,7 @@
     <div id="formContainer" class="hidden mt-10 bg-white p-5 rounded shadow">
         <form action="{{ route('operator.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
-            <input type="hidden" name="triwulan_id" id="selectedTriwulanId" value="">
+            <input type="hidden" name="day_id" id="selectedDayId" value="">
             <!-- Field Kriteria Kebersihan -->
             <div>
                 <p class="w-full font-semibold border-b-2 py-2 mb-4 text-gray-600">Kriteria Kebersihan</p>
@@ -102,36 +102,44 @@
 </div>
 
 <script>
-    // JavaScript function to handle triwulan selection
-    function selectTriwulan() {
-        const triwulanSelect = document.getElementById('triwulan');
-        const formContainer = document.getElementById('formContainer');
-        const selectedTriwulanId = document.getElementById('selectedTriwulanId');
+// JavaScript function to handle triwulan selection
+function selectTriwulan() {
+    const daySelect = document.getElementById('day');
+    const formContainer = document.getElementById('formContainer');
+    const selectedDayId = document.getElementById('selectedDayId');
+    const selectedOption = daySelect.options[daySelect.selectedIndex];
 
-        if (triwulanSelect.value !== '0') {
-            localStorage.setItem('selectedTriwulan', triwulanSelect.value);
-            selectedTriwulanId.value = triwulanSelect.value;
+    // Check if the selected option is not disabled
+    if (daySelect.value !== '0' && !selectedOption.disabled) {
+        localStorage.setItem('selectedDay', daySelect.value);
+        selectedDayId.value = daySelect.value;
+        formContainer.classList.remove('hidden');
+    } else {
+        localStorage.removeItem('selectedDay');
+        formContainer.classList.add('hidden');
+    }
+}
+
+// Load previous selection on page load
+function loadTriwulanSelection() {
+    const savedDay = localStorage.getItem('selectedDay');
+    const daySelect = document.getElementById('day');
+    const formContainer = document.getElementById('formContainer');
+    const selectedDayId = document.getElementById('selectedDayId');
+
+    if (savedDay) {
+        const optionToSelect = Array.from(daySelect.options).find(option => option.value === savedDay);
+        if (optionToSelect && !optionToSelect.disabled) {
+            daySelect.value = savedDay;
+            selectedDayId.value = savedDay;
             formContainer.classList.remove('hidden');
         } else {
-            localStorage.removeItem('selectedTriwulan');
+            // Opsi yang disimpan sekarang dinonaktifkan, hapus dari localStorage
+            localStorage.removeItem('selectedDay');
             formContainer.classList.add('hidden');
+            daySelect.value = '0'; // Reset ke opsi default
         }
     }
-
-    // Load previous selection on page load
-    function loadTriwulanSelection() {
-        const savedTriwulan = localStorage.getItem('selectedTriwulan');
-        const triwulanSelect = document.getElementById('triwulan');
-        const formContainer = document.getElementById('formContainer');
-        const selectedTriwulanId = document.getElementById('selectedTriwulanId');
-
-        if (savedTriwulan) {
-            triwulanSelect.value = savedTriwulan;
-            selectedTriwulanId.value = savedTriwulan;
-            formContainer.classList.remove('hidden');
-        }
-    }
-
-    document.addEventListener('DOMContentLoaded', loadTriwulanSelection);
+}
 </script>
 @endsection

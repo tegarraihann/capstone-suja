@@ -44,16 +44,16 @@
                         <th scope="col" class="p-4 w-4 text-left">No</th>
                         <th scope="col" class="px-6 py-3 text-left">Capaian Kinerja</th>
                         <th scope="col" class="px-6 py-3 text-left whitespace-nowrap">Last Uploader</th>
-                        <th scope="col" class="px-6 py-3 text-left whitespace-nowrap">Triwulan</th>
+                        <th scope="col" class="px-6 py-3 text-left whitespace-nowrap">Hari</th>
                         <th scope="col" class="px-6 py-3 text-left">Status</th>
                         <th scope="col" class="px-6 py-3 text-center">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                     @php
-                        $index = $dataIku->firstItem();
+                        $index = $dataKinerja->firstItem();
                     @endphp
-                    @forelse ($dataIku as $data)
+                    @forelse ($dataKinerja as $data)
                         <tr class="bg-white border-b hover:bg-gray-50">
                             <td class="py-4 px-6 w-[30px]">{{ $index++ }}</td>
                             <td class="py-4 px-6 text-left">
@@ -64,7 +64,7 @@
                                 <span class="text-blue-600">{{ $data->user->bidang->nama_bidang ?? 'N/A' }}</span>
                             </td>
                             <td class="py-4 px-6 text-center">
-                                {{ $data->triwulan->triwulan ?? 'N/A' }}
+                                {{ $data->day->day ?? 'N/A' }}
                             </td>
                             <td class="py-4 px-6 text-left">
                                 <p class="px-3 py-1 rounded-md border-orange-300 border-2 flex justify-between w-fit items-center bg-orange-50">
@@ -92,34 +92,34 @@
                 aria-label="Table navigation">
                 <span class="text-sm font-normal text-gray-500 mb-4 md:mb-0 block w-full md:inline md:w-auto">Menampilkan
                     <span
-                        class="font-semibold text-gray-900">{{ $dataIku->firstItem() }}-{{ $dataIku->lastItem() }}</span>
+                        class="font-semibold text-gray-900">{{ $dataKinerja->firstItem() }}-{{ $dataKinerja->lastItem() }}</span>
                     dari
-                    <span class="font-semibold text-gray-900">{{ $dataIku->total() }}</span></span>
+                    <span class="font-semibold text-gray-900">{{ $dataKinerja->total() }}</span></span>
                 <ul class="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
-                    @if ($dataIku->onFirstPage())
+                    @if ($dataKinerja->onFirstPage())
                         <li>
                             <span
                                 class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg cursor-not-allowed">Previous</span>
                         </li>
                     @else
                         <li>
-                            <a href="{{ $dataIku->appends(request()->except('page'))->previousPageUrl() }}"
+                            <a href="{{ $dataKinerja->appends(request()->except('page'))->previousPageUrl() }}"
                                 class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700">Previous</a>
                         </li>
                     @endif
 
-                    @foreach (range(1, $dataIku->lastPage()) as $i)
-                        @if ($i >= $dataIku->currentPage() - 2 && $i <= $dataIku->currentPage() + 2)
+                    @foreach (range(1, $dataKinerja->lastPage()) as $i)
+                        @if ($i >= $dataKinerja->currentPage() - 2 && $i <= $dataKinerja->currentPage() + 2)
                             <li>
-                                <a href="{{ $dataIku->appends(request()->except('page'))->url($i) }}"
-                                    class="flex items-center justify-center px-3 h-8 leading-tight {{ $i == $dataIku->currentPage() ? 'text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700' : 'text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700' }}">{{ $i }}</a>
+                                <a href="{{ $dataKinerja->appends(request()->except('page'))->url($i) }}"
+                                    class="flex items-center justify-center px-3 h-8 leading-tight {{ $i == $dataKinerja->currentPage() ? 'text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700' : 'text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700' }}">{{ $i }}</a>
                             </li>
                         @endif
                     @endforeach
 
-                    @if ($dataIku->hasMorePages())
+                    @if ($dataKinerja->hasMorePages())
                         <li>
-                            <a href="{{ $dataIku->appends(request()->except('page'))->nextPageUrl() }}"
+                            <a href="{{ $dataKinerja->appends(request()->except('page'))->nextPageUrl() }}"
                                 class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700">Next</a>
                         </li>
                     @else
@@ -147,12 +147,12 @@
                     </thead>
                     <tbody>
                         @php
-                            $indexTriwulan = 1;
+                            $indexDay = 1;
                         @endphp
-                        @foreach ($triwulan as $data)
+                        @foreach ($day as $data)
                             <tr class="bg-white border-b hover:bg-gray-50">
-                                <td class="py-4 px-6 w-[30px]">{{ $indexTriwulan++ }}</td>
-                                <td class="py-4 px-6 text-left">{{ $data->triwulan }}</td>
+                                <td class="py-4 px-6 w-[30px]">{{ $indexDay++ }}</td>
+                                <td class="py-4 px-6 text-left">{{ $data->day }}</td>
                                 <td class="py-4 px-6 text-center p-2 w-[100px]">
                                     @if ($data->status === 'close')
                                         <p class="px-5 py-2 text-center rounded bg-red-100 border-2 border-red-500">Ditutup</p>
@@ -163,7 +163,7 @@
                                 <td class="py-4 px-6 text-center gap-3 flex items-center justify-center">
                                     <i class="activate-triwulan text-blue-500 hover:text-blue-700"
                                        data-id="{{ $data->id }}"
-                                       data-triwulan="{{ $data->triwulan }}"
+                                       data-day="{{ $data->day }}"
                                        data-status="{{ $data->status }}">
                                         <button class="bg-blue-500 hover:bg-blue-600 text-slate-100 px-6 py-3 rounded">
                                             Edit Status
@@ -179,7 +179,7 @@
     </div>
 @endsection
 
-<script>
+<!-- <script>
     document.addEventListener("DOMContentLoaded", function () {
         // Menangkap klik tombol Edit Status
         document.querySelectorAll('.activate-triwulan').forEach(button => {
@@ -207,4 +207,4 @@
             });
         });
     });
-</script>
+</script> -->

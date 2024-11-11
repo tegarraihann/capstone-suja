@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('md_indikator', function (Blueprint $table) {
+        Schema::create('day', function (Blueprint $table) {
             $table->id();
-            $table->string('indikator')->nullable(false);
-            $table->foreignId('sasaran_id')->constrained('md_sasaran')->onDelete('cascade');
-            $table->foreignId('bidang_id')->nullable()->constrained('bidang')->onDelete('cascade');
+            $table->string('day')->nullable(false);
+            $table->enum('status', ['close', 'open'])->default('close');
             $table->timestamps();
         });
     }
@@ -25,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('md_indikator');
+        Schema::dropIfExists('day');
     }
 };

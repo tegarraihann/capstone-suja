@@ -50,7 +50,6 @@
             @if (Auth::check())
                 <img src="{{ asset('assets/gambar-navv.jpg') }}" class="w-16" />
                 <div class="flex items-center gap-6">
-                    <i class="logout-btn fa-solid fa-arrow-right-from-bracket cursor-pointer text-lg"></i>
                     <div class="relative">
                         <div
                             class="profile-btn flex select-none items-center justify-center text-white rounded-full bg-gray-700 w-7 h-7 text-xs cursor-pointer">
@@ -258,14 +257,14 @@
 
                             </div>
                             <div class="">
-                                <i class="btn-update w-full menu-item cursor-pointer not-italic"
+                                <!-- <i class="btn-update w-full menu-item cursor-pointer not-italic"
                                     data-id="{{ $idUser }}">
                                     <div
                                         class="flex justify-left gap-6 w-full rounded-lg py-3 px-6 hover:bg-blue-50 hover:text-blue-600">
                                         <i class="fa-solid fa-gear my-auto w-1/12"></i>
                                         <p class="text-sm">Edit profile</p>
                                     </div>
-                                </i>
+                                </i> -->
                                 <a class="logout-btn w-full menu-item cursor-pointer ">
                                     {{-- <div
                                     class="flex justify-left gap-6 mb-5 mt-3 bg-gradient-to-r from-blue-500 to-blue-400 px-6 py-3 rounded-lg text-white">
@@ -324,14 +323,14 @@
                                 </div>
                             </div>
                             <div class="">
-                                <i class="btn-update w-full menu-item cursor-pointer not-italic"
+                                <!-- <i class="btn-update w-full menu-item cursor-pointer not-italic"
                                     data-id="{{ $idUser }}">
                                     <div
                                         class="flex justify-left gap-6 w-full rounded-lg py-3 px-6 hover:bg-blue-50 hover:text-blue-600">
                                         <i class="fa-solid fa-gear my-auto w-1/12"></i>
                                         <p class="text-sm">Edit profile</p>
                                     </div>
-                                </i>
+                                </i> -->
                                 <a class="logout-btn w-full menu-item cursor-pointer ">
                                     {{-- <div
                                     class="flex justify-left gap-6 mb-5 mt-3 bg-gradient-to-r from-blue-500 to-blue-400 px-6 py-3 rounded-lg text-white">
