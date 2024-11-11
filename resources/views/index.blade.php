@@ -49,7 +49,7 @@
         </script>
     @endif
     <div class="main-bg m-0 p-0 w-full h-[100vh] absolute">
-        <img src="{{ asset('assets/auth/test.jpg') }}" alt="BPS image"
+        <img src="{{ asset('assets/auth/telkombg.jpg') }}" alt="BPS image"
             class= "object-cover w-full h-full filter brightness-50">
     </div>
     <div class="w-[100%] h-[100vh] flex justify-center items-center relative">
