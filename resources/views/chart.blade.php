@@ -24,14 +24,17 @@
             },
             series: [{
                 name: 'Sales',
-                data: [30, 40, 45, 50, 49, 60, 70, 91, 125] // Data dummy
+                data: [2, 4, 1, 5, 3, 8, 7] // Data antara 1 hingga 10
             }],
             xaxis: {
-                categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999],
-                title: { text: 'Year' } // Judul untuk x-axis
+                categories: ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'], // Nama hari
+                title: { text: 'Hari' } // Judul untuk x-axis
             },
             yaxis: {
-                title: { text: 'Sales' } // Judul untuk y-axis
+                title: { text: 'Sales' }, // Judul untuk y-axis
+                min: 1, // Batas bawah y-axis
+                max: 10, // Batas atas y-axis
+                tickAmount: 10 // Jumlah tick pada y-axis
             },
             grid: {
                 borderColor: '#e0e0e0', // Warna garis grid

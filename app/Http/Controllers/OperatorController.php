@@ -121,16 +121,16 @@ class OperatorController extends Controller
     {
 
         // Ambil data berdasarkan ID
-        $dataIku = DataIku::findOrFail($id);
+        $dataKinerja = DataKinerja::findOrFail($id);
 
         // Jika data tidak ditemukan, kembalikan error
-        if (!$dataIku) {
+        if (!$dataKinerja) {
             return redirect()->back()->with('error', 'Data IKU tidak ditemukan');
         }
 
         // Redirect ke halaman edit dengan data yang diperlukan
         return view('operator.edit-master-data', [
-            'dataIku' => $dataIku,
+            'dataKinerja' => $dataKinerja,
         ]);
     }
 
